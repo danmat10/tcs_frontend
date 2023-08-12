@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, onClose }) => (
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Users" />
+        <ListItemText primary="Usuários" />
       </ListItem>
     </List>
   </Drawer>
