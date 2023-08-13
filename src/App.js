@@ -1,27 +1,10 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "react-auth-kit";
-import { useIsAuthenticated } from "react-auth-kit";
 
 import "./App.css";
 import { refreshApi } from "./services";
-import { User, Home, Login, ForgotPassword } from "./pages";
-
-const PrivateRoute = ({ Component, redirectTo, inverse = false }) => {
-  const isAuthenticated = useIsAuthenticated();
-  const auth = React.useMemo(() => isAuthenticated(), [isAuthenticated]);
-
-  if (inverse ? !auth : auth) {
-    return <Component />;
-  } else {
-    return <Navigate to={redirectTo} />;
-  }
-};
+import AppRoutes from "./routes/AppRoutes";
 
 class App extends React.Component {
   constructor(props) {
@@ -41,36 +24,7 @@ class App extends React.Component {
         refresh={refreshApi}
       >
         <Router>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<PrivateRoute Component={Home} redirectTo="/login" />}
-            />
-            <Route
-              exact
-              path="/users"
-              element={<PrivateRoute Component={User} redirectTo="/login" />}
-            />
-            <Route
-              exact
-              path="/login"
-              element={
-                <PrivateRoute Component={Login} redirectTo="/" inverse={true} />
-              }
-            />
-            <Route
-              exact
-              path="/forgot-password"
-              element={
-                <PrivateRoute
-                  Component={ForgotPassword}
-                  redirectTo="/"
-                  inverse={true}
-                />
-              }
-            />
-          </Routes>
+          <AppRoutes />
         </Router>
       </AuthProvider>
     );
