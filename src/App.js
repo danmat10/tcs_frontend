@@ -14,7 +14,8 @@ import { User, Home, Login } from "./pages";
 
 const PrivateRoute = ({ Component, redirectTo, inverse = false }) => {
   const isAuthenticated = useIsAuthenticated();
-  const auth = isAuthenticated();
+  const auth = React.useMemo(() => isAuthenticated(), [isAuthenticated]);
+
   if (inverse ? !auth : auth) {
     return <Component />;
   } else {
