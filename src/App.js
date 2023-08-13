@@ -10,7 +10,7 @@ import { useIsAuthenticated } from "react-auth-kit";
 
 import "./App.css";
 import { refreshApi } from "./services";
-import { User, Home, Login } from "./pages";
+import { User, Home, Login, ForgotPassword } from "./pages";
 
 const PrivateRoute = ({ Component, redirectTo, inverse = false }) => {
   const isAuthenticated = useIsAuthenticated();
@@ -57,6 +57,17 @@ class App extends React.Component {
               path="/login"
               element={
                 <PrivateRoute Component={Login} redirectTo="/" inverse={true} />
+              }
+            />
+            <Route
+              exact
+              path="/forgot-password"
+              element={
+                <PrivateRoute
+                  Component={ForgotPassword}
+                  redirectTo="/"
+                  inverse={true}
+                />
               }
             />
           </Routes>
