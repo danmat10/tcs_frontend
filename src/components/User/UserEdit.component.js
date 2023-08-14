@@ -24,7 +24,7 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
 
   return (
     <>
-      <DialogTitle className={styles.userEditTitle} paragraph>
+      <DialogTitle className={styles.userDialogTitle} paragraph>
         Editar Usuário
       </DialogTitle>
       <DialogContent>

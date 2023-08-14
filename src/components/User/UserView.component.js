@@ -4,24 +4,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Chip,
 } from "@mui/material";
+
+import { styles } from ".";
 
 const UserView = ({ user }) => {
   return (
     <>
-      <DialogTitle
-        style={{ backgroundColor: "#0d6efd", color: "white" }}
-        paragraph
-      >
+      <DialogTitle className={styles.userDialogTitle} paragraph>
         Visualizar Usuário
       </DialogTitle>
-
       <DialogContent>
-        <DialogContentText marginBottom={2}>
-          Você está visualizando os detalhes do usuário. Aqui estão todas as
-          informações associadas a esse usuário.
-        </DialogContentText>
-
         <Typography variant="subtitle1" align="center">
           Nome
         </Typography>
@@ -33,7 +27,6 @@ const UserView = ({ user }) => {
         >
           {user.name}
         </Typography>
-
         <Typography variant="subtitle1" align="center">
           Matricula
         </Typography>
@@ -45,7 +38,6 @@ const UserView = ({ user }) => {
         >
           {user.registration}
         </Typography>
-
         <Typography variant="subtitle1" align="center">
           CPF
         </Typography>
@@ -57,7 +49,6 @@ const UserView = ({ user }) => {
         >
           {user.cpf}
         </Typography>
-
         <Typography variant="subtitle1" align="center">
           E-mail
         </Typography>
@@ -69,7 +60,6 @@ const UserView = ({ user }) => {
         >
           {user.email}
         </Typography>
-
         <Typography variant="subtitle1" align="center">
           Permissões
         </Typography>
@@ -84,6 +74,21 @@ const UserView = ({ user }) => {
             : user.permissions === "requisitante"
             ? "Requisitante"
             : ""}
+        </Typography>
+        <Typography variant="subtitle1" align="center">
+          Status
+        </Typography>
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          align="center"
+          paragraph
+        >
+          {user.active ? (
+            <Chip label="Ativo" color="success" />
+          ) : (
+            <Chip label="Inativo" color="error" />
+          )}
         </Typography>
       </DialogContent>
     </>

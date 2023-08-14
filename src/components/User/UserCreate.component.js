@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Button, DialogActions } from "@mui/material";
 import { DialogTitle, DialogContent } from "@mui/material";
 
-import { UserFormFields, validateUserCreateForm } from ".";
+import { UserFormFields, validateUserCreateForm, styles } from ".";
 
 const CreateUser = ({ onCreate, onClose }) => {
   const formik = useFormik({
@@ -24,10 +24,7 @@ const CreateUser = ({ onCreate, onClose }) => {
 
   return (
     <>
-      <DialogTitle
-        style={{ backgroundColor: "#0d6efd", color: "white" }}
-        paragraph
-      >
+      <DialogTitle className={styles.userDialogTitle} paragraph>
         Cadastrar Usuário
       </DialogTitle>
       <DialogContent>
