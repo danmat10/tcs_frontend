@@ -124,7 +124,6 @@ const UserPage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
         <Container maxWidth="xl">
           <Grid item lg={12} paddingY={5}>
             <UserBreadcrumb />
@@ -134,8 +133,6 @@ const UserPage = () => {
           </Grid>
         </Container>
         <Container maxWidth="xl">{views.list}</Container>
-      </Container>
-
       <Dialog
         open={state.openDialog}
         onClose={closeDialog}
