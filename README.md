@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Projeto TCS
+# ALUNOS:
+- [x] 1. [ALCIONE FRANCISCO DE BORBA]
+- [x] 2. [DANIEL MATTHES]
+- [x] 3. [JOSE EDSON AZEVEDO]
+- [x] 4. [RAFAEL DA SILVA MENEZES]
+- [x] 5. [VANESSA RAMOS]
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Este é o front-end do projeto TCS da Faculdade Senac Palhoça.**
+**O sistema será feito em React e interagirá com uma API.**
+**O sistema é um CONTROLE DE PATRIMÔNIO e deverá conter as seguintes funcionalidades:**
+  * 1 Cadastro de Itens;
+  * 2 Alocação por departamento/obra
+  * 3 Sistema de avisos, movimentação /requisição/cadastro;
+  * 4 Rastreabilidade (etiqueta, histórico,garantia/validade);
+  * 5 Agenda de responsabilidade (controlede entregas)
+  * 6 Leitura via QR Code
 
-## Available Scripts
+## Pré-requisitos para rodar o React
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/).
 
-In the project directory, you can run:
+## Iniciando o Projeto
 
-### `npm start`
+1. **Clonar o repositório**
+    ```bash
+    git clone https://github.com/danmat10/tcs_frontend.git
+    cd tcs_frontend
+    ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Instalar as dependências**
+    ```bash
+    npm install
+    ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Iniciar o projeto**
+    ```bash
+    npm start
+    ```
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **Obter e executar a fake API (caso necessário)**
+   * Caso seja necessário rodar o projeto sem o backend, você precisa clonar e executar a fake API a * partir deste repositório: https://github.com/danmat10/fake-api-json-server
+   * Siga as instruções no README do repositório para colocar a API em execução.
+   * Agora, a API deve estar rodando na porta 3030 (ou outra que você definir).
