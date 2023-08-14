@@ -21,6 +21,9 @@ const refreshApi = createRefresh({
         isSuccess: true,
         newAuthToken: response.data.access_token,
         newAuthTokenExpireIn: AUTH_TOKEN_EXPIRES_AT,
+        newRefreshToken: refreshToken,
+        newRefreshTokenExpireIn: refreshTokenExpiresAt,
+        newAuthUserState: authUserState
       };
     } catch (error) {
       console.error(error);
