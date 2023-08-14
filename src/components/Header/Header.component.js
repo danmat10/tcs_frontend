@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import { MenuButton, UserAvatar, UserMenu, Sidebar } from ".";
+import { MenuButton, UserAvatar, UserMenu, Sidebar, styles } from ".";
 
 class Header extends Component {
   state = {
@@ -39,22 +39,15 @@ class Header extends Component {
 
     return (
       <>
-        <AppBar position="static" elevation={2}>
+        <AppBar position="static" elevation={2} className={styles.appBar}>
           <Toolbar>
             <MenuButton onClick={this.toggleSidebar} />
-
             <Typography
-              variant="h5"
-              component={Link} // Define o componente Typography como um Link
-              to="/" // Caminho para o qual o Link deve redirecionar
               sx={{
                 flexGrow: 1,
-                fontWeight: "bold",
-                textDecoration: "none", // Remover sublinhado típico de links
-                color: "inherit", // Faz com que a cor do texto seja a mesma, independente de ser um link
               }}
             >
-              Nome da Aplicação
+              Control
             </Typography>
             <UserAvatar initial="U" onClick={this.handleMenuOpen} />
             <UserMenu
