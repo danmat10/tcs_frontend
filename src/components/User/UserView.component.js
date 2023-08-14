@@ -2,7 +2,6 @@ import React from "react";
 import {
   Typography,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Chip,
 } from "@mui/material";
