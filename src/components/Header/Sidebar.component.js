@@ -23,8 +23,9 @@ const Sidebar = ({ isOpen, onClose }) => (
     open={isOpen}
     onClose={onClose}
     PaperProps={{
-      sx: { width: "256px" },
+      sx: { width: "256px", top: "64px" },
     }}
+    slotProps={{ backdrop: { invisible: true } }}
   >
     <Toolbar>
       <Logo style={{ width: "76px" }} />
