@@ -60,6 +60,24 @@ const validateUserCreateForm = (values) => {
 
 const validateUserEditForm = (values, user) => {
   const errors = validateUserCreateForm(values);
+  if (values.contatos) {
+    values.contatos.forEach((contato, index) => {
+      if (contato.tipo === "" && contato.contato !== "") {
+        errors.contatos = errors.contatos || [];
+        errors.contatos[index] = {
+          ...errors.contatos[index],
+          tipo: "Obrigatório",
+        };
+      }
+      if (contato.contato === "" && contato.tipo !== "") {
+        errors.contatos = errors.contatos || [];
+        errors.contatos[index] = {
+          ...errors.contatos[index],
+          contato: "Obrigatório",
+        };
+      }
+    });
+  }
 
   if (
     values.name === user.name &&
@@ -68,7 +86,7 @@ const validateUserEditForm = (values, user) => {
     values.registration === user.registration &&
     values.permissions === user.permissions &&
     values.active === user.active &&
-    values.contatos === user.contatos
+    JSON.stringify(values.contatos) === JSON.stringify(user.contatos)
   ) {
     errors.name = "Nenhuma alteração foi feita";
     errors.email = "Nenhuma alteração foi feita";
