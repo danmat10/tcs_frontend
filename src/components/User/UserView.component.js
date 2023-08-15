@@ -81,7 +81,6 @@ const UserView = ({ user }) => {
           variant="body1"
           color="textSecondary"
           align="center"
-          paragraph
         >
           {user.active ? (
             <Chip label="Ativo" color="success" />
