@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
-import { Button, DialogActions } from "@mui/material";
+import { Button, DialogActions, Divider } from "@mui/material";
 import { DialogTitle, DialogContent } from "@mui/material";
 
 import { UserFormFields, validateUserEditForm, styles } from ".";
@@ -32,6 +32,7 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
         <FormikProvider value={formik}>
           <form onSubmit={formik.handleSubmit}>
             <UserFormFields formik={formik} isEditing={true} />
+            <Divider sx={{ marginTop: 5 }} />
             <DialogActions>
               <Button
                 variant="outlined"
