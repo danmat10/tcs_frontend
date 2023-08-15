@@ -28,7 +28,6 @@ const Sidebar = ({ isOpen, onClose }) => (
     slotProps={{ backdrop: { invisible: true } }}
   >
     <Toolbar>
-      <Logo style={{ width: "76px" }} />
       <Typography variant="h6">Sidebar Menu</Typography>
     </Toolbar>
     <Divider />
@@ -70,7 +69,7 @@ const Sidebar = ({ isOpen, onClose }) => (
         <ListItemText primary="Gestão" />
       </ListItem>
     </List>
-  </Drawer>
+  </Drawer >
 );
 
 export default Sidebar;
