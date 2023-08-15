@@ -1,13 +1,10 @@
 import { useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 
 import {
   MESSAGES,
@@ -17,6 +14,8 @@ import {
 import { apiCall, ENDPOINTS } from "../services";
 import { LoginFormFields } from "../components/Login";
 import { validateLoginForm } from "../validations";
+import { ReactComponent as Logo } from "../components/assets/icons/logo.svg";
+
 
 const Login = (props) => {
   const signIn = useSignIn();
@@ -56,48 +55,65 @@ const Login = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
+    <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
         sx={{
-          marginTop: 8,
+          backgroundRepeat: 'no-repeat',
+          backgroundImage: 'linear-gradient(90.83deg, #0066FF 8.37%, #00C2FF 96.86%)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-        }}
-      ></Box>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-        <Typography component="h1" variant="h5">
-          Realizar Login
-        </Typography>
-        <form onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-          <LoginFormFields formik={formik} />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Fazer Login
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/forgot-password" variant="body2">
-                Esqueceu sua senha?
-              </Link>
+        <Logo style={{ width: "350px" }} />
+      </Grid>
+      <Grid item xs={12} sm={8} md={5} elevation={6} square sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
+        <Box
+          sx={{
+            my: 8,
+            mx: 4,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Typography variant="h6">
+            Login
+          </Typography>
+          <Typography variant="body2" sx={{ opacity: "0.6" }}>
+            Realize o login no sistema
+          </Typography>
+          <form onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+            <LoginFormFields formik={formik} />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Fazer Login
+            </Button>
+            <Grid container >
+              <Grid item xs={6}>
+                <Link href="/forgot-password" variant="body2">
+                  Primeiro Acesso?
+                </Link>
+              </Grid>
+              <Grid item xs={6} sx={{ textAlign: "right" }}>
+                <Link href="/forgot-password" variant="body2">
+                  Esqueceu sua senha?
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Container>
+          </form>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

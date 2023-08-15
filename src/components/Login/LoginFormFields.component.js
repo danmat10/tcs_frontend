@@ -5,7 +5,7 @@ const LoginFormFields = ({ formik }) => (
   <>
     <TextField
       fullWidth
-      label="Login"
+      label="CPF/Matrícula"
       name="login"
       type="text"
       margin="dense"
