@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 import { Button, DialogActions } from "@mui/material";
 import { DialogTitle, DialogContent } from "@mui/material";
 
@@ -14,6 +14,7 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
       registration: user.registration || "",
       permissions: user.permissions || "",
       active: user.active || false,
+      contatos: user.contatos || [],
     },
     validate: (values) => validateUserEditForm(values, user),
     onSubmit: (values) => {
@@ -28,17 +29,23 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
         Editar Usuário
       </DialogTitle>
       <DialogContent>
-        <form onSubmit={formik.handleSubmit}>
-          <UserFormFields formik={formik} isEditing={true} />
-          <DialogActions>
-            <Button variant="outlined" color="error" onClick={() => onClose()}>
-              Cancelar
-            </Button>
-            <Button type="submit" variant="contained">
-              Editar
-            </Button>
-          </DialogActions>
-        </form>
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <UserFormFields formik={formik} isEditing={true} />
+            <DialogActions>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => onClose()}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" variant="contained">
+                Editar
+              </Button>
+            </DialogActions>
+          </form>
+        </FormikProvider>
       </DialogContent>
     </>
   );

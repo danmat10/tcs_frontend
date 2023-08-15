@@ -9,7 +9,15 @@ import {
   FormHelperText,
   FormGroup,
   Switch,
+  Button,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { FieldArray } from "formik";
 
 const UserFormFields = ({ formik, isEditing = false }) => (
   <>
@@ -57,6 +65,83 @@ const UserFormFields = ({ formik, isEditing = false }) => (
       error={formik.touched.email && Boolean(formik.errors.email)}
       helperText={formik.touched.email && formik.errors.email}
     />
+    <FormControl component="fieldset" margin="dense" fullWidth>
+      <FormLabel component="legend">Contatos</FormLabel>
+      <FieldArray name="contatos">
+        {({ push, remove }) => (
+          <>
+            {formik.values.contatos.map((contato, index) => (
+              <Grid container spacing={2} key={index} alignItems="center">
+                <Grid item xs={4}>
+                  <FormControl
+                    fullWidth
+                    margin="dense"
+                    variant="outlined"
+                    error={
+                      formik.touched.contatos &&
+                      Boolean(formik.errors.contatos?.[index]?.tipo)
+                    }
+                  >
+                    <InputLabel htmlFor={`contatos.${index}.tipo`}>
+                      Tipo
+                    </InputLabel>
+                    <Select
+                      label="Tipo"
+                      name={`contatos.${index}.tipo`}
+                      value={contato.tipo}
+                      onChange={formik.handleChange}
+                    >
+                      <MenuItem value="">
+                        <em>Nenhum</em>
+                      </MenuItem>
+                      <MenuItem value={"Celular"}>Celular</MenuItem>
+                      <MenuItem value={"Telefone"}>Telefone</MenuItem>
+                      <MenuItem value={"E-mail"}>E-mail</MenuItem>
+                    </Select>
+                    {formik.touched.contatos &&
+                      formik.errors.contatos?.[index]?.tipo && (
+                        <FormHelperText error>
+                          {formik.errors.contatos?.[index]?.tipo}
+                        </FormHelperText>
+                      )}
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    label="Contato"
+                    name={`contatos.${index}.contato`}
+                    type="text"
+                    margin="dense"
+                    onChange={formik.handleChange}
+                    value={contato.contato}
+                    error={
+                      formik.touched.contatos &&
+                      Boolean(formik.errors.contatos?.[index]?.contato)
+                    }
+                    helperText={
+                      formik.touched.contatos &&
+                      formik.errors.contatos?.[index]?.contato
+                    }
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <IconButton onClick={() => remove(index)} color="secondary">
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            ))}
+            <Button
+              onClick={() => push({ tipo: "", contato: "" })}
+              color="primary"
+            >
+              Adicionar Contato
+            </Button>
+          </>
+        )}
+      </FieldArray>
+    </FormControl>
     <FormControl component="fieldset" margin="dense">
       <FormLabel component="legend">Permissões</FormLabel>
       <RadioGroup
