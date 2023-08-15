@@ -4,13 +4,15 @@ import {
   DialogTitle,
   Chip,
   TextField,
-  Typography,
   Grid,
+  Divider,
+  DialogActions,
+  Button,
 } from "@mui/material";
 
 import { styles } from ".";
 
-const UserView = ({ user }) => {
+const UserView = ({ user, onClose }) => {
   return (
     <>
       <DialogTitle className={styles.userDialogTitle} paragraph>
@@ -91,6 +93,16 @@ const UserView = ({ user }) => {
               </Grid>
             ))}
         </Grid>
+        <Divider sx={{ marginTop: 5 }} />
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => onClose()}
+          >
+            OK
+          </Button>
+        </DialogActions>
       </DialogContent>
     </>
   );

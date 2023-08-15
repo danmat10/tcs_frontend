@@ -111,7 +111,8 @@ const UserPage = () => {
         onClose={closeDialog}
       />
     ),
-    view: <UserView user={state.selectedUser} />,
+    view: <UserView user={state.selectedUser} onClose={closeDialog}
+    />,
     delete: (
       <UserDelete
         user={state.selectedUser}
@@ -124,15 +125,15 @@ const UserPage = () => {
   return (
     <>
       <Header />
-        <Container maxWidth="xl">
-          <Grid item lg={12} paddingY={5}>
-            <UserBreadcrumb />
-            <Typography variant="h4" marginTop={2}>
-              Usuários
-            </Typography>
-          </Grid>
-        </Container>
-        <Container maxWidth="xl">{views.list}</Container>
+      <Container maxWidth="xl">
+        <Grid item lg={12} paddingY={5}>
+          <UserBreadcrumb />
+          <Typography variant="h4" marginTop={2}>
+            Usuários
+          </Typography>
+        </Grid>
+      </Container>
+      <Container maxWidth="xl">{views.list}</Container>
       <Dialog
         open={state.openDialog}
         onClose={closeDialog}
