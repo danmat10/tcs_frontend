@@ -19,13 +19,11 @@ const UserView = ({ user }) => {
       <DialogContent>
         <Grid container spacing={2}>
           <Grid item xs={12} md={12} align="right">
-            <Typography variant="body1" color="textSecondary">
-              {user.active ? (
-                <Chip label="Ativo" color="success" />
-              ) : (
-                <Chip label="Inativo" color="error" />
-              )}
-            </Typography>
+            {user.active ? (
+              <Chip label="Ativo" color="success" />
+            ) : (
+              <Chip label="Inativo" color="error" />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -70,10 +68,10 @@ const UserView = ({ user }) => {
                 user.permissions === "gestor"
                   ? "Gestor"
                   : user.permissions === "requisitante"
-                  ? "Requisitante"
-                  : user.permissions === "administrador"
-                  ? "Administrador"
-                  : ""
+                    ? "Requisitante"
+                    : user.permissions === "administrador"
+                      ? "Administrador"
+                      : ""
               }
               variant="standard"
               disabled
