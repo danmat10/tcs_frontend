@@ -68,12 +68,13 @@ const Login = (props) => {
           backgroundPosition: 'center',
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
+          display: { xs: 'none', sm: 'flex' }
         }}
       >
         <Logo style={{ width: "350px" }} />
       </Grid>
-      <Grid item xs={12} sm={8} md={5} elevation={6} square sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
+      <Grid item xs={12} sm={8} md={5} elevation={6} sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
         <Box
           sx={{
             my: 8,
