@@ -29,8 +29,8 @@ class Header extends Component {
   };
 
   handleEditProfile = () => {
-    // Implemente a navegação ou lógica de edição de perfil aqui
     this.handleMenuClose();
+    
   };
 
   render() {

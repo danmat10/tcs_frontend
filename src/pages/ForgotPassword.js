@@ -52,7 +52,6 @@ const ForgotPassword = () => {
           backgroundImage: 'linear-gradient(90.83deg, #0066FF 8.37%, #00C2FF 96.86%)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          display: "flex",
           alignItems: "center",
           justifyContent: "center",
           display: { xs: 'none', sm: 'flex' }
