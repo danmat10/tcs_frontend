@@ -30,7 +30,6 @@ class Header extends Component {
 
   handleEditProfile = () => {
     this.handleMenuClose();
-    
   };
 
   render() {
@@ -48,7 +47,7 @@ class Header extends Component {
             >
               Control
             </Typography>
-            <UserAvatar initial="U" onClick={this.handleMenuOpen} />
+            <UserAvatar onClick={this.handleMenuOpen} />
             <UserMenu
               anchorEl={anchorEl}
               onClose={this.handleMenuClose}
