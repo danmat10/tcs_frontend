@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 import { useAuthUser } from "react-auth-kit";
+import { BASEURL } from "../../config";
 
 const getInitials = (name) => {
   if (!name || typeof name !== "string") return "";
@@ -19,10 +20,12 @@ const UserAvatar = ({ onClick }) => {
   const auth = useAuthUser();
   const user = auth();
   const initials = getInitials(user.name);
+  const photo = user.photo ? `${BASEURL}${user.photo}` : null;
+  console.log(photo);
 
   return (
-    <Avatar src={user.photo} onClick={onClick} sx={{ cursor: "pointer" }}>
-      {!user.photo && initials}
+    <Avatar src={photo} onClick={onClick} sx={{ cursor: "pointer" }}>
+      {!photo && initials}
     </Avatar>
   );
 };

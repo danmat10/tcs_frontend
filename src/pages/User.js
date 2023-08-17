@@ -111,8 +111,7 @@ const UserPage = () => {
         onClose={closeDialog}
       />
     ),
-    view: <UserView user={state.selectedUser} onClose={closeDialog}
-    />,
+    view: <UserView user={state.selectedUser} onClose={closeDialog} />,
     delete: (
       <UserDelete
         user={state.selectedUser}
