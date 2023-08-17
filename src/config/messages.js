@@ -19,6 +19,14 @@ const MESSAGES = {
       error: "Oops, não foi possível deletar o usuário.",
       show: true,
     },
+    PROFILE: {
+      POST_PHOTO: {
+        pending: "Atualizando foto de perfil...",
+        success: "Foto de perfil atualizada com sucesso!",
+        error: "Oops, não foi possível atualizar a foto de perfil.",
+        show: true,
+      },
+    },
   },
   AUTH: {
     LOGIN: {

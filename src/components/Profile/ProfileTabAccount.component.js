@@ -1,51 +1,64 @@
-import { Edit } from "@mui/icons-material";
-import {
-  Avatar,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Grid,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useRef, useState } from "react";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
-import apiCall from "../../services/apiCall";
-import { MESSAGES } from "../../config";
+import { toast } from "react-toastify";
+import { Avatar, Button, Grid, Typography } from "@mui/material";
+
+import { BASEURL, MESSAGES } from "../../config";
+import ENDPOINTS from "../../services/endpoints";
 
 export default function ProfileTabAccount() {
-  const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
   const userData = auth();
+  const [file, setFile] = useState(null);
+  const [previewSrc, setPreviewSrc] = useState(BASEURL + "/" + userData.photo);
+  const fileInputRef = useRef();
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const onUpload = async () => {
+    const formData = new FormData();
+    formData.append("photo", file);
 
-  function handleImageChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        const base64Image = loadEvent.target.result;
-        setSelectedImage(base64Image);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+    await toast
+      .promise(
+        axios.post(ENDPOINTS.USER.PROFILE.POST_PHOTO(userData.id), formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: authHeader(),
+          },
+        }),
+        MESSAGES.USER.PROFILE.POST_PHOTO
+      )
+      .then((response) => {
+        setPreviewSrc(BASEURL + "/" + response.data.photo);
+        const storedAuthState = localStorage.getItem("_auth_state");
+        if (storedAuthState) {
+          const authState = JSON.parse(storedAuthState);
+          authState.photo = response.data.photo;
+          localStorage.setItem("_auth_state", JSON.stringify(authState));
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
-  const handleSave = () => {
-    apiCall(
-      "post",
-      "http://localhost:3030/users/1/photo",
-      { photo: selectedImage },
-      {
-        Authorization: authHeader(),
-      },
-      MESSAGES.USER.POST
-    );
-    handleClose();
+  const onFileChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewSrc(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const onCancel = () => {
+    setPreviewSrc(BASEURL + "/" + userData.photo);
+    setFile(null);
+  };
+  const onEditPhotoClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -53,32 +66,25 @@ export default function ProfileTabAccount() {
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Avatar
-            src={userData.photo}
+            src={previewSrc}
             alt={userData.name}
             style={{ width: 100, height: 100 }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Edit />}
-            style={{ marginTop: 15 }}
-            onClick={handleOpen}
-          >
-            Editar Foto
-          </Button>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogContent>
-              <input type="file" onChange={handleImageChange} />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Cancelar
-              </Button>
-              <Button onClick={handleSave} color="primary">
-                Salvar
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <div>
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={onFileChange}
+              ref={fileInputRef}
+            />
+            {!file && <Button onClick={onEditPhotoClick}>Editar Foto</Button>}
+            {file && (
+              <>
+                <Button onClick={onUpload}>Alterar</Button>
+                <Button onClick={onCancel}>Cancelar</Button>
+              </>
+            )}
+          </div>
         </Grid>
 
         <Grid item xs={12} md={8}>
