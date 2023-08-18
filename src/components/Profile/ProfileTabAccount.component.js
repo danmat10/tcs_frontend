@@ -6,8 +6,10 @@ import { Avatar, Button, Grid, Typography } from "@mui/material";
 
 import { BASEURL, MESSAGES } from "../../config";
 import ENDPOINTS from "../../services/endpoints";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileTabAccount() {
+  const navigate = useNavigate();
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
   const userData = auth();
@@ -36,6 +38,7 @@ export default function ProfileTabAccount() {
           const authState = JSON.parse(storedAuthState);
           authState.photo = response.data.photo;
           localStorage.setItem("_auth_state", JSON.stringify(authState));
+          navigate(0);
         }
       })
       .catch((error) => {
