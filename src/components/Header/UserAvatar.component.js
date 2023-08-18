@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar } from "@mui/material";
-import { useAuthUser } from "react-auth-kit";
-import { BASEURL } from "../../config";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
+import axios from "axios";
 
-const getInitials = (name) => {
-  if (!name || typeof name !== "string") return "";
-  const splitName = name.trim().split(" ");
-  if (splitName.length === 1) {
-    return splitName[0][0].toUpperCase();
-  }
-  const firstNameInitial = splitName[0][0];
-  const lastNameInitial = splitName[splitName.length - 1][0];
-  return (firstNameInitial + lastNameInitial).toUpperCase();
-};
+import { BASEURL } from "../../config";
+import UserContext from "../../contexts/UserContext";
+import { ENDPOINTS } from "../../services";
 
 const UserAvatar = ({ onClick }) => {
+  const { user, setUser } = React.useContext(UserContext);
   const auth = useAuthUser();
-  const user = auth();
-  const initials = getInitials(user.name);
+  const authHeader = useAuthHeader();
+
+  useEffect(() => {
+    if (!user.photo) {
+      axios
+        .get(ENDPOINTS.USER.GET_ID(auth().id), {
+          headers: {
+            Authorization: authHeader(),
+          },
+        })
+        .then((response) => {
+          setUser(response.data);
+        });
+    }
+  });
+
   const photo = user.photo ? BASEURL + "/" + user.photo : null;
 
   return (
-    <Avatar src={photo} onClick={onClick} sx={{ cursor: "pointer" }}>
-      {!photo && initials}
-    </Avatar>
+    <Avatar src={photo} onClick={onClick} sx={{ cursor: "pointer" }}></Avatar>
   );
 };
 
