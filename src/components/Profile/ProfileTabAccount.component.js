@@ -1,20 +1,20 @@
+import { useContext } from "react";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
 import { toast } from "react-toastify";
 import { Avatar, Button, Grid, Typography } from "@mui/material";
 
+import UserContext from "../../contexts/UserContext";
 import { BASEURL, MESSAGES } from "../../config";
 import ENDPOINTS from "../../services/endpoints";
-import { useNavigate } from "react-router-dom";
 
 export default function ProfileTabAccount() {
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
-  const userData = auth();
   const [file, setFile] = useState(null);
-  const [previewSrc, setPreviewSrc] = useState(BASEURL + "/" + userData.photo);
+  const [previewSrc, setPreviewSrc] = useState(BASEURL + "/" + user.photo);
   const fileInputRef = useRef();
 
   const onUpload = async () => {
@@ -23,7 +23,7 @@ export default function ProfileTabAccount() {
 
     await toast
       .promise(
-        axios.post(ENDPOINTS.USER.PROFILE.POST_PHOTO(userData.id), formData, {
+        axios.post(ENDPOINTS.USER.PROFILE.POST_PHOTO(auth().id), formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: authHeader(),
@@ -33,13 +33,7 @@ export default function ProfileTabAccount() {
       )
       .then((response) => {
         setPreviewSrc(BASEURL + "/" + response.data.photo);
-        const storedAuthState = localStorage.getItem("_auth_state");
-        if (storedAuthState) {
-          const authState = JSON.parse(storedAuthState);
-          authState.photo = response.data.photo;
-          localStorage.setItem("_auth_state", JSON.stringify(authState));
-          navigate(0);
-        }
+        setUser((prevUser) => ({ ...prevUser, photo: response.data.photo }));
       })
       .catch((error) => {
         toast.error(error.message);
@@ -57,7 +51,7 @@ export default function ProfileTabAccount() {
   };
 
   const onCancel = () => {
-    setPreviewSrc(BASEURL + "/" + userData.photo);
+    setPreviewSrc(BASEURL + "/" + user.photo);
     setFile(null);
   };
   const onEditPhotoClick = () => {
@@ -70,7 +64,7 @@ export default function ProfileTabAccount() {
         <Grid item xs={12} md={4}>
           <Avatar
             src={previewSrc}
-            alt={userData.name}
+            alt={user.name}
             style={{ width: 100, height: 100 }}
           />
           <div>
@@ -78,7 +72,6 @@ export default function ProfileTabAccount() {
               type="file"
               style={{ display: "none" }}
               onChange={onFileChange}
-              ref={fileInputRef}
             />
             {!file && <Button onClick={onEditPhotoClick}>Editar Foto</Button>}
             {file && (
@@ -92,19 +85,19 @@ export default function ProfileTabAccount() {
 
         <Grid item xs={12} md={8}>
           <Typography variant="body1">
-            <strong>Login:</strong> {userData.login}
+            <strong>Login:</strong> {user.login}
           </Typography>
           <Typography variant="body1">
-            <strong>Name:</strong> {userData.name}
+            <strong>Name:</strong> {user.name}
           </Typography>
           <Typography variant="body1">
-            <strong>CPF:</strong> {userData.cpf}
+            <strong>CPF:</strong> {user.cpf}
           </Typography>
           <Typography variant="body1">
-            <strong>Registration:</strong> {userData.registration}
+            <strong>Registration:</strong> {user.registration}
           </Typography>
           <Typography variant="body1">
-            <strong>Email:</strong> {userData.email}
+            <strong>Email:</strong> {user.email}
           </Typography>
         </Grid>
       </Grid>
