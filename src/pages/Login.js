@@ -14,7 +14,7 @@ import {
 import { apiCall, ENDPOINTS } from "../services";
 import { LoginFormFields } from "../components/Login";
 import { validateLoginForm } from "../validations";
-import { ReactComponent as Logo } from "../components/assets/icons/logo.svg";
+import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 
 const Login = (props) => {
   const signIn = useSignIn();

@@ -15,7 +15,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-import { ReactComponent as Logo } from "../assets/icons/logo azul.svg";
+import { ReactComponent as Logo } from "../../assets/icons/logo azul.svg";
 
 const Sidebar = ({ isOpen, onClose }) => (
   <Drawer

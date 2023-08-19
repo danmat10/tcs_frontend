@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 
 import { MESSAGES } from "../config";
 import { apiCall, ENDPOINTS } from "../services";
-import { ReactComponent as Logo } from "../components/assets/icons/logo.svg";
+import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 
 
 const ForgotPassword = () => {
