@@ -15,7 +15,7 @@ import { FieldArray } from "formik";
 
 const UserFormFields = ({ formik }) => (
   <>
-    <FormControl component="fieldset" margin="dense" fullWidth>
+    <FormControl component="fieldset" margin="normal" fullWidth>
       <FieldArray name="contatos">
         {({ push, remove }) => (
           <>
@@ -24,7 +24,7 @@ const UserFormFields = ({ formik }) => (
                 <Grid item md={5} xs={12}>
                   <FormControl
                     fullWidth
-                    margin="dense"
+                    margin="normal"
                     variant="outlined"
                     error={
                       formik.touched.contatos &&
@@ -62,7 +62,7 @@ const UserFormFields = ({ formik }) => (
                     label="Digite o contato"
                     name={`contatos.${index}.contato`}
                     type="text"
-                    margin="dense"
+                    margin="normal"
                     onChange={formik.handleChange}
                     value={contato.contato}
                     error={
@@ -83,19 +83,19 @@ const UserFormFields = ({ formik }) => (
               </Grid>
             ))}
             {formik.touched.contatos && formik.errors._errors && (
-              <FormControl component="fieldset" margin="dense" fullWidth error>
+              <FormControl component="fieldset" margin="normal" fullWidth error>
                 <FormHelperText>{formik.errors._errors}</FormHelperText>
               </FormControl>
             )}
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12} md={5}>
-                <FormControl component="fieldset" margin="dense" fullWidth>
+                <FormControl component="fieldset" margin="normal" fullWidth>
                   <Button
                     onClick={() => push({ tipo: "", contato: "" })}
                     color="primary"
                     variant="outlined"
                   >
-                    Adicionar Contato
+                    Adicionar
                   </Button>
                 </FormControl>
               </Grid>

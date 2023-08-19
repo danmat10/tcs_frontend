@@ -1,26 +1,70 @@
-import { useContext } from "react";
-import axios from "axios";
+import { useContext, useEffect } from "react";
 import { useRef, useState } from "react";
+import { Form, FormikProvider, useFormik } from "formik";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
+import axios from "axios";
 import { toast } from "react-toastify";
-import { Avatar, Button, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  TextField,
+} from "@mui/material";
 
-import UserContext from "../../contexts/UserContext";
-import { BASEURL, MESSAGES } from "../../config";
 import ENDPOINTS from "../../services/endpoints";
+import { BASEURL, MESSAGES } from "../../config";
+import UserContext from "../../contexts/UserContext";
+import apiCall from "../../services/apiCall";
+import placeholder_image from "../../assets/images/placeholder_image.jpg";
+import { validateProfileContactsForm } from "../../validations";
+import { ProfileContactsFormFields } from ".";
 
 export default function ProfileTabAccount() {
   const { user, setUser } = useContext(UserContext);
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
   const [file, setFile] = useState(null);
-  const [previewSrc, setPreviewSrc] = useState(BASEURL + "/" + user.photo);
+  const [previewSrc, setPreviewSrc] = useState(placeholder_image);
   const fileInputRef = useRef();
+  const formik = useFormik({
+    initialValues: {
+      contatos: user.contatos || [],
+    },
+    validate: (values) => validateProfileContactsForm(values, user),
+    validateOnChange: false,
+    onSubmit: (values) => {
+      onUpdate(values);
+    },
+  });
+
+  useEffect(() => {
+    if (user && user.photo) {
+      setPreviewSrc(BASEURL + "/" + user.photo);
+    }
+    if (user) {
+      formik.resetForm({
+        values: { contatos: user.contatos || [] },
+      });
+    }
+  }, [user]);
+
+  const onUpdate = async (values) => {
+    await apiCall(
+      "patch",
+      ENDPOINTS.USER.PATCH_ID(auth().id),
+      values,
+      {
+        Authorization: authHeader(),
+      },
+      MESSAGES.USER.PROFILE.PATCH_CONTACTS
+    );
+  };
 
   const onUpload = async () => {
     const formData = new FormData();
     formData.append("photo", file);
-
     await toast
       .promise(
         axios.post(ENDPOINTS.USER.PROFILE.POST_PHOTO(auth().id), formData, {
@@ -33,6 +77,7 @@ export default function ProfileTabAccount() {
       )
       .then((response) => {
         setPreviewSrc(BASEURL + "/" + response.data.photo);
+        setFile(null);
         setUser((prevUser) => ({ ...prevUser, photo: response.data.photo }));
       })
       .catch((error) => {
@@ -61,45 +106,104 @@ export default function ProfileTabAccount() {
   return (
     <div>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={4} md={3}>
           <Avatar
             src={previewSrc}
             alt={user.name}
-            style={{ width: 100, height: 100 }}
+            style={{ width: "auto", height: "200px" }}
+            variant="square"
           />
-          <div>
-            <input
-              type="file"
-              style={{ display: "none" }}
-              onChange={onFileChange}
-              ref={fileInputRef}
-            />
-            {!file && <Button onClick={onEditPhotoClick}>Editar Foto</Button>}
-            {file && (
-              <>
-                <Button onClick={onUpload}>Alterar</Button>
-                <Button onClick={onCancel}>Cancelar</Button>
-              </>
-            )}
-          </div>
+          <input
+            type="file"
+            style={{ display: "none" }}
+            onChange={onFileChange}
+            ref={fileInputRef}
+          />
         </Grid>
-
-        <Grid item xs={12} md={8}>
-          <Typography variant="body1">
-            <strong>Login:</strong> {user.login}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Name:</strong> {user.name}
-          </Typography>
-          <Typography variant="body1">
-            <strong>CPF:</strong> {user.cpf}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Registration:</strong> {user.registration}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Email:</strong> {user.email}
-          </Typography>
+        <Grid
+          item
+          xs={4}
+          md={3}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          {!file && (
+            <Grid item xs={12} md={12}>
+              <Button onClick={onEditPhotoClick} variant="contained">
+                Carregar uma imagem
+              </Button>
+              <FormHelperText>Adicione uma imagem de perfil.</FormHelperText>
+            </Grid>
+          )}
+          {file && (
+            <Button onClick={onUpload} variant="contained">
+              Salvar
+            </Button>
+          )}
+          {file && (
+            <Button onClick={onCancel} variant="outlined" color="error">
+              Excluir
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={5}>
+          <FormControl component="fieldset" margin="normal" fullWidth>
+            <TextField
+              label="Login"
+              value={user.login || ""}
+              disabled
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Name"
+              value={user.name || ""}
+              disabled
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="CPF"
+              value={user.cpf || ""}
+              disabled
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Registration"
+              value={user.registration || ""}
+              disabled
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              value={user.email || ""}
+              disabled
+              fullWidth
+              margin="normal"
+            />
+          </FormControl>
+          <Button
+            type="submit"
+            variant="contained"
+            margin="normal"
+            onClick={() => formik.submitForm()}
+          >
+            Salvar
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <FormikProvider value={formik}>
+            <Form onSubmit={formik.handleSubmit}>
+              <ProfileContactsFormFields formik={formik} />
+            </Form>
+          </FormikProvider>
         </Grid>
       </Grid>
     </div>

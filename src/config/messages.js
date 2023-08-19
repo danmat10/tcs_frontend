@@ -26,6 +26,12 @@ const MESSAGES = {
         error: "Oops, não foi possível atualizar a foto de perfil.",
         show: true,
       },
+      PATCH_CONTACTS: {
+        pending: "Atualizando contatos...",
+        success: "Contatos atualizados com sucesso!",
+        error: "Oops, não foi possível atualizar os contatos.",
+        show: true,
+      },
     },
   },
   AUTH: {

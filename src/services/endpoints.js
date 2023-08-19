@@ -10,6 +10,7 @@ const ENDPOINTS = {
     GET: BASEURL + "/db/users",
     GET_ID: (id) => BASEURL + "/db/users/" + id,
     PATCH: BASEURL + "/db/users/",
+    PATCH_ID: (id) => BASEURL + "/db/users/" + id,
     DELETE: BASEURL + "/db/users/",
     PROFILE: {
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
