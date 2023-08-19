@@ -72,6 +72,7 @@ export default function ProfileTabAccount() {
               type="file"
               style={{ display: "none" }}
               onChange={onFileChange}
+              ref={fileInputRef}
             />
             {!file && <Button onClick={onEditPhotoClick}>Editar Foto</Button>}
             {file && (
