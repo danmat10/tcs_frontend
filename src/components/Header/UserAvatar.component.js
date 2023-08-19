@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Avatar } from "@mui/material";
 import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import axios from "axios";
+import { Avatar } from "@mui/material";
 
-import { BASEURL } from "../../config";
 import UserContext from "../../contexts/UserContext";
+import { BASEURL } from "../../config";
 import { ENDPOINTS } from "../../services";
 
 const UserAvatar = ({ onClick }) => {
@@ -13,7 +13,7 @@ const UserAvatar = ({ onClick }) => {
   const authHeader = useAuthHeader();
 
   useEffect(() => {
-    if (!user.photo) {
+    if (!user.id) {
       axios
         .get(ENDPOINTS.USER.GET_ID(auth().id), {
           headers: {

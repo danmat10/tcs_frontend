@@ -7,7 +7,7 @@ import PublicRoute from "./PublicRoute";
 import { ForgotPassword, Home, Login, Profile, User } from "../pages";
 
 const AppRoutes = () => {
-  const [user, setUser] = React.useState({ photo: null });
+  const [user, setUser] = React.useState({ photo: null, id: null });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
