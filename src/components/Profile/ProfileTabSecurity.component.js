@@ -20,6 +20,7 @@ export default function ProfileTabSecurity() {
     },
     onSubmit: (values) => {
       onUpdate(values);
+      formik.resetForm();
     },
     validate: (values) => passwordValidation(values),
     validateOnChange: false,
@@ -27,8 +28,8 @@ export default function ProfileTabSecurity() {
 
   const onUpdate = async (values) => {
     await apiCall(
-      "patch",
-      ENDPOINTS.USER.PATCH_ID(auth().id),
+      "put",
+      ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(auth().id),
       values,
       {
         Authorization: authHeader(),

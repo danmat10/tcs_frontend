@@ -14,6 +14,8 @@ const ENDPOINTS = {
     DELETE: BASEURL + "/db/users/",
     PROFILE: {
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
+      PUT_CHANGE_PASSWORD: (id) =>
+        BASEURL + "/auth/user/" + id + "/change-password",
     },
   },
 };
