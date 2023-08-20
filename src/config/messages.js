@@ -32,6 +32,12 @@ const MESSAGES = {
         error: "Oops, não foi possível atualizar os contatos.",
         show: true,
       },
+      PATCH_PASSWORD: {
+        pending: "Atualizando senha...",
+        success: "Senha atualizada com sucesso!",
+        error: "Oops, não foi possível atualizar a senha.",
+        show: true,
+      },
     },
   },
   AUTH: {
