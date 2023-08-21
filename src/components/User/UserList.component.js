@@ -119,9 +119,9 @@ const UserList = ({ users, openDialog }) => {
 
     switch (situationFilter) {
       case "Ativo":
-        return doesMatchSearch && user.situation;
+        return doesMatchSearch && user.active;
       case "Inativo":
-        return doesMatchSearch && !user.situation;
+        return doesMatchSearch && !user.active;
       case "Todos":
       default:
         return doesMatchSearch;

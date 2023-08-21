@@ -15,7 +15,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-import { ReactComponent as Logo } from "../assets/icons/logo.svg";
+import { ReactComponent as Logo } from "../../assets/icons/logo azul.svg";
 
 const Sidebar = ({ isOpen, onClose }) => (
   <Drawer
@@ -28,8 +28,8 @@ const Sidebar = ({ isOpen, onClose }) => (
     slotProps={{ backdrop: { invisible: true } }}
   >
     <Toolbar>
-      <Logo style={{ width: "76px" }} />
-      <Typography variant="h6">Sidebar Menu</Typography>
+      <Logo width="85px" height="67px" />
+      <Typography variant="h6">Nome do App</Typography>
     </Toolbar>
     <Divider />
     <List>

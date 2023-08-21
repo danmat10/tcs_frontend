@@ -1,66 +1,63 @@
-import React, { Component } from "react";
-import { withSignOut } from "react-auth-kit";
+import React, { useState, useContext } from "react";
+import { useSignOut } from "react-auth-kit";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import { MenuButton, UserAvatar, UserMenu, Sidebar, styles } from ".";
+import UserContext from "../../contexts/UserContext";
 
-class Header extends Component {
-  state = {
-    anchorEl: null,
-    isSidebarOpen: false,
+const Header = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { setUser } = useContext(UserContext);
+  const signOut = useSignOut();
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
   };
 
-  toggleSidebar = () => {
-    this.setState((prevState) => ({ isSidebarOpen: !prevState.isSidebarOpen }));
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  handleMenuOpen = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null });
+  const handleLogout = () => {
+    setUser({ photo: null, id: null });
+    signOut();
   };
 
-  handleLogout = () => {
-    this.props.signOut();
+  const handleEditProfile = () => {
+    handleMenuClose();
   };
 
-  handleEditProfile = () => {
-    // Implemente a navegação ou lógica de edição de perfil aqui
-    this.handleMenuClose();
-  };
+  return (
+    <>
+      <AppBar position="static" elevation={2} className={styles.appBar}>
+        <Toolbar>
+          <MenuButton onClick={toggleSidebar} />
+          <Typography
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            Control
+          </Typography>
+          <UserAvatar onClick={handleMenuOpen} />
+          <UserMenu
+            anchorEl={anchorEl}
+            onClose={handleMenuClose}
+            onEditProfile={handleEditProfile}
+            onLogout={handleLogout}
+          />
+        </Toolbar>
+      </AppBar>
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+    </>
+  );
+};
 
-  render() {
-    const { anchorEl, isSidebarOpen } = this.state;
-
-    return (
-      <>
-        <AppBar position="static" elevation={2} className={styles.appBar}>
-          <Toolbar>
-            <MenuButton onClick={this.toggleSidebar} />
-            <Typography
-              sx={{
-                flexGrow: 1,
-              }}
-            >
-              Control
-            </Typography>
-            <UserAvatar initial="U" onClick={this.handleMenuOpen} />
-            <UserMenu
-              anchorEl={anchorEl}
-              onClose={this.handleMenuClose}
-              onEditProfile={this.handleEditProfile}
-              onLogout={this.handleLogout}
-            />
-          </Toolbar>
-        </AppBar>
-        <Sidebar isOpen={isSidebarOpen} onClose={this.toggleSidebar} />
-      </>
-    );
-  }
-}
-
-export default withSignOut(Header);
+export default Header;
