@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 
 import ENDPOINTS from "../../services/endpoints";
-import { BASEURL, MESSAGES } from "../../config";
 import UserContext from "../../contexts/UserContext";
 import apiCall from "../../services/apiCall";
 import placeholder_image from "../../assets/images/placeholder_image.jpg";
+import { MESSAGES } from "../../config";
 import { validateProfileContactsForm } from "../../validations";
 import { ProfileContactsFormFields, styles } from ".";
 
@@ -41,7 +41,7 @@ export default function ProfileTabAccount() {
 
   useEffect(() => {
     if (user && user.photo) {
-      setPreviewSrc(BASEURL + "/" + user.photo);
+      setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
     }
     if (user) {
       formik.resetForm({
@@ -76,7 +76,7 @@ export default function ProfileTabAccount() {
         MESSAGES.USER.PROFILE.POST_PHOTO
       )
       .then((response) => {
-        setPreviewSrc(BASEURL + "/" + response.data.photo);
+        setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(response.data.photo));
         setFile(null);
         setUser((prevUser) => ({ ...prevUser, photo: response.data.photo }));
       })
@@ -96,7 +96,7 @@ export default function ProfileTabAccount() {
   };
 
   const onCancel = () => {
-    setPreviewSrc(BASEURL + "/" + user.photo);
+    setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
     setFile(null);
   };
   const onEditPhotoClick = () => {

@@ -13,6 +13,7 @@ const ENDPOINTS = {
     PATCH_ID: (id) => BASEURL + "/db/users/" + id,
     DELETE: BASEURL + "/db/users/",
     PROFILE: {
+      GET_PHOTO: (id) => BASEURL + "/uploads/" + id,
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
       PUT_CHANGE_PASSWORD: (id) =>
         BASEURL + "/auth/user/" + id + "/change-password",

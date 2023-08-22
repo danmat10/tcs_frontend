@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import axios from "axios";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import { Avatar } from "@mui/material";
 
 import UserContext from "../../contexts/UserContext";
-import { BASEURL } from "../../config";
 import { ENDPOINTS } from "../../services";
 
 const UserAvatar = ({ onClick }) => {
@@ -26,7 +25,9 @@ const UserAvatar = ({ onClick }) => {
     }
   });
 
-  const photo = user.photo ? BASEURL + "/" + user.photo : null;
+  const photo = user.photo
+    ? ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo)
+    : null;
 
   return (
     <Avatar src={photo} onClick={onClick} sx={{ cursor: "pointer" }}></Avatar>
