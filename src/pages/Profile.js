@@ -9,6 +9,7 @@ import {
 } from "../components/Profile";
 import { styles } from "../components/Profile";
 import { AccountCircle, Lock } from "@mui/icons-material";
+import { Breadcrumb } from "../components/Common";
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -21,26 +22,30 @@ const ProfilePage = () => {
     <>
       <Header />
       <Container maxWidth="xl">
-        <Grid item lg={12} paddingY={5}>
+        <Breadcrumb title="Perfil">
           <ProfileBreadcrumb />
-          <Typography variant="h4" marginTop={2}>
-            Editar Perfil
-          </Typography>
-        </Grid>
-      </Container>
-      <Container maxWidth="xl">
-        <Grid container spacing={3} className={styles.listGrid}>
+        </Breadcrumb>
+        <Grid container spacing={3} className={styles.gridContainer}>
           <Tabs
             value={selectedTab}
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
-            centered
           >
-            <Tab icon={<AccountCircle />} label="Conta" iconPosition="start" />
-            <Tab icon={<Lock />} label="Segurança" iconPosition="start" />
+            <Tab
+              icon={<AccountCircle />}
+              label="Conta"
+              iconPosition="start"
+              className={styles.tabMenu}
+            />
+            <Tab
+              icon={<Lock />}
+              label="Segurança"
+              iconPosition="start"
+              className={styles.tabMenu}
+            />
           </Tabs>
-          <Grid item xs={12} md={12} lg={12}>
+          <Grid item xs={12} md={12} lg={12} className={styles.listGrid}>
             {selectedTab === 0 && <ProfileTabAccount />}
             {selectedTab === 1 && <ProfileTabSecurity />}
           </Grid>

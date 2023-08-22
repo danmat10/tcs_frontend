@@ -19,7 +19,7 @@ import UserContext from "../../contexts/UserContext";
 import apiCall from "../../services/apiCall";
 import placeholder_image from "../../assets/images/placeholder_image.jpg";
 import { validateProfileContactsForm } from "../../validations";
-import { ProfileContactsFormFields } from ".";
+import { ProfileContactsFormFields, styles } from ".";
 
 export default function ProfileTabAccount() {
   const { user, setUser } = useContext(UserContext);
@@ -104,13 +104,13 @@ export default function ProfileTabAccount() {
   };
 
   return (
-    <div>
+    <div className={styles.gridContainer}>
       <Grid container spacing={4}>
-        <Grid item xs={4} md={3}>
+        <Grid item xs={4} md={2}>
           <Avatar
             src={previewSrc}
             alt={user.name}
-            style={{ width: "auto", height: "200px" }}
+            sx={{ width: 150, height: 150 }}
             variant="square"
           />
           <input
@@ -189,14 +189,6 @@ export default function ProfileTabAccount() {
               margin="normal"
             />
           </FormControl>
-          <Button
-            type="submit"
-            variant="contained"
-            margin="normal"
-            onClick={() => formik.submitForm()}
-          >
-            Salvar
-          </Button>
         </Grid>
         <Grid item xs={12} md={6}>
           <FormikProvider value={formik}>
@@ -206,6 +198,14 @@ export default function ProfileTabAccount() {
           </FormikProvider>
         </Grid>
       </Grid>
+      <Button
+        type="submit"
+        variant="contained"
+        margin="normal"
+        onClick={() => formik.submitForm()}
+      >
+        Salvar
+      </Button>
     </div>
   );
 }

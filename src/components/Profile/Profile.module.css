@@ -1,5 +1,18 @@
+.gridContainer {
+  background-color: white;
+  margin-bottom: 20px;
+}
+
 .listGrid {
   background-color: white;
-  padding: 20px;
   margin-bottom: 20px;
+  min-height: calc(65vh - 20px);
+}
+
+.tabMenu {
+  min-width: 250px;
+}
+
+.gridContainerTabSecurity {
+  height: 100%;
 }
