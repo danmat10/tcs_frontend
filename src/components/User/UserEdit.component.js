@@ -1,9 +1,8 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
-import { Button, DialogActions, Divider } from "@mui/material";
-import { DialogTitle, DialogContent } from "@mui/material";
 
-import { UserFormFields, validateUserEditForm, styles } from ".";
+import { UserFormFields, validateUserEditForm } from ".";
+import { DialogForm } from "../Common";
 
 const UserEdit = ({ user, onUpdate, onClose }) => {
   const formik = useFormik({
@@ -24,33 +23,18 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
   });
 
   return (
-    <>
-      <DialogTitle className={styles.userDialogTitle} paragraph>
-        Editar Usuário
-      </DialogTitle>
-      <DialogContent>
-        <FormikProvider value={formik}>
-          <form onSubmit={formik.handleSubmit}>
-            <UserFormFields formik={formik} isEditing={true} />
-          </form>
-        </FormikProvider>
-      </DialogContent>
-      <Divider sx={{ marginTop: 5 }} />
-      <DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => onClose()}
-          >
-            Cancelar
-          </Button>
-          <Button type="submit" variant="contained" onClick={() => formik.submitForm()}>
-            Editar
-          </Button>
-        </DialogActions>
-      </DialogContent>
-    </>
+    <DialogForm
+      title="Editar Usuário"
+      onClose={onClose}
+      onSubmit={() => formik.submitForm()}
+      btnSubmitName="Editar"
+    >
+      <FormikProvider value={formik}>
+        <form onSubmit={formik.handleSubmit}>
+          <UserFormFields formik={formik} />
+        </form>
+      </FormikProvider>
+    </DialogForm>
   );
 };
 
