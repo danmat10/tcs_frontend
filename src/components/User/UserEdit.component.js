@@ -31,7 +31,7 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
     >
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
-          <UserFormFields formik={formik} />
+          <UserFormFields formik={formik} isEditing={true} />
         </form>
       </FormikProvider>
     </DialogForm>
