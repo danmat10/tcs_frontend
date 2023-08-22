@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { Container, Typography, Grid, Divider } from "@mui/material";
+import { Container } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 
 import {
@@ -10,11 +10,11 @@ import {
   UserDelete,
   UserCreate,
   UserBreadcrumb,
-  styles,
 } from "../components/User";
 import { Header } from "../components/Header";
 import { apiCall, ENDPOINTS } from "../services";
 import { MESSAGES } from "../config";
+import Breadcrumb from "../components/Common/Breadcrumb.component";
 
 const UserPage = () => {
   useEffect(() => handleUpdateUserList(), []);
@@ -126,15 +126,9 @@ const UserPage = () => {
     <>
       <Header />
       <Container maxWidth="xl">
-        <Grid container spacing={3} paddingY={8}>
-          <Grid item md={12} className={styles.gridBreadCrumb}>
-            <UserBreadcrumb />
-            <Typography variant="h4" marginTop={2}>
-              Usuários
-            </Typography>
-            <Divider fullWidth />
-          </Grid>
-        </Grid>
+        <Breadcrumb title="Usuários">
+          <UserBreadcrumb />
+        </Breadcrumb>
         {views.list}
       </Container>
       <Dialog
