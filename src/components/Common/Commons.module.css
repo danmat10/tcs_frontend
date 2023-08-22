@@ -1,3 +1,8 @@
 .gridBreadCrumb {
   padding: 0 !important;
 }
+
+.dialogTitle {
+  background: linear-gradient(90.83deg, #0066ff 8.37%, #00c2ff 96.86%);
+  color: white;
+}
