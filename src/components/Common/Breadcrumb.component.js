@@ -1,5 +1,5 @@
 import { Divider, Grid, Typography } from "@mui/material";
-import styles from "./Commons.module.css";
+import {styles} from ".";
 
 export default function Breadcrumb({ children, title }) {
   return (
