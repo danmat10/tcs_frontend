@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { styles } from ".";
 
 export default function PasswordFields({ formik }) {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -16,11 +17,11 @@ export default function PasswordFields({ formik }) {
   return (
     <FormControl component="fieldset" margin="normal" fullWidth>
       <TextField
+        className={styles.currentPasswordField}
         fullWidth
         label="Senha Atual"
         name="currentPassword"
         type={showCurrentPassword ? "text" : "password"}
-        margin="normal"
         onChange={formik.handleChange}
         value={formik.values.currentPassword}
         error={
@@ -48,7 +49,7 @@ export default function PasswordFields({ formik }) {
         label="Nova Senha"
         name="newPassword"
         type={showNewPassword ? "text" : "password"}
-        margin="normal"
+        margin="dense"
         onChange={formik.handleChange}
         value={formik.values.newPassword}
         error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
@@ -72,7 +73,7 @@ export default function PasswordFields({ formik }) {
         label="Confirme a Nova Senha"
         name="confirmNewPassword"
         type={showConfirmPassword ? "text" : "password"}
-        margin="normal"
+        margin="dense"
         onChange={formik.handleChange}
         value={formik.values.confirmNewPassword}
         error={

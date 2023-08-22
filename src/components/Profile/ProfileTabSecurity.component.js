@@ -1,5 +1,5 @@
-import { Form, FormikProvider, useFormik } from "formik";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
+import { Form, FormikProvider, useFormik } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";

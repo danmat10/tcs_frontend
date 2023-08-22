@@ -16,3 +16,7 @@
 .gridContainerTabSecurity {
   height: 100%;
 }
+
+.currentPasswordField {
+  margin-bottom: 20px;
+}

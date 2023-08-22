@@ -1,5 +1,6 @@
-import { Container, Grid, Typography, Tabs, Tab } from "@mui/material";
 import React from "react";
+import { Container, Grid, Tabs, Tab } from "@mui/material";
+import { AccountCircle, Lock } from "@mui/icons-material";
 
 import { Header } from "../components/Header";
 import {
@@ -8,7 +9,6 @@ import {
   ProfileTabSecurity,
 } from "../components/Profile";
 import { styles } from "../components/Profile";
-import { AccountCircle, Lock } from "@mui/icons-material";
 import { Breadcrumb } from "../components/Common";
 
 const ProfilePage = () => {
@@ -21,7 +21,15 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="xl"
+        sx={{
+          marginLeft: "20px",
+          marginRight: "20px",
+          marginBottom: "20px",
+          width: "auto",
+        }}
+      >
         <Breadcrumb title="Perfil">
           <ProfileBreadcrumb />
         </Breadcrumb>
