@@ -125,7 +125,15 @@ const UserPage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="xl"
+        sx={{
+          marginLeft: "20px",
+          marginRight: "20px",
+          marginBottom: "20px",
+          width: "auto",
+        }}
+      >
         <Breadcrumb title="Usuários">
           <UserBreadcrumb />
         </Breadcrumb>
