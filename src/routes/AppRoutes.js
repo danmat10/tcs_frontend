@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import UserContext from "../contexts/UserContext";
+import UserContext from "contexts/UserContext";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { ForgotPassword, Home, Login, Profile, User } from "../pages";

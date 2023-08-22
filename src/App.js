@@ -3,8 +3,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "react-auth-kit";
 
 import "./App.css";
-import { refreshApi } from "./services";
-import AppRoutes from "./routes/AppRoutes";
+import { refreshApi } from "services";
+import AppRoutes from "routes/AppRoutes";
 
 class App extends React.Component {
   constructor(props) {

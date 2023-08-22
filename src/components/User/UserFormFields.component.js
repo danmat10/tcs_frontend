@@ -1,4 +1,5 @@
 import React from "react";
+import { FieldArray } from "formik";
 import {
   TextField,
   Radio,
@@ -17,7 +18,7 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
-import { FieldArray } from "formik";
+
 import { styles } from ".";
 
 const UserFormFields = ({ formik, isEditing = false }) => (

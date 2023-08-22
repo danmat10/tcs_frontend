@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import { MenuButton, UserAvatar, UserMenu, Sidebar, styles } from ".";
-import UserContext from "../../contexts/UserContext";
+import UserContext from "contexts/UserContext";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);

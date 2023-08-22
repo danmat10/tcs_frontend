@@ -1,4 +1,4 @@
-import { BASEURL } from "../config";
+import { BASEURL } from "config";
 
 const ENDPOINTS = {
   AUTH: {

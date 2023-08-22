@@ -13,12 +13,12 @@ import {
   TextField,
 } from "@mui/material";
 
-import ENDPOINTS from "../../services/endpoints";
-import UserContext from "../../contexts/UserContext";
-import apiCall from "../../services/apiCall";
-import placeholder_image from "../../assets/images/placeholder_image.jpg";
-import { MESSAGES } from "../../config";
-import { validateProfileContactsForm } from "../../validations";
+import ENDPOINTS from "services/endpoints";
+import UserContext from "contexts/UserContext";
+import apiCall from "services/apiCall";
+import placeholder_image from "assets/images/placeholder_image.jpg";
+import { MESSAGES } from "config";
+import { validateProfileContactsForm } from "validations";
 import { ProfileContactsFormFields, styles } from ".";
 
 export default function ProfileTabAccount() {

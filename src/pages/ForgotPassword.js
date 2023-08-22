@@ -6,9 +6,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { MESSAGES } from "../config";
-import { apiCall, ENDPOINTS } from "../services";
-import { ReactComponent as Logo } from "../assets/icons/logo.svg";
+import { MESSAGES } from "config";
+import { apiCall, ENDPOINTS } from "services";
+import { ReactComponent as Logo } from "assets/icons/logo.svg";
 
 
 const ForgotPassword = () => {

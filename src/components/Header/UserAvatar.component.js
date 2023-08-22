@@ -3,8 +3,8 @@ import axios from "axios";
 import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import { Avatar } from "@mui/material";
 
-import UserContext from "../../contexts/UserContext";
-import { ENDPOINTS } from "../../services";
+import UserContext from "contexts/UserContext";
+import { ENDPOINTS } from "services";
 
 const UserAvatar = ({ onClick }) => {
   const { user, setUser } = React.useContext(UserContext);

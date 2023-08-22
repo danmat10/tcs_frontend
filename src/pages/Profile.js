@@ -2,14 +2,14 @@ import React from "react";
 import { Container, Grid, Tabs, Tab } from "@mui/material";
 import { AccountCircle, Lock } from "@mui/icons-material";
 
-import { Header } from "../components/Header";
+import { Header } from "components/Header";
 import {
   ProfileBreadcrumb,
   ProfileTabAccount,
   ProfileTabSecurity,
-} from "../components/Profile";
-import { styles } from "../components/Profile";
-import { Breadcrumb } from "../components/Common";
+} from "components/Profile";
+import { styles } from "components/Profile";
+import { Breadcrumb } from "components/Common";
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);

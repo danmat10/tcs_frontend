@@ -2,7 +2,7 @@ import React from "react";
 import { FormikProvider, useFormik } from "formik";
 
 import { UserFormFields, validateUserCreateForm } from ".";
-import { DialogForm } from "../Common";
+import { DialogForm } from "components/Common";
 
 const CreateUser = ({ onCreate, onClose }) => {
   const formik = useFormik({

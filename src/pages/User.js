@@ -10,11 +10,11 @@ import {
   UserDelete,
   UserCreate,
   UserBreadcrumb,
-} from "../components/User";
-import { Header } from "../components/Header";
-import { apiCall, ENDPOINTS } from "../services";
-import { MESSAGES } from "../config";
-import Breadcrumb from "../components/Common/Breadcrumb.component";
+} from "components/User";
+import { Header } from "components/Header";
+import { apiCall, ENDPOINTS } from "services";
+import { MESSAGES } from "config";
+import Breadcrumb from "components/Common/Breadcrumb.component";
 
 const UserPage = () => {
   useEffect(() => handleUpdateUserList(), []);

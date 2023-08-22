@@ -3,10 +3,10 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";
-import apiCall from "../../services/apiCall";
-import ENDPOINTS from "../../services/endpoints";
-import { MESSAGES } from "../../config";
-import { passwordValidation } from "../../validations/ProfileValidations";
+import apiCall from "services/apiCall";
+import ENDPOINTS from "services/endpoints";
+import { MESSAGES } from "config";
+import { passwordValidation } from "validations/ProfileValidations";
 
 export default function ProfileTabSecurity() {
   const auth = useAuthUser();
