@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { Container, Typography, Grid } from "@mui/material";
+import { Container, Typography, Grid, Divider } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 
 import {
@@ -10,6 +10,7 @@ import {
   UserDelete,
   UserCreate,
   UserBreadcrumb,
+  styles,
 } from "../components/User";
 import { Header } from "../components/Header";
 import { apiCall, ENDPOINTS } from "../services";
@@ -125,14 +126,17 @@ const UserPage = () => {
     <>
       <Header />
       <Container maxWidth="xl">
-        <Grid item lg={12} paddingY={5}>
-          <UserBreadcrumb />
-          <Typography variant="h4" marginTop={2}>
-            Usuários
-          </Typography>
+        <Grid container spacing={3} paddingY={8}>
+          <Grid item md={12} className={styles.gridBreadCrumb}>
+            <UserBreadcrumb />
+            <Typography variant="h4" marginTop={2}>
+              Usuários
+            </Typography>
+            <Divider fullWidth />
+          </Grid>
         </Grid>
+        {views.list}
       </Container>
-      <Container maxWidth="xl">{views.list}</Container>
       <Dialog
         open={state.openDialog}
         onClose={closeDialog}

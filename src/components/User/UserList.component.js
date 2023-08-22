@@ -28,22 +28,16 @@ const UserList = ({ users, openDialog }) => {
         field: "name",
         headerName: "Nome",
         flex: 2,
-        align: "center",
-        headerAlign: "center",
       },
       {
         field: "email",
         headerName: "E-mail",
         flex: 2,
-        align: "center",
-        headerAlign: "center",
       },
       {
         field: "active",
         headerName: "Situação",
         flex: 1,
-        align: "center",
-        headerAlign: "center",
         renderCell: (params) =>
           params.row.active ? (
             <Chip label="Ativo" color="success" />
@@ -55,8 +49,6 @@ const UserList = ({ users, openDialog }) => {
         field: "permissions",
         headerName: "Perfil",
         flex: 1,
-        align: "center",
-        headerAlign: "center",
       },
       {
         field: "actions",
@@ -130,7 +122,7 @@ const UserList = ({ users, openDialog }) => {
 
   return (
     <Grid container spacing={3} className={styles.userListGrid}>
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={3} >
         <TextField
           fullWidth
           variant="outlined"
@@ -140,7 +132,7 @@ const UserList = ({ users, openDialog }) => {
         />
         <FormHelperText>Pesquisar por nome, email...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={2} >
         <Select
           fullWidth
           variant="outlined"
@@ -153,7 +145,7 @@ const UserList = ({ users, openDialog }) => {
         </Select>
         <FormHelperText>Filtrar por situação</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={4} lg={4} className={styles.buttonGrid}>
+      <Grid item xs={12} md={7} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}

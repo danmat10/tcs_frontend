@@ -32,21 +32,23 @@ const CreateUser = ({ onCreate, onClose }) => {
         <FormikProvider value={formik}>
           <form onSubmit={formik.handleSubmit}>
             <UserFormFields formik={formik} />
-            <Divider sx={{ marginTop: 5 }} />
-            <DialogActions>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => onClose()}
-              >
-                Cancelar
-              </Button>
-              <Button type="submit" variant="contained">
-                Cadastrar
-              </Button>
-            </DialogActions>
           </form>
         </FormikProvider>
+      </DialogContent>
+      <Divider sx={{ marginTop: 3 }} />
+      <DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => onClose()}
+          >
+            Cancelar
+          </Button>
+          <Button type="submit" variant="contained" onClick={() => formik.submitForm()}>
+            Cadastrar
+          </Button>
+        </DialogActions>
       </DialogContent>
     </>
   );

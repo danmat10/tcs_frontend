@@ -1,7 +1,7 @@
 .userListGrid {
   background-color: white;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 
 .buttonGrid {
@@ -17,4 +17,13 @@
 .userDialogTitle {
   background: linear-gradient(90.83deg, #0066ff 8.37%, #00c2ff 96.86%);
   color: white;
+}
+
+.gridBreadCrumb {
+  padding: 0 !important;
+}
+
+.formFields {
+  padding-top: 5px;
+  padding-left: 20px;
 }
