@@ -1,52 +1,68 @@
 const validateProfileContactsForm = (values, user) => {
-  return true;
   const errors = {};
 
-  if (values.contatos && values.contatos.length > 0) {
-    errors.contatos = values.contatos.map((contato, index) => {
+  if (values.contacts && values.contacts.length > 0) {
+    errors.contacts = values.contacts.map((contato, index) => {
       const contatoErrors = {};
-      if (!contato.tipo) {
-        contatoErrors.tipo = "Obrigatório";
+      if (!contato.typeContacts) {
+        contatoErrors.typeContacts = "Obrigatório";
       }
-      if (!contato.contato) {
-        contatoErrors.contato = "Obrigatório";
+      if (!contato.dsContato) {
+        contatoErrors.dsContato = "Obrigatório";
       }
       return contatoErrors;
     });
 
-    if (errors.contatos.every((contato) => !contato.tipo && !contato.contato)) {
-      delete errors.contatos;
+    if (
+      errors.contacts.every(
+        (contato) => !contato.typeContacts && !contato.dsContato
+      )
+    ) {
+      delete errors.contacts;
     }
   }
 
-  if (values.contatos) {
-    values.contatos.forEach((contato, index) => {
-      if (contato.tipo === "" && contato.contato !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          tipo: "Obrigatório",
+  if (values.contacts) {
+    values.contacts.forEach((contato, index) => {
+      if (contato.typeContacts === "" && contato.dsContato !== "") {
+        errors.contacts = errors.contacts || [];
+        errors.contacts[index] = {
+          ...errors.contacts[index],
+          typeContacts: "Obrigatório",
         };
       }
-      if (contato.contato === "" && contato.tipo !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          contato: "Obrigatório",
+      if (contato.dsContato === "" && contato.typeContacts !== "") {
+        errors.contacts = errors.contacts || [];
+        errors.contacts[index] = {
+          ...errors.contacts[index],
+          dsContato: "Obrigatório",
         };
       }
     });
   }
 
-  if (JSON.stringify(values.contatos) === JSON.stringify(user.contatos)) {
+  if (JSON.stringify(values.contacts) === JSON.stringify(user.contacts)) {
     errors._errors = "Nenhuma alteração foi feita";
+  }
+  let hasEmail = false;
+
+  if (values.contacts) {
+    for (let i = 0; i < values.contacts.length; i++) {
+      if (values.contacts[i].typeContacts === "E-mail") {
+        hasEmail = true;
+        break;
+      }
+    }
+
+    if (!hasEmail) {
+      errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+    }
   }
 
   return errors;
 };
 
 const passwordValidation = (values) => {
-  return true;
   const errors = {};
 
   if (!values.currentPassword) {

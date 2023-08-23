@@ -1,18 +1,67 @@
-const validateCPF = (cpf) => {
-  if (cpf.length !== 11 && cpf.length !== 14) {
-    return "CPF inválido";
+const validateCPForCNPJ = (value) => {
+  const cleanValue = value.replace(/\D/g, "");
+
+  if (cleanValue.length === 11) {
+    if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value)) {
+      return "Formato de CPF inválido";
+    }
+    return "";
   }
-  if (cpf.length === 14 && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
-    return "Formato de CPF inválido";
+
+  if (cleanValue.length === 14) {
+    if (!/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/.test(value)) {
+      return "Formato de CNPJ inválido";
+    }
+    return "";
   }
-  if (/\D/.test(cpf) && cpf.length !== 14) {
-    return "CPF inválido";
-  }
-  return "";
+
+  return "CPF/CNPJ inválido";
 };
 
-const validateUserCreateForm = (values) => {
+function validateContacts(contacts) {
   const errors = {};
+
+  if (contacts && contacts.length > 0) {
+    errors.contacts = contacts.map((contato) => {
+      const contatoErrors = {};
+      if (!contato.typeContacts) {
+        contatoErrors.typeContacts = "Obrigatório";
+      }
+      if (!contato.dsContato) {
+        contatoErrors.dsContato = "Obrigatório";
+      }
+      return contatoErrors;
+    });
+
+    if (
+      errors.contacts.every(
+        (contato) => !contato.typeContacts && !contato.dsContato
+      )
+    ) {
+      delete errors.contacts;
+    }
+
+    let hasEmail = false;
+    for (let i = 0; i < contacts.length; i++) {
+      if (contacts[i].typeContacts === "E-mail") {
+        hasEmail = true;
+        break;
+      }
+    }
+
+    if (!hasEmail) {
+      errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+    }
+  } else {
+    errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+  }
+
+  return errors;
+}
+
+const validateUserCreateForm = (values) => {
+  const errors = validateContacts(values.contacts);
+
   if (!values.nmUsuario) {
     errors.nmUsuario = "Obrigatório";
   }
@@ -23,29 +72,9 @@ const validateUserCreateForm = (values) => {
     errors.typeUser = "Obrigatório";
   }
 
-  const cpfError = validateCPF(values.nrCpf);
+  const cpfError = validateCPForCNPJ(values.nrCpf);
   if (cpfError) {
     errors.nrCpf = cpfError;
-  }
-
-  if (values.contacts && values.contacts.length > 0) {
-    errors.contacts = values.contacts.map((contact) => {
-      const contactErrors = {};
-
-      if (!contact.typeContacts) {
-        contactErrors.typeContacts = "Obrigatório";
-      }
-
-      if (!contact.dsContato) {
-        contactErrors.dsContato = "Obrigatório";
-      }
-
-      return contactErrors;
-    });
-
-    if (errors.contacts.every((contact) => !contact.typeContacts && !contact.dsContato)) {
-      delete errors.contacts;
-    }
   }
 
   return errors;
@@ -53,23 +82,12 @@ const validateUserCreateForm = (values) => {
 
 const validateUserEditForm = (values, user) => {
   const errors = validateUserCreateForm(values);
-  if (values.contacts) {
-    values.contacts.forEach((contact, index) => {
-      if (contact.typeContacts === "" && contact.dsContato !== "") {
-        errors.contacts = errors.contacts || [];
-        errors.contacts[index] = {
-          ...errors.contacts[index],
-          typeContacts: "Obrigatório",
-        };
-      }
-      if (contact.dsContato === "" && contact.typeContacts !== "") {
-        errors.contacts = errors.contacts || [];
-        errors.contacts[index] = {
-          ...errors.contacts[index],
-          dsContato: "Obrigatório",
-        };
-      }
-    });
+  const contactsErrors = validateContacts(values.contacts);
+  if (contactsErrors.contacts) {
+    errors.contacts = contactsErrors.contacts;
+  }
+  if (contactsErrors._errors) {
+    errors._errors = contactsErrors._errors;
   }
 
   if (
@@ -77,14 +95,10 @@ const validateUserEditForm = (values, user) => {
     values.nrCpf === user.nrCpf &&
     values.nrMatricula === user.nrMatricula &&
     values.typeUser === user.typeUser &&
-    values.active === user.active &&
+    values.flStatus === user.flStatus &&
     JSON.stringify(values.contacts) === JSON.stringify(user.contacts)
   ) {
-    errors.nmUsuario = "Nenhuma alteração foi feita";
-    errors.nrCpf = "Nenhuma alteração foi feita";
-    errors.nrMatricula = "Nenhuma alteração foi feita";
-    errors.typeUser = "Nenhuma alteração foi feita";
-    errors.active = "Nenhuma alteração foi feita";
+    errors._errors = "Nenhuma alteração foi feita";
   }
 
   return errors;
