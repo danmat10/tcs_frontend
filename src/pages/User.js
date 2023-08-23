@@ -128,9 +128,7 @@ const UserPage = () => {
       <Container
         maxWidth="xl"
         sx={{
-          marginLeft: "20px",
-          marginRight: "20px",
-          marginBottom: "20px",
+          margin: "auto",
           width: "auto",
         }}
       >

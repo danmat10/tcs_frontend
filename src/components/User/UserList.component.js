@@ -19,7 +19,7 @@ import { styles } from ".";
 const UserList = ({ users, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
-  const [situationFilter, setSituationFilter] = useState("Todos");
+  const [situationFilter, setSituationFilter] = useState("Ativo");
   const columns = getColumns(isMobile);
 
   function getColumns(isMobile) {
@@ -30,8 +30,8 @@ const UserList = ({ users, openDialog }) => {
         flex: 2,
       },
       {
-        field: "email",
-        headerName: "E-mail",
+        field: "nrMatricula",
+        headerName: "Matrícula",
         flex: 2,
       },
       {
@@ -49,6 +49,10 @@ const UserList = ({ users, openDialog }) => {
         field: "typeUser",
         headerName: "Perfil",
         flex: 1,
+        renderCell: (params) =>
+          params.row.typeUser === "Admin"
+            ? "Administrador"
+            : params.row.typeUser,
       },
       {
         field: "actions",
@@ -105,6 +109,7 @@ const UserList = ({ users, openDialog }) => {
       user.nrCpf,
       user.nrMatricula,
       user.typeUser,
+      user.flStatus,
     ].some(
       (value) =>
         typeof value === "string" &&
@@ -117,9 +122,9 @@ const UserList = ({ users, openDialog }) => {
 
     switch (situationFilter) {
       case "Ativo":
-        return doesMatchSearch && user.flStatus;
+        return doesMatchSearch && user.flStatus === "Ativo";
       case "Inativo":
-        return doesMatchSearch && !user.flStatus;
+        return doesMatchSearch && user.flStatus === "Inativo";
       case "Todos":
       default:
         return doesMatchSearch;
@@ -128,7 +133,7 @@ const UserList = ({ users, openDialog }) => {
 
   return (
     <Grid container spacing={3} className={styles.userListGrid}>
-      <Grid item xs={12} md={3} >
+      <Grid item xs={12} md={3}>
         <TextField
           fullWidth
           variant="outlined"
@@ -138,7 +143,7 @@ const UserList = ({ users, openDialog }) => {
         />
         <FormHelperText>Pesquisar por nome, email...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={2} >
+      <Grid item xs={12} md={2}>
         <Select
           fullWidth
           variant="outlined"

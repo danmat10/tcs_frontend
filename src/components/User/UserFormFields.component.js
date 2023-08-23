@@ -21,8 +21,20 @@ import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 import { styles } from ".";
 
-
 const UserFormFields = ({ formik, isEditing = false }) => {
+  const maskCpfOrCnpj = (value) => {
+    value = value.replace(/\D/g, "");
+    if (value.length > 11) {
+      value = value.replace(
+        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+        "$1.$2.$3/$4-$5"
+      );
+    } else {
+      value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+
+    return value;
+  };
 
   const handleSwitchChange = (event) => {
     const { name, checked } = event.target;
@@ -42,7 +54,8 @@ const UserFormFields = ({ formik, isEditing = false }) => {
             value={formik.values.nmUsuario}
             error={formik.touched.nmUsuario && Boolean(formik.errors.nmUsuario)}
             helperText={formik.touched.nmUsuario && formik.errors.nmUsuario}
-          /></Grid>
+          />
+        </Grid>
         <Grid item md={11} xs={12}>
           <TextField
             fullWidth
@@ -51,17 +64,22 @@ const UserFormFields = ({ formik, isEditing = false }) => {
             type="text"
             onChange={formik.handleChange}
             value={formik.values.nrMatricula}
-            error={formik.touched.nrMatricula && Boolean(formik.errors.nrMatricula)}
+            error={
+              formik.touched.nrMatricula && Boolean(formik.errors.nrMatricula)
+            }
             helperText={formik.touched.nrMatricula && formik.errors.nrMatricula}
           />
         </Grid>
         <Grid item md={11} xs={12}>
           <TextField
             fullWidth
-            label="Digite o CPF"
+            label="Digite o CPF/CNPJ"
             name="nrCpf"
             type="text"
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              const maskedValue = maskCpfOrCnpj(e.target.value);
+              formik.setFieldValue("nrCpf", maskedValue);
+            }}
             value={formik.values.nrCpf}
             error={formik.touched.nrCpf && Boolean(formik.errors.nrCpf)}
             helperText={formik.touched.nrCpf && formik.errors.nrCpf}
@@ -141,7 +159,9 @@ const UserFormFields = ({ formik, isEditing = false }) => {
                 <Grid item xs={12} md={5}>
                   <FormControl component="fieldset" margin="dense" fullWidth>
                     <Button
-                      onClick={() => push({ tipo: "", contato: "" })}
+                      onClick={() =>
+                        push({ typeContacts: "E-mail", dsContato: "" })
+                      }
                       color="primary"
                       variant="outlined"
                     >
@@ -155,21 +175,25 @@ const UserFormFields = ({ formik, isEditing = false }) => {
         </FieldArray>
       </FormControl>
       <Grid container alignItems="center">
-        <Grid item md={12} sx={
-          {
+        <Grid
+          item
+          md={12}
+          sx={{
             display: "flex",
             flexDirection: "row",
             marginTop: "10px",
-          }
-        }>
+          }}
+        >
           <Grid item md={8}>
             <FormLabel component="legend">Permissões</FormLabel>
           </Grid>
           {isEditing && (
             <Grid item md={3}>
-              <FormGroup sx={{
-                alignItems: "center",
-              }}>
+              <FormGroup
+                sx={{
+                  alignItems: "center",
+                }}
+              >
                 <FormControlLabel
                   control={
                     <Switch
@@ -179,13 +203,17 @@ const UserFormFields = ({ formik, isEditing = false }) => {
                       color="primary"
                     />
                   }
-                  label={formik.values.flStatus === "Ativo" ? "Ativo" : "Inativo"}
+                  label={
+                    formik.values.flStatus === "Ativo" ? "Ativo" : "Inativo"
+                  }
                   sx={{
                     marginRight: "0px",
                   }}
                 />
                 {formik.touched.flStatus && formik.errors.flStatus && (
-                  <FormHelperText error>{formik.errors.flStatus}</FormHelperText>
+                  <FormHelperText error>
+                    {formik.errors.flStatus}
+                  </FormHelperText>
                 )}
               </FormGroup>
             </Grid>
@@ -204,11 +232,7 @@ const UserFormFields = ({ formik, isEditing = false }) => {
               control={<Radio />}
               label="Gestor"
             />
-            <FormControlLabel
-              value="Peão"
-              control={<Radio />}
-              label="Peão"
-            />
+            <FormControlLabel value="Peão" control={<Radio />} label="Peão" />
             <FormControlLabel
               value="Admin"
               control={<Radio />}
@@ -220,8 +244,11 @@ const UserFormFields = ({ formik, isEditing = false }) => {
           </RadioGroup>
         </FormControl>
       </Grid>
+      {formik.touched.contacts && formik.errors._errors && (
+        <FormHelperText error>{formik.errors._errors}</FormHelperText>
+      )}
     </div>
   );
-}
+};
 
 export default UserFormFields;
