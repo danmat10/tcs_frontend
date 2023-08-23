@@ -25,7 +25,7 @@ const UserList = ({ users, openDialog }) => {
   function getColumns(isMobile) {
     const baseColumns = [
       {
-        field: "name",
+        field: "nmUsuario",
         headerName: "Nome",
         flex: 2,
       },
@@ -35,18 +35,18 @@ const UserList = ({ users, openDialog }) => {
         flex: 2,
       },
       {
-        field: "active",
+        field: "flStatus",
         headerName: "Situação",
         flex: 1,
         renderCell: (params) =>
-          params.row.active ? (
+          params.row.flStatus === "Ativo" ? (
             <Chip label="Ativo" color="success" />
           ) : (
             <Chip label="Inativo" color="error" />
           ),
       },
       {
-        field: "permissions",
+        field: "typeUser",
         headerName: "Perfil",
         flex: 1,
       },
@@ -99,7 +99,13 @@ const UserList = ({ users, openDialog }) => {
   }
 
   function matchesSearch(user) {
-    return Object.values(user).some(
+    return [
+      user.nmUsuario,
+      user.email,
+      user.nrCpf,
+      user.nrMatricula,
+      user.typeUser,
+    ].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
@@ -111,9 +117,9 @@ const UserList = ({ users, openDialog }) => {
 
     switch (situationFilter) {
       case "Ativo":
-        return doesMatchSearch && user.active;
+        return doesMatchSearch && user.flStatus;
       case "Inativo":
-        return doesMatchSearch && !user.active;
+        return doesMatchSearch && !user.flStatus;
       case "Todos":
       default:
         return doesMatchSearch;

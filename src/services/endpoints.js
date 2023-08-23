@@ -1,17 +1,19 @@
 import { BASEURL } from "config";
 
+const SPRINGURL = "http://localhost:8080";
+
 const ENDPOINTS = {
   AUTH: {
     LOGIN: BASEURL + "/auth/login",
     REFRESH: BASEURL + "/auth/refresh",
   },
   USER: {
-    POST: BASEURL + "/db/users",
-    GET: BASEURL + "/db/users",
-    GET_ID: (id) => BASEURL + "/db/users/" + id,
-    PATCH: BASEURL + "/db/users/",
-    PATCH_ID: (id) => BASEURL + "/db/users/" + id,
-    DELETE: BASEURL + "/db/users/",
+    POST: SPRINGURL + "/api/users",
+    GET: SPRINGURL + "/api/users",
+    GET_ID: (id) => SPRINGURL + "/api/users/" + id,
+    PATCH: SPRINGURL + "/api/users/",
+    PATCH_ID: (id) => SPRINGURL + "/api/users/" + id,
+    DELETE: SPRINGURL + "/api/users/",
     PROFILE: {
       GET_PHOTO: (id) => BASEURL + "/uploads/" + id,
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",

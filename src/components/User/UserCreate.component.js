@@ -7,15 +7,15 @@ import { DialogForm } from "components/Common";
 const CreateUser = ({ onCreate, onClose }) => {
   const formik = useFormik({
     initialValues: {
-      name: "",
-      registration: "",
-      cpf: "",
-      email: "",
-      permissions: "",
-      active: true,
-      contatos: [{ tipo: "", contato: "" }],
+      nmUsuario: "",
+      nrMatricula: "",
+      nrCpf: "",
+      typeUser: "",
+      flStatus: "Ativo",
+      contacts: [{ typeContacts: "E-mail", dsContato: "" }],
     },
     validate: (values) => validateUserCreateForm(values),
+    validateOnChange: false,
     onSubmit: (values) => {
       onCreate(values);
       formik.resetForm();

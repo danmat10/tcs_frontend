@@ -30,7 +30,7 @@ export default function ProfileTabAccount() {
   const fileInputRef = useRef();
   const formik = useFormik({
     initialValues: {
-      contatos: user.contatos || [],
+      contacts: user.contacts || [],
     },
     validate: (values) => validateProfileContactsForm(values, user),
     validateOnChange: false,
@@ -45,7 +45,7 @@ export default function ProfileTabAccount() {
     }
     if (user) {
       formik.resetForm({
-        values: { contatos: user.contatos || [] },
+        values: { contacts: user.contacts || [] },
       });
     }
   }, [user]);
@@ -154,36 +154,29 @@ export default function ProfileTabAccount() {
         <Grid item xs={12} md={5}>
           <FormControl component="fieldset" margin="normal" fullWidth>
             <TextField
-              label="Login"
-              value={user.login || ""}
-              disabled
-              fullWidth
-              margin="normal"
-            />
-            <TextField
               label="Name"
-              value={user.name || ""}
+              value={user.nmUsuario || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
               label="CPF"
-              value={user.cpf || ""}
+              value={user.nrCpf || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
-              label="Registration"
-              value={user.registration || ""}
+              label="Matrícula"
+              value={user.nrMatricula || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
-              label="Email"
-              value={user.email || ""}
+              label="Permissões"
+              value={user.typeUser || ""}
               disabled
               fullWidth
               margin="normal"

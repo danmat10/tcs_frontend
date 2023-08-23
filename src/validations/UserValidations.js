@@ -13,45 +13,38 @@ const validateCPF = (cpf) => {
 
 const validateUserCreateForm = (values) => {
   const errors = {};
-  if (!values.name) {
-    errors.name = "Obrigatório";
+  if (!values.nmUsuario) {
+    errors.nmUsuario = "Obrigatório";
   }
-  if (!values.email) {
-    errors.email = "Obrigatório";
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email = "Endereço de e-mail inválido";
+  if (!values.nrMatricula) {
+    errors.nrMatricula = "Obrigatório";
   }
-
-  if (!values.registration) {
-    errors.registration = "Obrigatório";
+  if (!values.typeUser) {
+    errors.typeUser = "Obrigatório";
   }
 
-  if (!values.permissions) {
-    errors.permissions = "Obrigatório";
-  }
-
-  const cpfError = validateCPF(values.cpf);
+  const cpfError = validateCPF(values.nrCpf);
   if (cpfError) {
-    errors.cpf = cpfError;
+    errors.nrCpf = cpfError;
   }
 
-  if (values.contatos && values.contatos.length > 0) {
-    errors.contatos = values.contatos.map((contato, index) => {
-      const contatoErrors = {};
+  if (values.contacts && values.contacts.length > 0) {
+    errors.contacts = values.contacts.map((contact) => {
+      const contactErrors = {};
 
-      if (!contato.tipo) {
-        contatoErrors.tipo = "Obrigatório";
+      if (!contact.typeContacts) {
+        contactErrors.typeContacts = "Obrigatório";
       }
 
-      if (!contato.contato) {
-        contatoErrors.contato = "Obrigatório";
+      if (!contact.dsContato) {
+        contactErrors.dsContato = "Obrigatório";
       }
 
-      return contatoErrors;
+      return contactErrors;
     });
 
-    if (errors.contatos.every((contato) => !contato.tipo && !contato.contato)) {
-      delete errors.contatos;
+    if (errors.contacts.every((contact) => !contact.typeContacts && !contact.dsContato)) {
+      delete errors.contacts;
     }
   }
 
@@ -60,39 +53,37 @@ const validateUserCreateForm = (values) => {
 
 const validateUserEditForm = (values, user) => {
   const errors = validateUserCreateForm(values);
-  if (values.contatos) {
-    values.contatos.forEach((contato, index) => {
-      if (contato.tipo === "" && contato.contato !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          tipo: "Obrigatório",
+  if (values.contacts) {
+    values.contacts.forEach((contact, index) => {
+      if (contact.typeContacts === "" && contact.dsContato !== "") {
+        errors.contacts = errors.contacts || [];
+        errors.contacts[index] = {
+          ...errors.contacts[index],
+          typeContacts: "Obrigatório",
         };
       }
-      if (contato.contato === "" && contato.tipo !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          contato: "Obrigatório",
+      if (contact.dsContato === "" && contact.typeContacts !== "") {
+        errors.contacts = errors.contacts || [];
+        errors.contacts[index] = {
+          ...errors.contacts[index],
+          dsContato: "Obrigatório",
         };
       }
     });
   }
 
   if (
-    values.name === user.name &&
-    values.email === user.email &&
-    values.cpf === user.cpf &&
-    values.registration === user.registration &&
-    values.permissions === user.permissions &&
+    values.nmUsuario === user.nmUsuario &&
+    values.nrCpf === user.nrCpf &&
+    values.nrMatricula === user.nrMatricula &&
+    values.typeUser === user.typeUser &&
     values.active === user.active &&
-    JSON.stringify(values.contatos) === JSON.stringify(user.contatos)
+    JSON.stringify(values.contacts) === JSON.stringify(user.contacts)
   ) {
-    errors.name = "Nenhuma alteração foi feita";
-    errors.email = "Nenhuma alteração foi feita";
-    errors.cpf = "Nenhuma alteração foi feita";
-    errors.registration = "Nenhuma alteração foi feita";
-    errors.permissions = "Nenhuma alteração foi feita";
+    errors.nmUsuario = "Nenhuma alteração foi feita";
+    errors.nrCpf = "Nenhuma alteração foi feita";
+    errors.nrMatricula = "Nenhuma alteração foi feita";
+    errors.typeUser = "Nenhuma alteração foi feita";
     errors.active = "Nenhuma alteração foi feita";
   }
 

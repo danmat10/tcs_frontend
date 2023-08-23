@@ -7,13 +7,12 @@ import { DialogForm } from "components/Common";
 const UserEdit = ({ user, onUpdate, onClose }) => {
   const formik = useFormik({
     initialValues: {
-      name: user.name || "",
-      email: user.email || "",
-      cpf: user.cpf || "",
-      registration: user.registration || "",
-      permissions: user.permissions || "",
-      active: user.active || false,
-      contatos: user.contatos || [],
+      nmUsuario: user.nmUsuario || "",
+      nrMatricula: user.nrMatricula || "",
+      nrCpf: user.nrCpf || "",
+      typeUser: user.typeUser || "",
+      flStatus: user.flStatus || "",
+      contacts: user.contacts || []
     },
     validate: (values) => validateUserEditForm(values, user),
     onSubmit: (values) => {

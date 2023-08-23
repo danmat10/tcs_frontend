@@ -16,10 +16,10 @@ import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 const UserFormFields = ({ formik }) => (
   <>
     <FormControl component="fieldset" margin="normal" fullWidth>
-      <FieldArray name="contatos">
+      <FieldArray name="contacts">
         {({ push, remove }) => (
           <>
-            {formik.values.contatos.map((contato, index) => (
+            {formik.values.contacts.map((contato, index) => (
               <Grid container spacing={2} key={index} alignItems="center">
                 <Grid item md={5} xs={12}>
                   <FormControl
@@ -27,31 +27,31 @@ const UserFormFields = ({ formik }) => (
                     margin="normal"
                     variant="outlined"
                     error={
-                      formik.touched.contatos &&
-                      Boolean(formik.errors.contatos?.[index]?.tipo)
+                      formik.touched.contacts &&
+                      Boolean(formik.errors.contacts?.[index]?.typeContacts)
                     }
                   >
                     <InputLabel
                       variant="outlined"
-                      id={`contatos.${index}.tipo`}
+                      id={`contacts.${index}.typeContacts`}
                     >
                       Tipo de contato
                     </InputLabel>
                     <Select
-                      value={contato.tipo}
+                      value={contato.typeContacts}
                       onChange={formik.handleChange}
-                      labelId={`contatos.${index}.tipo`}
+                      labelId={`contacts.${index}.typeContacts`}
                       label="Tipo de contato"
-                      name={`contatos.${index}.tipo`}
+                      name={`contacts.${index}.typeContacts`}
                     >
                       <MenuItem value={"Celular"}>Celular</MenuItem>
                       <MenuItem value={"Telefone"}>Telefone</MenuItem>
                       <MenuItem value={"E-mail"}>E-mail</MenuItem>
                     </Select>
-                    {formik.touched.contatos &&
-                      formik.errors.contatos?.[index]?.tipo && (
+                    {formik.touched.contacts &&
+                      formik.errors.contacts?.[index]?.typeContacts && (
                         <FormHelperText error>
-                          {formik.errors.contatos?.[index]?.tipo}
+                          {formik.errors.contacts?.[index]?.typeContacts}
                         </FormHelperText>
                       )}
                   </FormControl>
@@ -60,18 +60,18 @@ const UserFormFields = ({ formik }) => (
                   <TextField
                     fullWidth
                     label="Digite o contato"
-                    name={`contatos.${index}.contato`}
+                    name={`contacts.${index}.dsContato`}
                     type="text"
                     margin="normal"
                     onChange={formik.handleChange}
-                    value={contato.contato}
+                    value={contato.dsContato}
                     error={
-                      formik.touched.contatos &&
-                      Boolean(formik.errors.contatos?.[index]?.contato)
+                      formik.touched.contacts &&
+                      Boolean(formik.errors.contacts?.[index]?.dsContato)
                     }
                     helperText={
-                      formik.touched.contatos &&
-                      formik.errors.contatos?.[index]?.contato
+                      formik.touched.contacts &&
+                      formik.errors.contacts?.[index]?.dsContato
                     }
                   />
                 </Grid>
@@ -82,7 +82,7 @@ const UserFormFields = ({ formik }) => (
                 </Grid>
               </Grid>
             ))}
-            {formik.touched.contatos && formik.errors._errors && (
+            {formik.touched.contacts && formik.errors._errors && (
               <FormControl component="fieldset" margin="normal" fullWidth error>
                 <FormHelperText>{formik.errors._errors}</FormHelperText>
               </FormControl>
@@ -91,7 +91,7 @@ const UserFormFields = ({ formik }) => (
               <Grid item xs={12} md={5}>
                 <FormControl component="fieldset" margin="normal" fullWidth>
                   <Button
-                    onClick={() => push({ tipo: "", contato: "" })}
+                    onClick={() => push({ typeContacts: "", dsContato: "" })}
                     color="primary"
                     variant="outlined"
                   >

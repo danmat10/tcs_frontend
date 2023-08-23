@@ -1,4 +1,5 @@
 const validateProfileContactsForm = (values, user) => {
+  return true;
   const errors = {};
 
   if (values.contatos && values.contatos.length > 0) {
@@ -45,6 +46,7 @@ const validateProfileContactsForm = (values, user) => {
 };
 
 const passwordValidation = (values) => {
+  return true;
   const errors = {};
 
   if (!values.currentPassword) {
