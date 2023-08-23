@@ -32,7 +32,16 @@ const apiCall = async (
       .promise(axios(config), {
         pending: toastConfig.pending,
         success: toastConfig.success,
-        error: toastConfig.error,
+        error: {
+          render({ data }) {
+            console.log(data.response.data.message);
+            const errorMessage =
+              data.response && data.response.data && data.response.data.message
+                ? data.response.data.message
+                : "";
+            return toastConfig.error + errorMessage;
+          },
+        },
       })
       .then((response) => response.data)
       .catch((error) => {
