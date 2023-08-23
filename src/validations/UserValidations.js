@@ -18,7 +18,7 @@ const validateCPForCNPJ = (value) => {
   return "CPF/CNPJ inválido";
 };
 
-function validateContacts(contacts) {
+function validateContacts(contacts, user = {}) {
   const errors = {};
 
   if (contacts && contacts.length > 0) {
@@ -54,6 +54,10 @@ function validateContacts(contacts) {
     }
   } else {
     errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+  }
+
+  if (user && JSON.stringify(contacts) === JSON.stringify(user.contacts)) {
+    errors._errors = "Nenhuma alteração foi feita";
   }
 
   return errors;
@@ -104,4 +108,4 @@ const validateUserEditForm = (values, user) => {
   return errors;
 };
 
-export { validateUserCreateForm, validateUserEditForm };
+export { validateUserCreateForm, validateUserEditForm, validateContacts };

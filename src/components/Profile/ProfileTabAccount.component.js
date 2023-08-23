@@ -18,7 +18,7 @@ import UserContext from "contexts/UserContext";
 import apiCall from "services/apiCall";
 import placeholder_image from "assets/images/placeholder_image.jpg";
 import { MESSAGES } from "config";
-import { validateProfileContactsForm } from "validations";
+import { validateContacts } from "validations";
 import { ProfileContactsFormFields, styles } from ".";
 
 export default function ProfileTabAccount() {
@@ -32,7 +32,7 @@ export default function ProfileTabAccount() {
     initialValues: {
       contacts: user.contacts || [],
     },
-    validate: (values) => validateProfileContactsForm(values, user),
+    validate: (values) => validateContacts(values.contacts, user),
     validateOnChange: false,
     onSubmit: (values) => {
       onUpdate(values);

@@ -47,6 +47,8 @@ const UserFormFields = ({ formik }) => (
                       <MenuItem value={"Celular"}>Celular</MenuItem>
                       <MenuItem value={"Telefone"}>Telefone</MenuItem>
                       <MenuItem value={"E-mail"}>E-mail</MenuItem>
+                      <MenuItem value={"WhatsApp"}>WhatsApp</MenuItem>
+                      <MenuItem value={"Instagran"}>Instagram</MenuItem>
                     </Select>
                     {formik.touched.contacts &&
                       formik.errors.contacts?.[index]?.typeContacts && (
@@ -83,15 +85,15 @@ const UserFormFields = ({ formik }) => (
               </Grid>
             ))}
             {formik.touched.contacts && formik.errors._errors && (
-              <FormControl component="fieldset" margin="normal" fullWidth error>
-                <FormHelperText>{formik.errors._errors}</FormHelperText>
-              </FormControl>
+              <FormHelperText error>{formik.errors._errors}</FormHelperText>
             )}
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12} md={5}>
                 <FormControl component="fieldset" margin="normal" fullWidth>
                   <Button
-                    onClick={() => push({ typeContacts: "", dsContato: "" })}
+                    onClick={() =>
+                      push({ typeContacts: "E-mail", dsContato: "" })
+                    }
                     color="primary"
                     variant="outlined"
                   >
