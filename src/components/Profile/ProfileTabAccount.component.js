@@ -51,10 +51,19 @@ export default function ProfileTabAccount() {
   }, [user]);
 
   const onUpdate = async (values) => {
+    const valuesToSubmit = {
+      id: user.id,
+      nmUsuario: user.nmUsuario,
+      nrMatricula: user.nrMatricula,
+      nrCpf: user.nrCpf,
+      typeUser: user.typeUser,
+      flStatus: user.flStatus,
+      contacts: values.contacts,
+    };
     await apiCall(
       "patch",
       ENDPOINTS.USER.PATCH_ID(auth().id),
-      values,
+      valuesToSubmit,
       {
         Authorization: authHeader(),
       },
