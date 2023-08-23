@@ -34,11 +34,7 @@ const apiCall = async (
         success: toastConfig.success,
         error: {
           render({ data }) {
-            console.log(data.response.data.message);
-            const errorMessage =
-              data.response && data.response.data && data.response.data.message
-                ? data.response.data.message
-                : "";
+            const errorMessage = data?.response?.data?.message || "";
             return toastConfig.error + errorMessage;
           },
         },
