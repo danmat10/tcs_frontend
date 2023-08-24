@@ -9,7 +9,7 @@ import {
   ProfileTabSecurity,
 } from "components/Profile";
 import { styles } from "components/Profile";
-import { Breadcrumb } from "components/Common";
+import { Breadcrumb, PageContainer } from "components/Common";
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -21,13 +21,7 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-      <Container
-        maxWidth="xl"
-        sx={{
-          margin: "auto",
-          width: "auto",
-        }}
-      >
+      <PageContainer>
         <Breadcrumb title="Perfil">
           <ProfileBreadcrumb />
         </Breadcrumb>
@@ -56,7 +50,7 @@ const ProfilePage = () => {
             {selectedTab === 1 && <ProfileTabSecurity />}
           </Grid>
         </Grid>
-      </Container>
+      </PageContainer>
     </>
   );
 };

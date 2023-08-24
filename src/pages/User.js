@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { Container } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 
 import {
@@ -15,6 +14,7 @@ import { Header } from "components/Header";
 import { apiCall, ENDPOINTS } from "services";
 import { MESSAGES } from "config";
 import Breadcrumb from "components/Common/Breadcrumb.component";
+import { PageContainer } from "components/Common";
 
 const UserPage = () => {
   useEffect(() => handleUpdateUserList(), []);
@@ -125,18 +125,12 @@ const UserPage = () => {
   return (
     <>
       <Header />
-      <Container
-        maxWidth="xl"
-        sx={{
-          margin: "auto",
-          width: "auto",
-        }}
-      >
+      <PageContainer>
         <Breadcrumb title="Usuários">
           <UserBreadcrumb />
         </Breadcrumb>
         {views.list}
-      </Container>
+      </PageContainer>
       <Dialog
         open={state.openDialog}
         onClose={closeDialog}

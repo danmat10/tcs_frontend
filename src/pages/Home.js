@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -13,7 +14,6 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import BuildIcon from "@mui/icons-material/Build";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import { Link } from "react-router-dom";
 
 import { Header } from "components/Header";
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
@@ -30,6 +30,7 @@ const Home = () => {
       <Container
         sx={{
           margin: "auto",
+          marginBottom: "20px",
         }}
       >
         <Grid
@@ -65,7 +66,8 @@ const Home = () => {
             >
               <Typography variant="h2">Control</Typography>
               <Typography variant="h6">
-                {user.nmUsuario} - {user.typeUser}
+                {user.nmUsuario} -{" "}
+                {user.typeUser === "Admin" ? "Administrador" : user.typeUser}
               </Typography>
             </Box>
           </Grid>
