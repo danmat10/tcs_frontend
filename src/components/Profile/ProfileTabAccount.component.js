@@ -157,7 +157,7 @@ export default function ProfileTabAccount() {
               md={12}
               textAlign={{
                 xs: "center",
-                md: "flex-start",
+                md: "left",
               }}
             >
               <Button onClick={onEditPhotoClick} variant="contained">
@@ -167,7 +167,7 @@ export default function ProfileTabAccount() {
                 sx={{
                   textAlign: {
                     xs: "center",
-                    md: "flex-start",
+                    md: "left",
                   },
                 }}
               >
