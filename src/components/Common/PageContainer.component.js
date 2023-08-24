@@ -6,7 +6,7 @@ const PageContainer = ({ children }) => {
       maxWidth="xl"
       sx={{
         margin: "auto",
-        marginLeft: { md: "20px", xl: "auto" },
+        marginLeft: { xs: "20px", xl: "auto" },
         marginBottom: "20px",
         width: "auto",
       }}
