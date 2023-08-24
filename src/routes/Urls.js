@@ -1,7 +1,7 @@
 const URLS = {
   HOME: "/",
   LOGIN: "/login",
-  USUARIO: "/user",
+  USUARIO: "/users",
   REQUISICAO: "/",
   PATRIMONIO: "/",
   DEPARTAMENTO: "/",
