@@ -115,7 +115,18 @@ export default function ProfileTabAccount() {
   return (
     <div className={styles.gridContainer}>
       <Grid container spacing={4}>
-        <Grid item xs={4} md={2}>
+        <Grid
+          item
+          xs={12}
+          md={2}
+          sx={{
+            display: "flex",
+          }}
+          justifyContent={{
+            xs: "center",
+            md: "flex-start",
+          }}
+        >
           <Avatar
             src={previewSrc}
             alt={user.name}
@@ -131,7 +142,7 @@ export default function ProfileTabAccount() {
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={12}
           md={3}
           sx={{
             display: "flex",
@@ -140,11 +151,28 @@ export default function ProfileTabAccount() {
           }}
         >
           {!file && (
-            <Grid item xs={12} md={12}>
+            <Grid
+              item
+              xs={12}
+              md={12}
+              textAlign={{
+                xs: "center",
+                md: "flex-start",
+              }}
+            >
               <Button onClick={onEditPhotoClick} variant="contained">
                 Carregar uma imagem
               </Button>
-              <FormHelperText>Adicione uma imagem de perfil.</FormHelperText>
+              <FormHelperText
+                sx={{
+                  textAlign: {
+                    xs: "center",
+                    md: "flex-start",
+                  },
+                }}
+              >
+                Adicione uma imagem de perfil.
+              </FormHelperText>
             </Grid>
           )}
           {file && (
@@ -159,8 +187,14 @@ export default function ProfileTabAccount() {
           )}
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={5}>
+      <Grid
+        container
+        spacing={{
+          xs: 0,
+          md: 2,
+        }}
+      >
+        <Grid item xs={11} md={5}>
           <FormControl component="fieldset" margin="normal" fullWidth>
             <TextField
               label="Name"
@@ -192,22 +226,33 @@ export default function ProfileTabAccount() {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={11} md={6}>
           <FormikProvider value={formik}>
-            <Form onSubmit={formik.handleSubmit}>
-              <ProfileContactsFormFields formik={formik} />
-            </Form>
+            <FormControl component="fieldset" margin="normal" fullWidth>
+              <Form onSubmit={formik.handleSubmit}>
+                <ProfileContactsFormFields formik={formik} />
+              </Form>
+            </FormControl>
           </FormikProvider>
         </Grid>
       </Grid>
-      <Button
-        type="submit"
-        variant="contained"
-        margin="normal"
-        onClick={() => formik.submitForm()}
+      <Grid
+        item
+        xs={12}
+        md={12}
+        sx={{
+          textAlign: { xs: "center", md: "start" },
+        }}
       >
-        Salvar
-      </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          margin="normal"
+          onClick={() => formik.submitForm()}
+        >
+          Salvar
+        </Button>
+      </Grid>
     </div>
   );
 }

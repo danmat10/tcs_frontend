@@ -15,16 +15,16 @@ import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 const UserFormFields = ({ formik }) => (
   <>
-    <FormControl component="fieldset" margin="normal" fullWidth>
+    <FormControl component="fieldset" margin="dense" fullWidth>
       <FieldArray name="contacts">
         {({ push, remove }) => (
           <>
             {formik.values.contacts.map((contato, index) => (
-              <Grid container spacing={2} key={index} alignItems="center">
+              <Grid container key={index} alignItems="center">
                 <Grid item md={5} xs={12}>
                   <FormControl
                     fullWidth
-                    margin="normal"
+                    margin="dense"
                     variant="outlined"
                     error={
                       formik.touched.contacts &&
@@ -64,7 +64,7 @@ const UserFormFields = ({ formik }) => (
                     label="Digite o contato"
                     name={`contacts.${index}.dsContato`}
                     type="text"
-                    margin="normal"
+                    margin="dense"
                     onChange={formik.handleChange}
                     value={contato.dsContato}
                     error={
@@ -89,7 +89,7 @@ const UserFormFields = ({ formik }) => (
             )}
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12} md={5}>
-                <FormControl component="fieldset" margin="normal" fullWidth>
+                <FormControl component="fieldset" margin="dense" fullWidth>
                   <Button
                     onClick={() =>
                       push({ typeContacts: "E-mail", dsContato: "" })

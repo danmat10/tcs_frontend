@@ -42,7 +42,7 @@ export default function ProfileTabSecurity() {
     <Grid container spacing={3} className={styles.gridContainerTabSecurity}>
       <Grid
         item
-        xs={12}
+        xs={11}
         md={4}
         sx={{
           margin: "auto",
