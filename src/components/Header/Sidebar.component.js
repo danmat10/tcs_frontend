@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
+import { URLS } from "routes";
 
 const Sidebar = ({ isOpen, onClose }) => (
   <Drawer
@@ -33,37 +34,37 @@ const Sidebar = ({ isOpen, onClose }) => (
     </Toolbar>
     <Divider />
     <List>
-      <ListItem component={Link} to="/users">
+      <ListItem component={Link} to={URLS.USUARIO}>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Usuários" />
       </ListItem>
-      <ListItem component={Link} to="/">
+      <ListItem component={Link} to={URLS.PATRIMONIO}>
         <ListItemIcon>
           <AccountBalanceIcon />
         </ListItemIcon>
         <ListItemText primary="Patrimônio" />
       </ListItem>
-      <ListItem component={Link} to="/">
+      <ListItem component={Link} to={URLS.DEPARTAMENTO}>
         <ListItemIcon>
           <BusinessCenterIcon />
         </ListItemIcon>
         <ListItemText primary="Departamentos" />
       </ListItem>
-      <ListItem component={Link} to="/">
+      <ListItem component={Link} to={URLS.REQUISICAO}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Requisições" />
       </ListItem>
-      <ListItem component={Link} to="/">
+      <ListItem component={Link} to={URLS.MANUTENCAO}>
         <ListItemIcon>
           <BuildIcon />
         </ListItemIcon>
         <ListItemText primary="Manutenções" />
       </ListItem>
-      <ListItem component={Link} to="/">
+      <ListItem component={Link} to={URLS.GESTAO}>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
