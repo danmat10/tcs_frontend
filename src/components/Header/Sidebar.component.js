@@ -4,7 +4,6 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -25,9 +24,9 @@ const Sidebar = ({ isOpen, onClose }) => (
     onClose={onClose}
     PaperProps={{
       sx: {
-        width: { xs: "100%", md: "256px" },
-        top: { xs: "56px", md: "64px" },
-        alignItems: { xs: "center", md: "flex-start" },
+        width: { xs: "100%", sm: "256px" },
+        top: { xs: "56px", sm: "64px" },
+        alignItems: { xs: "center", sm: "flex-start" },
       },
     }}
     slotProps={{ backdrop: { invisible: true } }}
@@ -42,37 +41,37 @@ const Sidebar = ({ isOpen, onClose }) => (
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Usuários" />
+        <Typography color="black">Usuários</Typography>
       </ListItem>
       <ListItem component={Link} to={URLS.PATRIMONIO}>
         <ListItemIcon>
           <AccountBalanceIcon />
         </ListItemIcon>
-        <ListItemText primary="Patrimônio" />
+        <Typography color="black">Patrimônio</Typography>
       </ListItem>
       <ListItem component={Link} to={URLS.DEPARTAMENTO}>
         <ListItemIcon>
           <BusinessCenterIcon />
         </ListItemIcon>
-        <ListItemText primary="Departamentos" />
+        <Typography color="black">Departamentos</Typography>
       </ListItem>
       <ListItem component={Link} to={URLS.REQUISICAO}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Requisições" />
+        <Typography color="black">Requisições</Typography>
       </ListItem>
       <ListItem component={Link} to={URLS.MANUTENCAO}>
         <ListItemIcon>
           <BuildIcon />
         </ListItemIcon>
-        <ListItemText primary="Manutenções" />
+        <Typography color="black">Manutenções</Typography>
       </ListItem>
       <ListItem component={Link} to={URLS.GESTAO}>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="Gestão" />
+        <Typography color="black">Gestão</Typography>
       </ListItem>
     </List>
   </Drawer>
