@@ -15,6 +15,7 @@ import { DataGrid, ptBR } from "@mui/x-data-grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { styles } from ".";
+import PageGridContent from "components/Common/PageGridContent.component";
 
 const UserList = ({ users, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -132,7 +133,7 @@ const UserList = ({ users, openDialog }) => {
   });
 
   return (
-    <Grid container spacing={3} className={styles.userListGrid}>
+    <PageGridContent>
       <Grid item xs={12} md={3}>
         <TextField
           fullWidth
@@ -177,7 +178,7 @@ const UserList = ({ users, openDialog }) => {
           localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
-    </Grid>
+    </PageGridContent>
   );
 };
 

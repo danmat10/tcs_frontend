@@ -1,9 +1,3 @@
-.userListGrid {
-  background-color: white;
-  padding-right: 20px;
-  padding-bottom: 20px;
-}
-
 .buttonGrid {
   display: flex;
   justify-content: flex-end;

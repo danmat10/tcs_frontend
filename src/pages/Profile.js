@@ -10,6 +10,7 @@ import {
 } from "components/Profile";
 import { styles } from "components/Profile";
 import { Breadcrumb, PageContainer } from "components/Common";
+import PageGridContent from "components/Common/PageGridContent.component";
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -25,7 +26,8 @@ const ProfilePage = () => {
         <Breadcrumb title="Perfil">
           <ProfileBreadcrumb />
         </Breadcrumb>
-        <Grid container spacing={3} className={styles.gridContainer}>
+        <PageGridContent>
+          {" "}
           <Tabs
             value={selectedTab}
             onChange={handleChange}
@@ -49,7 +51,7 @@ const ProfilePage = () => {
             {selectedTab === 0 && <ProfileTabAccount />}
             {selectedTab === 1 && <ProfileTabSecurity />}
           </Grid>
-        </Grid>
+        </PageGridContent>
       </PageContainer>
     </>
   );
