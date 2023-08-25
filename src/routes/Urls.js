@@ -4,10 +4,11 @@ const URLS = {
   USUARIO: "/users",
   REQUISICAO: "/",
   PATRIMONIO: "/",
-  DEPARTAMENTO: "/",
+  DEPARTAMENTO: "/departments",
   MANUTENCAO: "/",
   GESTAO: "/",
   PERFIL: "/profile",
+  ESQUECEU_SENHA: "/forgot-password",
 };
 
 export default URLS;

@@ -8,12 +8,14 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import { PeopleAlt } from "@mui/icons-material";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import BuildIcon from "@mui/icons-material/Build";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import {
+  AccountBalance,
+  Assignment,
+  BarChart,
+  Build,
+  BusinessCenter,
+  PeopleAlt,
+} from "@mui/icons-material";
 
 import { Header } from "components/Header";
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
@@ -89,7 +91,7 @@ const Home = () => {
             <Link to={URLS.PATRIMONIO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
-                  <AccountBalanceIcon className={styles.icon} />
+                  <AccountBalance className={styles.icon} />
                   <Typography variant="h6">Patrimônio</Typography>
                 </CardContent>
               </Card>
@@ -99,7 +101,7 @@ const Home = () => {
             <Link to={URLS.DEPARTAMENTO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
-                  <BusinessCenterIcon className={styles.icon} />
+                  <BusinessCenter className={styles.icon} />
                   <Typography variant="h6">Departamentos</Typography>
                 </CardContent>
               </Card>
@@ -109,7 +111,7 @@ const Home = () => {
             <Link tto={URLS.REQUISICAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
-                  <AssignmentIcon className={styles.icon} />
+                  <Assignment className={styles.icon} />
                   <Typography variant="h6">Requisições</Typography>
                 </CardContent>
               </Card>
@@ -119,7 +121,7 @@ const Home = () => {
             <Link to={URLS.MANUTENCAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
-                  <BuildIcon className={styles.icon} />
+                  <Build className={styles.icon} />
                   <Typography variant="h6">Manutenções</Typography>
                 </CardContent>
               </Card>
@@ -129,7 +131,7 @@ const Home = () => {
             <Link to={URLS.GESTAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
-                  <BarChartIcon className={styles.icon} />
+                  <BarChart className={styles.icon} />
                   <Typography variant="h6">Gestão</Typography>
                 </CardContent>
               </Card>
