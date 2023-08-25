@@ -15,16 +15,16 @@ import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 const UserFormFields = ({ formik }) => (
   <>
-    <FormControl component="fieldset" margin="dense" fullWidth>
-      <FieldArray name="contacts">
-        {({ push, remove }) => (
-          <>
+    <FieldArray name="contacts">
+      {({ push, remove }) => (
+        <>
+          <FormControl component="fieldset" margin="normal" fullWidth>
             {formik.values.contacts.map((contato, index) => (
-              <Grid container key={index} alignItems="center">
+              <Grid container key={index} alignItems="center" justifyContent="space-between">
                 <Grid item md={5} xs={12}>
                   <FormControl
                     fullWidth
-                    margin="dense"
+                    margin="normal"
                     variant="outlined"
                     error={
                       formik.touched.contacts &&
@@ -64,7 +64,7 @@ const UserFormFields = ({ formik }) => (
                     label="Digite o contato"
                     name={`contacts.${index}.dsContato`}
                     type="text"
-                    margin="dense"
+                    margin="normal"
                     onChange={formik.handleChange}
                     value={contato.dsContato}
                     error={
@@ -84,28 +84,28 @@ const UserFormFields = ({ formik }) => (
                 </Grid>
               </Grid>
             ))}
-            {formik.touched.contacts && formik.errors._errors && (
-              <FormHelperText error>{formik.errors._errors}</FormHelperText>
-            )}
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={5}>
-                <FormControl component="fieldset" margin="dense" fullWidth>
-                  <Button
-                    onClick={() =>
-                      push({ typeContacts: "E-mail", dsContato: "" })
-                    }
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Adicionar
-                  </Button>
-                </FormControl>
-              </Grid>
+          </FormControl>
+          {formik.touched.contacts && formik.errors._errors && (
+            <FormHelperText error>{formik.errors._errors}</FormHelperText>
+          )}
+          <Grid container>
+            <Grid item xs={12} md={5}>
+              <FormControl component="fieldset" margin="normal" fullWidth>
+                <Button
+                  onClick={() =>
+                    push({ typeContacts: "E-mail", dsContato: "" })
+                  }
+                  color="primary"
+                  variant="outlined"
+                >
+                  Adicionar
+                </Button>
+              </FormControl>
             </Grid>
-          </>
-        )}
-      </FieldArray>
-    </FormControl>
+          </Grid>
+        </>
+      )}
+    </FieldArray>
   </>
 );
 

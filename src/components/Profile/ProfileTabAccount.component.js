@@ -228,11 +228,9 @@ export default function ProfileTabAccount() {
         </Grid>
         <Grid item xs={11} md={6}>
           <FormikProvider value={formik}>
-            <FormControl component="fieldset" margin="normal" fullWidth>
               <Form onSubmit={formik.handleSubmit}>
                 <ProfileContactsFormFields formik={formik} />
               </Form>
-            </FormControl>
           </FormikProvider>
         </Grid>
       </Grid>
