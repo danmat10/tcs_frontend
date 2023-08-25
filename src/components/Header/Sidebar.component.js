@@ -24,7 +24,11 @@ const Sidebar = ({ isOpen, onClose }) => (
     open={isOpen}
     onClose={onClose}
     PaperProps={{
-      sx: { width: "256px", top: "64px" },
+      sx: {
+        width: { xs: "100%", md: "256px" },
+        top: { xs: "56px", md: "64px" },
+        alignItems: { xs: "center", md: "flex-start" },
+      },
     }}
     slotProps={{ backdrop: { invisible: true } }}
   >
@@ -32,7 +36,7 @@ const Sidebar = ({ isOpen, onClose }) => (
       <Logo width="85px" height="67px" />
       <Typography variant="h6">Nome do App</Typography>
     </Toolbar>
-    <Divider />
+    <Divider style={{ width: "100%" }} />
     <List>
       <ListItem component={Link} to={URLS.USUARIO}>
         <ListItemIcon>
