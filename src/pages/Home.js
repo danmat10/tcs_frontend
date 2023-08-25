@@ -35,7 +35,6 @@ const Home = () => {
       >
         <Grid
           container
-          spacing={3}
           maxWidth="md"
           sx={{
             margin: "auto",
@@ -46,7 +45,7 @@ const Home = () => {
             xs={12}
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: { xs: "column", md: "row" },
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
@@ -72,18 +71,11 @@ const Home = () => {
             </Box>
           </Grid>
         </Grid>
-        <Grid
-          container
-          spacing={3}
-          maxWidth="md"
-          sx={{
-            margin: "auto",
-          }}
-        >
+        <Grid container maxWidth="md" margin="auto" alignItems="center">
           <Grid item xs={12} textAlign="center">
             <Typography variant="h4">Para onde vamos?</Typography>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.USUARIO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
@@ -93,7 +85,7 @@ const Home = () => {
               </Card>
             </Link>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.PATRIMONIO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
@@ -103,7 +95,7 @@ const Home = () => {
               </Card>
             </Link>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.DEPARTAMENTO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
@@ -113,7 +105,7 @@ const Home = () => {
               </Card>
             </Link>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link tto={URLS.REQUISICAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
@@ -123,7 +115,7 @@ const Home = () => {
               </Card>
             </Link>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.MANUTENCAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
@@ -133,7 +125,7 @@ const Home = () => {
               </Card>
             </Link>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.GESTAO} style={{ textDecoration: "none" }}>
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>

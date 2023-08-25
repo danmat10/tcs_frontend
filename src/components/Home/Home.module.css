@@ -1,5 +1,5 @@
 .card {
-  width: 250px;
+  min-width: 250px;
   height: 200px;
   box-shadow: 10px 10px 15px 5px #00000026;
 }
@@ -15,4 +15,10 @@
 
 .icon {
   font-size: 48px;
+}
+
+.gridCard {
+  padding: 24px;
+  align-items: center;
+  width: auto;
 }
