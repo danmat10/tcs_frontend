@@ -8,14 +8,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import {
-  AccountBalance,
-  Assignment,
-  BarChart,
-  Build,
-  BusinessCenter,
-  PeopleAlt,
-} from "@mui/icons-material";
+import { AccountBalance, Assignment, BarChart, Build, BusinessCenter, PeopleAlt } from "@mui/icons-material";
 
 import { Header } from "components/Header";
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
