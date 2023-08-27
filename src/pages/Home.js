@@ -21,7 +21,7 @@ import { Header } from "components/Header";
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
 import UserContext from "contexts/UserContext";
 import { styles } from "components/Home";
-import { URLS } from "routes";
+import { URLS } from "config";
 
 const Home = () => {
   const { user } = useContext(UserContext);

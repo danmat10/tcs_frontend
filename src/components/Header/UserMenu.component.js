@@ -6,7 +6,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ExitToApp from "@mui/icons-material/ExitToApp";
-import { URLS } from "routes";
+
+import { URLS } from "config";
 
 const UserMenu = ({ anchorEl, onClose, onEditProfile, onLogout }) => (
   <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={onClose}>

@@ -5,7 +5,7 @@ import UserContext from "contexts/UserContext";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { ForgotPassword, Home, Login, Profile, User } from "../pages";
-import URLS from "./Urls";
+import URLS from "../config/urls";
 import DepartmentsPage from "pages/Departments";
 
 const AppRoutes = () => {
