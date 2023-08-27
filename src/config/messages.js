@@ -80,6 +80,40 @@ const MESSAGES = {
       show: true,
     },
   },
+  DEPARTMENT: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o departamento.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando departamento...",
+      success: "Departamento criado com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar o departamento.",
+      },
+      show: true,
+    },
+    PATCH: {
+      pending: "Atualizando departamento...",
+      success: "Departamento atualizado com sucesso!",
+      error: {
+        default: "Oops, não foi possível atualizar o departamento.",
+      },
+      show: true,
+    },
+    DELETE: {
+      pending: "Deletando departamento...",
+      success: "Departamento deletado com sucesso!",
+      error: {
+        default: "Oops, não foi possível deletar o departamento.",
+      },
+      show: true,
+    },
+  },
 };
 
 export default MESSAGES;
