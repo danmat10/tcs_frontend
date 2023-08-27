@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "react-auth-kit";
+import 'typeface-roboto';
 
 import "./App.css";
 import { refreshApi } from "services";
