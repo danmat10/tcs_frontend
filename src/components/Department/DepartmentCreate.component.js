@@ -1,11 +1,15 @@
 import React from "react";
+import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
 import { DialogForm } from "components/Common";
 import { DepartmentFormFields } from ".";
 import { validateDepartmenCreateForm } from "validations";
+import { handleCreateDepartment } from "services";
 
-const CreateDepartment = ({ onCreate, onClose, users }) => {
+const CreateDepartment = ({ onClose, users, setState }) => {
+  const authHeader = useAuthHeader();
+
   const formik = useFormik({
     initialValues: {
       nmDepartamento: "",
@@ -14,7 +18,11 @@ const CreateDepartment = ({ onCreate, onClose, users }) => {
     validate: (values) => validateDepartmenCreateForm(values),
     validateOnChange: false,
     onSubmit: (values) => {
-      onCreate(values);
+      handleCreateDepartment({
+        data: values,
+        header: { Authorization: authHeader() },
+        setState: setState,
+      });
       formik.resetForm();
     },
   });

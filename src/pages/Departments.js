@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { Dialog } from "@mui/material";
 
-import { MESSAGES, ENDPOINTS } from "config";
-import { apiCall } from "services";
+import { handleGetDepartmentsList, handleGetUsersList } from "services";
 import { Breadcrumb, PageContainer } from "components/Common";
 import { Header } from "components/Header";
 import {
@@ -15,9 +14,17 @@ import {
 } from "components/Department";
 
 const DepartmentsPage = () => {
+  const authHeader = useAuthHeader();
+
   useEffect(() => {
-    handleGetUsersList();
-    handleGetDepartmentsList();
+    handleGetUsersList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+    handleGetDepartmentsList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
   }, []);
 
   const [state, setState] = useState({
@@ -27,7 +34,6 @@ const DepartmentsPage = () => {
     users: [],
     departments: [],
   });
-  const authHeader = useAuthHeader();
 
   const openDialog = (view, department = null) => {
     setState((prev) => ({
@@ -42,80 +48,22 @@ const DepartmentsPage = () => {
     setState((prev) => ({ ...prev, view: "", openDialog: false }));
   };
 
-  const handleApiCall = async (config, toastObject) => {
-    const { method, endpoint, data } = config;
-    const response = await apiCall(
-      method,
-      endpoint,
-      data,
-      {
-        Authorization: authHeader(),
-      },
-      toastObject
-    );
-    return response;
-  };
-
-  const handleCreateDepartment = async (department) => {
-    await handleApiCall(
-      { method: "post", endpoint: ENDPOINTS.DEPARTMENT.POST, data: department },
-      MESSAGES.DEPARTMENT.POST
-    );
-    handleGetDepartmentsList();
-  };
-
-  const handleGetUsersList = async () => {
-    let users = await handleApiCall(
-      {
-        method: "get",
-        endpoint: ENDPOINTS.USER.GET,
-      },
-      MESSAGES.USER.GET
-    );
-    if (!users) users = [];
-    setState((prev) => ({ ...prev, users }));
-  };
-
-  const handleGetDepartmentsList = async () => {
-    let departments = await handleApiCall(
-      {
-        method: "get",
-        endpoint: ENDPOINTS.DEPARTMENT.GET,
-      },
-      MESSAGES.DEPARTMENT.GET
-    );
-    if (!departments) departments = [];
-    setState((prev) => ({ ...prev, departments }));
-  };
-
-  const handleEditDepartment = async (department) => {
-    await handleApiCall(
-      {
-        method: "patch",
-        endpoint: ENDPOINTS.DEPARTMENT.PATCH_id(department.id),
-        data: department,
-      },
-      MESSAGES.DEPARTMENT.PATCH
-    );
-    handleGetDepartmentsList();
-  };
-
   const views = {
     list: (
       <DepartmentList departments={state.departments} openDialog={openDialog} />
     ),
     create: (
       <DepartmentCreate
-        onCreate={handleCreateDepartment}
         onClose={closeDialog}
         users={state.users}
+        setState={setState}
       />
     ),
     update: (
       <DepartmentEdit
         department={state.selectedDepartment}
         users={state.users}
-        onUpdate={handleEditDepartment}
+        setState={setState}
         onClose={closeDialog}
       />
     ),
