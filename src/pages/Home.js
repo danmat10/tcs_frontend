@@ -47,10 +47,11 @@ const Home = () => {
             xs={12}
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: { xs: "column", sm: "row" },
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
+              textAlign: { xs: "center", sm: "left" },
             }}
           >
             <Logo
@@ -86,7 +87,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <PeopleAlt className={styles.icon} />
-                  <Typography variant="h6">Usuários</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Usuários
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
@@ -96,7 +99,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <AccountBalance className={styles.icon} />
-                  <Typography variant="h6">Patrimônio</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Patrimônio
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
@@ -106,7 +111,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <BusinessCenter className={styles.icon} />
-                  <Typography variant="h6">Departamentos</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Departamentos
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
@@ -116,7 +123,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <Assignment className={styles.icon} />
-                  <Typography variant="h6">Requisições</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Requisições
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
@@ -126,7 +135,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <Build className={styles.icon} />
-                  <Typography variant="h6">Manutenções</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Manutenções
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
@@ -136,7 +147,9 @@ const Home = () => {
               <Card className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <BarChart className={styles.icon} />
-                  <Typography variant="h6">Gestão</Typography>
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Gestão
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>
