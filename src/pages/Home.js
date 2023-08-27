@@ -8,7 +8,14 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import { AccountBalance, Assignment, BarChart, Build, BusinessCenter, PeopleAlt } from "@mui/icons-material";
+import {
+  AccountBalance,
+  Assignment,
+  BarChart,
+  Build,
+  BusinessCenter,
+  PeopleAlt,
+} from "@mui/icons-material";
 
 import { Header } from "components/Header";
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
@@ -58,17 +65,21 @@ const Home = () => {
                 flexDirection: "column",
               }}
             >
-              <Typography variant="h2">Control</Typography>
-              <Typography variant="h6">
+              <Typography variant="h2" className={styles.h2}>
+                Control
+              </Typography>
+              <Typography variant="h6" className={styles.h6}>
                 {user.nmUsuario} -{" "}
                 {user.typeUser === "Admin" ? "Administrador" : user.typeUser}
               </Typography>
             </Box>
           </Grid>
         </Grid>
-        <Grid container maxWidth="md" margin="auto" alignItems="center">
+        <Grid container maxWidth="1000px" margin="auto" alignItems="center">
           <Grid item xs={12} textAlign="center">
-            <Typography variant="h4">Para onde vamos?</Typography>
+            <Typography variant="h4" className={styles.h4}>
+              Para onde vamos?
+            </Typography>
           </Grid>
           <Grid item xs={12} md={4} className={styles.gridCard}>
             <Link to={URLS.USUARIO} style={{ textDecoration: "none" }}>
