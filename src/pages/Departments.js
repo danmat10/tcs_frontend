@@ -2,16 +2,22 @@ import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { Dialog } from "@mui/material";
 
+import { MESSAGES, ENDPOINTS } from "config";
+import { apiCall } from "services";
 import { Breadcrumb, PageContainer } from "components/Common";
 import { Header } from "components/Header";
-import { MESSAGES } from "config";
-import { ENDPOINTS, apiCall } from "services";
-import { DepartmentBreadcrumb, DepartmentCreate, DepartmentEdit, DepartmentList, DepartmentView } from "components/Department";
+import {
+  DepartmentBreadcrumb,
+  DepartmentCreate,
+  DepartmentEdit,
+  DepartmentList,
+  DepartmentView,
+} from "components/Department";
 
 const DepartmentsPage = () => {
   useEffect(() => {
-    handleUpdateUserList();
-    handleUpdateDepartmentsList();
+    handleGetUsersList();
+    handleGetDepartmentsList();
   }, []);
 
   const [state, setState] = useState({
@@ -55,10 +61,10 @@ const DepartmentsPage = () => {
       { method: "post", endpoint: ENDPOINTS.DEPARTMENT.POST, data: department },
       MESSAGES.DEPARTMENT.POST
     );
-    handleUpdateDepartmentsList();
+    handleGetDepartmentsList();
   };
 
-  const handleUpdateUserList = async () => {
+  const handleGetUsersList = async () => {
     let users = await handleApiCall(
       {
         method: "get",
@@ -70,7 +76,7 @@ const DepartmentsPage = () => {
     setState((prev) => ({ ...prev, users }));
   };
 
-  const handleUpdateDepartmentsList = async () => {
+  const handleGetDepartmentsList = async () => {
     let departments = await handleApiCall(
       {
         method: "get",
@@ -91,7 +97,7 @@ const DepartmentsPage = () => {
       },
       MESSAGES.DEPARTMENT.PATCH
     );
-    handleUpdateDepartmentsList();
+    handleGetDepartmentsList();
   };
 
   const views = {

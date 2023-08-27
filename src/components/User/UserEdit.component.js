@@ -1,10 +1,14 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
+import { useAuthHeader } from "react-auth-kit";
 
 import { UserFormFields, validateUserEditForm } from ".";
 import { DialogForm } from "components/Common";
+import { handleEditUser } from "services/userCalls";
 
-const UserEdit = ({ user, onUpdate, onClose }) => {
+const UserEdit = ({ user, onClose, setState }) => {
+  const authHeader = useAuthHeader();
+
   const formik = useFormik({
     initialValues: {
       nmUsuario: user.nmUsuario || "",
@@ -12,13 +16,17 @@ const UserEdit = ({ user, onUpdate, onClose }) => {
       nrCpf: user.nrCpf || "",
       typeUser: user.typeUser || "",
       flStatus: user.flStatus || "",
-      contacts: user.contacts || []
+      contacts: user.contacts || [],
     },
     validate: (values) => validateUserEditForm(values, user),
     validateOnChange: false,
     onSubmit: (values) => {
       values.id = user.id;
-      onUpdate(values);
+      handleEditUser({
+        data: values,
+        header: { Authorization: authHeader() },
+        setState: setState,
+      });
     },
   });
 

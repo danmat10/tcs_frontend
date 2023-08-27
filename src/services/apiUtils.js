@@ -1,4 +1,7 @@
 import axios from "axios";
+import { ENDPOINTS } from "config";
+import { AUTH_TOKEN_EXPIRES_AT } from "config";
+import { createRefresh } from "react-auth-kit";
 import { toast } from "react-toastify";
 
 const defaultHeaders = {
@@ -69,4 +72,40 @@ const apiCall = async (
   }
 };
 
-export default apiCall;
+const handleApiCall = async (config, toastObject) => {
+  const { method, endpoint, data, header } = config;
+  const response = await apiCall(method, endpoint, data, header, toastObject);
+  return response;
+};
+
+const refreshApi = createRefresh({
+  interval: AUTH_TOKEN_EXPIRES_AT,
+  refreshApiCallback: async ({
+    authToken,
+    authTokenExpireAt,
+    refreshToken,
+    refreshTokenExpiresAt,
+    authUserState,
+  }) => {
+    try {
+      const response = await axios.post(ENDPOINTS.AUTH.REFRESH, {
+        refresh_token: refreshToken,
+      });
+      return {
+        isSuccess: true,
+        newAuthToken: response.data.access_token,
+        newAuthTokenExpireIn: AUTH_TOKEN_EXPIRES_AT,
+        newRefreshToken: refreshToken,
+        newRefreshTokenExpireIn: refreshTokenExpiresAt,
+        newAuthUserState: authUserState,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+      };
+    }
+  },
+});
+
+export { apiCall, handleApiCall, refreshApi };

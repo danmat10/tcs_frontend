@@ -4,7 +4,7 @@ import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import { Avatar } from "@mui/material";
 
 import UserContext from "contexts/UserContext";
-import { ENDPOINTS } from "services";
+import { ENDPOINTS } from "config";
 
 const UserAvatar = ({ onClick }) => {
   const { user, setUser } = React.useContext(UserContext);

@@ -13,9 +13,9 @@ import {
   TextField,
 } from "@mui/material";
 
-import ENDPOINTS from "services/endpoints";
+import ENDPOINTS from "config/endpoints";
 import UserContext from "contexts/UserContext";
-import apiCall from "services/apiCall";
+import { apiCall } from "services";
 import placeholder_image from "assets/images/placeholder_image.jpg";
 import { MESSAGES } from "config";
 import { validateContacts } from "validations";
@@ -228,9 +228,9 @@ export default function ProfileTabAccount() {
         </Grid>
         <Grid item xs={11} md={6}>
           <FormikProvider value={formik}>
-              <Form onSubmit={formik.handleSubmit}>
-                <ProfileContactsFormFields formik={formik} />
-              </Form>
+            <Form onSubmit={formik.handleSubmit}>
+              <ProfileContactsFormFields formik={formik} />
+            </Form>
           </FormikProvider>
         </Grid>
       </Grid>

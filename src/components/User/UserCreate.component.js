@@ -1,10 +1,14 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
+import { useAuthHeader } from "react-auth-kit";
 
 import { UserFormFields, validateUserCreateForm } from ".";
 import { DialogForm } from "components/Common";
+import { handleCreateUser } from "services/userCalls";
 
-const CreateUser = ({ onCreate, onClose }) => {
+const CreateUser = ({ onClose, setState }) => {
+  const authHeader = useAuthHeader();
+
   const formik = useFormik({
     initialValues: {
       nmUsuario: "",
@@ -17,7 +21,11 @@ const CreateUser = ({ onCreate, onClose }) => {
     validate: (values) => validateUserCreateForm(values),
     validateOnChange: false,
     onSubmit: (values) => {
-      onCreate(values);
+      handleCreateUser({
+        data: values,
+        header: { Authorization: authHeader() },
+        setState: setState,
+      });
       formik.resetForm();
     },
   });

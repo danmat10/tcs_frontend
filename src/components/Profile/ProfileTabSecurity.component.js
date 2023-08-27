@@ -3,8 +3,8 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";
-import apiCall from "services/apiCall";
-import ENDPOINTS from "services/endpoints";
+import { apiCall } from "services";
+import ENDPOINTS from "config/endpoints";
 import { MESSAGES } from "config";
 import { passwordValidation } from "validations/ProfileValidations";
 

@@ -6,10 +6,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { MESSAGES } from "config";
-import { apiCall, ENDPOINTS } from "services";
+import { MESSAGES, ENDPOINTS } from "config";
+import { apiCall } from "services";
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
-
 
 const ForgotPassword = () => {
   const formik = useFormik({
@@ -42,29 +41,37 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
         item
         sm={4}
         md={7}
         sx={{
-          backgroundRepeat: 'no-repeat',
-          backgroundImage: 'linear-gradient(90.83deg, #0066FF 8.37%, #00C2FF 96.86%)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundRepeat: "no-repeat",
+          backgroundImage:
+            "linear-gradient(90.83deg, #0066FF 8.37%, #00C2FF 96.86%)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           alignItems: "center",
           justifyContent: "center",
-          display: { xs: 'none', sm: 'flex' }
+          display: { xs: "none", sm: "flex" },
         }}
       >
         <Logo style={{ width: "350px" }} />
       </Grid>
-      <Grid item xs={12} sm={8} md={5} elevation={6} sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        elevation={6}
+        sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}
+      >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: "60%"
+            display: "flex",
+            flexDirection: "column",
+            width: "60%",
           }}
         >
           <Typography component="h1" variant="h5">
