@@ -26,7 +26,7 @@ const DepartmentFormFields = ({ formik, userList = [] }) => {
           <Autocomplete
             fullWidth
             options={userList}
-            getOptionLabel={(option) => option.nmUsuario}
+            getOptionLabel={(option) => option.id + " - " + option.nmUsuario}
             value={formik.values.usuario}
             onChange={(event, newValue) => {
               formik.setFieldValue("usuario", newValue);
@@ -42,7 +42,7 @@ const DepartmentFormFields = ({ formik, userList = [] }) => {
           />
         </Grid>
       </Grid>
-      {formik.errors._errors && (
+      {formik.touched.contacts && formik.errors._errors && (
         <FormHelperText error>{formik.errors._errors}</FormHelperText>
       )}
     </div>
