@@ -10,8 +10,7 @@ import {
   UserBreadcrumb,
 } from "components/User";
 import { Header } from "components/Header";
-import Breadcrumb from "components/Common/Breadcrumb.component";
-import { PageContainer } from "components/Common";
+import { PageContainer, Breadcrumb } from "components/Common";
 import { handleGetUsersList } from "services";
 
 const UserPage = () => {
