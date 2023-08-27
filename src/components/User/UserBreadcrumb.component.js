@@ -5,12 +5,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import { Typography } from "@mui/material";
 
+import { URLS } from "config";
+
 export default function UserBreadcrumb() {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
         color="inherit"
-        href="/"
+        href={URLS.HOME}
         style={{ display: "flex", alignItems: "center" }}
       >
         <HomeIcon style={{ marginRight: "5px" }} />
