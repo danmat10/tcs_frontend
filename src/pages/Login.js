@@ -10,11 +10,12 @@ import {
   MESSAGES,
   AUTH_TOKEN_EXPIRES_AT,
   REFRESH_TOKEN_EXPIRES_AT,
-} from "../config";
-import { apiCall, ENDPOINTS } from "../services";
-import { LoginFormFields } from "../components/Login";
-import { validateLoginForm } from "../validations";
-import { ReactComponent as Logo } from "../assets/icons/logo.svg";
+  ENDPOINTS,
+} from "config";
+import { apiCall } from "services";
+import { LoginFormFields } from "components/Login";
+import { validateLoginForm } from "validations";
+import { ReactComponent as Logo } from "assets/icons/logo.svg";
 
 const Login = (props) => {
   const signIn = useSignIn();

@@ -13,13 +13,13 @@ import {
   TextField,
 } from "@mui/material";
 
-import ENDPOINTS from "../../services/endpoints";
-import { BASEURL, MESSAGES } from "../../config";
-import UserContext from "../../contexts/UserContext";
-import apiCall from "../../services/apiCall";
-import placeholder_image from "../../assets/images/placeholder_image.jpg";
-import { validateProfileContactsForm } from "../../validations";
-import { ProfileContactsFormFields } from ".";
+import ENDPOINTS from "config/endpoints";
+import UserContext from "contexts/UserContext";
+import { apiCall } from "services";
+import placeholder_image from "assets/images/placeholder_image.jpg";
+import { MESSAGES } from "config";
+import { validateContacts } from "validations";
+import { ProfileContactsFormFields, styles } from ".";
 
 export default function ProfileTabAccount() {
   const { user, setUser } = useContext(UserContext);
@@ -30,9 +30,9 @@ export default function ProfileTabAccount() {
   const fileInputRef = useRef();
   const formik = useFormik({
     initialValues: {
-      contatos: user.contatos || [],
+      contacts: user.contacts || [],
     },
-    validate: (values) => validateProfileContactsForm(values, user),
+    validate: (values) => validateContacts(values.contacts, user),
     validateOnChange: false,
     onSubmit: (values) => {
       onUpdate(values);
@@ -41,20 +41,29 @@ export default function ProfileTabAccount() {
 
   useEffect(() => {
     if (user && user.photo) {
-      setPreviewSrc(BASEURL + "/" + user.photo);
+      setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
     }
     if (user) {
       formik.resetForm({
-        values: { contatos: user.contatos || [] },
+        values: { contacts: user.contacts || [] },
       });
     }
   }, [user]);
 
   const onUpdate = async (values) => {
+    const valuesToSubmit = {
+      id: user.id,
+      nmUsuario: user.nmUsuario,
+      nrMatricula: user.nrMatricula,
+      nrCpf: user.nrCpf,
+      typeUser: user.typeUser,
+      flStatus: user.flStatus,
+      contacts: values.contacts,
+    };
     await apiCall(
       "patch",
       ENDPOINTS.USER.PATCH_ID(auth().id),
-      values,
+      valuesToSubmit,
       {
         Authorization: authHeader(),
       },
@@ -76,7 +85,7 @@ export default function ProfileTabAccount() {
         MESSAGES.USER.PROFILE.POST_PHOTO
       )
       .then((response) => {
-        setPreviewSrc(BASEURL + "/" + response.data.photo);
+        setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(response.data.photo));
         setFile(null);
         setUser((prevUser) => ({ ...prevUser, photo: response.data.photo }));
       })
@@ -96,7 +105,7 @@ export default function ProfileTabAccount() {
   };
 
   const onCancel = () => {
-    setPreviewSrc(BASEURL + "/" + user.photo);
+    setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
     setFile(null);
   };
   const onEditPhotoClick = () => {
@@ -104,13 +113,24 @@ export default function ProfileTabAccount() {
   };
 
   return (
-    <div>
+    <div className={styles.gridContainer}>
       <Grid container spacing={4}>
-        <Grid item xs={4} md={3}>
+        <Grid
+          item
+          xs={12}
+          md={2}
+          sx={{
+            display: "flex",
+          }}
+          justifyContent={{
+            xs: "center",
+            md: "flex-start",
+          }}
+        >
           <Avatar
             src={previewSrc}
             alt={user.name}
-            style={{ width: "auto", height: "200px" }}
+            sx={{ width: 150, height: 150 }}
             variant="square"
           />
           <input
@@ -122,7 +142,7 @@ export default function ProfileTabAccount() {
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={12}
           md={3}
           sx={{
             display: "flex",
@@ -131,11 +151,28 @@ export default function ProfileTabAccount() {
           }}
         >
           {!file && (
-            <Grid item xs={12} md={12}>
+            <Grid
+              item
+              xs={12}
+              md={12}
+              textAlign={{
+                xs: "center",
+                md: "left",
+              }}
+            >
               <Button onClick={onEditPhotoClick} variant="contained">
                 Carregar uma imagem
               </Button>
-              <FormHelperText>Adicione uma imagem de perfil.</FormHelperText>
+              <FormHelperText
+                sx={{
+                  textAlign: {
+                    xs: "center",
+                    md: "left",
+                  },
+                }}
+              >
+                Adicione uma imagem de perfil.
+              </FormHelperText>
             </Grid>
           )}
           {file && (
@@ -150,61 +187,69 @@ export default function ProfileTabAccount() {
           )}
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={5}>
+      <Grid
+        container
+        spacing={{
+          xs: 0,
+          md: 2,
+        }}
+      >
+        <Grid item xs={11} md={5}>
           <FormControl component="fieldset" margin="normal" fullWidth>
             <TextField
-              label="Login"
-              value={user.login || ""}
-              disabled
-              fullWidth
-              margin="normal"
-            />
-            <TextField
               label="Name"
-              value={user.name || ""}
+              value={user.nmUsuario || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
               label="CPF"
-              value={user.cpf || ""}
+              value={user.nrCpf || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
-              label="Registration"
-              value={user.registration || ""}
+              label="Matrícula"
+              value={user.nrMatricula || ""}
               disabled
               fullWidth
               margin="normal"
             />
             <TextField
-              label="Email"
-              value={user.email || ""}
+              label="Permissões"
+              value={user.typeUser || ""}
               disabled
               fullWidth
               margin="normal"
             />
           </FormControl>
-          <Button
-            type="submit"
-            variant="contained"
-            margin="normal"
-            onClick={() => formik.submitForm()}
-          >
-            Salvar
-          </Button>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={11} md={6}>
           <FormikProvider value={formik}>
             <Form onSubmit={formik.handleSubmit}>
               <ProfileContactsFormFields formik={formik} />
             </Form>
           </FormikProvider>
         </Grid>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={12}
+        sx={{
+          textAlign: { xs: "center", md: "start" },
+        }}
+      >
+        <Button
+          type="submit"
+          variant="contained"
+          margin="normal"
+          onClick={() => formik.submitForm()}
+        >
+          Salvar
+        </Button>
       </Grid>
     </div>
   );

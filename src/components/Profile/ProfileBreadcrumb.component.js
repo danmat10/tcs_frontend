@@ -4,13 +4,14 @@ import Link from "@mui/material/Link";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import { Typography } from "@mui/material";
+import { URLS } from "config";
 
 export default function ProfileBreadcrumb() {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
         color="inherit"
-        href="/"
+        href={URLS.HOME}
         style={{ display: "flex", alignItems: "center" }}
       >
         <HomeIcon style={{ marginRight: "5px" }} />

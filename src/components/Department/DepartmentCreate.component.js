@@ -1,27 +1,24 @@
 import React from "react";
-import { FormikProvider, useFormik } from "formik";
 import { useAuthHeader } from "react-auth-kit";
+import { FormikProvider, useFormik } from "formik";
 
-import { UserFormFields, validateUserCreateForm } from ".";
 import { DialogForm } from "components/Common";
-import { handleCreateUser } from "services/userCalls";
+import { DepartmentFormFields } from ".";
+import { validateDepartmenCreateForm } from "validations";
+import { handleCreateDepartment } from "services";
 
-const CreateUser = ({ onClose, setState }) => {
+const CreateDepartment = ({ onClose, users, setState }) => {
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
     initialValues: {
-      nmUsuario: "",
-      nrMatricula: "",
-      nrCpf: "",
-      typeUser: "",
-      flStatus: "Ativo",
-      contacts: [{ typeContacts: "E-mail", dsContato: "" }],
+      nmDepartamento: "",
+      usuario: null,
     },
-    validate: (values) => validateUserCreateForm(values),
+    validate: (values) => validateDepartmenCreateForm(values),
     validateOnChange: false,
     onSubmit: (values) => {
-      handleCreateUser({
+      handleCreateDepartment({
         data: values,
         header: { Authorization: authHeader() },
         setState: setState,
@@ -30,20 +27,27 @@ const CreateUser = ({ onClose, setState }) => {
     },
   });
 
+  const filteredUserList = users.filter((usuario) => {
+    if (usuario.flStatus === "Inativo") {
+      return false;
+    }
+    return true;
+  });
+
   return (
     <DialogForm
-      title="Cadastrar Usuário"
+      title="Cadastrar Departamento"
       onClose={onClose}
       onSubmit={() => formik.submitForm()}
       btnSubmitName="Cadastrar"
     >
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
-          <UserFormFields formik={formik} />
+          <DepartmentFormFields formik={formik} userList={filteredUserList} />
         </form>
       </FormikProvider>
     </DialogForm>
   );
 };
 
-export default CreateUser;
+export default CreateDepartment;

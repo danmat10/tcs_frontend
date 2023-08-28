@@ -1,29 +1,26 @@
 import React from "react";
+import { Typography } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import HomeIcon from "@mui/icons-material/Home";
-import GroupIcon from "@mui/icons-material/Group";
-import { Typography } from "@mui/material";
+import { BusinessCenter, Home } from "@mui/icons-material";
 
-import { URLS } from "config";
-
-export default function UserBreadcrumb() {
+export default function DepartmentsBreadcrumb() {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
         color="inherit"
-        href={URLS.HOME}
+        href="/"
         style={{ display: "flex", alignItems: "center" }}
       >
-        <HomeIcon style={{ marginRight: "5px" }} />
+        <Home style={{ marginRight: "5px" }} />
         Home
       </Link>
       <Typography
         color="inherit"
         style={{ display: "flex", alignItems: "center" }}
       >
-        <GroupIcon style={{ marginRight: "5px" }} />
-        Usuários
+        <BusinessCenter style={{ marginRight: "5px" }} />
+        Departamentos
       </Typography>
     </Breadcrumbs>
   );

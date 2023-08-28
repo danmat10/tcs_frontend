@@ -1,12 +1,12 @@
-import { Form, FormikProvider, useFormik } from "formik";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
+import { Form, FormikProvider, useFormik } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
-import { ProfileChangePasswordFields } from ".";
-import apiCall from "../../services/apiCall";
-import ENDPOINTS from "../../services/endpoints";
-import { MESSAGES } from "../../config";
-import { passwordValidation } from "../../validations/ProfileValidations";
+import { ProfileChangePasswordFields, styles } from ".";
+import { apiCall } from "services";
+import ENDPOINTS from "config/endpoints";
+import { MESSAGES } from "config";
+import { passwordValidation } from "validations/ProfileValidations";
 
 export default function ProfileTabSecurity() {
   const auth = useAuthUser();
@@ -39,11 +39,11 @@ export default function ProfileTabSecurity() {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} className={styles.gridContainerTabSecurity}>
       <Grid
         item
-        xs={12}
-        md={5}
+        xs={11}
+        md={4}
         sx={{
           margin: "auto",
         }}

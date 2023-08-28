@@ -38,7 +38,11 @@
     npm start
     ```
 
-4. **Obter e executar a fake API (caso necessário)**
+4. **Obter e executar a API**
+   * Você precisa clonar e executar o BackEnd a * partir deste repositório: https://github.com/rafaelmenezz/control_backend
+   * Siga as instruções no README do repositório para colocar o Servidor em execução.
+
+5. **Obter e executar a fake API (caso necessário)**
    * Caso seja necessário rodar o projeto sem o backend, você precisa clonar e executar a fake API a * partir deste repositório: https://github.com/danmat10/fake-api-json-server
    * Siga as instruções no README do repositório para colocar a API em execução.
    * Agora, a API deve estar rodando na porta 3030 (ou outra que você definir).

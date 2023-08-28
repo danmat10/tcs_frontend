@@ -1,4 +1,5 @@
 import React from "react";
+import { FieldArray } from "formik";
 import {
   TextField,
   Radio,
@@ -17,192 +18,237 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
-import { FieldArray } from "formik";
-const UserFormFields = ({ formik, isEditing = false }) => (
-  <>
-    <TextField
-      fullWidth
-      label="Digite o nome"
-      name="name"
-      type="text"
-      margin="dense"
-      onChange={formik.handleChange}
-      value={formik.values.name}
-      error={formik.touched.name && Boolean(formik.errors.name)}
-      helperText={formik.touched.name && formik.errors.name}
-    />
-    <TextField
-      fullWidth
-      label="Digite a matrícula"
-      name="registration"
-      type="text"
-      margin="dense"
-      onChange={formik.handleChange}
-      value={formik.values.registration}
-      error={formik.touched.registration && Boolean(formik.errors.registration)}
-      helperText={formik.touched.registration && formik.errors.registration}
-    />
-    <TextField
-      fullWidth
-      label="Digite o CPF"
-      name="cpf"
-      type="text"
-      margin="dense"
-      onChange={formik.handleChange}
-      value={formik.values.cpf}
-      error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-      helperText={formik.touched.cpf && formik.errors.cpf}
-    />
-    <TextField
-      fullWidth
-      label="Digite o e-mail"
-      name="email"
-      type="email"
-      margin="dense"
-      onChange={formik.handleChange}
-      value={formik.values.email}
-      error={formik.touched.email && Boolean(formik.errors.email)}
-      helperText={formik.touched.email && formik.errors.email}
-    />
-    <FormControl component="fieldset" margin="dense" fullWidth>
-      <FieldArray name="contatos">
-        {({ push, remove }) => (
-          <>
-            {formik.values.contatos.map((contato, index) => (
-              <Grid container spacing={2} key={index} alignItems="center">
-                <Grid item md={5} xs={12}>
-                  <FormControl
-                    fullWidth
-                    margin="dense"
-                    variant="outlined"
-                    error={
-                      formik.touched.contatos &&
-                      Boolean(formik.errors.contatos?.[index]?.tipo)
-                    }
-                  >
-                    <InputLabel
+
+import { styles } from ".";
+
+const UserFormFields = ({ formik, isEditing = false }) => {
+  const maskCpfOrCnpj = (value) => {
+    value = value.replace(/\D/g, "");
+    if (value.length > 11) {
+      value = value.replace(
+        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+        "$1.$2.$3/$4-$5"
+      );
+    } else {
+      value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+
+    return value;
+  };
+
+  const handleSwitchChange = (event) => {
+    const { name, checked } = event.target;
+    formik.setFieldValue(name, checked ? "Ativo" : "Inativo");
+  };
+
+  return (
+    <div className={styles.formFields}>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item md={11} xs={12}>
+          <TextField
+            fullWidth
+            label="Digite o nome"
+            name="nmUsuario"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.nmUsuario}
+            error={formik.touched.nmUsuario && Boolean(formik.errors.nmUsuario)}
+            helperText={formik.touched.nmUsuario && formik.errors.nmUsuario}
+          />
+        </Grid>
+        <Grid item md={11} xs={12}>
+          <TextField
+            fullWidth
+            label="Digite a matrícula"
+            name="nrMatricula"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.nrMatricula}
+            error={
+              formik.touched.nrMatricula && Boolean(formik.errors.nrMatricula)
+            }
+            helperText={formik.touched.nrMatricula && formik.errors.nrMatricula}
+          />
+        </Grid>
+        <Grid item md={11} xs={12}>
+          <TextField
+            fullWidth
+            label="Digite o CPF/CNPJ"
+            name="nrCpf"
+            type="text"
+            onChange={(e) => {
+              const maskedValue = maskCpfOrCnpj(e.target.value);
+              formik.setFieldValue("nrCpf", maskedValue);
+            }}
+            value={formik.values.nrCpf}
+            error={formik.touched.nrCpf && Boolean(formik.errors.nrCpf)}
+            helperText={formik.touched.nrCpf && formik.errors.nrCpf}
+          />
+        </Grid>
+      </Grid>
+      <FormControl component="fieldset" margin="dense" fullWidth>
+        <FieldArray name="contacts">
+          {({ push, remove }) => (
+            <>
+              {formik.values.contacts.map((contato, index) => (
+                <Grid container spacing={2} key={index} alignItems="center">
+                  <Grid item md={5} xs={12}>
+                    <FormControl
+                      fullWidth
+                      margin="dense"
                       variant="outlined"
-                      id={`contatos.${index}.tipo`}
+                      error={
+                        formik.touched.contacts &&
+                        Boolean(formik.errors.contacts?.[index]?.typeContacts)
+                      }
                     >
-                      Tipo de contato
-                    </InputLabel>
-                    <Select
-                      value={contato.tipo}
+                      <InputLabel
+                        variant="outlined"
+                        id={`contacts.${index}.typeContacts`}
+                      >
+                        Tipo de contato
+                      </InputLabel>
+                      <Select
+                        value={contato.typeContacts}
+                        onChange={formik.handleChange}
+                        labelId={`contacts.${index}.typeContacts`}
+                        label="Tipo de contato"
+                        name={`contacts.${index}.typeContacts`}
+                      >
+                        <MenuItem value={"Celular"}>Celular</MenuItem>
+                        <MenuItem value={"Telefone"}>Telefone</MenuItem>
+                        <MenuItem value={"E-mail"}>E-mail</MenuItem>
+                        <MenuItem value={"WhatsApp"}>WhatsApp</MenuItem>
+                        <MenuItem value={"Instagran"}>Instagram</MenuItem>
+                      </Select>
+                      {formik.touched.contacts &&
+                        formik.errors.contacts?.[index]?.typeContacts && (
+                          <FormHelperText error>
+                            {formik.errors.contacts?.[index]?.typeContacts}
+                          </FormHelperText>
+                        )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item md={6} xs={10}>
+                    <TextField
+                      fullWidth
+                      label="Digite o contato"
+                      name={`contacts.${index}.dsContato`}
+                      type="text"
+                      margin="dense"
                       onChange={formik.handleChange}
-                      labelId={`contatos.${index}.tipo`}
-                      label="Tipo de contato"
-                      name={`contatos.${index}.tipo`}
+                      value={contato.dsContato}
+                      error={
+                        formik.touched.contacts &&
+                        Boolean(formik.errors.contacts?.[index]?.dsContato)
+                      }
+                      helperText={
+                        formik.touched.contacts &&
+                        formik.errors.contacts?.[index]?.dsContato
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={2} md={1}>
+                    <IconButton onClick={() => remove(index)} color="secondary">
+                      <DeleteOutlineSharpIcon color="error" />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              ))}
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} md={5}>
+                  <FormControl component="fieldset" margin="dense" fullWidth>
+                    <Button
+                      onClick={() =>
+                        push({ typeContacts: "E-mail", dsContato: "" })
+                      }
+                      color="primary"
+                      variant="outlined"
                     >
-                      <MenuItem value={"Celular"}>Celular</MenuItem>
-                      <MenuItem value={"Telefone"}>Telefone</MenuItem>
-                      <MenuItem value={"E-mail"}>E-mail</MenuItem>
-                    </Select>
-                    {formik.touched.contatos &&
-                      formik.errors.contatos?.[index]?.tipo && (
-                        <FormHelperText error>
-                          {formik.errors.contatos?.[index]?.tipo}
-                        </FormHelperText>
-                      )}
+                      Adicionar Contato
+                    </Button>
                   </FormControl>
                 </Grid>
-                <Grid item md={5} xs={10}>
-                  <TextField
-                    fullWidth
-                    label="Digite o contato"
-                    name={`contatos.${index}.contato`}
-                    type="text"
-                    margin="dense"
-                    onChange={formik.handleChange}
-                    value={contato.contato}
-                    error={
-                      formik.touched.contatos &&
-                      Boolean(formik.errors.contatos?.[index]?.contato)
-                    }
-                    helperText={
-                      formik.touched.contatos &&
-                      formik.errors.contatos?.[index]?.contato
-                    }
-                  />
-                </Grid>
-                <Grid item xs={2} md={1}>
-                  <IconButton onClick={() => remove(index)} color="secondary">
-                    <DeleteOutlineSharpIcon color="error" />
-                  </IconButton>
-                </Grid>
               </Grid>
-            ))}
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={5}>
-                <FormControl component="fieldset" margin="dense" fullWidth>
-                  <Button
-                    onClick={() => push({ tipo: "", contato: "" })}
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Adicionar Contato
-                  </Button>
-                </FormControl>
-              </Grid>
+            </>
+          )}
+        </FieldArray>
+      </FormControl>
+      <Grid container alignItems="center">
+        <Grid
+          item
+          md={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            marginTop: "10px",
+          }}
+        >
+          <Grid item md={8}>
+            <FormLabel component="legend">Permissões</FormLabel>
+          </Grid>
+          {isEditing && (
+            <Grid item md={3}>
+              <FormGroup
+                sx={{
+                  alignItems: "center",
+                }}
+              >
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={formik.values.flStatus === "Ativo"}
+                      onChange={handleSwitchChange}
+                      name="flStatus"
+                      color="primary"
+                    />
+                  }
+                  label={
+                    formik.values.flStatus === "Ativo" ? "Ativo" : "Inativo"
+                  }
+                  sx={{
+                    marginRight: "0px",
+                  }}
+                />
+                {formik.touched.flStatus && formik.errors.flStatus && (
+                  <FormHelperText error>
+                    {formik.errors.flStatus}
+                  </FormHelperText>
+                )}
+              </FormGroup>
             </Grid>
-          </>
-        )}
-      </FieldArray>
-    </FormControl>
-    <Grid container alignItems="center">
-      <Grid item md={9}>
+          )}
+        </Grid>
         <FormControl component="fieldset" margin="dense">
-          <FormLabel component="legend">Permissões</FormLabel>
           <RadioGroup
             row
-            aria-label="permissions"
-            name="permissions"
-            value={formik.values.permissions}
+            aria-label="typeUser"
+            name="typeUser"
+            value={formik.values.typeUser}
             onChange={formik.handleChange}
           >
             <FormControlLabel
-              value="gestor"
+              value="Gestor"
               control={<Radio />}
               label="Gestor"
             />
+            <FormControlLabel value="Peão" control={<Radio />} label="Peão" />
             <FormControlLabel
-              value="requisitante"
-              control={<Radio />}
-              label="Requisitante"
-            />
-            <FormControlLabel
-              value="administrador"
+              value="Admin"
               control={<Radio />}
               label="Administrador"
             />
-            {formik.touched.permissions && formik.errors.permissions && (
-              <FormHelperText error>{formik.errors.permissions}</FormHelperText>
+            {formik.touched.typeUser && formik.errors.typeUser && (
+              <FormHelperText error>{formik.errors.typeUser}</FormHelperText>
             )}
           </RadioGroup>
         </FormControl>
       </Grid>
-      {isEditing && (
-        <Grid item md={3}>
-          <FormLabel component="legend">Situação</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formik.values.active}
-                  onChange={formik.handleChange}
-                  name="active"
-                  color="primary"
-                />
-              }
-              label={formik.values.active ? "Ativo" : "Inativo"}
-            />
-            {formik.touched.active && formik.errors.active && (
-              <FormHelperText error>{formik.errors.active}</FormHelperText>
-            )}
-          </FormGroup>
-        </Grid>
+      {formik.touched.contacts && formik.errors._errors && (
+        <FormHelperText error>{formik.errors._errors}</FormHelperText>
       )}
-    </Grid>
-  </>
-);
+    </div>
+  );
+};
 
 export default UserFormFields;

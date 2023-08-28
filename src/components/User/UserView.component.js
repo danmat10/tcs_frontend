@@ -21,7 +21,7 @@ const UserView = ({ user, onClose }) => {
       <DialogContent>
         <Grid container spacing={2}>
           <Grid item xs={12} md={12} align="right">
-            {user.active ? (
+            {user.flStatus === "Ativo" ? (
               <Chip label="Ativo" color="success" />
             ) : (
               <Chip label="Inativo" color="error" />
@@ -30,7 +30,7 @@ const UserView = ({ user, onClose }) => {
           <Grid item xs={12} md={6}>
             <TextField
               label="Nome"
-              value={user.name}
+              value={user.nmUsuario}
               variant="standard"
               disabled
               fullWidth
@@ -39,7 +39,7 @@ const UserView = ({ user, onClose }) => {
           <Grid item xs={12} md={6}>
             <TextField
               label="Matricula"
-              value={user.registration}
+              value={user.nrMatricula}
               variant="standard"
               disabled
               fullWidth
@@ -48,7 +48,7 @@ const UserView = ({ user, onClose }) => {
           <Grid item xs={12} md={6}>
             <TextField
               label="CPF"
-              value={user.cpf}
+              value={user.nrCpf}
               variant="standard"
               disabled
               fullWidth
@@ -56,36 +56,19 @@ const UserView = ({ user, onClose }) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
-              label="E-mail"
-              value={user.email}
+              label="Tipo de Usuário"
+              value={user.typeUser}
               variant="standard"
               disabled
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="Permissões"
-              value={
-                user.permissions === "gestor"
-                  ? "Gestor"
-                  : user.permissions === "requisitante"
-                    ? "Requisitante"
-                    : user.permissions === "administrador"
-                      ? "Administrador"
-                      : ""
-              }
-              variant="standard"
-              disabled
-              fullWidth
-            />
-          </Grid>
-          {user.contatos &&
-            user.contatos.map((contato, index) => (
-              <Grid item xs={12} md={6}>
+          {user.contacts &&
+            user.contacts.map((contact, index) => (
+              <Grid item xs={12} md={6} key={index}>
                 <TextField
-                  label={user.contatos[index].tipo}
-                  value={user.contatos[index].contato}
+                  label={contact.typeContacts}
+                  value={contact.dsContato}
                   variant="standard"
                   disabled
                   fullWidth

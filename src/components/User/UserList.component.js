@@ -15,48 +15,45 @@ import { DataGrid, ptBR } from "@mui/x-data-grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { styles } from ".";
+import PageGridContent from "components/Common/PageGridContent.component";
 
 const UserList = ({ users, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
-  const [situationFilter, setSituationFilter] = useState("Todos");
+  const [situationFilter, setSituationFilter] = useState("Ativo");
   const columns = getColumns(isMobile);
 
   function getColumns(isMobile) {
     const baseColumns = [
       {
-        field: "name",
+        field: "nmUsuario",
         headerName: "Nome",
         flex: 2,
-        align: "center",
-        headerAlign: "center",
       },
       {
-        field: "email",
-        headerName: "E-mail",
+        field: "nrMatricula",
+        headerName: "Matrícula",
         flex: 2,
-        align: "center",
-        headerAlign: "center",
       },
       {
-        field: "active",
+        field: "flStatus",
         headerName: "Situação",
         flex: 1,
-        align: "center",
-        headerAlign: "center",
         renderCell: (params) =>
-          params.row.active ? (
+          params.row.flStatus === "Ativo" ? (
             <Chip label="Ativo" color="success" />
           ) : (
             <Chip label="Inativo" color="error" />
           ),
       },
       {
-        field: "permissions",
+        field: "typeUser",
         headerName: "Perfil",
         flex: 1,
-        align: "center",
-        headerAlign: "center",
+        renderCell: (params) =>
+          params.row.typeUser === "Admin"
+            ? "Administrador"
+            : params.row.typeUser,
       },
       {
         field: "actions",
@@ -107,7 +104,14 @@ const UserList = ({ users, openDialog }) => {
   }
 
   function matchesSearch(user) {
-    return Object.values(user).some(
+    return [
+      user.nmUsuario,
+      user.email,
+      user.nrCpf,
+      user.nrMatricula,
+      user.typeUser,
+      user.flStatus,
+    ].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
@@ -119,9 +123,9 @@ const UserList = ({ users, openDialog }) => {
 
     switch (situationFilter) {
       case "Ativo":
-        return doesMatchSearch && user.active;
+        return doesMatchSearch && user.flStatus === "Ativo";
       case "Inativo":
-        return doesMatchSearch && !user.active;
+        return doesMatchSearch && user.flStatus === "Inativo";
       case "Todos":
       default:
         return doesMatchSearch;
@@ -129,8 +133,8 @@ const UserList = ({ users, openDialog }) => {
   });
 
   return (
-    <Grid container spacing={3} className={styles.userListGrid}>
-      <Grid item xs={12} md={4} lg={4}>
+    <PageGridContent>
+      <Grid item xs={12} md={3}>
         <TextField
           fullWidth
           variant="outlined"
@@ -140,7 +144,7 @@ const UserList = ({ users, openDialog }) => {
         />
         <FormHelperText>Pesquisar por nome, email...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={2}>
         <Select
           fullWidth
           variant="outlined"
@@ -153,7 +157,7 @@ const UserList = ({ users, openDialog }) => {
         </Select>
         <FormHelperText>Filtrar por situação</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={4} lg={4} className={styles.buttonGrid}>
+      <Grid item xs={12} md={7} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}
@@ -174,7 +178,7 @@ const UserList = ({ users, openDialog }) => {
           localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
-    </Grid>
+    </PageGridContent>
   );
 };
 

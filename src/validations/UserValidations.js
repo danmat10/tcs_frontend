@@ -1,58 +1,84 @@
-const validateCPF = (cpf) => {
-  if (cpf.length !== 11 && cpf.length !== 14) {
-    return "CPF inválido";
+const validateCPForCNPJ = (value) => {
+  const cleanValue = value.replace(/\D/g, "");
+
+  if (cleanValue.length === 11) {
+    if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value)) {
+      return "Formato de CPF inválido";
+    }
+    return "";
   }
-  if (cpf.length === 14 && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
-    return "Formato de CPF inválido";
+
+  if (cleanValue.length === 14) {
+    if (!/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/.test(value)) {
+      return "Formato de CNPJ inválido";
+    }
+    return "";
   }
-  if (/\D/.test(cpf) && cpf.length !== 14) {
-    return "CPF inválido";
-  }
-  return "";
+
+  return "CPF/CNPJ inválido";
 };
 
-const validateUserCreateForm = (values) => {
+function validateContacts(contacts, user = {}) {
   const errors = {};
-  if (!values.name) {
-    errors.name = "Obrigatório";
-  }
-  if (!values.email) {
-    errors.email = "Obrigatório";
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email = "Endereço de e-mail inválido";
-  }
 
-  if (!values.registration) {
-    errors.registration = "Obrigatório";
-  }
-
-  if (!values.permissions) {
-    errors.permissions = "Obrigatório";
-  }
-
-  const cpfError = validateCPF(values.cpf);
-  if (cpfError) {
-    errors.cpf = cpfError;
-  }
-
-  if (values.contatos && values.contatos.length > 0) {
-    errors.contatos = values.contatos.map((contato, index) => {
+  if (contacts && contacts.length > 0) {
+    errors.contacts = contacts.map((contato) => {
       const contatoErrors = {};
-
-      if (!contato.tipo) {
-        contatoErrors.tipo = "Obrigatório";
+      if (!contato.typeContacts) {
+        contatoErrors.typeContacts = "Obrigatório";
       }
-
-      if (!contato.contato) {
-        contatoErrors.contato = "Obrigatório";
+      if (!contato.dsContato) {
+        contatoErrors.dsContato = "Obrigatório";
       }
-
       return contatoErrors;
     });
 
-    if (errors.contatos.every((contato) => !contato.tipo && !contato.contato)) {
-      delete errors.contatos;
+    if (
+      errors.contacts.every(
+        (contato) => !contato.typeContacts && !contato.dsContato
+      )
+    ) {
+      delete errors.contacts;
     }
+
+    let hasEmail = false;
+    for (let i = 0; i < contacts.length; i++) {
+      if (contacts[i].typeContacts === "E-mail") {
+        hasEmail = true;
+        break;
+      }
+    }
+
+    if (!hasEmail) {
+      errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+    }
+  } else {
+    errors._errors = "Pelo menos um contato do tipo 'E-mail' é obrigatório";
+  }
+
+  if (user && JSON.stringify(contacts) === JSON.stringify(user.contacts)) {
+    errors._errors = "Nenhuma alteração foi feita";
+  }
+
+  return errors;
+}
+
+const validateUserCreateForm = (values) => {
+  const errors = validateContacts(values.contacts);
+
+  if (!values.nmUsuario) {
+    errors.nmUsuario = "Obrigatório";
+  }
+  if (!values.nrMatricula) {
+    errors.nrMatricula = "Obrigatório";
+  }
+  if (!values.typeUser) {
+    errors.typeUser = "Obrigatório";
+  }
+
+  const cpfError = validateCPForCNPJ(values.nrCpf);
+  if (cpfError) {
+    errors.nrCpf = cpfError;
   }
 
   return errors;
@@ -60,43 +86,26 @@ const validateUserCreateForm = (values) => {
 
 const validateUserEditForm = (values, user) => {
   const errors = validateUserCreateForm(values);
-  if (values.contatos) {
-    values.contatos.forEach((contato, index) => {
-      if (contato.tipo === "" && contato.contato !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          tipo: "Obrigatório",
-        };
-      }
-      if (contato.contato === "" && contato.tipo !== "") {
-        errors.contatos = errors.contatos || [];
-        errors.contatos[index] = {
-          ...errors.contatos[index],
-          contato: "Obrigatório",
-        };
-      }
-    });
+  const contactsErrors = validateContacts(values.contacts);
+  if (contactsErrors.contacts) {
+    errors.contacts = contactsErrors.contacts;
+  }
+  if (contactsErrors._errors) {
+    errors._errors = contactsErrors._errors;
   }
 
   if (
-    values.name === user.name &&
-    values.email === user.email &&
-    values.cpf === user.cpf &&
-    values.registration === user.registration &&
-    values.permissions === user.permissions &&
-    values.active === user.active &&
-    JSON.stringify(values.contatos) === JSON.stringify(user.contatos)
+    values.nmUsuario === user.nmUsuario &&
+    values.nrCpf === user.nrCpf &&
+    values.nrMatricula === user.nrMatricula &&
+    values.typeUser === user.typeUser &&
+    values.flStatus === user.flStatus &&
+    JSON.stringify(values.contacts) === JSON.stringify(user.contacts)
   ) {
-    errors.name = "Nenhuma alteração foi feita";
-    errors.email = "Nenhuma alteração foi feita";
-    errors.cpf = "Nenhuma alteração foi feita";
-    errors.registration = "Nenhuma alteração foi feita";
-    errors.permissions = "Nenhuma alteração foi feita";
-    errors.active = "Nenhuma alteração foi feita";
+    errors._errors = "Nenhuma alteração foi feita";
   }
 
   return errors;
 };
 
-export { validateUserCreateForm, validateUserEditForm };
+export { validateUserCreateForm, validateUserEditForm, validateContacts };
