@@ -20,22 +20,9 @@ import {
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 import { styles } from ".";
+import { CpfCnpjMask } from "components/Common";
 
 const UserFormFields = ({ formik, isEditing = false }) => {
-  const maskCpfOrCnpj = (value) => {
-    value = value.replace(/\D/g, "");
-    if (value.length > 11) {
-      value = value.replace(
-        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-        "$1.$2.$3/$4-$5"
-      );
-    } else {
-      value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-    }
-
-    return value;
-  };
-
   const handleSwitchChange = (event) => {
     const { name, checked } = event.target;
     formik.setFieldValue(name, checked ? "Ativo" : "Inativo");
@@ -71,19 +58,7 @@ const UserFormFields = ({ formik, isEditing = false }) => {
           />
         </Grid>
         <Grid item md={11} xs={12}>
-          <TextField
-            fullWidth
-            label="Digite o CPF/CNPJ"
-            name="nrCpf"
-            type="text"
-            onChange={(e) => {
-              const maskedValue = maskCpfOrCnpj(e.target.value);
-              formik.setFieldValue("nrCpf", maskedValue);
-            }}
-            value={formik.values.nrCpf}
-            error={formik.touched.nrCpf && Boolean(formik.errors.nrCpf)}
-            helperText={formik.touched.nrCpf && formik.errors.nrCpf}
-          />
+          <CpfCnpjMask formik={formik} fieldName="nrCpf" />
         </Grid>
       </Grid>
       <FormControl component="fieldset" margin="dense" fullWidth>
