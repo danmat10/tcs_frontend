@@ -3,9 +3,7 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";
-import { apiCall } from "services";
-import ENDPOINTS from "config/endpoints";
-import { MESSAGES } from "config";
+import { handleEditPassword } from "services";
 import { passwordValidation } from "validations/ProfileValidations";
 
 export default function ProfileTabSecurity() {
@@ -18,25 +16,19 @@ export default function ProfileTabSecurity() {
       newPassword: "",
       confirmNewPassword: "",
     },
-    onSubmit: (values) => {
-      onUpdate(values);
-      formik.resetForm();
-    },
     validate: (values) => passwordValidation(values),
     validateOnChange: false,
+    onSubmit: (values) => {
+      values.id = auth().id;
+      handleEditPassword({
+        data: values,
+        header: {
+          Authorization: authHeader(),
+        },
+      });
+      formik.resetForm();
+    },
   });
-
-  const onUpdate = async (values) => {
-    await apiCall(
-      "put",
-      ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(auth().id),
-      values,
-      {
-        Authorization: authHeader(),
-      },
-      MESSAGES.USER.PROFILE.PATCH_PASSWORD
-    );
-  };
 
   return (
     <Grid container spacing={3} className={styles.gridContainerTabSecurity}>
