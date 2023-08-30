@@ -2,8 +2,6 @@ import { useContext, useEffect } from "react";
 import { useRef, useState } from "react";
 import { Form, FormikProvider, useFormik } from "formik";
 import { useAuthHeader, useAuthUser } from "react-auth-kit";
-import axios from "axios";
-import { toast } from "react-toastify";
 import {
   Avatar,
   Button,
@@ -15,16 +13,15 @@ import {
 
 import ENDPOINTS from "config/endpoints";
 import UserContext from "contexts/UserContext";
-import { apiCall } from "services";
 import placeholder_image from "assets/images/placeholder_image.jpg";
-import { MESSAGES } from "config";
+import { handleEditContacts, handleUploadPhoto } from "services";
 import { validateContacts } from "validations";
 import { ProfileContactsFormFields, styles } from ".";
 
 export default function ProfileTabAccount() {
-  const { user, setUser } = useContext(UserContext);
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
+  const { user, setUser } = useContext(UserContext);
   const [file, setFile] = useState(null);
   const [previewSrc, setPreviewSrc] = useState(placeholder_image);
   const fileInputRef = useRef();
@@ -35,7 +32,21 @@ export default function ProfileTabAccount() {
     validate: (values) => validateContacts(values.contacts, user),
     validateOnChange: false,
     onSubmit: (values) => {
-      onUpdate(values);
+      const valuesToSubmit = {
+        id: user.id,
+        nmUsuario: user.nmUsuario,
+        nrMatricula: user.nrMatricula,
+        nrCpf: user.nrCpf,
+        typeUser: user.typeUser,
+        flStatus: user.flStatus,
+        contacts: values.contacts,
+      };
+      handleEditContacts({
+        data: valuesToSubmit,
+        header: {
+          Authorization: authHeader(),
+        },
+      });
     },
   });
 
@@ -49,50 +60,6 @@ export default function ProfileTabAccount() {
       });
     }
   }, [user]);
-
-  const onUpdate = async (values) => {
-    const valuesToSubmit = {
-      id: user.id,
-      nmUsuario: user.nmUsuario,
-      nrMatricula: user.nrMatricula,
-      nrCpf: user.nrCpf,
-      typeUser: user.typeUser,
-      flStatus: user.flStatus,
-      contacts: values.contacts,
-    };
-    await apiCall(
-      "patch",
-      ENDPOINTS.USER.PATCH_ID(auth().id),
-      valuesToSubmit,
-      {
-        Authorization: authHeader(),
-      },
-      MESSAGES.USER.PROFILE.PATCH_CONTACTS
-    );
-  };
-
-  const onUpload = async () => {
-    const formData = new FormData();
-    formData.append("photo", file);
-    await toast
-      .promise(
-        axios.post(ENDPOINTS.USER.PROFILE.POST_PHOTO(auth().id), formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: authHeader(),
-          },
-        }),
-        MESSAGES.USER.PROFILE.POST_PHOTO
-      )
-      .then((response) => {
-        setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(response.data.photo));
-        setFile(null);
-        setUser((prevUser) => ({ ...prevUser, photo: response.data.photo }));
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  };
 
   const onFileChange = (event) => {
     const file = event.target.files[0];
@@ -110,6 +77,20 @@ export default function ProfileTabAccount() {
   };
   const onEditPhotoClick = () => {
     fileInputRef.current.click();
+  };
+
+  const onUploadPhotoClick = async () => {
+    handleUploadPhoto({
+      data: file,
+      header: {
+        "Content-Type": "multipart/form-data",
+        Authorization: authHeader(),
+      },
+      setPreviewSrc: setPreviewSrc,
+      setFile: setFile,
+      setUser: setUser,
+      id: auth().id
+    })
   };
 
   return (
@@ -176,7 +157,7 @@ export default function ProfileTabAccount() {
             </Grid>
           )}
           {file && (
-            <Button onClick={onUpload} variant="contained">
+            <Button onClick={onUploadPhotoClick} variant="contained">
               Salvar
             </Button>
           )}

@@ -6,13 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import {
-  MESSAGES,
-  AUTH_TOKEN_EXPIRES_AT,
-  REFRESH_TOKEN_EXPIRES_AT,
-  ENDPOINTS,
-} from "config";
-import { apiCall } from "services";
+import { handleLogin } from "services";
 import { LoginFormFields } from "components/Login";
 import { validateLoginForm } from "validations";
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
@@ -27,32 +21,9 @@ const Login = (props) => {
     },
     validate: (values) => validateLoginForm(values),
     onSubmit: (values) => {
-      onLogin(values);
+      handleLogin({ data: values, signIn });
     },
   });
-
-  const handleApiCall = async (config, toastObject) => {
-    const { method, endpoint, data } = config;
-    const response = await apiCall(method, endpoint, data, {}, toastObject);
-    return response;
-  };
-
-  const onLogin = async (values) => {
-    let response = await handleApiCall(
-      { method: "post", endpoint: ENDPOINTS.AUTH.LOGIN, data: values },
-      MESSAGES.AUTH.LOGIN
-    );
-    if (response) {
-      signIn({
-        expiresIn: AUTH_TOKEN_EXPIRES_AT,
-        token: response.access_token,
-        tokenType: "Bearer",
-        refreshToken: response.refresh_token,
-        refreshTokenExpireIn: REFRESH_TOKEN_EXPIRES_AT,
-        authState: response.user,
-      });
-    }
-  };
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
