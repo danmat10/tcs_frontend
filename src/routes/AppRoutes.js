@@ -4,9 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import UserContext from "contexts/UserContext";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-import { ForgotPassword, Home, Login, Profile, User } from "../pages";
-import URLS from "../config/urls";
+import { ForgotPassword, Home, Login, Profile, User } from "pages";
 import DepartmentsPage from "pages/Departments";
+import ConstructionsPage from "pages/Constructions";
+import { URLS } from "config";
 
 const AppRoutes = () => {
   const [user, setUser] = React.useState({ photo: null, id: null });
@@ -33,7 +34,11 @@ const AppRoutes = () => {
           path={URLS.DEPARTAMENTO}
           element={<PrivateRoute Component={DepartmentsPage} />}
         />
-
+        <Route
+          exact
+          path={URLS.OBRA}
+          element={<PrivateRoute Component={ConstructionsPage} />}
+        />
         <Route
           exact
           path={URLS.LOGIN}
