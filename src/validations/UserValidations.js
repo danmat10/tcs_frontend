@@ -135,4 +135,4 @@ const validateUserEditForm = (values, user) => {
   return errors;
 };
 
-export { validateUserCreateForm, validateUserEditForm, validateContacts };
+export { validateUserCreateForm, validateUserEditForm, validateContacts, validateCPForCNPJ};
