@@ -10,4 +10,4 @@ export {
 } from "./userCalls";
 export { handleLogin, handleEditPassword } from "./authCalls";
 export { handleEditContacts, handleUploadPhoto } from "./profileCalls";
-export { apiCall, handleApiCall, refreshApi } from "./apiUtils";
+export { apiCall, handleApiCall, refreshApi, handleBuscaCep } from "./apiUtils";
