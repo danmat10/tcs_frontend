@@ -12,4 +12,4 @@ const URLS = {
   ESQUECEU_SENHA: "/forgot-password",
 };
 
-export default URLS;
+export { URLS };

@@ -119,8 +119,7 @@ const MESSAGES = {
       pending: "",
       success: "",
       error: {
-        default:
-          "Oops, ocorreu um erro desconhecido ao buscar a obra.",
+        default: "Oops, ocorreu um erro desconhecido ao buscar a obra.",
       },
       show: false,
     },
@@ -148,7 +147,7 @@ const MESSAGES = {
       },
       show: true,
     },
-  }
+  },
 };
 
-export default MESSAGES;
+export { MESSAGES };

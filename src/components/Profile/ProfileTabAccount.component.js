@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import ENDPOINTS from "config/endpoints";
+import { ENDPOINTS } from "config";
 import UserContext from "contexts/UserContext";
 import placeholder_image from "assets/images/placeholder_image.jpg";
 import { handleEditContacts, handleUploadPhoto } from "services";
