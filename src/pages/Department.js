@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { Dialog } from "@mui/material";
 
-import { handleGetDepartmentsList, handleGetUsersList } from "services";
 import { Breadcrumb, PageContainer } from "components/Common";
-import { Header } from "components/Header";
 import {
   DepartmentBreadcrumb,
   DepartmentCreate,
@@ -12,6 +10,8 @@ import {
   DepartmentList,
   DepartmentView,
 } from "components/Department";
+import { Header } from "components/Header";
+import { handleGetDepartmentsList, handleGetUsersList } from "services";
 
 const Department = () => {
   const authHeader = useAuthHeader();
