@@ -13,14 +13,19 @@ import {
 } from "@mui/material";
 import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
-const UserFormFields = ({ formik }) => (
+const ProfileContactsFormFields = ({ formik }) => (
   <>
     <FieldArray name="contacts">
       {({ push, remove }) => (
         <>
           <FormControl component="fieldset" margin="normal" fullWidth>
             {formik.values.contacts.map((contato, index) => (
-              <Grid container key={index} alignItems="center" justifyContent="space-between">
+              <Grid
+                container
+                key={index}
+                alignItems="center"
+                justifyContent="space-between"
+              >
                 <Grid item md={5} xs={12}>
                   <FormControl
                     fullWidth
@@ -109,4 +114,4 @@ const UserFormFields = ({ formik }) => (
   </>
 );
 
-export default UserFormFields;
+export { ProfileContactsFormFields };

@@ -18,7 +18,7 @@ import { handleEditContacts, handleUploadPhoto } from "services";
 import { validateContacts } from "validations";
 import { ProfileContactsFormFields, styles } from ".";
 
-export default function ProfileTabAccount() {
+const ProfileTabAccount = () => {
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
   const { user, setUser } = useContext(UserContext);
@@ -89,8 +89,8 @@ export default function ProfileTabAccount() {
       setPreviewSrc: setPreviewSrc,
       setFile: setFile,
       setUser: setUser,
-      id: auth().id
-    })
+      id: auth().id,
+    });
   };
 
   return (
@@ -234,4 +234,6 @@ export default function ProfileTabAccount() {
       </Grid>
     </div>
   );
-}
+};
+
+export { ProfileTabAccount };

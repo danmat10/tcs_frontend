@@ -10,7 +10,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { styles } from ".";
 
-export default function PasswordFields({ formik }) {
+const ProfileChangePasswordFields = ({ formik }) => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -99,4 +99,6 @@ export default function PasswordFields({ formik }) {
       />
     </FormControl>
   );
-}
+};
+
+export { ProfileChangePasswordFields };

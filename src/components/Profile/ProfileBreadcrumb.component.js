@@ -6,7 +6,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Typography } from "@mui/material";
 import { URLS } from "config";
 
-export default function ProfileBreadcrumb() {
+const ProfileBreadcrumb = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
@@ -26,4 +26,6 @@ export default function ProfileBreadcrumb() {
       </Typography>
     </Breadcrumbs>
   );
-}
+};
+
+export { ProfileBreadcrumb };
