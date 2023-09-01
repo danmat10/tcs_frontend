@@ -27,6 +27,12 @@ const ENDPOINTS = {
     PATCH_id: (id) => BASEURL + "/db/departments/" + id,
     DELETE: BASEURL + "/db/departments/",
   },
+  CONSTRUCTION: {
+    GET: BASEURL + "/db/constructions",
+    POST: BASEURL + "/db/constructions",
+    PATCH_id: (id) => BASEURL + "/db/constructions/" + id,
+    DELETE: BASEURL + "/db/constructions/",
+  },
 };
 
 export default ENDPOINTS;

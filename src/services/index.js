@@ -11,3 +11,4 @@ export {
 export { handleLogin, handleEditPassword } from "./authCalls";
 export { handleEditContacts, handleUploadPhoto } from "./profileCalls";
 export { apiCall, handleApiCall, refreshApi, handleBuscaCep } from "./apiUtils";
+export * from "./constructionCalls";
