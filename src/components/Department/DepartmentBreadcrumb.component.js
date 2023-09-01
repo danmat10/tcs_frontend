@@ -4,7 +4,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { BusinessCenter, Home } from "@mui/icons-material";
 
-export default function DepartmentsBreadcrumb() {
+const DepartmentBreadcrumb = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
@@ -24,4 +24,6 @@ export default function DepartmentsBreadcrumb() {
       </Typography>
     </Breadcrumbs>
   );
-}
+};
+
+export { DepartmentBreadcrumb };

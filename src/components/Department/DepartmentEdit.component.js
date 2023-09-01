@@ -4,7 +4,7 @@ import { FormikProvider, useFormik } from "formik";
 
 import { DialogForm } from "components/Common";
 import { validateDepartmenEditForm } from "validations";
-import DepartmentFormFields from "./DepartmentFormFields.component";
+import { DepartmentFormFields } from ".";
 import { handleEditDepartment } from "services";
 
 const DepartmentEdit = ({ department, users, setState, onClose }) => {
@@ -52,4 +52,4 @@ const DepartmentEdit = ({ department, users, setState, onClose }) => {
   );
 };
 
-export default DepartmentEdit;
+export { DepartmentEdit };

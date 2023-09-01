@@ -56,4 +56,4 @@ const DepartmentView = ({ department, onClose }) => {
   );
 };
 
-export default DepartmentView;
+export { DepartmentView };

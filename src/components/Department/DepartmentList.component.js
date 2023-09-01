@@ -122,4 +122,4 @@ const DepartmentList = ({ departments, openDialog }) => {
   );
 };
 
-export default DepartmentList;
+export { DepartmentList };
