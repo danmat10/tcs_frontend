@@ -14,9 +14,9 @@ const validateConstructionCreateForm = (values) => {
     errors.usuario = "Obrigatório";
   }
 
-  const cpfError = validateCPForCNPJ(values.nrCpf);
+  const cpfError = validateCPForCNPJ(values.nmCpf);
   if (cpfError) {
-    errors.nrCpf = cpfError;
+    errors.nmCpf = cpfError;
   }
 
   const trimmedCliente = values.nmCliente?.trim();
