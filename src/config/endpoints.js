@@ -8,12 +8,12 @@ const ENDPOINTS = {
     REFRESH: BASEURL + "/auth/refresh",
   },
   USER: {
-    POST: SPRINGURL + "/api/users",
-    GET: SPRINGURL + "/api/users",
-    GET_ID: (id) => BASEURL + "/db/users/" + id,
-    PATCH: SPRINGURL + "/api/users/",
-    PATCH_ID: (id) => SPRINGURL + "/api/users/" + id,
-    DELETE: SPRINGURL + "/api/users/",
+    POST: BASEURL + "/api/users",
+    GET: BASEURL + "/api/users",
+    GET_ID: (id) => BASEURL + "/api/users/" + id,
+    PATCH: BASEURL + "/api/users/",
+    PATCH_ID: (id) => BASEURL + "/api/users/" + id,
+    DELETE: BASEURL + "/api/users/",
     PROFILE: {
       GET_PHOTO: (id) => BASEURL + "/uploads/" + id,
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
@@ -22,10 +22,10 @@ const ENDPOINTS = {
     },
   },
   DEPARTMENT: {
-    GET: BASEURL + "/db/departments",
-    POST: BASEURL + "/db/departments",
-    PATCH_id: (id) => BASEURL + "/db/departments/" + id,
-    DELETE: BASEURL + "/db/departments/",
+    GET: BASEURL + "/api/departments",
+    POST: BASEURL + "/api/departments",
+    PATCH_id: (id) => BASEURL + "/api/departments/" + id,
+    DELETE: BASEURL + "/api/departments/",
   },
   CONSTRUCTION: {
     GET: BASEURL + "/db/constructions",
@@ -35,4 +35,4 @@ const ENDPOINTS = {
   },
 };
 
-export default ENDPOINTS;
+export { ENDPOINTS };
