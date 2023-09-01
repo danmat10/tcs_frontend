@@ -187,4 +187,4 @@ const AddressFormFields = ({ formik, isEditing }) => {
   );
 };
 
-export default AddressFormFields;
+export { AddressFormFields };

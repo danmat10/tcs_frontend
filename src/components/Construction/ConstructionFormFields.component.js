@@ -1,9 +1,4 @@
-import {
-  TextField,
-  Grid,
-  Autocomplete,
-  Typography,
-} from "@mui/material";
+import { TextField, Grid, Autocomplete, Typography } from "@mui/material";
 
 import { AddressFormFields, styles } from ".";
 import { CpfCnpjMask } from "components/Common";
@@ -128,4 +123,4 @@ const ConstructionFormFields = ({
   );
 };
 
-export default ConstructionFormFields;
+export { ConstructionFormFields };

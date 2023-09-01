@@ -3,9 +3,9 @@ import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
 import { DialogForm } from "components/Common";
-import ConstructionFormFields from "./ConstructionFormFields.component";
 import { validateConstructionCreateForm } from "validations";
 import { handleCreateConstruction } from "services";
+import { ConstructionFormFields } from ".";
 
 const ConstructionCreate = ({ onClose, users, setState }) => {
   const authHeader = useAuthHeader();
@@ -64,4 +64,4 @@ const ConstructionCreate = ({ onClose, users, setState }) => {
   );
 };
 
-export default ConstructionCreate;
+export { ConstructionCreate };

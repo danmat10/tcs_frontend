@@ -60,8 +60,7 @@ const ConstructionList = ({ openDialog, constructions }) => {
     if (isMobile) {
       return baseColumns
         .filter(
-          (column) =>
-            column.field === "nmObra" || column.field === "actions"
+          (column) => column.field === "nmObra" || column.field === "actions"
         )
         .map((column) => {
           if (column.field === "nmObra") {
@@ -76,11 +75,7 @@ const ConstructionList = ({ openDialog, constructions }) => {
   }
 
   function matchesSearch(row) {
-    return [
-      row.nmObra,
-      row.usuario?.nmUsuario,
-      row.nmCliente,
-    ].some(
+    return [row.nmObra, row.usuario?.nmUsuario, row.nmCliente].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
@@ -90,7 +85,6 @@ const ConstructionList = ({ openDialog, constructions }) => {
   const filteredRows = constructions.filter((row) => {
     return matchesSearch(row);
   });
-
 
   return (
     <PageGridContent>
@@ -115,7 +109,6 @@ const ConstructionList = ({ openDialog, constructions }) => {
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
         <Grid item xs={12} md={12} lg={12}>
-
           <DataGrid
             sx={{ height: 500 }}
             rows={filteredRows}
@@ -132,4 +125,4 @@ const ConstructionList = ({ openDialog, constructions }) => {
   );
 };
 
-export default ConstructionList;
+export { ConstructionList };

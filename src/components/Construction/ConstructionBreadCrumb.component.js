@@ -6,7 +6,7 @@ import { BusinessCenter, Home } from "@mui/icons-material";
 
 import { URLS } from "config";
 
-export default function ConstructionBreadcrumb() {
+const ConstructionBreadcrumb = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
@@ -26,4 +26,6 @@ export default function ConstructionBreadcrumb() {
       </Typography>
     </Breadcrumbs>
   );
-}
+};
+
+export { ConstructionBreadcrumb };
