@@ -2,8 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import UserContext from "contexts/UserContext";
-import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
+import { PrivateRoute, PublicRoute } from ".";
 import {
   ForgotPassword,
   Home,
@@ -60,4 +59,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+export { AppRoutes };

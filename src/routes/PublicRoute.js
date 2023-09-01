@@ -13,4 +13,4 @@ const PublicRoute = ({ Component }) => {
   }
 };
 
-export default PublicRoute;
+export { PublicRoute };
