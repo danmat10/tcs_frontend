@@ -11,7 +11,7 @@ import {
 import { styles } from "components/Profile";
 import { Breadcrumb, PageContainer, PageGridContent } from "components/Common";
 
-const ProfilePage = () => {
+const Profile = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -56,4 +56,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export { Profile };

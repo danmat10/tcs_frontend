@@ -4,9 +4,15 @@ import { Route, Routes } from "react-router-dom";
 import UserContext from "contexts/UserContext";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-import { ForgotPassword, Home, Login, Profile, User } from "pages";
-import DepartmentsPage from "pages/Departments";
-import ConstructionsPage from "pages/Constructions";
+import {
+  ForgotPassword,
+  Home,
+  Login,
+  Profile,
+  User,
+  Department,
+  Construction,
+} from "pages";
 import { URLS } from "config";
 
 const AppRoutes = () => {
@@ -32,12 +38,12 @@ const AppRoutes = () => {
         <Route
           exact
           path={URLS.DEPARTAMENTO}
-          element={<PrivateRoute Component={DepartmentsPage} />}
+          element={<PrivateRoute Component={Department} />}
         />
         <Route
           exact
           path={URLS.OBRA}
-          element={<PrivateRoute Component={ConstructionsPage} />}
+          element={<PrivateRoute Component={Construction} />}
         />
         <Route
           exact

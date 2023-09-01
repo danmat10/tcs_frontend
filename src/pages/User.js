@@ -13,7 +13,7 @@ import { Header } from "components/Header";
 import { PageContainer, Breadcrumb } from "components/Common";
 import { handleGetUsersList } from "services";
 
-const UserPage = () => {
+const User = () => {
   const authHeader = useAuthHeader();
   useEffect(
     () =>
@@ -77,4 +77,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export { User };
