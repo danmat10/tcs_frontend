@@ -26,4 +26,4 @@ const UserMenu = ({ anchorEl, onClose, onEditProfile, onLogout }) => (
   </Menu>
 );
 
-export default UserMenu;
+export { UserMenu };

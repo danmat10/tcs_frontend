@@ -34,4 +34,4 @@ const UserAvatar = ({ onClick }) => {
   );
 };
 
-export default UserAvatar;
+export { UserAvatar };

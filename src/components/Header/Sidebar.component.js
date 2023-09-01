@@ -88,4 +88,4 @@ const Sidebar = ({ isOpen, onClose }) => (
   </Drawer>
 );
 
-export default Sidebar;
+export { Sidebar };
