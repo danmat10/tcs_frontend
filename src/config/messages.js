@@ -114,6 +114,41 @@ const MESSAGES = {
       show: true,
     },
   },
+  CONSTRUCTION: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default:
+          "Oops, ocorreu um erro desconhecido ao buscar a obra.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando obra...",
+      success: "obra criada com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar a obra.",
+      },
+      show: true,
+    },
+    PATCH: {
+      pending: "Atualizando obra...",
+      success: "obra atualizada com sucesso!",
+      error: {
+        default: "Oops, não foi possível atualizar a obra.",
+      },
+      show: true,
+    },
+    DELETE: {
+      pending: "Deletando obra...",
+      success: "obra deletada com sucesso!",
+      error: {
+        default: "Oops, não foi possível deletar a obra.",
+      },
+      show: true,
+    },
+  }
 };
 
 export default MESSAGES;
