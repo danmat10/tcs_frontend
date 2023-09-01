@@ -9,8 +9,7 @@ import {
   ProfileTabSecurity,
 } from "components/Profile";
 import { styles } from "components/Profile";
-import { Breadcrumb, PageContainer } from "components/Common";
-import PageGridContent from "components/Common/PageGridContent.component";
+import { Breadcrumb, PageContainer, PageGridContent } from "components/Common";
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = React.useState(0);

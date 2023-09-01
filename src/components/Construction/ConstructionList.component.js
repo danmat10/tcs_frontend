@@ -4,7 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { styles } from ".";
-import PageGridContent from "components/Common/PageGridContent.component";
+import { PageGridContent } from "components/Common";
 import { Edit, Visibility } from "@mui/icons-material";
 
 const ConstructionList = ({ openDialog, constructions }) => {

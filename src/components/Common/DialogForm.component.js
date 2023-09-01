@@ -8,13 +8,13 @@ import {
 
 import { styles } from ".";
 
-export default function DialogForm({
+const DialogForm = ({
   title,
   children,
   onClose,
   onSubmit,
   btnSubmitName,
-}) {
+}) => {
   return (
     <>
       <DialogTitle className={styles.dialogTitle} paragraph>
@@ -35,3 +35,5 @@ export default function DialogForm({
     </>
   );
 }
+
+export { DialogForm };

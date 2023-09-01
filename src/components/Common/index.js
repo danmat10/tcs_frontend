@@ -1,7 +1,8 @@
 import styles from "./Commons.module.css";
-export { default as Breadcrumb } from "./Breadcrumb.component";
-export { default as DialogForm } from "./DialogForm.component";
-export { default as PageContainer } from "./PageContainer.component";
-export { default as CpfCnpjMask } from "./CpfCnpjMask.component";
-export { default as UfField } from "./UfField.component";
+export * from "./Breadcrumb.component";
+export * from "./DialogForm.component";
+export * from "./PageContainer.component";
+export * from "./CpfCnpjMask.component";
+export * from "./UfField.component";
+export * from "./PageGridContent.component";
 export { styles };

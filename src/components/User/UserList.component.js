@@ -13,7 +13,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Edit, Visibility } from "@mui/icons-material";
 
 import { styles } from ".";
-import PageGridContent from "components/Common/PageGridContent.component";
+import { PageGridContent } from "components/Common";
 
 const UserList = ({ users, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");

@@ -56,4 +56,4 @@ const UfField = ({ formik, disabled }) => {
   );
 };
 
-export default UfField;
+export { UfField };

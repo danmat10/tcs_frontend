@@ -6,7 +6,7 @@ const CpfCnpjMask = ({ formik, fieldName }) => {
     if (value && /\D$/.test(value)) {
       value = value.slice(0, -1);
     }
-    
+
     value = value.replace(/\D/g, "");
 
     if (value.length <= 3) {
@@ -53,4 +53,4 @@ const CpfCnpjMask = ({ formik, fieldName }) => {
   );
 };
 
-export default CpfCnpjMask;
+export { CpfCnpjMask };

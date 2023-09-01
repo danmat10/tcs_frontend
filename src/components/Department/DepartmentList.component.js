@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { styles } from ".";
-import PageGridContent from "components/Common/PageGridContent.component";
+import { PageGridContent } from "components/Common";
 
 const DepartmentList = ({ departments, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");

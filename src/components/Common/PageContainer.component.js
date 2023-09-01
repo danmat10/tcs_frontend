@@ -16,4 +16,4 @@ const PageContainer = ({ children }) => {
   );
 };
 
-export default PageContainer;
+export { PageContainer };
