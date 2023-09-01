@@ -5,5 +5,5 @@ export * from "./UserView.component";
 export * from "./UserCreate.component";
 export * from "./UserFormFields.component";
 export * from "./UserBreadcrumb.component";
-export * from "../../validations/UserValidations";
+export * from "../../validations/user";
 export { styles };

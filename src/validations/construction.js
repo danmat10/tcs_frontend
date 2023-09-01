@@ -1,4 +1,4 @@
-const { validateCPForCNPJ } = require("./UserValidations");
+const { validateCPForCNPJ } = require("./user");
 
 const validateConstructionCreateForm = (values) => {
   const errors = {};

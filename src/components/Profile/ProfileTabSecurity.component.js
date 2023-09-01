@@ -4,7 +4,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";
 import { handleEditPassword } from "services";
-import { passwordValidation } from "validations/ProfileValidations";
+import { passwordValidation } from "validations";
 
 const ProfileTabSecurity = () => {
   const auth = useAuthUser();
