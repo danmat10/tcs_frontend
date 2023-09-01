@@ -30,4 +30,4 @@ const LoginFormFields = ({ formik }) => (
   </>
 );
 
-export default LoginFormFields;
+export { LoginFormFields };
