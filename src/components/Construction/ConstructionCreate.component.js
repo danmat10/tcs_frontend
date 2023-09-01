@@ -5,6 +5,7 @@ import { FormikProvider, useFormik } from "formik";
 import { DialogForm } from "components/Common";
 import ConstructionFormFields from "./ConstructionFormFields.component";
 import { validateConstructionCreateForm } from "validations";
+import { handleCreateConstruction } from "services";
 
 const ConstructionCreate = ({ onClose, users, setState }) => {
   const authHeader = useAuthHeader();
@@ -31,7 +32,12 @@ const ConstructionCreate = ({ onClose, users, setState }) => {
     validateOnChange: false,
     validate: (values) => validateConstructionCreateForm(values),
     onSubmit: (values) => {
-      console.log(values);
+      handleCreateConstruction({
+        data: values,
+        header: { Authorization: authHeader() },
+        setState: setState,
+      });
+      formik.resetForm();
     },
   });
 

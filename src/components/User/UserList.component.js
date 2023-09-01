@@ -8,11 +8,9 @@ import {
   Button,
   FormHelperText,
 } from "@mui/material";
-import ViewIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Edit, Visibility } from "@mui/icons-material";
 
 import { styles } from ".";
 import PageGridContent from "components/Common/PageGridContent.component";
@@ -63,23 +61,17 @@ const UserList = ({ users, openDialog }) => {
         headerAlign: "center",
         renderCell: (params) => (
           <>
-            <ViewIcon
+            <Visibility
               color="primary"
               onClick={() => openDialog("view", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <EditIcon
+            <Edit
               color="primary"
               onClick={() => openDialog("update", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Editar"
-            />
-            <DeleteIcon
-              color="secondary"
-              onClick={() => openDialog("delete", params.row)}
-              style={{ cursor: "pointer" }}
-              titleAccess="Excluir"
             />
           </>
         ),

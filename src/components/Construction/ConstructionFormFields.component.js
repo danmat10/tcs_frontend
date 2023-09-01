@@ -15,7 +15,7 @@ const ConstructionFormFields = ({
 }) => {
   return (
     <div className={styles.formFields}>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2} alignItems="center" marginTop="auto">
         <Grid item md={12} xs={12}>
           <TextField
             fullWidth
@@ -67,7 +67,7 @@ const ConstructionFormFields = ({
         </Grid>
       </Grid>
       <AddressFormFields formik={formik} isEditing={isEditing} />
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2} alignItems="center" marginTop="auto">
         <Grid item md={12} xs={12}>
           <Typography variant="subtitle1">Datas</Typography>
         </Grid>

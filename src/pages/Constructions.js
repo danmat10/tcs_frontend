@@ -9,7 +9,7 @@ import {
   ConstructionList,
 } from "components/Construction";
 import { Header } from "components/Header";
-import { handleGetUsersList } from "services";
+import { handleGetConstructionList, handleGetUsersList } from "services";
 
 const ConstructionsPage = () => {
   const authHeader = useAuthHeader();
@@ -19,6 +19,10 @@ const ConstructionsPage = () => {
       header: { Authorization: authHeader() },
       setState: setState,
     });
+    handleGetConstructionList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    })
   }, []);
 
   const [state, setState] = useState({
@@ -43,7 +47,7 @@ const ConstructionsPage = () => {
   };
 
   const views = {
-    list: <ConstructionList openDialog={openDialog} />,
+    list: <ConstructionList openDialog={openDialog} constructions={state.constructions} />,
     create: (
       <ConstructionCreate
         onClose={closeDialog}

@@ -38,7 +38,6 @@ const AddressFormFields = ({ formik, isEditing }) => {
     };
     const cep = e.target.value;
     const isValid = isValidCEP(cep);
-    setIsCEPValid(isValid);
     if (!isValid) {
       invalidCep();
       return;
@@ -49,13 +48,14 @@ const AddressFormFields = ({ formik, isEditing }) => {
       formik.setFieldValue("endereco.nmLogradouro", response.logradouro);
       formik.setFieldValue("endereco.nmCidade", response.localidade);
       formik.setFieldValue("endereco.nmEstado", response.uf);
+      setIsCEPValid(isValid);
       bairroRef.current.focus();
     } else {
       invalidCep();
     }
   };
   return (
-    <Grid container spacing={2} alignItems="center">
+    <Grid container spacing={2} alignItems="center" marginTop="auto">
       <Grid item md={12} xs={12}>
         <Typography
           variant="subtitle1"
