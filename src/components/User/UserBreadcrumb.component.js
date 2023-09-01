@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 
 import { URLS } from "config";
 
-export default function UserBreadcrumb() {
+const UserBreadcrumb = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link
@@ -27,4 +27,6 @@ export default function UserBreadcrumb() {
       </Typography>
     </Breadcrumbs>
   );
-}
+};
+
+export { UserBreadcrumb };

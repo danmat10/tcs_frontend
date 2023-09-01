@@ -226,4 +226,4 @@ const UserFormFields = ({ formik, isEditing = false }) => {
   );
 };
 
-export default UserFormFields;
+export { UserFormFields };

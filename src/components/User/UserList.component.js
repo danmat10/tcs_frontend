@@ -174,4 +174,4 @@ const UserList = ({ users, openDialog }) => {
   );
 };
 
-export default UserList;
+export { UserList };

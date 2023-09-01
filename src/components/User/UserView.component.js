@@ -78,11 +78,7 @@ const UserView = ({ user, onClose }) => {
         </Grid>
         <Divider sx={{ marginTop: 5 }} />
         <DialogActions>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => onClose()}
-          >
+          <Button variant="contained" color="primary" onClick={() => onClose()}>
             OK
           </Button>
         </DialogActions>
@@ -91,4 +87,4 @@ const UserView = ({ user, onClose }) => {
   );
 };
 
-export default UserView;
+export { UserView };
