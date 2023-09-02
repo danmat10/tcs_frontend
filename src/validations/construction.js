@@ -57,7 +57,64 @@ const validateConstructionCreateForm = (values) => {
     errors.endereco = enderecoErrors;
   }
 
+  const trimmedDtInicio = values.dtInicio?.trim();
+  if (!trimmedDtInicio) {
+    errors.dtInicio = "Obrigatório";
+  }
+
+  const trimmedDtPrevisaoFinalizacao = values.dtPrevisaoFinalizacao?.trim();
+  if (!trimmedDtPrevisaoFinalizacao) {
+    errors.dtPrevisaoFinalizacao = "Obrigatório";
+  }
+
+  if (trimmedDtInicio && trimmedDtPrevisaoFinalizacao) {
+    const dtInicio = new Date(trimmedDtInicio);
+    const dtPrevisaoFinalizacao = new Date(trimmedDtPrevisaoFinalizacao);
+    if (dtInicio > dtPrevisaoFinalizacao) {
+      errors.dtPrevisaoFinalizacao =
+        "A data de previsão de finalização deve ser maior que a data de início";
+    }
+  }
+
   return errors;
 };
 
-export { validateConstructionCreateForm };
+const validateConstructionEditForm = (values, construction) => {
+  const errors = validateConstructionCreateForm(values);
+  if (values.usuario && values.usuario.flStatus === "Inativo") {
+    errors.usuario = "O usuário selecionado está inativo";
+  }
+
+  const trimmedDtFinalizacao = values.dtFinalizacao?.trim();
+  if (trimmedDtFinalizacao) {
+    const dtInicio = new Date(values.dtInicio);
+    const dtFinalizacao = new Date(trimmedDtFinalizacao);
+    if (dtInicio > dtFinalizacao) {
+      errors.dtFinalizacao =
+        "A data de finalização deve ser maior que a data de início";
+    }
+  }
+
+  if (
+    values.nmObra === construction.nmObra &&
+    values.usuario.id === construction.usuario.id &&
+    values.nmCpf === construction.nmCpf &&
+    values.nmCliente === construction.nmCliente &&
+    values.endereco.nmCep === construction.endereco.nmCep &&
+    values.endereco.nmBairro === construction.endereco.nmBairro &&
+    values.endereco.nmLogradouro === construction.endereco.nmLogradouro &&
+    values.endereco.nmNumero === construction.endereco.nmNumero &&
+    values.endereco.nmComplemento === construction.endereco.nmComplemento &&
+    values.endereco.nmCidade === construction.endereco.nmCidade &&
+    values.endereco.nmEstado === construction.endereco.nmEstado &&
+    values.dtInicio === construction.dtInicio &&
+    values.dtPrevisaoFinalizacao === construction.dtPrevisaoFinalizacao &&
+    values.dtFinalizacao === construction.dtFinalizacao
+  ) {
+    errors._errors = "Nenhuma alteração foi feita";
+  }
+
+  return errors;
+};
+
+export { validateConstructionCreateForm, validateConstructionEditForm };
