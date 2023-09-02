@@ -30,6 +30,10 @@ const ENDPOINTS = {
     POST: BASEURL + "/api/constructions",
     PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
   },
+  PATRIMONY: {
+    POST: BASEURL + "/api/patrimonies",
+    PUT_ID: (id) => BASEURL + "/api/patrimonies/" + id,
+  },
 };
 
 export { ENDPOINTS };
