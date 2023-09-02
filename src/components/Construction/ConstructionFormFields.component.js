@@ -1,4 +1,10 @@
-import { TextField, Grid, Autocomplete, Typography } from "@mui/material";
+import {
+  TextField,
+  Grid,
+  Autocomplete,
+  Typography,
+  FormHelperText,
+} from "@mui/material";
 
 import { AddressFormFields, styles } from ".";
 import { CpfCnpjMask } from "components/Common";
@@ -27,6 +33,7 @@ const ConstructionFormFields = ({
           <Autocomplete
             fullWidth
             options={userList}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.id + " - " + option.nmUsuario}
             value={formik.values.usuario}
             onChange={(event, newValue) => {
@@ -119,6 +126,9 @@ const ConstructionFormFields = ({
           </Grid>
         )}
       </Grid>
+      {formik.touched && formik.errors._errors && (
+        <FormHelperText error>{formik.errors._errors}</FormHelperText>
+      )}
     </div>
   );
 };
