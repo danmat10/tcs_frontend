@@ -125,15 +125,15 @@ const MESSAGES = {
     },
     POST: {
       pending: "Criando obra...",
-      success: "obra criada com sucesso!",
+      success: "Obra criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a obra.",
       },
       show: true,
     },
-    PATCH: {
+    PUT: {
       pending: "Atualizando obra...",
-      success: "obra atualizada com sucesso!",
+      success: "Obra atualizada com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar a obra.",
       },

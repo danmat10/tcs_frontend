@@ -28,7 +28,7 @@ const ENDPOINTS = {
   CONSTRUCTION: {
     GET: BASEURL + "/api/constructions",
     POST: BASEURL + "/api/constructions",
-    PATCH_id: (id) => BASEURL + "/api/constructions/" + id,
+    PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
   },
 };
 
