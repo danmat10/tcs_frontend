@@ -6,7 +6,9 @@ import { Breadcrumb, PageContainer } from "components/Common";
 import {
   ConstructionBreadcrumb,
   ConstructionCreate,
+  ConstructionEdit,
   ConstructionList,
+  ConstructionView,
 } from "components/Construction";
 import { Header } from "components/Header";
 import { handleGetConstructionList, handleGetUsersList } from "services";
@@ -60,8 +62,20 @@ const Construction = () => {
         setState={setState}
       />
     ),
-    update: null,
-    view: null,
+    update: (
+      <ConstructionEdit
+        construction={state.selectedConstruction}
+        users={state.users}
+        onClose={closeDialog}
+        setState={setState}
+      />
+    ),
+    view: (
+      <ConstructionView
+        construction={state.selectedConstruction}
+        onClose={closeDialog}
+      />
+    ),
   };
 
   return (
