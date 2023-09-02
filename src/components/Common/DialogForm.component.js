@@ -12,7 +12,7 @@ const DialogForm = ({
   title,
   children,
   onClose,
-  onSubmit,
+  onSubmit = null,
   btnSubmitName,
 }) => {
   return (
@@ -22,18 +22,32 @@ const DialogForm = ({
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <Divider sx={{ marginTop: 3 }} />
-      <DialogActions sx={{
-        padding: 3,
-      }}>
-        <Button variant="outlined" color="error" onClick={() => onClose()}>
-          Cancelar
-        </Button>
-        <Button type="submit" variant="contained" onClick={() => onSubmit()}>
-          {btnSubmitName}
-        </Button>
+      <DialogActions
+        sx={{
+          padding: 3,
+        }}
+      >
+        {(onSubmit && (
+          <>
+            <Button variant="outlined" color="error" onClick={() => onClose()}>
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => onSubmit()}
+            >
+              {btnSubmitName}
+            </Button>
+          </>
+        )) || (
+          <Button type="submit" variant="contained" onClick={() => onClose()}>
+            OK
+          </Button>
+        )}
       </DialogActions>
     </>
   );
-}
+};
 
 export { DialogForm };
