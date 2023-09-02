@@ -11,6 +11,7 @@ import {
   User,
   Department,
   Construction,
+  Patrimony,
 } from "pages";
 import { URLS } from "config";
 
@@ -43,6 +44,11 @@ const AppRoutes = () => {
           exact
           path={URLS.OBRA}
           element={<PrivateRoute Component={Construction} />}
+        />
+        <Route
+          exact
+          path={URLS.PATRIMONIO}
+          element={<PrivateRoute Component={Patrimony} />}
         />
         <Route
           exact
