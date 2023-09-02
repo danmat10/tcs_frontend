@@ -27,11 +27,6 @@ const ConstructionList = ({ openDialog, constructions }) => {
           params.row.usuario ? params.row.usuario.nmUsuario : "",
       },
       {
-        field: "nmCliente",
-        headerName: "Cliente",
-        flex: 2,
-      },
-      {
         field: "actions",
         headerName: "Ações",
         flex: 1,
@@ -75,7 +70,7 @@ const ConstructionList = ({ openDialog, constructions }) => {
   }
 
   function matchesSearch(row) {
-    return [row.nmObra, row.usuario?.nmUsuario, row.nmCliente].some(
+    return [row.nmObra, row.usuario?.nmUsuario].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
