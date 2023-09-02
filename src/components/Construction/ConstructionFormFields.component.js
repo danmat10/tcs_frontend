@@ -49,6 +49,8 @@ const ConstructionFormFields = ({
             )}
           />
         </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center" marginTop="auto">
         <Grid item md={12} xs={12}>
           <Typography variant="subtitle1">Cliente</Typography>
         </Grid>
