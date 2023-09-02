@@ -29,8 +29,8 @@ const ConstructionCreate = ({ onClose, users, setState }) => {
       dtPrevisaoFinalizacao: "",
       dtFinalizacao: "",
     },
-    validateOnChange: false,
     validate: (values) => validateConstructionCreateForm(values),
+    validateOnChange: false,
     onSubmit: (values) => {
       handleCreateConstruction({
         data: values,
