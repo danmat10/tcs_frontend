@@ -7,7 +7,7 @@ import { DialogForm } from "components/Common";
 import { validatePatrimonyEditForm } from "validations";
 import { handleEditPatrimony } from "services";
 
-const PatrimonyEdit = ({ onClose, patrimony, setState, state }) => {
+const PatrimonyEdit = ({ onClose, patrimony, setState }) => {
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
@@ -23,15 +23,14 @@ const PatrimonyEdit = ({ onClose, patrimony, setState, state }) => {
       vlAquisicao: patrimony.vlAquisicao || 0,
     },
     validateOnChange: false,
-    validate: (values) => validatePatrimonyEditForm(values),
+    validate: (values) => validatePatrimonyEditForm(values, patrimony),
     onSubmit: (values) => {
+      values.id = patrimony.id;
       handleEditPatrimony({
         data: values,
         header: { Authorization: authHeader() },
         setState: setState,
-        state: state,
       });
-      formik.resetForm();
     },
   });
 
