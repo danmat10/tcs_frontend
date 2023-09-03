@@ -1,7 +1,7 @@
 import { handleApiCall } from ".";
 import { ENDPOINTS, MESSAGES } from "config";
 
-const handleCreatePatrimony = async ({ data, header }) => {
+const handleCreatePatrimony = async ({ data, header, setState }) => {
   await handleApiCall(
     {
       method: "post",
@@ -11,27 +11,33 @@ const handleCreatePatrimony = async ({ data, header }) => {
     },
     MESSAGES.PATRIMONY.POST
   );
+  handleGetPatrimoniesList({ header, setState });
 };
 
-const handleEditPatrimony = async ({ data, header, setState, state }) => {
-  const response = await handleApiCall(
+const handleEditPatrimony = async ({ data, header, setState }) => {
+  await handleApiCall(
     {
       method: "patch",
-      endpoint: ENDPOINTS.PATRIMONY.PUT,
+      endpoint: ENDPOINTS.PATRIMONY.PUT_ID(data.id),
       data: data,
       header: header,
     },
     MESSAGES.PATRIMONY.PUT
   );
-  if (response.ok) {
-    const patrimonies = state.patrimonies.map((patrimony) => {
-      if (patrimony.id === data.id) {
-        return data;
-      }
-      return patrimony;
-    });
-    setState((prev) => ({ ...prev, patrimonies: patrimonies }));
-  }
+  handleGetPatrimoniesList({ header, setState });
 };
 
-export { handleCreatePatrimony, handleEditPatrimony };
+const handleGetPatrimoniesList = async ({ header, setState }) => {
+  let patrimonies = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET,
+      header: header,
+    },
+    MESSAGES.PATRIMONY.GET
+  );
+  if (!patrimonies) patrimonies = [];
+  setState((prev) => ({ ...prev, patrimonies }));
+};
+
+export { handleCreatePatrimony, handleEditPatrimony, handleGetPatrimoniesList };
