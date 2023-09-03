@@ -6,19 +6,23 @@ import "typeface-roboto";
 import "./App.css";
 import { refreshApi } from "services";
 import { AppRoutes } from "routes";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "theme";
 
 class App extends React.Component {
   render() {
     return (
-      <AuthProvider
-        authType={"localstorage"}
-        authName={"_auth"}
-        refresh={refreshApi}
-      >
-        <Router>
-          <AppRoutes />
-        </Router>
-      </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider
+          authType={"localstorage"}
+          authName={"_auth"}
+          refresh={refreshApi}
+        >
+          <Router>
+            <AppRoutes />
+          </Router>
+        </AuthProvider>
+      </ThemeProvider>
     );
   }
 }
