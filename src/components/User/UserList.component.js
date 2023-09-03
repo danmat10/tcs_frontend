@@ -81,10 +81,10 @@ const UserList = ({ users, openDialog }) => {
     if (isMobile) {
       return baseColumns
         .filter(
-          (column) => column.field === "name" || column.field === "actions"
+          (column) => column.field === "nmUsuario" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "name") {
+          if (column.field === "nmUsuario") {
             return { ...column, flex: 1 };
           } else if (column.field === "actions") {
             return { ...column, flex: 1 };
