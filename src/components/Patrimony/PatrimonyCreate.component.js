@@ -28,6 +28,7 @@ const PatrimonyCreate = ({ onClose, setState }) => {
       handleCreatePatrimony({
         data: values,
         header: { Authorization: authHeader() },
+        setState,
       });
       formik.resetForm();
     },
