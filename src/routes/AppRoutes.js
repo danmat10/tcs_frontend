@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { PrivateRoute, PublicRoute, AdminRoute, GestorRoute } from ".";
+import { URLS } from "config";
 import UserContext from "contexts/UserContext";
-import { PrivateRoute, PublicRoute } from ".";
 import {
   ForgotPassword,
   Home,
@@ -13,7 +14,6 @@ import {
   Construction,
   Patrimony,
 } from "pages";
-import { URLS } from "config";
 
 const AppRoutes = () => {
   const [user, setUser] = React.useState({ photo: null, id: null });
@@ -22,13 +22,13 @@ const AppRoutes = () => {
       <Routes>
         <Route
           exact
-          path={URLS.HOME}
-          element={<PrivateRoute Component={Home} />}
+          path={URLS.USUARIO}
+          element={<AdminRoute Component={User} />}
         />
         <Route
           exact
-          path={URLS.USUARIO}
-          element={<PrivateRoute Component={User} />}
+          path={URLS.HOME}
+          element={<PrivateRoute Component={Home} />}
         />
         <Route
           exact
@@ -38,17 +38,17 @@ const AppRoutes = () => {
         <Route
           exact
           path={URLS.DEPARTAMENTO}
-          element={<PrivateRoute Component={Department} />}
+          element={<GestorRoute Component={Department} />}
         />
         <Route
           exact
           path={URLS.OBRA}
-          element={<PrivateRoute Component={Construction} />}
+          element={<GestorRoute Component={Construction} />}
         />
         <Route
           exact
           path={URLS.PATRIMONIO}
-          element={<PrivateRoute Component={Patrimony} />}
+          element={<GestorRoute Component={Patrimony} />}
         />
         <Route
           exact

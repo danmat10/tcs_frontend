@@ -21,6 +21,8 @@ import {
 
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
 import { URLS } from "config";
+import { useIsAdmin } from "routes/useIsAdmin";
+import { useIsGestor } from "routes";
 
 const Sidebar = ({ isOpen, onClose }) => (
   <Drawer
@@ -42,48 +44,60 @@ const Sidebar = ({ isOpen, onClose }) => (
     </Toolbar>
     <Divider style={{ width: "100%" }} />
     <List>
-      <ListItem component={Link} to={URLS.USUARIO}>
-        <ListItemIcon>
-          <People />
-        </ListItemIcon>
-        <Typography color="black">Usuários</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.PATRIMONIO}>
-        <ListItemIcon>
-          <AccountBalance />
-        </ListItemIcon>
-        <Typography color="black">Patrimônio</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.DEPARTAMENTO}>
-        <ListItemIcon>
-          <BusinessCenter />
-        </ListItemIcon>
-        <Typography color="black">Departamentos</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.OBRA}>
-        <ListItemIcon>
-          <Construction />
-        </ListItemIcon>
-        <Typography color="black">Obras</Typography>
-      </ListItem>
+      {useIsAdmin() && (
+        <ListItem component={Link} to={URLS.USUARIO}>
+          <ListItemIcon>
+            <People />
+          </ListItemIcon>
+          <Typography color="black">Usuários</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.PATRIMONIO}>
+          <ListItemIcon>
+            <AccountBalance />
+          </ListItemIcon>
+          <Typography color="black">Patrimônio</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.DEPARTAMENTO}>
+          <ListItemIcon>
+            <BusinessCenter />
+          </ListItemIcon>
+          <Typography color="black">Departamentos</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.OBRA}>
+          <ListItemIcon>
+            <Construction />
+          </ListItemIcon>
+          <Typography color="black">Obras</Typography>
+        </ListItem>
+      )}
       <ListItem component={Link} to={URLS.REQUISICAO}>
         <ListItemIcon>
           <Assignment />
         </ListItemIcon>
         <Typography color="black">Requisições</Typography>
       </ListItem>
-      <ListItem component={Link} to={URLS.MANUTENCAO}>
-        <ListItemIcon>
-          <Build />
-        </ListItemIcon>
-        <Typography color="black">Manutenções</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.GESTAO}>
-        <ListItemIcon>
-          <BarChart />
-        </ListItemIcon>
-        <Typography color="black">Gestão</Typography>
-      </ListItem>
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.MANUTENCAO}>
+          <ListItemIcon>
+            <Build />
+          </ListItemIcon>
+          <Typography color="black">Manutenções</Typography>
+        </ListItem>
+      )}
+      {useIsAdmin() && (
+        <ListItem component={Link} to={URLS.GESTAO}>
+          <ListItemIcon>
+            <BarChart />
+          </ListItemIcon>
+          <Typography color="black">Gestão</Typography>
+        </ListItem>
+      )}
     </List>
   </Drawer>
 );
