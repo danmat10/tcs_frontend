@@ -4,11 +4,17 @@ import { Header } from "components/Header";
 import {
   PatrimonyBreadcrumb,
   PatrimonyCreate,
+  PatrimonyEdit,
   PatrimonyList,
+  PatrimonyView,
 } from "components/Patrimony";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuthHeader } from "react-auth-kit";
+import { handleGetPatrimoniesList } from "services";
 
 const Patrimony = () => {
+  const authHeader = useAuthHeader();
+
   const [state, setState] = useState({
     view: "",
     selectedPatrimony: null,
@@ -16,6 +22,13 @@ const Patrimony = () => {
     users: [],
     patrimonies: [],
   });
+
+  useEffect(() => {
+    handleGetPatrimoniesList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+  }, []);
 
   const openDialog = (view, selected = null) => {
     setState((prev) => ({
@@ -35,8 +48,19 @@ const Patrimony = () => {
       <PatrimonyList patrimonies={state.patrimonies} openDialog={openDialog} />
     ),
     create: <PatrimonyCreate onClose={closeDialog} setState={setState} />,
-    update: null,
-    view: null,
+    update: (
+      <PatrimonyEdit
+        patrimony={state.selectedPatrimony}
+        onClose={closeDialog}
+        setState={setState}
+      />
+    ),
+    view: (
+      <PatrimonyView
+        patrimony={state.selectedPatrimony}
+        onClose={closeDialog}
+      />
+    ),
   };
 
   return (
