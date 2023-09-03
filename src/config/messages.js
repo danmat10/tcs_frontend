@@ -165,7 +165,7 @@ const MESSAGES = {
       },
       show: true,
     },
-    PATCH: {
+    PUT: {
       pending: "Atualizando patrimônio...",
       success: "Patrimônio atualizado com sucesso!",
       error: {
