@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
 import axios from "axios";
-import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import { Avatar } from "@mui/material";
+import React, { useEffect } from "react";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
+import { toast } from "react-toastify";
 
 import UserContext from "contexts/UserContext";
 import { ENDPOINTS } from "config";
@@ -21,6 +22,9 @@ const UserAvatar = ({ onClick }) => {
         })
         .then((response) => {
           setUser(response.data);
+        })
+        .catch((error) => {
+          toast.error(error);
         });
     }
   });
