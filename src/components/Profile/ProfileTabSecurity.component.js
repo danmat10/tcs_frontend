@@ -4,9 +4,9 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { ProfileChangePasswordFields, styles } from ".";
 import { handleEditPassword } from "services";
-import { passwordValidation } from "validations/ProfileValidations";
+import { passwordValidation } from "validations";
 
-export default function ProfileTabSecurity() {
+const ProfileTabSecurity = () => {
   const auth = useAuthUser();
   const authHeader = useAuthHeader();
 
@@ -61,4 +61,6 @@ export default function ProfileTabSecurity() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export { ProfileTabSecurity };

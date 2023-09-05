@@ -3,12 +3,13 @@ const URLS = {
   LOGIN: "/login",
   USUARIO: "/users",
   REQUISICAO: "/",
-  PATRIMONIO: "/",
+  PATRIMONIO: "/patrimonies",
   DEPARTAMENTO: "/departments",
+  OBRA: "/constructions",
   MANUTENCAO: "/",
   GESTAO: "/",
   PERFIL: "/profile",
   ESQUECEU_SENHA: "/forgot-password",
 };
 
-export default URLS;
+export { URLS };

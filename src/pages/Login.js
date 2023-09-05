@@ -11,7 +11,7 @@ import { LoginFormFields } from "components/Login";
 import { validateLoginForm } from "validations";
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
 
-const Login = (props) => {
+const Login = () => {
   const signIn = useSignIn();
 
   const formik = useFormik({
@@ -94,4 +94,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export { Login };

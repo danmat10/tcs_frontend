@@ -1,12 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { PrivateRoute, PublicRoute, AdminRoute, GestorRoute } from ".";
+import { URLS } from "config";
 import UserContext from "contexts/UserContext";
-import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
-import { ForgotPassword, Home, Login, Profile, User } from "../pages";
-import URLS from "../config/urls";
-import DepartmentsPage from "pages/Departments";
+import {
+  ForgotPassword,
+  Home,
+  Login,
+  Profile,
+  User,
+  Department,
+  Construction,
+  Patrimony,
+} from "pages";
 
 const AppRoutes = () => {
   const [user, setUser] = React.useState({ photo: null, id: null });
@@ -15,13 +22,13 @@ const AppRoutes = () => {
       <Routes>
         <Route
           exact
-          path={URLS.HOME}
-          element={<PrivateRoute Component={Home} />}
+          path={URLS.USUARIO}
+          element={<AdminRoute Component={User} />}
         />
         <Route
           exact
-          path={URLS.USUARIO}
-          element={<PrivateRoute Component={User} />}
+          path={URLS.HOME}
+          element={<PrivateRoute Component={Home} />}
         />
         <Route
           exact
@@ -31,9 +38,18 @@ const AppRoutes = () => {
         <Route
           exact
           path={URLS.DEPARTAMENTO}
-          element={<PrivateRoute Component={DepartmentsPage} />}
+          element={<GestorRoute Component={Department} />}
         />
-
+        <Route
+          exact
+          path={URLS.OBRA}
+          element={<GestorRoute Component={Construction} />}
+        />
+        <Route
+          exact
+          path={URLS.PATRIMONIO}
+          element={<GestorRoute Component={Patrimony} />}
+        />
         <Route
           exact
           path={URLS.LOGIN}
@@ -49,4 +65,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+export { AppRoutes };

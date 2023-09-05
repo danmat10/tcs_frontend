@@ -46,4 +46,4 @@ const UserEdit = ({ user, onClose, setState }) => {
   );
 };
 
-export default UserEdit;
+export { UserEdit };

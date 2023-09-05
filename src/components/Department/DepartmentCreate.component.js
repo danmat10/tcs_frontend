@@ -7,7 +7,7 @@ import { DepartmentFormFields } from ".";
 import { validateDepartmenCreateForm } from "validations";
 import { handleCreateDepartment } from "services";
 
-const CreateDepartment = ({ onClose, users, setState }) => {
+const DepartmentCreate = ({ onClose, users, setState }) => {
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
@@ -50,4 +50,4 @@ const CreateDepartment = ({ onClose, users, setState }) => {
   );
 };
 
-export default CreateDepartment;
+export { DepartmentCreate };

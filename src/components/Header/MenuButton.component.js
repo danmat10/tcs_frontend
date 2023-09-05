@@ -14,4 +14,4 @@ const MenuButton = ({ onClick }) => (
   </IconButton>
 );
 
-export default MenuButton;
+export { MenuButton };

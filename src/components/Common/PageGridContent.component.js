@@ -9,4 +9,4 @@ const PageGridContent = ({ children }) => {
   );
 };
 
-export default PageGridContent;
+export { PageGridContent };

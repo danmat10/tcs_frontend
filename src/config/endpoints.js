@@ -4,16 +4,15 @@ const SPRINGURL = "http://localhost:8080";
 
 const ENDPOINTS = {
   AUTH: {
-    LOGIN: BASEURL + "/auth/login",
-    REFRESH: BASEURL + "/auth/refresh",
+    LOGIN: BASEURL + "/api/auth/login",
+    REFRESH: BASEURL + "/api/auth/refreshToken",
   },
   USER: {
-    POST: SPRINGURL + "/api/users",
-    GET: SPRINGURL + "/api/users",
-    GET_ID: (id) => BASEURL + "/db/users/" + id,
-    PATCH: SPRINGURL + "/api/users/",
-    PATCH_ID: (id) => SPRINGURL + "/api/users/" + id,
-    DELETE: SPRINGURL + "/api/users/",
+    POST: BASEURL + "/api/users",
+    GET: BASEURL + "/api/users",
+    GET_ID: (id) => BASEURL + "/api/users/" + id,
+    PATCH: BASEURL + "/api/users/",
+    PATCH_ID: (id) => BASEURL + "/api/users/" + id,
     PROFILE: {
       GET_PHOTO: (id) => BASEURL + "/uploads/" + id,
       POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
@@ -22,11 +21,20 @@ const ENDPOINTS = {
     },
   },
   DEPARTMENT: {
-    GET: BASEURL + "/db/departments",
-    POST: BASEURL + "/db/departments",
-    PATCH_id: (id) => BASEURL + "/db/departments/" + id,
-    DELETE: BASEURL + "/db/departments/",
+    GET: BASEURL + "/api/departments",
+    POST: BASEURL + "/api/departments",
+    PATCH_id: (id) => BASEURL + "/api/departments/" + id,
+  },
+  CONSTRUCTION: {
+    GET: BASEURL + "/api/constructions",
+    POST: BASEURL + "/api/constructions",
+    PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
+  },
+  PATRIMONY: {
+    GET: BASEURL + "/api/patrimonies",
+    POST: BASEURL + "/api/patrimonies",
+    PUT_ID: (id) => BASEURL + "/api/patrimonies/" + id,
   },
 };
 
-export default ENDPOINTS;
+export { ENDPOINTS };

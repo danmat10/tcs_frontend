@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { Dialog } from "@mui/material";
 
-import { handleGetDepartmentsList, handleGetUsersList } from "services";
 import { Breadcrumb, PageContainer } from "components/Common";
-import { Header } from "components/Header";
 import {
-  DepartmentBreadcrumb,
-  DepartmentCreate,
-  DepartmentEdit,
-  DepartmentList,
-  DepartmentView,
-} from "components/Department";
+  ConstructionBreadcrumb,
+  ConstructionCreate,
+  ConstructionEdit,
+  ConstructionList,
+  ConstructionView,
+} from "components/Construction";
+import { Header } from "components/Header";
+import { handleGetConstructionList, handleGetUsersList } from "services";
 
-const DepartmentsPage = () => {
+const Construction = () => {
   const authHeader = useAuthHeader();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const DepartmentsPage = () => {
       header: { Authorization: authHeader() },
       setState: setState,
     });
-    handleGetDepartmentsList({
+    handleGetConstructionList({
       header: { Authorization: authHeader() },
       setState: setState,
     });
@@ -29,18 +29,18 @@ const DepartmentsPage = () => {
 
   const [state, setState] = useState({
     view: "",
-    selectedDepartment: null,
+    selectedConstruction: null,
     openDialog: false,
     users: [],
-    departments: [],
+    constructions: [],
   });
 
-  const openDialog = (view, department = null) => {
+  const openDialog = (view, construction = null) => {
     setState((prev) => ({
       ...prev,
       view,
       openDialog: true,
-      selectedDepartment: department,
+      selectedConstruction: construction,
     }));
   };
 
@@ -50,26 +50,29 @@ const DepartmentsPage = () => {
 
   const views = {
     list: (
-      <DepartmentList departments={state.departments} openDialog={openDialog} />
+      <ConstructionList
+        openDialog={openDialog}
+        constructions={state.constructions}
+      />
     ),
     create: (
-      <DepartmentCreate
+      <ConstructionCreate
         onClose={closeDialog}
         users={state.users}
         setState={setState}
       />
     ),
     update: (
-      <DepartmentEdit
-        department={state.selectedDepartment}
+      <ConstructionEdit
+        construction={state.selectedConstruction}
         users={state.users}
-        setState={setState}
         onClose={closeDialog}
+        setState={setState}
       />
     ),
     view: (
-      <DepartmentView
-        department={state.selectedDepartment}
+      <ConstructionView
+        construction={state.selectedConstruction}
         onClose={closeDialog}
       />
     ),
@@ -79,8 +82,8 @@ const DepartmentsPage = () => {
     <>
       <Header />
       <PageContainer>
-        <Breadcrumb title="Departamentos">
-          <DepartmentBreadcrumb />
+        <Breadcrumb title="Obras">
+          <ConstructionBreadcrumb />
         </Breadcrumb>
         {views.list}
       </PageContainer>
@@ -95,4 +98,4 @@ const DepartmentsPage = () => {
   );
 };
 
-export default DepartmentsPage;
+export { Construction };

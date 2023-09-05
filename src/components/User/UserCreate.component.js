@@ -6,7 +6,7 @@ import { UserFormFields, validateUserCreateForm } from ".";
 import { DialogForm } from "components/Common";
 import { handleCreateUser } from "services/userCalls";
 
-const CreateUser = ({ onClose, setState }) => {
+const UserCreate = ({ onClose, setState }) => {
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
@@ -46,4 +46,4 @@ const CreateUser = ({ onClose, setState }) => {
   );
 };
 
-export default CreateUser;
+export { UserCreate };

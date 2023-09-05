@@ -8,14 +8,12 @@ import {
   Button,
   FormHelperText,
 } from "@mui/material";
-import ViewIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Edit, Visibility } from "@mui/icons-material";
 
 import { styles } from ".";
-import PageGridContent from "components/Common/PageGridContent.component";
+import { PageGridContent } from "components/Common";
 
 const UserList = ({ users, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -63,23 +61,17 @@ const UserList = ({ users, openDialog }) => {
         headerAlign: "center",
         renderCell: (params) => (
           <>
-            <ViewIcon
+            <Visibility
               color="primary"
               onClick={() => openDialog("view", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <EditIcon
+            <Edit
               color="primary"
               onClick={() => openDialog("update", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Editar"
-            />
-            <DeleteIcon
-              color="secondary"
-              onClick={() => openDialog("delete", params.row)}
-              style={{ cursor: "pointer" }}
-              titleAccess="Excluir"
             />
           </>
         ),
@@ -89,10 +81,10 @@ const UserList = ({ users, openDialog }) => {
     if (isMobile) {
       return baseColumns
         .filter(
-          (column) => column.field === "name" || column.field === "actions"
+          (column) => column.field === "nmUsuario" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "name") {
+          if (column.field === "nmUsuario") {
             return { ...column, flex: 1 };
           } else if (column.field === "actions") {
             return { ...column, flex: 1 };
@@ -182,4 +174,4 @@ const UserList = ({ users, openDialog }) => {
   );
 };
 
-export default UserList;
+export { UserList };

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import Dialog from "@mui/material/Dialog";
 
+import { PageContainer, Breadcrumb } from "components/Common";
+import { Header } from "components/Header";
 import {
   UserList,
   UserEdit,
@@ -9,11 +11,9 @@ import {
   UserCreate,
   UserBreadcrumb,
 } from "components/User";
-import { Header } from "components/Header";
-import { PageContainer, Breadcrumb } from "components/Common";
 import { handleGetUsersList } from "services";
 
-const UserPage = () => {
+const User = () => {
   const authHeader = useAuthHeader();
   useEffect(
     () =>
@@ -77,4 +77,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export { User };

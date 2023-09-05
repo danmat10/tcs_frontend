@@ -1,3 +1,8 @@
-export { default as AppRoutes } from "./AppRoutes";
-export { default as PrivateRoute } from "./PrivateRoute";
-export { default as PublicRoute } from "./PublicRoute";
+export * from "./AppRoutes";
+export * from "./useCredentials";
+export * from "./useIsAdmin";
+export * from "./useIsGestor";
+export * from "./AdminRoute";
+export * from "./GestorRoute";
+export * from "./PrivateRoute";
+export * from "./PublicRoute";

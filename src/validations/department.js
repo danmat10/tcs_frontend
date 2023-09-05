@@ -1,8 +1,14 @@
 const validateDepartmenCreateForm = (values) => {
   const errors = {};
-  if (!values.nmDepartamento) {
+
+  const trimmedDepartamento = values.nmDepartamento?.trim();
+  if (!trimmedDepartamento) {
     errors.nmDepartamento = "Obrigatório";
+  } else if (trimmedDepartamento.length < 2) {
+    errors.nmDepartamento =
+      "O nome do departamento deve ter pelo menos 2 caracteres";
   }
+
   if (!values.usuario) {
     errors.usuario = "Obrigatório";
   }

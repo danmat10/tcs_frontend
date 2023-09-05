@@ -49,4 +49,4 @@ const DepartmentFormFields = ({ formik, userList = [] }) => {
   );
 };
 
-export default DepartmentFormFields;
+export { DepartmentFormFields };

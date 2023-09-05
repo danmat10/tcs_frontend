@@ -1,6 +1,6 @@
-const { ENDPOINTS } = require("config");
-const { handleApiCall } = require("./apiUtils");
-const { MESSAGES } = require("config");
+import { handleApiCall } from ".";
+import { ENDPOINTS, MESSAGES } from "config";
+
 
 const handleCreateDepartment = async ({ data, header, setState }) => {
   await handleApiCall(

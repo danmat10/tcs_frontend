@@ -1,8 +1,8 @@
 import { Divider, Grid, Typography } from "@mui/material";
 
-import {styles} from ".";
+import { styles } from ".";
 
-export default function Breadcrumb({ children, title }) {
+const Breadcrumb = ({ children, title }) => {
   return (
     <Grid container spacing={3} paddingY={8}>
       <Grid item md={12} className={styles.gridBreadCrumb}>
@@ -15,3 +15,5 @@ export default function Breadcrumb({ children, title }) {
     </Grid>
   );
 }
+
+export { Breadcrumb };

@@ -30,6 +30,22 @@ function validateContacts(contacts, user = {}) {
       if (!contato.dsContato) {
         contatoErrors.dsContato = "Obrigatório";
       }
+
+      if (
+        contato.typeContacts === "E-mail" &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contato.dsContato)
+      ) {
+        contatoErrors.dsContato = "E-mail inválido";
+      }
+
+      if (contato.typeContacts === "Telefone" && contato.dsContato.length < 8) {
+        contatoErrors.dsContato = "Telefone inválido. Digite um número válido";
+      }
+
+      if (contato.typeContacts === "Celular" && contato.dsContato.length < 9) {
+        contatoErrors.dsContato = "Celular inválido. Digite um número válido";
+      }
+
       return contatoErrors;
     });
 
@@ -66,12 +82,19 @@ function validateContacts(contacts, user = {}) {
 const validateUserCreateForm = (values) => {
   const errors = validateContacts(values.contacts);
 
-  if (!values.nmUsuario) {
+  const trimmedName = values.nmUsuario?.trim();
+  if (!trimmedName) {
     errors.nmUsuario = "Obrigatório";
+  } else if (trimmedName.length < 3) {
+    errors.nmUsuario = "O nome do usuário deve ter pelo menos 3 caracteres";
   }
-  if (!values.nrMatricula) {
+
+  if (values.nrMatricula) {
     errors.nrMatricula = "Obrigatório";
+  } else if (!/^\d+$/.test(values.nrMatricula)) {
+    errors.nrMatricula = "A matrícula deve conter apenas números";
   }
+
   if (!values.typeUser) {
     errors.typeUser = "Obrigatório";
   }
@@ -86,6 +109,7 @@ const validateUserCreateForm = (values) => {
 
 const validateUserEditForm = (values, user) => {
   const errors = validateUserCreateForm(values);
+
   const contactsErrors = validateContacts(values.contacts);
   if (contactsErrors.contacts) {
     errors.contacts = contactsErrors.contacts;
@@ -108,4 +132,9 @@ const validateUserEditForm = (values, user) => {
   return errors;
 };
 
-export { validateUserCreateForm, validateUserEditForm, validateContacts };
+export {
+  validateUserCreateForm,
+  validateUserEditForm,
+  validateContacts,
+  validateCPForCNPJ,
+};

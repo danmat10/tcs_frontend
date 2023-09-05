@@ -1,21 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import PeopleIcon from "@mui/icons-material/People";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import BuildIcon from "@mui/icons-material/Build";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  Toolbar,
+  Typography,
+  Divider,
+} from "@mui/material";
+import {
+  AccountBalance,
+  Assignment,
+  BarChart,
+  Build,
+  BusinessCenter,
+  Construction,
+  People,
+} from "@mui/icons-material";
 
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
 import { URLS } from "config";
+import { useIsAdmin } from "routes/useIsAdmin";
+import { useIsGestor } from "routes";
 
 const Sidebar = ({ isOpen, onClose }) => (
   <Drawer
@@ -37,44 +44,62 @@ const Sidebar = ({ isOpen, onClose }) => (
     </Toolbar>
     <Divider style={{ width: "100%" }} />
     <List>
-      <ListItem component={Link} to={URLS.USUARIO}>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <Typography color="black">Usuários</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.PATRIMONIO}>
-        <ListItemIcon>
-          <AccountBalanceIcon />
-        </ListItemIcon>
-        <Typography color="black">Patrimônio</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.DEPARTAMENTO}>
-        <ListItemIcon>
-          <BusinessCenterIcon />
-        </ListItemIcon>
-        <Typography color="black">Departamentos</Typography>
-      </ListItem>
+      {useIsAdmin() && (
+        <ListItem component={Link} to={URLS.USUARIO}>
+          <ListItemIcon>
+            <People />
+          </ListItemIcon>
+          <Typography color="black">Usuários</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.PATRIMONIO}>
+          <ListItemIcon>
+            <AccountBalance />
+          </ListItemIcon>
+          <Typography color="black">Patrimônio</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.DEPARTAMENTO}>
+          <ListItemIcon>
+            <BusinessCenter />
+          </ListItemIcon>
+          <Typography color="black">Departamentos</Typography>
+        </ListItem>
+      )}
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.OBRA}>
+          <ListItemIcon>
+            <Construction />
+          </ListItemIcon>
+          <Typography color="black">Obras</Typography>
+        </ListItem>
+      )}
       <ListItem component={Link} to={URLS.REQUISICAO}>
         <ListItemIcon>
-          <AssignmentIcon />
+          <Assignment />
         </ListItemIcon>
         <Typography color="black">Requisições</Typography>
       </ListItem>
-      <ListItem component={Link} to={URLS.MANUTENCAO}>
-        <ListItemIcon>
-          <BuildIcon />
-        </ListItemIcon>
-        <Typography color="black">Manutenções</Typography>
-      </ListItem>
-      <ListItem component={Link} to={URLS.GESTAO}>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <Typography color="black">Gestão</Typography>
-      </ListItem>
+      {useIsGestor() && (
+        <ListItem component={Link} to={URLS.MANUTENCAO}>
+          <ListItemIcon>
+            <Build />
+          </ListItemIcon>
+          <Typography color="black">Manutenções</Typography>
+        </ListItem>
+      )}
+      {useIsAdmin() && (
+        <ListItem component={Link} to={URLS.GESTAO}>
+          <ListItemIcon>
+            <BarChart />
+          </ListItemIcon>
+          <Typography color="black">Gestão</Typography>
+        </ListItem>
+      )}
     </List>
   </Drawer>
 );
 
-export default Sidebar;
+export { Sidebar };
