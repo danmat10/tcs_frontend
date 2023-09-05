@@ -89,7 +89,7 @@ const validateUserCreateForm = (values) => {
     errors.nmUsuario = "O nome do usuário deve ter pelo menos 3 caracteres";
   }
 
-  if (values.nrMatricula) {
+  if (!values.nrMatricula) {
     errors.nrMatricula = "Obrigatório";
   } else if (!/^\d+$/.test(values.nrMatricula)) {
     errors.nrMatricula = "A matrícula deve conter apenas números";
