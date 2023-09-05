@@ -26,6 +26,7 @@ const DepartmentFormFields = ({ formik, userList = [] }) => {
           <Autocomplete
             fullWidth
             options={userList}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.id + " - " + option.nmUsuario}
             value={formik.values.usuario}
             onChange={(event, newValue) => {
