@@ -89,12 +89,9 @@ const validateUserCreateForm = (values) => {
     errors.nmUsuario = "O nome do usuário deve ter pelo menos 3 caracteres";
   }
 
-  const trimmedMatricula = values.nrMatricula?.trim();
-  if (!trimmedMatricula) {
+  if (values.nrMatricula) {
     errors.nrMatricula = "Obrigatório";
-  } else if (trimmedMatricula.length < 3) {
-    errors.nrMatricula = "A matrícula deve ter pelo menos 3 caracteres";
-  } else if (!/^\d+$/.test(trimmedMatricula)) {
+  } else if (!/^\d+$/.test(values.nrMatricula)) {
     errors.nrMatricula = "A matrícula deve conter apenas números";
   }
 
@@ -135,4 +132,9 @@ const validateUserEditForm = (values, user) => {
   return errors;
 };
 
-export { validateUserCreateForm, validateUserEditForm, validateContacts, validateCPForCNPJ};
+export {
+  validateUserCreateForm,
+  validateUserEditForm,
+  validateContacts,
+  validateCPForCNPJ,
+};
