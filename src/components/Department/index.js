@@ -5,4 +5,5 @@ export * from "./DepartmentCreate.component";
 export * from "./DepartmentEdit.component";
 export * from "./DepartmentList.component";
 export * from "./DepartmentView.component";
+export * from "./DepartmentDelete.component";
 export { styles };

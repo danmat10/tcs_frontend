@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import ViewIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { styles } from ".";
@@ -35,7 +34,7 @@ const DepartmentList = ({ departments, openDialog }) => {
         headerAlign: "center",
         renderCell: (params) => (
           <>
-            <ViewIcon
+            <Visibility
               color="primary"
               onClick={() => {
                 openDialog("view", params.row);
@@ -43,11 +42,17 @@ const DepartmentList = ({ departments, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <EditIcon
+            <Edit
               color="primary"
               onClick={() => openDialog("update", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Editar"
+            />
+            <Delete
+              color="error"
+              onClick={() => openDialog("delete", params.row)}
+              style={{ cursor: "pointer" }}
+              titleAccess="Excluir"
             />
           </>
         ),

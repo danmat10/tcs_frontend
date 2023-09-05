@@ -6,6 +6,7 @@ import { Breadcrumb, PageContainer } from "components/Common";
 import {
   DepartmentBreadcrumb,
   DepartmentCreate,
+  DepartmentDelete,
   DepartmentEdit,
   DepartmentList,
   DepartmentView,
@@ -67,6 +68,12 @@ const Department = () => {
         onClose={closeDialog}
       />
     ),
+    delete: (
+      <DepartmentDelete
+        department={state.selectedDepartment}
+        setState={setState}
+        onClose={closeDialog}
+      />),
     view: (
       <DepartmentView
         department={state.selectedDepartment}
