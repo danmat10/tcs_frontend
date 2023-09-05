@@ -4,8 +4,8 @@ const SPRINGURL = "http://localhost:8080";
 
 const ENDPOINTS = {
   AUTH: {
-    LOGIN: BASEURL + "/auth/login",
-    REFRESH: BASEURL + "/auth/refresh",
+    LOGIN: BASEURL + "/api/auth/login",
+    REFRESH: BASEURL + "/api/auth/refreshToken",
   },
   USER: {
     POST: BASEURL + "/api/users",

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { ENDPOINTS } from "config";
-import { AUTH_TOKEN_EXPIRES_AT } from "config";
-import { createRefresh } from "react-auth-kit";
 import { toast } from "react-toastify";
 
 const defaultHeaders = {
@@ -78,36 +75,6 @@ const handleApiCall = async (config, toastObject) => {
   return response;
 };
 
-const refreshApi = createRefresh({
-  interval: AUTH_TOKEN_EXPIRES_AT,
-  refreshApiCallback: async ({
-    authToken,
-    authTokenExpireAt,
-    refreshToken,
-    refreshTokenExpiresAt,
-    authUserState,
-  }) => {
-    try {
-      const response = await axios.post(ENDPOINTS.AUTH.REFRESH, {
-        refresh_token: refreshToken,
-      });
-      return {
-        isSuccess: true,
-        newAuthToken: response.data.access_token,
-        newAuthTokenExpireIn: AUTH_TOKEN_EXPIRES_AT,
-        newRefreshToken: refreshToken,
-        newRefreshTokenExpireIn: refreshTokenExpiresAt,
-        newAuthUserState: authUserState,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        isSuccess: false,
-      };
-    }
-  },
-});
-
 const handleBuscaCep = async (cep) => {
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -122,4 +89,4 @@ const handleBuscaCep = async (cep) => {
   }
 };
 
-export { apiCall, handleApiCall, refreshApi, handleBuscaCep };
+export { apiCall, handleApiCall, handleBuscaCep };
