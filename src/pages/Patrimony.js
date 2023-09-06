@@ -76,6 +76,8 @@ const Patrimony = () => {
         open={state.openDialog}
         onClose={closeDialog}
         PaperProps={{ sx: { borderRadius: "28px" } }}
+        maxWidth="lg"
+
       >
         {views[state.view]}
       </Dialog>
