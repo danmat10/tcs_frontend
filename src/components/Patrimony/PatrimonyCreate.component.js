@@ -25,11 +25,14 @@ const PatrimonyCreate = ({ onClose, setState }) => {
       warranties: [
         {
           dsTypeWarranty: "Fornecedor",
-          dsWarranty: ""
-        }
+          dsWarranty: "",
+        },
       ],
+      actualDepartment: "",
+      actualConstruction: "",
     },
     validateOnChange: false,
+    validateOnBlur: false,
     validate: (values) => validatePatrimonyCreateForm(values),
     onSubmit: (values) => {
       handleCreatePatrimony({
