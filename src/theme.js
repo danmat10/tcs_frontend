@@ -8,7 +8,7 @@ const theme = createTheme({
           props: { variant: "standard" },
           style: {
             "& .Mui-disabled": {
-              color: "black",
+              "-webkit-text-fill-color": "black !important",
             },
           },
         },
