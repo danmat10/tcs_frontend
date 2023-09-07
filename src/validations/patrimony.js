@@ -51,6 +51,16 @@ const validatePatrimonyCreateForm = (values) => {
     errors.vlAquisicao = "Obrigatório";
   }
 
+  if (values.warranties.length > 0) {
+    values.warranties.forEach((warranty, index) => {
+      const trimmedDsWarranty = warranty.dsWarranty?.trim();
+      if (!trimmedDsWarranty) {
+        errors.warranties = errors.warranties || [];
+        errors.warranties[index] = { dsWarranty: "Obrigatório" };
+      }
+    });
+  }
+
   return errors;
 };
 
@@ -66,7 +76,9 @@ const validatePatrimonyEditForm = (values, patrimony) => {
     values.nmNF === patrimony.nmNF &&
     values.dtNf === patrimony.dtNf &&
     values.dtAquisicao === patrimony.dtAquisicao &&
-    values.vlAquisicao === patrimony.vlAquisicao
+    values.vlAquisicao === patrimony.vlAquisicao &&
+    values.fixo === patrimony.fixo &&
+    JSON.stringify(values.warranties) === JSON.stringify(patrimony.warranties)
   ) {
     errors._errors = "Nenhum campo foi alterado";
   }
