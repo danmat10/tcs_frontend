@@ -5,6 +5,7 @@ import {
   Button,
   FormHelperText,
   useMediaQuery,
+  Chip,
 } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
@@ -33,6 +34,50 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         field: "nmFornecedor",
         headerName: "Fornecedor",
         flex: 2,
+      },
+      {
+        field: "status",
+        headerName: "Status",
+        flex: 1,
+        renderCell: (params) => {
+          if (params.row.fixo === "true") {
+            return (
+              <Chip
+                label="Fixo"
+                color="default"
+                variant="filled"
+                size="small"
+              />
+            );
+          } else if (params.row.actualConstruction) {
+            return (
+              <Chip
+                label="Em Obra"
+                color="info"
+                variant="filled"
+                size="small"
+              />
+            );
+          } else {
+            return (
+              <Chip
+                label="Disponível"
+                color="success"
+                variant="filled"
+                size="small"
+              />
+            );
+          }
+        },
+      },
+      {
+        field: "nmDepartamento",
+        headerName: "Departamento Atual",
+        flex: 2,
+        renderCell: (params) =>
+          params.row.actualDepartment
+            ? params.row.actualDepartment.nmDepartamento
+            : "Não Alocado",
       },
       {
         field: "actions",
