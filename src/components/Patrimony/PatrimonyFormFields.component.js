@@ -7,17 +7,14 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-  FormLabel,
   FormHelperText,
-  FormGroup,
-  Switch,
   Button,
   InputLabel,
   Select,
   MenuItem,
   Grid,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
 
 import { styles } from ".";
@@ -42,7 +39,8 @@ const PatrimonyFormFields = ({ formik }) => {
                 onChange={formik.handleChange}
                 value={formik.values.nmPatrimonio}
                 error={
-                  formik.touched.nmPatrimonio && Boolean(formik.errors.nmPatrimonio)
+                  formik.touched.nmPatrimonio &&
+                  Boolean(formik.errors.nmPatrimonio)
                 }
                 helperText={
                   formik.touched.nmPatrimonio && formik.errors.nmPatrimonio
@@ -68,21 +66,32 @@ const PatrimonyFormFields = ({ formik }) => {
                 name="nmDescricao"
                 type="text"
                 multiline
-                rows={2}
+                rows={4}
                 onChange={formik.handleChange}
                 value={formik.values.nmDescricao}
                 error={
-                  formik.touched.nmDescricao && Boolean(formik.errors.nmDescricao)
+                  formik.touched.nmDescricao &&
+                  Boolean(formik.errors.nmDescricao)
                 }
-                helperText={formik.touched.nmDescricao && formik.errors.nmDescricao}
+                helperText={
+                  formik.touched.nmDescricao && formik.errors.nmDescricao
+                }
               />
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <Typography variant="subtitle1">Garantia</Typography>
             </Grid>
             <Grid item md={12} xs={12}>
               <FieldArray name="warranties">
                 {({ push, remove }) => (
                   <>
                     {formik.values.warranties.map((warranty, index) => (
-                      <Grid container spacing={2} key={index} alignItems="center">
+                      <Grid
+                        container
+                        spacing={2}
+                        key={index}
+                        alignItems="center"
+                      >
                         <Grid item md={5} xs={12}>
                           <FormControl
                             fullWidth
@@ -90,7 +99,10 @@ const PatrimonyFormFields = ({ formik }) => {
                             variant="outlined"
                             error={
                               formik.touched.warranties &&
-                              Boolean(formik.errors.warranties?.[index]?.dsTypeWarranty)
+                              Boolean(
+                                formik.errors.warranties?.[index]
+                                  ?.dsTypeWarranty
+                              )
                             }
                           >
                             <InputLabel
@@ -106,13 +118,20 @@ const PatrimonyFormFields = ({ formik }) => {
                               label="Tipo de contato"
                               name={`warranties.${index}.dsTypeWarranty`}
                             >
-                              <MenuItem value={"Fornecedor"}>Fornecedor</MenuItem>
+                              <MenuItem value={"Fornecedor"}>
+                                Fornecedor
+                              </MenuItem>
                               <MenuItem value={"Legal"}>Legal</MenuItem>
+                              <MenuItem value={"Estendida"}>Estendida</MenuItem>
                             </Select>
                             {formik.touched.warranties &&
-                              formik.errors.warranties?.[index]?.dsTypeWarranty && (
+                              formik.errors.warranties?.[index]
+                                ?.dsTypeWarranty && (
                                 <FormHelperText error>
-                                  {formik.errors.warranties?.[index]?.dsTypeWarranty}
+                                  {
+                                    formik.errors.warranties?.[index]
+                                      ?.dsTypeWarranty
+                                  }
                                 </FormHelperText>
                               )}
                           </FormControl>
@@ -129,7 +148,9 @@ const PatrimonyFormFields = ({ formik }) => {
                             value={warranty.dsWarranty}
                             error={
                               formik.touched.warranties &&
-                              Boolean(formik.errors.warranties?.[index]?.dsWarranty)
+                              Boolean(
+                                formik.errors.warranties?.[index]?.dsWarranty
+                              )
                             }
                             helperText={
                               formik.touched.warranties &&
@@ -138,7 +159,10 @@ const PatrimonyFormFields = ({ formik }) => {
                           />
                         </Grid>
                         <Grid item xs={2} md={1}>
-                          <IconButton onClick={() => remove(index)} color="secondary">
+                          <IconButton
+                            onClick={() => remove(index)}
+                            color="secondary"
+                          >
                             <DeleteOutlineSharp color="error" />
                           </IconButton>
                         </Grid>
@@ -149,7 +173,10 @@ const PatrimonyFormFields = ({ formik }) => {
                         <FormControl component="fieldset" margin="dense">
                           <Button
                             onClick={() =>
-                              push({ dsTypeWarranty: "Fornecedor", dsWarranty: "" })
+                              push({
+                                dsTypeWarranty: "Fornecedor",
+                                dsWarranty: "",
+                              })
                             }
                             color="primary"
                             variant="outlined"
@@ -182,7 +209,8 @@ const PatrimonyFormFields = ({ formik }) => {
                 onChange={formik.handleChange}
                 value={formik.values.nmFornecedor}
                 error={
-                  formik.touched.nmFornecedor && Boolean(formik.errors.nmFornecedor)
+                  formik.touched.nmFornecedor &&
+                  Boolean(formik.errors.nmFornecedor)
                 }
                 helperText={
                   formik.touched.nmFornecedor && formik.errors.nmFornecedor
@@ -229,9 +257,12 @@ const PatrimonyFormFields = ({ formik }) => {
                 onChange={formik.handleChange}
                 value={formik.values.dtAquisicao}
                 error={
-                  formik.touched.dtAquisicao && Boolean(formik.errors.dtAquisicao)
+                  formik.touched.dtAquisicao &&
+                  Boolean(formik.errors.dtAquisicao)
                 }
-                helperText={formik.touched.dtAquisicao && formik.errors.dtAquisicao}
+                helperText={
+                  formik.touched.dtAquisicao && formik.errors.dtAquisicao
+                }
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -260,20 +291,24 @@ const PatrimonyFormFields = ({ formik }) => {
                     control={<Radio />}
                     label="Fixo"
                   />
-                  <FormControlLabel value={false} control={<Radio />} label="Alocável" />
+                  <FormControlLabel
+                    value={false}
+                    control={<Radio />}
+                    label="Alocável"
+                  />
                   {formik.touched.fixo && formik.errors.fixo && (
                     <FormHelperText error>{formik.errors.fixo}</FormHelperText>
                   )}
                 </RadioGroup>
               </FormControl>
             </Grid>
+            {formik.touched && formik.errors._errors && (
+              <FormHelperText error>{formik.errors._errors}</FormHelperText>
+            )}
           </Grid>
         </Grid>
-        {formik.touched && formik.errors._errors && (
-          <FormHelperText error>{formik.errors._errors}</FormHelperText>
-        )}
       </Grid>
-    </Container >
+    </Container>
   );
 };
 
