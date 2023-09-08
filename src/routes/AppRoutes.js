@@ -14,6 +14,7 @@ import {
   Construction,
   Patrimony,
 } from "pages";
+import { Maintence } from "pages/Maintence";
 
 const AppRoutes = () => {
   const [user, setUser] = React.useState({ photo: null, id: null });
@@ -44,6 +45,12 @@ const AppRoutes = () => {
           exact
           path={URLS.OBRA}
           element={<GestorRoute Component={Construction} />}
+        />
+
+        <Route
+          exact
+          path={URLS.MANUTENCAO}
+          element={<GestorRoute Component={Maintence} />}
         />
         <Route
           exact

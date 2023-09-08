@@ -6,7 +6,7 @@ const URLS = {
   PATRIMONIO: "/patrimonies",
   DEPARTAMENTO: "/departments",
   OBRA: "/constructions",
-  MANUTENCAO: "/",
+  MANUTENCAO: "/maintence",
   GESTAO: "/",
   PERFIL: "/profile",
   ESQUECEU_SENHA: "/forgot-password",

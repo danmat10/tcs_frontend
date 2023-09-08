@@ -174,6 +174,32 @@ const MESSAGES = {
       show: true,
     },
   },
+  MAINTENCE: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar a manutenção.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando manutenção...",
+      success: "Manutenção criada com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar a manutenção.",
+      },
+      show: true,
+    },
+    PUT: {
+      pending: "Atualizando manutenção...",
+      success: "Manutenção atualizada com sucesso!",
+      error: {
+        default: "Oops, não foi possível atualizar a manutenção.",
+      },
+      show: true,
+    },
+  },
 };
 
 export { MESSAGES };

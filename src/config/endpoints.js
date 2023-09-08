@@ -32,9 +32,22 @@ const ENDPOINTS = {
     PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
   },
   PATRIMONY: {
+    GET_PARAMS: (params) => {
+      const url = new URL(BASEURL + "/api/patrimonies");
+      Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+      );
+      return url.toString();
+    },
+    GET_ID: (id) => BASEURL + "/api/patrimonies/" + id,
     GET: BASEURL + "/api/patrimonies",
     POST: BASEURL + "/api/patrimonies",
     PUT_ID: (id) => BASEURL + "/api/patrimonies/" + id,
+  },
+  MAINTENCE: {
+    GET: BASEURL + "/api/maintences",
+    POST: BASEURL + "/api/maintences",
+    PUT_ID: (id) => BASEURL + "/api/maintences/" + id,
   },
 };
 
