@@ -50,7 +50,18 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   value={patrimony.nmPatrimonio || ""}
                 />
               </Grid>
-              <Grid item md={12} xs={12}>
+              <Grid item sm={6} xs={12}>
+                <TextField
+                  disabled
+                  variant="standard"
+                  fullWidth
+                  label="Código do Patrimônio"
+                  name="id"
+                  type="text"
+                  value={patrimony.id || ""}
+                />
+              </Grid>
+              <Grid item sm={6} xs={12}>
                 <TextField
                   disabled
                   variant="standard"
