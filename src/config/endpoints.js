@@ -49,6 +49,10 @@ const ENDPOINTS = {
     POST: BASEURL + "/api/maintences",
     PUT_ID: (id) => BASEURL + "/api/maintences/" + id,
   },
+  ALLOCATION: {
+    GET: BASEURL + "/api/allocations",
+    POST: BASEURL + "/api/allocations",
+  },
 };
 
 export { ENDPOINTS };
