@@ -15,7 +15,7 @@ const AllocationCreate = ({ onClose, state, setState }) => {
   const formik = useFormik({
     initialValues: {
       user: null,
-      dtAalocacao: new Date(),
+      dtAlocacao: new Date(),
       actualDepartment: null,
       newDepartment: null,
       observation: "",
