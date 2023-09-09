@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 
 import { DialogForm, maskCurrencyFunction } from "components/Common";
+import { PatrimonyStatusChip } from "./";
 
 const PatrimonyView = ({ patrimony, onClose }) => {
   function isWarrantyExpired(dsWarranty) {
@@ -25,13 +26,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
     <DialogForm title="Visualizar Patrimônio" onClose={onClose}>
       <Container>
         <Box display="flex" justifyContent="flex-end">
-          {patrimony.fixo === "true" ? (
-            <Chip label="Fixo" color="default" variant="filled" />
-          ) : patrimony.actualConstruction ? (
-            <Chip label="Em Obra" color="info" variant="filled" />
-          ) : (
-            <Chip label="Disponível" color="success" variant="filled" />
-          )}
+          <PatrimonyStatusChip patrimony={patrimony} />
         </Box>
         <Grid container spacing={8}>
           <Grid item md={6} xs={12}>

@@ -5,11 +5,10 @@ import {
   Button,
   FormHelperText,
   useMediaQuery,
-  Chip,
 } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
-import { styles } from ".";
+import { PatrimonyStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
 import { Edit, Visibility } from "@mui/icons-material";
 
@@ -40,34 +39,7 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         headerName: "Status",
         flex: 1,
         renderCell: (params) => {
-          if (params.row.fixo === "true") {
-            return (
-              <Chip
-                label="Fixo"
-                color="default"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else if (params.row.actualConstruction) {
-            return (
-              <Chip
-                label="Em Obra"
-                color="info"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else {
-            return (
-              <Chip
-                label="Disponível"
-                color="success"
-                variant="filled"
-                size="small"
-              />
-            );
-          }
+          return <PatrimonyStatusChip patrimony={params.row} />;
         },
       },
       {
