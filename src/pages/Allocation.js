@@ -3,6 +3,7 @@ import {
   AllocationBreadcrumb,
   AllocationCreate,
   AllocationList,
+  AllocationView,
 } from "components/Allocation";
 import { Breadcrumb, PageContainer } from "components/Common";
 import { Header } from "components/Header";
@@ -61,7 +62,7 @@ const Allocation = () => {
         state={state}
       />
     ),
-    view: null,
+    view: <AllocationView allocation={state.selectedAlloctaion} />,
   };
 
   return (
