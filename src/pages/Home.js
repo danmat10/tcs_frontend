@@ -140,18 +140,20 @@ const Home = () => {
               </Link>
             </Grid>
           )}
-          <Grid item xs={12} md={4} className={styles.gridCard}>
-            <Link tto={URLS.REQUISICAO} style={{ textDecoration: "none" }}>
-              <Card className={styles.card}>
-                <CardContent className={styles.cardContent}>
-                  <Assignment className={styles.icon} />
-                  <Typography variant="h6" className={styles.cardTitle}>
-                    Requisições
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
-          </Grid>
+          {useIsGestor() && (
+            <Grid item xs={12} md={4} className={styles.gridCard}>
+              <Link to={URLS.ALOCACAO} style={{ textDecoration: "none" }}>
+                <Card className={styles.card}>
+                  <CardContent className={styles.cardContent}>
+                    <Assignment className={styles.icon} />
+                    <Typography variant="h6" className={styles.cardTitle}>
+                      Alocações
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+            </Grid>
+          )}
           {useIsGestor() && (
             <Grid item xs={12} md={4} className={styles.gridCard}>
               <Link to={URLS.MANUTENCAO} style={{ textDecoration: "none" }}>

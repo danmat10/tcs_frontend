@@ -76,11 +76,11 @@ const Sidebar = ({ isOpen, onClose }) => (
           <Typography color="black">Obras</Typography>
         </ListItem>
       )}
-      <ListItem component={Link} to={URLS.REQUISICAO}>
+      <ListItem component={Link} to={URLS.ALOCACAO}>
         <ListItemIcon>
           <Assignment />
         </ListItemIcon>
-        <Typography color="black">Requisições</Typography>
+        <Typography color="black">Alocações</Typography>
       </ListItem>
       {useIsGestor() && (
         <ListItem component={Link} to={URLS.MANUTENCAO}>

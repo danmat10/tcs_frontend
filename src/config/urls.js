@@ -3,6 +3,7 @@ const URLS = {
   LOGIN: "/login",
   USUARIO: "/users",
   REQUISICAO: "/",
+  ALOCACAO: "/allocations",
   PATRIMONIO: "/patrimonies",
   DEPARTAMENTO: "/departments",
   OBRA: "/constructions",

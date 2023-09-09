@@ -13,6 +13,7 @@ import {
   Department,
   Construction,
   Patrimony,
+  Allocation,
 } from "pages";
 import { Maintence } from "pages/Maintence";
 
@@ -46,7 +47,11 @@ const AppRoutes = () => {
           path={URLS.OBRA}
           element={<GestorRoute Component={Construction} />}
         />
-
+        <Route
+          exact
+          path={URLS.ALOCACAO}
+          element={<GestorRoute Component={Allocation} />}
+        />
         <Route
           exact
           path={URLS.MANUTENCAO}
