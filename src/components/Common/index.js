@@ -6,4 +6,5 @@ export * from "./PageContainer.component";
 export * from "./CpfCnpjMask.component";
 export * from "./UfField.component";
 export * from "./PageGridContent.component";
+export * from "./functions";
 export { styles };
