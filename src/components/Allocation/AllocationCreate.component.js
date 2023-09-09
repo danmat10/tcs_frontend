@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
@@ -6,12 +6,16 @@ import { AllocationFormFields } from ".";
 import { DialogForm } from "components/Common";
 import { handleCreateAllocation } from "services";
 import { validateAllocationCreateForm } from "validations";
+import UserContext from "contexts/UserContext";
 
 const AllocationCreate = ({ onClose, state, setState }) => {
+  const { user } = useContext(UserContext);
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
     initialValues: {
+      user: null,
+      dtAalocacao: new Date(),
       actualDepartment: null,
       newDepartment: null,
       observation: "",
@@ -21,6 +25,7 @@ const AllocationCreate = ({ onClose, state, setState }) => {
     validateOnChange: false,
     validate: validateAllocationCreateForm,
     onSubmit: (values) => {
+      values.user = user;
       handleCreateAllocation({
         data: values,
         header: { Authorization: authHeader() },
