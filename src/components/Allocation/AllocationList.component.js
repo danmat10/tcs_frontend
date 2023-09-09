@@ -41,11 +41,11 @@ const AllocationList = ({ allocations, openDialog }) => {
         renderCell: (params) => params.row.user?.nmUsuario,
       },
       {
-        field: "dtAalocacao",
+        field: "dtAlocacao",
         headerName: "Data de Alocação",
         flex: 2,
         renderCell: (params) => {
-          const date = new Date(params.row.dtAalocacao);
+          const date = new Date(params.row.dtAlocacao);
           if (date.toString() === "Invalid Date") {
             return "";
           }
