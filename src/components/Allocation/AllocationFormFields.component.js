@@ -5,65 +5,92 @@ import {
   Autocomplete,
   Chip,
   Container,
+  useMediaQuery,
 } from "@mui/material";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
-import { handleGetPatrimoniesParams } from "services";
 import { useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 
 import { styles } from ".";
+import { handleGetPatrimoniesParams } from "services";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
   const authHeader = useAuthHeader();
-  const columns = [
-    {
-      field: "id",
-      headerName: "Código",
-      flex: 1,
-    },
-    {
-      field: "nmPatrimonio",
-      headerName: "Nome",
-      flex: 4,
-    },
-    {
-      field: "nmDepartamento",
-      headerName: "Departamento Atual",
-      flex: 4,
-      renderCell: (params) => {
-        if (params.row.actualDepartment === "") {
-          return "Não Alocado";
-        }
-        return params.row.actualDepartment.nmDepartamento;
+  const columns = getColumns(isMobile);
+
+  function getColumns(isMobile) {
+    const baseColumns = [
+      {
+        field: "id",
+        headerName: "Código",
+        flex: 1,
       },
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 2,
-      renderCell: (params) => {
-        if (params.row.fixo === "true") {
-          return (
-            <Chip label="Fixo" color="default" variant="filled" size="small" />
-          );
-        } else if (params.row.actualConstruction) {
-          return (
-            <Chip label="Em Obra" color="info" variant="filled" size="small" />
-          );
-        } else {
-          return (
-            <Chip
-              label="Disponível"
-              color="success"
-              variant="filled"
-              size="small"
-            />
-          );
-        }
+      {
+        field: "nmPatrimonio",
+        headerName: "Nome",
+        flex: 4,
       },
-    },
-  ];
+      {
+        field: "nmDepartamento",
+        headerName: "Departamento Atual",
+        flex: 4,
+        renderCell: (params) => {
+          if (params.row.actualDepartment === "") {
+            return "Não Alocado";
+          }
+          return params.row.actualDepartment.nmDepartamento;
+        },
+      },
+      {
+        field: "status",
+        headerName: "Status",
+        flex: 2,
+        renderCell: (params) => {
+          if (params.row.fixo === "true") {
+            return (
+              <Chip
+                label="Fixo"
+                color="default"
+                variant="filled"
+                size="small"
+              />
+            );
+          } else if (params.row.actualConstruction) {
+            return (
+              <Chip
+                label="Em Obra"
+                color="info"
+                variant="filled"
+                size="small"
+              />
+            );
+          } else {
+            return (
+              <Chip
+                label="Disponível"
+                color="success"
+                variant="filled"
+                size="small"
+              />
+            );
+          }
+        },
+      },
+    ];
+    if (isMobile) {
+      return baseColumns
+        .filter((column) => column.field === "nmPatrimonio")
+        .map((column) => {
+          if (column.field === "nmPatrimonio") {
+            return { ...column, flex: 2 };
+          }
+          return column;
+        });
+    }
+    return baseColumns;
+  }
 
   return (
     <Container className={styles.formFields}>
@@ -159,9 +186,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
           <DataGrid
             loading={isLoading}
             density="compact"
-            slots={{
-              toolbar: GridToolbar,
-            }}
+            slots={isMobile ? {} : { toolbar: GridToolbar }}
             sx={{
               height: 300,
             }}
