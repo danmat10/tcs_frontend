@@ -15,6 +15,8 @@ import {
   Build,
   BusinessCenter,
   PeopleAlt,
+  LocalShipping,
+  BarChart,
 } from "@mui/icons-material";
 
 import { ReactComponent as Logo } from "assets/icons/logo azul.svg";
@@ -22,8 +24,7 @@ import { Header } from "components/Header";
 import { styles } from "components/Home";
 import { URLS } from "config";
 import UserContext from "contexts/UserContext";
-import { useIsAdmin } from "routes/useIsAdmin";
-import { useIsGestor } from "routes";
+import { useIsGestor, useIsAdmin } from "routes";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -84,6 +85,100 @@ const Home = () => {
               Para onde vamos?
             </Typography>
           </Grid>
+          {useIsGestor() && (
+            <>
+              <Grid item xs={12} md={4} className={styles.gridCard}>
+                <Link to={URLS.ALOCACAO} style={{ textDecoration: "none" }}>
+                  <Card className={styles.card}>
+                    <CardContent className={styles.cardContent}>
+                      <Assignment className={styles.icon} />
+                      <Typography variant="h6" className={styles.cardTitle}>
+                        Alocações
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+              <Grid item xs={12} md={4} className={styles.gridCard}>
+                <Link to={URLS.DEPARTAMENTO} style={{ textDecoration: "none" }}>
+                  <Card className={styles.card}>
+                    <CardContent className={styles.cardContent}>
+                      <BusinessCenter className={styles.icon} />
+                      <Typography variant="h6" className={styles.cardTitle}>
+                        Departamentos
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+            </>
+          )}
+          {useIsAdmin() && (
+            <Grid item xs={12} md={4} className={styles.gridCard}>
+              <Link to={URLS.GESTAO} style={{ textDecoration: "none" }}>
+                <Card className={styles.card}>
+                  <CardContent className={styles.cardContent}>
+                    <BarChart className={styles.icon} />
+                    <Typography variant="h6" className={styles.cardTitle}>
+                      Gestão
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+            </Grid>
+          )}
+          {useIsGestor() && (
+            <>
+              <Grid item xs={12} md={4} className={styles.gridCard}>
+                <Link to={URLS.MANUTENCAO} style={{ textDecoration: "none" }}>
+                  <Card className={styles.card}>
+                    <CardContent className={styles.cardContent}>
+                      <Build className={styles.icon} />
+                      <Typography variant="h6" className={styles.cardTitle}>
+                        Manutenções
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+              <Grid item xs={12} md={4} className={styles.gridCard}>
+                <Link to={URLS.OBRA} style={{ textDecoration: "none" }}>
+                  <Card className={styles.card}>
+                    <CardContent className={styles.cardContent}>
+                      <Construction className={styles.icon} />
+                      <Typography variant="h6" className={styles.cardTitle}>
+                        Obras
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+              <Grid item xs={12} md={4} className={styles.gridCard}>
+                <Link to={URLS.PATRIMONIO} style={{ textDecoration: "none" }}>
+                  <Card className={styles.card}>
+                    <CardContent className={styles.cardContent}>
+                      <AccountBalance className={styles.icon} />
+                      <Typography variant="h6" className={styles.cardTitle}>
+                        Patrimônio
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+            </>
+          )}
+          <Grid item xs={12} md={4} className={styles.gridCard}>
+            <Link to={URLS.REQUISICAO} style={{ textDecoration: "none" }}>
+              <Card className={styles.card}>
+                <CardContent className={styles.cardContent}>
+                  <LocalShipping className={styles.icon} />
+                  <Typography variant="h6" className={styles.cardTitle}>
+                    Requisições
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
+          </Grid>
           {useIsAdmin() && (
             <Grid item xs={12} md={4} className={styles.gridCard}>
               <Link to={URLS.USUARIO} style={{ textDecoration: "none" }}>
@@ -92,76 +187,6 @@ const Home = () => {
                     <PeopleAlt className={styles.icon} />
                     <Typography variant="h6" className={styles.cardTitle}>
                       Usuários
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          )}
-          {useIsGestor() && (
-            <Grid item xs={12} md={4} className={styles.gridCard}>
-              <Link to={URLS.DEPARTAMENTO} style={{ textDecoration: "none" }}>
-                <Card className={styles.card}>
-                  <CardContent className={styles.cardContent}>
-                    <BusinessCenter className={styles.icon} />
-                    <Typography variant="h6" className={styles.cardTitle}>
-                      Departamentos
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          )}
-          {useIsGestor() && (
-            <Grid item xs={12} md={4} className={styles.gridCard}>
-              <Link to={URLS.OBRA} style={{ textDecoration: "none" }}>
-                <Card className={styles.card}>
-                  <CardContent className={styles.cardContent}>
-                    <Construction className={styles.icon} />
-                    <Typography variant="h6" className={styles.cardTitle}>
-                      Obras
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          )}
-          {useIsGestor() && (
-            <Grid item xs={12} md={4} className={styles.gridCard}>
-              <Link to={URLS.PATRIMONIO} style={{ textDecoration: "none" }}>
-                <Card className={styles.card}>
-                  <CardContent className={styles.cardContent}>
-                    <AccountBalance className={styles.icon} />
-                    <Typography variant="h6" className={styles.cardTitle}>
-                      Patrimônio
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          )}
-          {useIsGestor() && (
-            <Grid item xs={12} md={4} className={styles.gridCard}>
-              <Link to={URLS.ALOCACAO} style={{ textDecoration: "none" }}>
-                <Card className={styles.card}>
-                  <CardContent className={styles.cardContent}>
-                    <Assignment className={styles.icon} />
-                    <Typography variant="h6" className={styles.cardTitle}>
-                      Alocações
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          )}
-          {useIsGestor() && (
-            <Grid item xs={12} md={4} className={styles.gridCard}>
-              <Link to={URLS.MANUTENCAO} style={{ textDecoration: "none" }}>
-                <Card className={styles.card}>
-                  <CardContent className={styles.cardContent}>
-                    <Build className={styles.icon} />
-                    <Typography variant="h6" className={styles.cardTitle}>
-                      Manutenções
                     </Typography>
                   </CardContent>
                 </Card>
