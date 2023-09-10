@@ -62,7 +62,12 @@ const Allocation = () => {
         state={state}
       />
     ),
-    view: <AllocationView allocation={state.selectedAlloctaion} />,
+    view: (
+      <AllocationView
+        allocation={state.selectedAlloctaion}
+        onClose={closeDialog}
+      />
+    ),
   };
 
   return (
