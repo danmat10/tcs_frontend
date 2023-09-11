@@ -287,12 +287,12 @@ const PatrimonyFormFields = ({ formik }) => {
                   onChange={formik.handleChange}
                 >
                   <FormControlLabel
-                    value={true}
+                    value="true"
                     control={<Radio />}
                     label="Fixo"
                   />
                   <FormControlLabel
-                    value={false}
+                    value="false"
                     control={<Radio />}
                     label="Alocável"
                   />
