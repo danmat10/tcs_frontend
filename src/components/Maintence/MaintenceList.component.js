@@ -122,7 +122,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
       case "Concluída":
         return status === "Concluída";
       case "Em Andamento":
-        return status === "Em Andamento";
+        return status === "Em andamento";
       case "Atrasada":
         return status === "Atrasada";
       case "Prevista":
