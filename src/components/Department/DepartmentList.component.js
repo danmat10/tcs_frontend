@@ -20,11 +20,11 @@ const DepartmentList = ({ departments, openDialog }) => {
         flex: 2,
       },
       {
-        field: "usuario",
+        field: "user",
         headerName: "Responsável",
         flex: 1,
         renderCell: (params) =>
-          params.row.usuario ? params.row.usuario.nmUsuario : "",
+          params.row.user ? params.row.user.nmUsuario : "",
       },
       {
         field: "actions",
@@ -77,7 +77,7 @@ const DepartmentList = ({ departments, openDialog }) => {
   }
 
   function matchesSearch(department) {
-    return [department.nmDepartamento, department.usuario?.nmUsuario].some(
+    return [department.nmDepartamento, department.user?.nmUsuario].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())

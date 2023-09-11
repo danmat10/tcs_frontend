@@ -28,16 +28,16 @@ const DepartmentFormFields = ({ formik, userList = [] }) => {
             options={userList}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.id + " - " + option.nmUsuario}
-            value={formik.values.usuario}
+            value={formik.values.user}
             onChange={(event, newValue) => {
-              formik.setFieldValue("usuario", newValue);
+              formik.setFieldValue("user", newValue);
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Responsável do Departamento"
-                error={formik.touched.usuario && Boolean(formik.errors.usuario)}
-                helperText={formik.touched.usuario && formik.errors.usuario}
+                error={formik.touched.user && Boolean(formik.errors.user)}
+                helperText={formik.touched.user && formik.errors.user}
               />
             )}
           />

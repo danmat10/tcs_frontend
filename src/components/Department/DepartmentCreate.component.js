@@ -13,7 +13,7 @@ const DepartmentCreate = ({ onClose, users, setState }) => {
   const formik = useFormik({
     initialValues: {
       nmDepartamento: "",
-      usuario: null,
+      user: null,
     },
     validate: (values) => validateDepartmenCreateForm(values),
     validateOnChange: false,

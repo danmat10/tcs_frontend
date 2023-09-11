@@ -12,7 +12,7 @@ const DepartmentEdit = ({ department, users, setState, onClose }) => {
   const formik = useFormik({
     initialValues: {
       nmDepartamento: department.nmDepartamento || "",
-      usuario: department.usuario || "",
+      user: department.usuario || "",
     },
     validate: (values) => validateDepartmenEditForm(values, department),
     validateOnChange: false,

@@ -26,7 +26,7 @@ const DepartmentView = ({ department, onClose }) => {
         <Grid item xs={12} md={6}>
           <TextField
             label="Responsável do Departamento"
-            value={department?.usuario?.nmUsuario || ""}
+            value={department?.user?.nmUsuario || ""}
             variant="standard"
             disabled
             fullWidth
