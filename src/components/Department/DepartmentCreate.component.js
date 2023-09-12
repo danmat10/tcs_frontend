@@ -27,8 +27,8 @@ const DepartmentCreate = ({ onClose, users, setState }) => {
     },
   });
 
-  const filteredUserList = users.filter((usuario) => {
-    if (usuario.flStatus === "Inativo") {
+  const filteredUserList = users.filter((user) => {
+    if (user.flStatus === "Inativo") {
       return false;
     }
     return true;

@@ -12,7 +12,7 @@ const DepartmentEdit = ({ department, users, setState, onClose }) => {
   const formik = useFormik({
     initialValues: {
       nmDepartamento: department.nmDepartamento || "",
-      user: department.usuario || "",
+      user: department.user || "",
     },
     validate: (values) => validateDepartmenEditForm(values, department),
     validateOnChange: false,
@@ -26,11 +26,8 @@ const DepartmentEdit = ({ department, users, setState, onClose }) => {
     },
   });
 
-  const filteredUserList = users.filter((usuario) => {
-    if (
-      usuario.flStatus === "Inativo" &&
-      formik.values.usuario?.id !== usuario.id
-    ) {
+  const filteredUserList = users.filter((user) => {
+    if (user.flStatus === "Inativo" && formik.values.user?.id !== user.id) {
       return false;
     }
     return true;
