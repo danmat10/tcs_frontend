@@ -40,4 +40,37 @@ const handleGetPatrimoniesList = async ({ header, setState }) => {
   setState((prev) => ({ ...prev, patrimonies }));
 };
 
-export { handleCreatePatrimony, handleEditPatrimony, handleGetPatrimoniesList };
+const handleGetPatrimoniesParams = async ({ header, setOptions, params }) => {
+  let results = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_PARAMS(params),
+      header: header,
+    },
+    MESSAGES.PATRIMONY.GET
+  );
+  if (!results) results = [];
+  setOptions(results);
+};
+
+const handleGetPatrimonyId = async ({ header, setOptions, id }) => {
+  let result = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_ID(id),
+      header: header,
+    },
+    MESSAGES.PATRIMONY.GET
+  );
+  let results = [];
+  if (result) results = [result];
+  setOptions(results);
+};
+
+export {
+  handleCreatePatrimony,
+  handleEditPatrimony,
+  handleGetPatrimoniesList,
+  handleGetPatrimoniesParams,
+  handleGetPatrimonyId,
+};

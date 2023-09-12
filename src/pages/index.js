@@ -6,3 +6,4 @@ export * from "./Login";
 export * from "./Patrimony";
 export * from "./Profile";
 export * from "./User";
+export * from "./Allocation";

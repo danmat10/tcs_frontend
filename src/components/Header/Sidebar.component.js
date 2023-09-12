@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {
   Drawer,
   List,
-  ListItem,
   ListItemIcon,
   Toolbar,
   Typography,
   Divider,
+  Collapse,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 import {
   AccountBalance,
@@ -15,7 +17,11 @@ import {
   BarChart,
   Build,
   BusinessCenter,
+  CheckBox,
   Construction,
+  ExpandLess,
+  ExpandMore,
+  LocalShipping,
   People,
 } from "@mui/icons-material";
 
@@ -24,82 +30,117 @@ import { URLS } from "config";
 import { useIsAdmin } from "routes/useIsAdmin";
 import { useIsGestor } from "routes";
 
-const Sidebar = ({ isOpen, onClose }) => (
-  <Drawer
-    anchor="left"
-    open={isOpen}
-    onClose={onClose}
-    PaperProps={{
-      sx: {
-        width: { xs: "100%", sm: "256px" },
-        top: { xs: "56px", sm: "64px" },
-        alignItems: { xs: "center", sm: "flex-start" },
-      },
-    }}
-    slotProps={{ backdrop: { invisible: true } }}
-  >
-    <Toolbar>
-      <Logo width="85px" height="67px" />
-      <Typography variant="h6">Nome do App</Typography>
-    </Toolbar>
-    <Divider style={{ width: "100%" }} />
-    <List>
-      {useIsAdmin() && (
-        <ListItem component={Link} to={URLS.USUARIO}>
+const Sidebar = ({ isOpen, onClose }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <Drawer
+      anchor="left"
+      open={isOpen}
+      onClose={onClose}
+      PaperProps={{
+        sx: {
+          width: { xs: "100%", sm: "256px" },
+          top: { xs: "56px", sm: "64px" },
+          alignItems: { xs: "center", sm: "flex-start" },
+        },
+      }}
+      slotProps={{ backdrop: { invisible: true } }}
+    >
+      <Toolbar>
+        <Logo width="85px" height="67px" />
+        <Typography variant="h6">Nome do App</Typography>
+      </Toolbar>
+      <Divider style={{ width: "100%" }} />
+      <List
+        sx={{
+          width: "100%",
+        }}
+      >
+        {useIsGestor() && (
+          <>
+            <ListItemButton component={Link} to={URLS.ALOCACAO}>
+              <ListItemIcon>
+                <Assignment />
+              </ListItemIcon>
+              <ListItemText primary="Alocações" />
+            </ListItemButton>
+            <ListItemButton component={Link} to={URLS.DEPARTAMENTO}>
+              <ListItemIcon>
+                <BusinessCenter />
+              </ListItemIcon>
+              <ListItemText primary="Departamentos" />
+            </ListItemButton>
+          </>
+        )}
+        {useIsAdmin() && (
+          <ListItemButton component={Link} to={URLS.GESTAO}>
+            <ListItemIcon>
+              <BarChart />
+            </ListItemIcon>
+            <ListItemText primary="Gestão" />
+          </ListItemButton>
+        )}
+        {useIsGestor() && (
+          <>
+            <ListItemButton component={Link} to={URLS.MANUTENCAO}>
+              <ListItemIcon>
+                <Build />
+              </ListItemIcon>
+              <ListItemText primary="Manutenções" />
+            </ListItemButton>
+            <ListItemButton component={Link} to={URLS.PATRIMONIO}>
+              <ListItemIcon>
+                <AccountBalance />
+              </ListItemIcon>
+              <ListItemText primary="Patrimônios" />
+            </ListItemButton>
+          </>
+        )}
+        {useIsAdmin() && (
+          <ListItemButton component={Link} to={URLS.USUARIO}>
+            <ListItemIcon>
+              <People />
+            </ListItemIcon>
+            <ListItemText primary="Usuários" />
+          </ListItemButton>
+        )}
+        <ListItemButton onClick={handleClick}>
           <ListItemIcon>
-            <People />
+            <CheckBox />
           </ListItemIcon>
-          <Typography color="black">Usuários</Typography>
-        </ListItem>
-      )}
-      {useIsGestor() && (
-        <ListItem component={Link} to={URLS.PATRIMONIO}>
-          <ListItemIcon>
-            <AccountBalance />
-          </ListItemIcon>
-          <Typography color="black">Patrimônio</Typography>
-        </ListItem>
-      )}
-      {useIsGestor() && (
-        <ListItem component={Link} to={URLS.DEPARTAMENTO}>
-          <ListItemIcon>
-            <BusinessCenter />
-          </ListItemIcon>
-          <Typography color="black">Departamentos</Typography>
-        </ListItem>
-      )}
-      {useIsGestor() && (
-        <ListItem component={Link} to={URLS.OBRA}>
-          <ListItemIcon>
-            <Construction />
-          </ListItemIcon>
-          <Typography color="black">Obras</Typography>
-        </ListItem>
-      )}
-      <ListItem component={Link} to={URLS.REQUISICAO}>
-        <ListItemIcon>
-          <Assignment />
-        </ListItemIcon>
-        <Typography color="black">Requisições</Typography>
-      </ListItem>
-      {useIsGestor() && (
-        <ListItem component={Link} to={URLS.MANUTENCAO}>
-          <ListItemIcon>
-            <Build />
-          </ListItemIcon>
-          <Typography color="black">Manutenções</Typography>
-        </ListItem>
-      )}
-      {useIsAdmin() && (
-        <ListItem component={Link} to={URLS.GESTAO}>
-          <ListItemIcon>
-            <BarChart />
-          </ListItemIcon>
-          <Typography color="black">Gestão</Typography>
-        </ListItem>
-      )}
-    </List>
-  </Drawer>
-);
+          <ListItemText primary="Requisições" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {useIsGestor() && (
+              <ListItemButton sx={{ pl: 4 }} component={Link} to={URLS.OBRA}>
+                <ListItemIcon>
+                  <Construction />
+                </ListItemIcon>
+                <ListItemText primary="Obras" />
+              </ListItemButton>
+            )}
+            <ListItemButton
+              sx={{ pl: 4 }}
+              component={Link}
+              to={URLS.REQUISICAO}
+            >
+              <ListItemIcon>
+                <LocalShipping />
+              </ListItemIcon>
+              <ListItemText primary="Solicitações" />
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </List>
+    </Drawer>
+  );
+};
 
 export { Sidebar };

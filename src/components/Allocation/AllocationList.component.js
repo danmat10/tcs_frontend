@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
-import { Delete, Edit, Visibility } from "@mui/icons-material";
+import { Print, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { styles } from ".";
 import { PageGridContent } from "components/Common";
 
-const DepartmentList = ({ departments, openDialog }) => {
+const AllocationList = ({ allocations, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
@@ -15,16 +15,48 @@ const DepartmentList = ({ departments, openDialog }) => {
   function getColumns(isMobile) {
     const baseColumns = [
       {
-        field: "nmDepartamento",
-        headerName: "Nome",
+        field: "id",
+        headerName: "Código",
+        flex: 1,
+      },
+      {
+        field: "actualDepartment",
+        headerName: "Departamento de Origem",
         flex: 2,
+        renderCell: (params) =>
+          params.row.actualDepartment?.nmDepartamento
+            ? params.row.actualDepartment?.nmDepartamento
+            : "Não Alocado",
+      },
+      {
+        field: "newDepartment",
+        headerName: "Departamento de Destino",
+        flex: 2,
+        renderCell: (params) => params.row.newDepartment?.nmDepartamento,
       },
       {
         field: "user",
-        headerName: "Responsável",
+        headerName: "Usuário",
+        flex: 2,
+        renderCell: (params) => params.row.user?.nmUsuario,
+      },
+      {
+        field: "dtAlocacao",
+        headerName: "Data de Alocação",
+        flex: 2,
+        renderCell: (params) => {
+          const date = new Date(params.row.dtAlocacao);
+          if (date.toString() === "Invalid Date") {
+            return "";
+          }
+          return date.toLocaleDateString("pt-BR");
+        },
+      },
+      {
+        field: "nPatrimonies",
+        headerName: "Quantidade",
         flex: 1,
-        renderCell: (params) =>
-          params.row.user ? params.row.user.nmUsuario : "",
+        renderCell: (params) => params.row.patrimonies.length,
       },
       {
         field: "actions",
@@ -42,17 +74,13 @@ const DepartmentList = ({ departments, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <Edit
+            <Print
               color="primary"
-              onClick={() => openDialog("update", params.row)}
+              onClick={() => {
+                openDialog("print", params.row);
+              }}
               style={{ cursor: "pointer" }}
-              titleAccess="Editar"
-            />
-            <Delete
-              color="error"
-              onClick={() => openDialog("delete", params.row)}
-              style={{ cursor: "pointer" }}
-              titleAccess="Excluir"
+              titleAccess="Imprimir"
             />
           </>
         ),
@@ -62,10 +90,10 @@ const DepartmentList = ({ departments, openDialog }) => {
       return baseColumns
         .filter(
           (column) =>
-            column.field === "nmDepartamento" || column.field === "actions"
+            column.field === "newDepartment" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "nmDepartamento") {
+          if (column.field === "newDepartment") {
             return { ...column, flex: 1 };
           } else if (column.field === "actions") {
             return { ...column, flex: 1 };
@@ -75,17 +103,20 @@ const DepartmentList = ({ departments, openDialog }) => {
     }
     return baseColumns;
   }
-
-  function matchesSearch(department) {
-    return [department.nmDepartamento, department.user?.nmUsuario].some(
+  function matchesSearch(row) {
+    return [
+      row.actualDepartment?.nmDepartamento,
+      row.newDepartment?.nmDepartamento,
+      row.user?.nmUsuario,
+    ].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
     );
   }
 
-  const filteredDepartments = departments.filter((department) => {
-    return matchesSearch(department);
+  const filteredRows = allocations.filter((row) => {
+    return matchesSearch(row);
   });
 
   return (
@@ -98,7 +129,7 @@ const DepartmentList = ({ departments, openDialog }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <FormHelperText>Pesquisar por nome, responsável...</FormHelperText>
+        <FormHelperText>Pesquisar por departamento, usuário...</FormHelperText>
       </Grid>
       <Grid item xs={12} md={9} className={styles.buttonGrid}>
         <Button
@@ -113,7 +144,7 @@ const DepartmentList = ({ departments, openDialog }) => {
         <Grid item xs={12} md={12} lg={12}>
           <DataGrid
             sx={{ height: 500 }}
-            rows={filteredDepartments}
+            rows={filteredRows}
             columns={columns}
             autoPageSize
             pageSizeOptions={[10]}
@@ -127,4 +158,4 @@ const DepartmentList = ({ departments, openDialog }) => {
   );
 };
 
-export { DepartmentList };
+export { AllocationList };

@@ -2,52 +2,47 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
+import { MaintenceFormFields } from ".";
 import { DialogForm } from "components/Common";
-import { DepartmentFormFields } from ".";
-import { validateDepartmenCreateForm } from "validations";
-import { handleCreateDepartment } from "services";
+import { handleCreateMaintence } from "services";
+import { validateMaintenceCreateForm } from "validations";
 
-const DepartmentCreate = ({ onClose, users, setState }) => {
+const MaintenceCreate = ({ onClose, setState }) => {
   const authHeader = useAuthHeader();
-
   const formik = useFormik({
     initialValues: {
-      nmDepartamento: "",
-      user: null,
+      patrimonio: null,
+      nmTypeMaintence: "",
+      dsMaintence: "",
+      dtPrevisionMaintence: "",
     },
-    validate: (values) => validateDepartmenCreateForm(values),
+    validateOnBlur: false,
     validateOnChange: false,
+    validate: validateMaintenceCreateForm,
     onSubmit: (values) => {
-      handleCreateDepartment({
+      handleCreateMaintence({
         data: values,
         header: { Authorization: authHeader() },
-        setState: setState,
+        setState,
       });
       formik.resetForm();
     },
   });
 
-  const filteredUserList = users.filter((user) => {
-    if (user.flStatus === "Inativo") {
-      return false;
-    }
-    return true;
-  });
-
   return (
     <DialogForm
-      title="Cadastrar Departamento"
+      title="Cadastrar Manutenção"
       onClose={onClose}
       onSubmit={() => formik.submitForm()}
       btnSubmitName="Cadastrar"
     >
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
-          <DepartmentFormFields formik={formik} userList={filteredUserList} />
+          <MaintenceFormFields formik={formik} />
         </form>
       </FormikProvider>
     </DialogForm>
   );
 };
 
-export { DepartmentCreate };
+export { MaintenceCreate };

@@ -5,3 +5,5 @@ export * from "./departmentCalls";
 export * from "./patrimonyCalls";
 export * from "./profileCalls";
 export * from "./userCalls";
+export * from "./maintenceCalls";
+export * from "./allocationCalls";

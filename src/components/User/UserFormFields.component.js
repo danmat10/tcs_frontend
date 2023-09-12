@@ -17,10 +17,10 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 import { styles } from ".";
 import { CpfCnpjMask } from "components/Common";
+import { DeleteOutlineSharp } from "@mui/icons-material";
 
 const UserFormFields = ({ formik, isEditing = false }) => {
   const handleSwitchChange = (event) => {
@@ -125,7 +125,7 @@ const UserFormFields = ({ formik, isEditing = false }) => {
                   </Grid>
                   <Grid item xs={2} md={1}>
                     <IconButton onClick={() => remove(index)} color="secondary">
-                      <DeleteOutlineSharpIcon color="error" />
+                      <DeleteOutlineSharp color="error" />
                     </IconButton>
                   </Grid>
                 </Grid>

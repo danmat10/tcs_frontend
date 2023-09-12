@@ -21,6 +21,8 @@ const PatrimonyEdit = ({ onClose, patrimony, setState }) => {
       dtNf: patrimony.dtNf || "",
       dtAquisicao: patrimony.dtAquisicao || "",
       vlAquisicao: patrimony.vlAquisicao || 0,
+      fixo: patrimony.fixo || "true",
+      warranties: patrimony.warranties || [],
     },
     validateOnChange: false,
     validate: (values) => validatePatrimonyEditForm(values, patrimony),

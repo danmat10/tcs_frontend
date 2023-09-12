@@ -1,20 +1,21 @@
+import { Dialog } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { Dialog } from "@mui/material";
 
 import { Breadcrumb, PageContainer } from "components/Common";
-import {
-  DepartmentBreadcrumb,
-  DepartmentCreate,
-  DepartmentDelete,
-  DepartmentEdit,
-  DepartmentList,
-  DepartmentView,
-} from "components/Department";
 import { Header } from "components/Header";
-import { handleGetDepartmentsList, handleGetUsersList } from "services";
+import {
+  MaintenceBreadcrumb,
+  MaintenceEnd,
+  MaintenceList,
+  MaintenceStart,
+  MaintenceView,
+  MaintenceCreate,
+  MaintenceEdit,
+} from "components/Maintence";
+import { handleGetMaintenceList, handleGetUsersList } from "services";
 
-const Department = () => {
+const Maintence = () => {
   const authHeader = useAuthHeader();
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Department = () => {
       header: { Authorization: authHeader() },
       setState: setState,
     });
-    handleGetDepartmentsList({
+    handleGetMaintenceList({
       header: { Authorization: authHeader() },
       setState: setState,
     });
@@ -30,18 +31,18 @@ const Department = () => {
 
   const [state, setState] = useState({
     view: "",
-    selectedDepartment: null,
+    selectedMaintence: null,
     openDialog: false,
     users: [],
-    departments: [],
+    maintence: [],
   });
 
-  const openDialog = (view, department = null) => {
+  const openDialog = (view, maintence = null) => {
     setState((prev) => ({
       ...prev,
       view,
       openDialog: true,
-      selectedDepartment: department,
+      selectedMaintence: maintence,
     }));
   };
 
@@ -50,34 +51,33 @@ const Department = () => {
   };
 
   const views = {
-    list: (
-      <DepartmentList departments={state.departments} openDialog={openDialog} />
-    ),
-    create: (
-      <DepartmentCreate
-        onClose={closeDialog}
-        users={state.users}
-        setState={setState}
-      />
-    ),
+    list: <MaintenceList openDialog={openDialog} maintence={state.maintence} />,
+    create: <MaintenceCreate onClose={closeDialog} setState={setState} />,
     update: (
-      <DepartmentEdit
-        department={state.selectedDepartment}
-        users={state.users}
-        setState={setState}
+      <MaintenceEdit
         onClose={closeDialog}
+        setState={setState}
+        maintence={state.selectedMaintence}
       />
     ),
-    delete: (
-      <DepartmentDelete
-        department={state.selectedDepartment}
+    start: (
+      <MaintenceStart
+        onClose={closeDialog}
         setState={setState}
+        maintence={state.selectedMaintence}
+      />
+    ),
+    end: (
+      <MaintenceEnd
         onClose={closeDialog}
-      />),
+        setState={setState}
+        maintence={state.selectedMaintence}
+      />
+    ),
     view: (
-      <DepartmentView
-        department={state.selectedDepartment}
+      <MaintenceView
         onClose={closeDialog}
+        maintence={state.selectedMaintence}
       />
     ),
   };
@@ -86,8 +86,8 @@ const Department = () => {
     <>
       <Header />
       <PageContainer>
-        <Breadcrumb title="Departamentos">
-          <DepartmentBreadcrumb />
+        <Breadcrumb title="Manutenções">
+          <MaintenceBreadcrumb />
         </Breadcrumb>
         {views.list}
       </PageContainer>
@@ -102,4 +102,4 @@ const Department = () => {
   );
 };
 
-export { Department };
+export { Maintence };

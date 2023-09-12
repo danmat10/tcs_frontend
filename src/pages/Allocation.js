@@ -1,63 +1,70 @@
 import { Dialog } from "@mui/material";
+import {
+  AllocationBreadcrumb,
+  AllocationCreate,
+  AllocationList,
+  AllocationView,
+} from "components/Allocation";
 import { Breadcrumb, PageContainer } from "components/Common";
 import { Header } from "components/Header";
-import {
-  PatrimonyBreadcrumb,
-  PatrimonyCreate,
-  PatrimonyEdit,
-  PatrimonyList,
-  PatrimonyView,
-} from "components/Patrimony";
 import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { handleGetPatrimoniesList } from "services";
+import { handleGetAllocationList, handleGetDepartmentsList } from "services";
 
-const Patrimony = () => {
-  const authHeader = useAuthHeader();
-
+const Allocation = () => {
   const [state, setState] = useState({
     view: "",
-    selectedPatrimony: null,
+    selectedAlloctaion: null,
     openDialog: false,
-    users: [],
+    departments: [],
     patrimonies: [],
+    allocations: [],
   });
+  const authHeader = useAuthHeader();
 
   useEffect(() => {
-    handleGetPatrimoniesList({
+    handleGetDepartmentsList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+    handleGetAllocationList({
       header: { Authorization: authHeader() },
       setState: setState,
     });
   }, []);
 
-  const openDialog = (view, selected = null) => {
+  const openDialog = (view, allocation = null) => {
     setState((prev) => ({
       ...prev,
       view,
       openDialog: true,
-      selectedPatrimony: selected,
+      selectedAlloctaion: allocation,
     }));
   };
 
   const closeDialog = () => {
-    setState((prev) => ({ ...prev, view: "", openDialog: false }));
+    setState((prev) => ({
+      ...prev,
+      view: "",
+      openDialog: false,
+      patrimonies: [],
+    }));
   };
 
   const views = {
     list: (
-      <PatrimonyList patrimonies={state.patrimonies} openDialog={openDialog} />
+      <AllocationList allocations={state.allocations} openDialog={openDialog} />
     ),
-    create: <PatrimonyCreate onClose={closeDialog} setState={setState} />,
-    update: (
-      <PatrimonyEdit
-        patrimony={state.selectedPatrimony}
+    create: (
+      <AllocationCreate
         onClose={closeDialog}
         setState={setState}
+        state={state}
       />
     ),
     view: (
-      <PatrimonyView
-        patrimony={state.selectedPatrimony}
+      <AllocationView
+        allocation={state.selectedAlloctaion}
         onClose={closeDialog}
       />
     ),
@@ -67,8 +74,8 @@ const Patrimony = () => {
     <>
       <Header />
       <PageContainer>
-        <Breadcrumb title="Patrimônio">
-          <PatrimonyBreadcrumb />
+        <Breadcrumb title="Alocações">
+          <AllocationBreadcrumb />
         </Breadcrumb>
         {views.list}
       </PageContainer>
@@ -76,8 +83,7 @@ const Patrimony = () => {
         open={state.openDialog}
         onClose={closeDialog}
         PaperProps={{ sx: { borderRadius: "28px" } }}
-        maxWidth="lg"
-
+        maxWidth="md"
       >
         {views[state.view]}
       </Dialog>
@@ -85,4 +91,4 @@ const Patrimony = () => {
   );
 };
 
-export { Patrimony };
+export { Allocation };

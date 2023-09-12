@@ -41,8 +41,24 @@ const handleEditDepartment = async ({ data, header, setState }) => {
   handleGetDepartmentsList({ header, setState });
 };
 
+const handleDeleteDepartment = async ({ id, header, setState }) => {
+  const response = await handleApiCall(
+    {
+      method: "delete",
+      endpoint: ENDPOINTS.DEPARTMENT.DELETE_id(id),
+      header: header,
+    },
+    MESSAGES.DEPARTMENT.DELETE
+  );
+  handleGetDepartmentsList({ header, setState });
+  if (response) {
+    return true;
+  }
+};
+
 export {
   handleCreateDepartment,
   handleGetDepartmentsList,
   handleEditDepartment,
+  handleDeleteDepartment
 };
