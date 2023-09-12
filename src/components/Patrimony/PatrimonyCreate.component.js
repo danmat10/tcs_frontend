@@ -21,7 +21,7 @@ const PatrimonyCreate = ({ onClose, setState }) => {
       dtNf: "",
       dtAquisicao: "",
       vlAquisicao: 0,
-      fixo: true,
+      fixo: "true",
       warranties: [
         {
           dsTypeWarranty: "Fornecedor",
