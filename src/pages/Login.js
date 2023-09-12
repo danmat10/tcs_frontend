@@ -6,10 +6,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { handleLogin } from "services";
+import { ReactComponent as Logo } from "assets/icons/logo.svg";
 import { LoginFormFields } from "components/Login";
 import { validateLoginForm } from "validations";
-import { ReactComponent as Logo } from "assets/icons/logo.svg";
+import { handleLogin } from "services";
 
 const Login = () => {
   const signIn = useSignIn();
@@ -77,11 +77,6 @@ const Login = () => {
             </Button>
             <Grid container>
               <Grid item xs={6}>
-                <Link href="/forgot-password" variant="body2">
-                  Primeiro Acesso?
-                </Link>
-              </Grid>
-              <Grid item xs={6} sx={{ textAlign: "right" }}>
                 <Link href="/forgot-password" variant="body2">
                   Esqueceu sua senha?
                 </Link>
