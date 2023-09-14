@@ -5,8 +5,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { styles } from ".";
 
@@ -48,13 +47,15 @@ const ProfileChangePasswordFields = ({ formik }) => {
       <TextField
         fullWidth
         label="Nova Senha"
-        name="newPassword"
+        name="newPassword1"
         type={showNewPassword ? "text" : "password"}
         margin="dense"
         onChange={formik.handleChange}
-        value={formik.values.newPassword}
-        error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-        helperText={formik.touched.newPassword && formik.errors.newPassword}
+        value={formik.values.newPassword1}
+        error={
+          formik.touched.newPassword1 && Boolean(formik.errors.newPassword1)
+        }
+        helperText={formik.touched.newPassword1 && formik.errors.newPassword1}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -72,18 +73,15 @@ const ProfileChangePasswordFields = ({ formik }) => {
       <TextField
         fullWidth
         label="Confirme a Nova Senha"
-        name="confirmNewPassword"
+        name="newPassword2"
         type={showConfirmPassword ? "text" : "password"}
         margin="dense"
         onChange={formik.handleChange}
-        value={formik.values.confirmNewPassword}
+        value={formik.values.newPassword2}
         error={
-          formik.touched.confirmNewPassword &&
-          Boolean(formik.errors.confirmNewPassword)
+          formik.touched.newPassword2 && Boolean(formik.errors.newPassword2)
         }
-        helperText={
-          formik.touched.confirmNewPassword && formik.errors.confirmNewPassword
-        }
+        helperText={formik.touched.newPassword2 && formik.errors.newPassword2}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

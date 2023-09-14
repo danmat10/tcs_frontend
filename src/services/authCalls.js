@@ -26,11 +26,11 @@ const handleLogin = async ({ data, signIn }) => {
   }
 };
 
-const handleEditPassword = async ({ data, header }) => {
+const handleEditPassword = async ({ data, header, id }) => {
   await handleApiCall(
     {
       method: "put",
-      endpoint: ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(data.id),
+      endpoint: ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(id),
       data: data,
       header: header,
     },

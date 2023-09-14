@@ -14,10 +14,10 @@ const ENDPOINTS = {
     PATCH: BASEURL + "/api/users/",
     PATCH_ID: (id) => BASEURL + "/api/users/" + id,
     PROFILE: {
-      GET_PHOTO: (id) => BASEURL + "/uploads/" + id,
-      POST_PHOTO: (id) => BASEURL + "/users/" + id + "/photo",
+      GET_PHOTO: (id) => BASEURL + "/api/users/" + id + "/foto",
+      POST_PHOTO: (id) => BASEURL + "/api/users/" + id + "/",
       PUT_CHANGE_PASSWORD: (id) =>
-        BASEURL + "/auth/user/" + id + "/change-password",
+        BASEURL + "/api/users/" + id + "/change-password",
     },
   },
   DEPARTMENT: {

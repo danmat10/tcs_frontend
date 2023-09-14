@@ -29,9 +29,7 @@ const UserAvatar = ({ onClick }) => {
     }
   });
 
-  const photo = user.photo
-    ? ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo)
-    : null;
+  const photo = user.id ? ENDPOINTS.USER.PROFILE.GET_PHOTO(user.id) : null;
 
   return (
     <Avatar src={photo} onClick={onClick} sx={{ cursor: "pointer" }}></Avatar>

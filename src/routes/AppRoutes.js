@@ -18,7 +18,7 @@ import {
 import { Maintence } from "pages/Maintence";
 
 const AppRoutes = () => {
-  const [user, setUser] = React.useState({ photo: null, id: null });
+  const [user, setUser] = React.useState({id: null });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
