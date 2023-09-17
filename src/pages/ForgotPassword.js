@@ -10,7 +10,7 @@ import { MESSAGES, ENDPOINTS } from "config";
 import { apiCall } from "services";
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
 
-const ForgotPassword = () => {
+const FirstAccess = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -116,4 +116,4 @@ const ForgotPassword = () => {
   );
 };
 
-export { ForgotPassword };
+export { FirstAccess };
