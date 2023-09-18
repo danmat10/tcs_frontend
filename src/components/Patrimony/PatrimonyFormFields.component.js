@@ -51,12 +51,12 @@ const PatrimonyFormFields = ({ formik }) => {
               <TextField
                 fullWidth
                 label="Nº de Série"
-                name="nmSerie"
+                name="nrSerie"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.nmSerie}
-                error={formik.touched.nmSerie && Boolean(formik.errors.nmSerie)}
-                helperText={formik.touched.nmSerie && formik.errors.nmSerie}
+                value={formik.values.nrSerie}
+                error={formik.touched.nrSerie && Boolean(formik.errors.nrSerie)}
+                helperText={formik.touched.nrSerie && formik.errors.nrSerie}
               />
             </Grid>
             <Grid item md={12} xs={12}>
@@ -100,37 +100,36 @@ const PatrimonyFormFields = ({ formik }) => {
                             error={
                               formik.touched.warranties &&
                               Boolean(
-                                formik.errors.warranties?.[index]
-                                  ?.dsTypeWarranty
+                                formik.errors.warranties?.[index]?.tipoGarantia
                               )
                             }
                           >
                             <InputLabel
                               variant="outlined"
-                              id={`warranties.${index}.dsTypeWarranty`}
+                              id={`warranties.${index}.tipoGarantia`}
                             >
                               Tipo de garantia
                             </InputLabel>
                             <Select
-                              value={warranty.dsTypeWarranty}
+                              value={warranty.tipoGarantia}
                               onChange={formik.handleChange}
-                              labelId={`warranties.${index}.dsTypeWarranty`}
+                              labelId={`warranties.${index}.tipoGarantia`}
                               label="Tipo de contato"
-                              name={`warranties.${index}.dsTypeWarranty`}
+                              name={`warranties.${index}.tipoGarantia`}
                             >
-                              <MenuItem value={"Fornecedor"}>
-                                Fornecedor
+                              <MenuItem value={"Contratual"}>
+                                Contratual
                               </MenuItem>
                               <MenuItem value={"Legal"}>Legal</MenuItem>
                               <MenuItem value={"Estendida"}>Estendida</MenuItem>
                             </Select>
                             {formik.touched.warranties &&
                               formik.errors.warranties?.[index]
-                                ?.dsTypeWarranty && (
+                                ?.tipoGarantia && (
                                 <FormHelperText error>
                                   {
                                     formik.errors.warranties?.[index]
-                                      ?.dsTypeWarranty
+                                      ?.tipoGarantia
                                   }
                                 </FormHelperText>
                               )}
@@ -140,21 +139,21 @@ const PatrimonyFormFields = ({ formik }) => {
                           <TextField
                             fullWidth
                             label="Selecione a data"
-                            name={`warranties.${index}.dsWarranty`}
+                            name={`warranties.${index}.dtValidade`}
                             type="date"
                             margin="dense"
                             InputLabelProps={{ shrink: true }}
                             onChange={formik.handleChange}
-                            value={warranty.dsWarranty}
+                            value={warranty.dtValidade}
                             error={
                               formik.touched.warranties &&
                               Boolean(
-                                formik.errors.warranties?.[index]?.dsWarranty
+                                formik.errors.warranties?.[index]?.dtValidade
                               )
                             }
                             helperText={
                               formik.touched.warranties &&
-                              formik.errors.warranties?.[index]?.dsWarranty
+                              formik.errors.warranties?.[index]?.dtValidade
                             }
                           />
                         </Grid>
@@ -174,8 +173,8 @@ const PatrimonyFormFields = ({ formik }) => {
                           <Button
                             onClick={() =>
                               push({
-                                dsTypeWarranty: "Fornecedor",
-                                dsWarranty: "",
+                                tipoGarantia: "Fornecedor",
+                                dtValidade: "",
                               })
                             }
                             color="primary"
@@ -198,7 +197,7 @@ const PatrimonyFormFields = ({ formik }) => {
               <Typography variant="subtitle1">Fornecedor</Typography>
             </Grid>
             <Grid item md={12} xs={12}>
-              <CpfCnpjMask formik={formik} fieldName="nmCpf" />
+              <CpfCnpjMask formik={formik} fieldName="nrCnpj" />
             </Grid>
             <Grid item md={12} xs={12}>
               <TextField
@@ -226,25 +225,25 @@ const PatrimonyFormFields = ({ formik }) => {
               <TextField
                 fullWidth
                 label="Nº da Nota Fiscal"
-                name="nmNF"
+                name="nrNF"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.nmNF}
-                error={formik.touched.nmNF && Boolean(formik.errors.nmNF)}
-                helperText={formik.touched.nmNF && formik.errors.nmNF}
+                value={formik.values.nrNF}
+                error={formik.touched.nrNF && Boolean(formik.errors.nrNF)}
+                helperText={formik.touched.nrNF && formik.errors.nrNF}
               />
             </Grid>
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Data de Nota Fiscal"
-                name="dtNf"
+                name="dtNF"
                 type="date"
                 InputLabelProps={{ shrink: true }}
                 onChange={formik.handleChange}
-                value={formik.values.dtNf}
-                error={formik.touched.dtNf && Boolean(formik.errors.dtNf)}
-                helperText={formik.touched.dtNf && formik.errors.dtNf}
+                value={formik.values.dtNF}
+                error={formik.touched.dtNF && Boolean(formik.errors.dtNF)}
+                helperText={formik.touched.dtNF && formik.errors.dtNF}
               />
             </Grid>
             <Grid item md={6} xs={12}>

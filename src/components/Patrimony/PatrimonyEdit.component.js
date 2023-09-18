@@ -3,7 +3,11 @@ import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
 import { PatrimonyFormFields } from ".";
-import { DialogForm } from "components/Common";
+import {
+  DialogForm,
+  formatBackendDateToField,
+  formatFieldToDate,
+} from "components/Common";
 import { validatePatrimonyEditForm } from "validations";
 import { handleEditPatrimony } from "services";
 
@@ -13,25 +17,38 @@ const PatrimonyEdit = ({ onClose, patrimony, setState }) => {
   const formik = useFormik({
     initialValues: {
       nmPatrimonio: patrimony.nmPatrimonio || "",
-      nmSerie: patrimony.nmSerie || "",
+      nrSerie: patrimony.nrSerie || "",
       nmDescricao: patrimony.nmDescricao || "",
-      nmCpf: patrimony.nmCpf || "",
+      nrCnpj: patrimony.nrCnpj || "",
       nmFornecedor: patrimony.nmFornecedor || "",
-      nmNF: patrimony.nmNF || "",
-      dtNf: patrimony.dtNf || "",
-      dtAquisicao: patrimony.dtAquisicao || "",
+      nrNF: patrimony.nrNF || "",
+      dtNF: formatBackendDateToField(patrimony.dtNF),
+      dtAquisicao: formatBackendDateToField(patrimony.dtAquisicao),
       vlAquisicao: patrimony.vlAquisicao || 0,
       fixo: patrimony.fixo || "true",
-      warranties: patrimony.warranties || [],
+      warranties:
+        patrimony.warranties.map((warranty) => ({
+          ...warranty,
+          dtValidade: formatBackendDateToField(warranty.dtValidade),
+        })) || [],
     },
     validateOnChange: false,
     validate: (values) => validatePatrimonyEditForm(values, patrimony),
     onSubmit: (values) => {
-      values.id = patrimony.id;
+      const data = {
+        ...values,
+        id: patrimony.id,
+        dtNF: formatFieldToDate(values.dtNF),
+        dtAquisicao: formatFieldToDate(values.dtAquisicao),
+        warranties: values.warranties.map((warranty) => ({
+          ...warranty,
+          dtValidade: formatFieldToDate(warranty.dtValidade),
+        })),
+      };
       handleEditPatrimony({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
-        setState: setState,
+        setState,
       });
     },
   });

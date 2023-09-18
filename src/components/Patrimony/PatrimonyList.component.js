@@ -20,7 +20,7 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
   function getColumns(isMobile) {
     const baseColumns = [
       {
-        field: "nmSerie",
+        field: "nrSerie",
         headerName: "Número de Série",
         flex: 2,
       },

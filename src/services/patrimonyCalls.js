@@ -17,7 +17,7 @@ const handleCreatePatrimony = async ({ data, header, setState }) => {
 const handleEditPatrimony = async ({ data, header, setState }) => {
   await handleApiCall(
     {
-      method: "patch",
+      method: "put",
       endpoint: ENDPOINTS.PATRIMONY.PUT_ID(data.id),
       data: data,
       header: header,
