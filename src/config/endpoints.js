@@ -4,27 +4,27 @@ const SPRINGURL = "http://localhost:8080";
 
 const ENDPOINTS = {
   AUTH: {
-    LOGIN: BASEURL + "/api/auth/login",
-    REFRESH: BASEURL + "/api/auth/refreshToken",
+    LOGIN: SPRINGURL + "/api/auth/login",
+    REFRESH: SPRINGURL + "/api/auth/refreshToken",
   },
   USER: {
-    POST: BASEURL + "/api/users",
-    GET: BASEURL + "/api/users",
-    GET_ID: (id) => BASEURL + "/api/users/" + id,
-    PATCH: BASEURL + "/api/users/",
-    PATCH_ID: (id) => BASEURL + "/api/users/" + id,
+    POST: SPRINGURL + "/api/users",
+    GET: SPRINGURL + "/api/users",
+    GET_ID: (id) => SPRINGURL + "/api/users/" + id,
+    PATCH: SPRINGURL + "/api/users/",
+    PATCH_ID: (id) => SPRINGURL + "/api/users/" + id,
     PROFILE: {
-      GET_PHOTO: (id) => BASEURL + "/api/users/" + id + "/foto",
-      POST_PHOTO: (id) => BASEURL + "/api/users/" + id + "/",
+      GET_PHOTO: (id) => SPRINGURL + "/api/users/" + id + "/foto",
+      POST_PHOTO: (id) => SPRINGURL + "/api/users/" + id + "/",
       PUT_CHANGE_PASSWORD: (id) =>
-        BASEURL + "/api/users/" + id + "/change-password",
+        SPRINGURL + "/api/users/" + id + "/change-password",
     },
   },
   DEPARTMENT: {
-    GET: BASEURL + "/api/departments",
-    POST: BASEURL + "/api/departments",
-    PATCH_id: (id) => BASEURL + "/api/departments/" + id,
-    DELETE_id: (id) => BASEURL + "/api/departments/" + id,
+    GET: SPRINGURL + "/api/department",
+    POST: SPRINGURL + "/api/department",
+    PUT: SPRINGURL + "/api/department",
+    DELETE_id: (id) => SPRINGURL + "/api/department/" + id,
   },
   CONSTRUCTION: {
     GET: BASEURL + "/api/constructions",
@@ -33,16 +33,18 @@ const ENDPOINTS = {
   },
   PATRIMONY: {
     GET_PARAMS: (params) => {
-      const url = new URL(BASEURL + "/api/patrimonies");
+      const url = new URL(BASEURL + "/api/patrimony");
       Object.keys(params).forEach((key) =>
         url.searchParams.append(key, params[key])
       );
+      return "/api/patrimony";
       return url.toString();
     },
-    GET_ID: (id) => BASEURL + "/api/patrimonies/" + id,
-    GET: BASEURL + "/api/patrimonies",
-    POST: BASEURL + "/api/patrimonies",
-    PUT_ID: (id) => BASEURL + "/api/patrimonies/" + id,
+    GET_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
+    GET: SPRINGURL + "/api/patrimony",
+    POST: SPRINGURL + "/api/patrimony",
+    PUT: SPRINGURL + "/api/patrimony",
+    PUT_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
   },
   MAINTENCE: {
     GET: BASEURL + "/api/maintences",
@@ -50,8 +52,8 @@ const ENDPOINTS = {
     PUT_ID: (id) => BASEURL + "/api/maintences/" + id,
   },
   ALLOCATION: {
-    GET: BASEURL + "/api/allocations",
-    POST: BASEURL + "/api/allocations",
+    GET: BASEURL + "/api/allocation",
+    POST: BASEURL + "/api/allocation",
   },
 };
 
