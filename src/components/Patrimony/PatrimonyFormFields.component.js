@@ -22,6 +22,12 @@ import { CpfCnpjMask, CurrencyMask } from "components/Common";
 import { DeleteOutlineSharp } from "@mui/icons-material";
 
 const PatrimonyFormFields = ({ formik }) => {
+
+  const handleChangeFixo = (event) => {
+    const { name, value } = event.target;
+    formik.setFieldValue(name, value === "true");
+  };
+
   return (
     <Container className={styles.formFields}>
       <Grid container spacing={8}>
@@ -282,8 +288,8 @@ const PatrimonyFormFields = ({ formik }) => {
                   row
                   aria-label="fixo"
                   name="fixo"
-                  value={formik.values.fixo}
-                  onChange={formik.handleChange}
+                  value={formik.values.fixo.toString()}
+                  onChange={handleChangeFixo}
                 >
                   <FormControlLabel
                     value="true"

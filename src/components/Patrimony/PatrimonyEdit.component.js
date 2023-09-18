@@ -25,7 +25,7 @@ const PatrimonyEdit = ({ onClose, patrimony, setState }) => {
       dtNF: formatBackendDateToField(patrimony.dtNF),
       dtAquisicao: formatBackendDateToField(patrimony.dtAquisicao),
       vlAquisicao: patrimony.vlAquisicao || 0,
-      fixo: patrimony.fixo || "true",
+      fixo: patrimony.fixo,
       warranties:
         patrimony.warranties.map((warranty) => ({
           ...warranty,
