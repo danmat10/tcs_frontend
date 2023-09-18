@@ -179,7 +179,7 @@ const PatrimonyFormFields = ({ formik }) => {
                           <Button
                             onClick={() =>
                               push({
-                                tipoGarantia: "Fornecedor",
+                                tipoGarantia: "Contratual",
                                 dtValidade: "",
                               })
                             }
