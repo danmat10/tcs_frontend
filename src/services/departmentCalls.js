@@ -1,7 +1,6 @@
 import { handleApiCall } from ".";
 import { ENDPOINTS, MESSAGES } from "config";
 
-
 const handleCreateDepartment = async ({ data, header, setState }) => {
   await handleApiCall(
     {
@@ -31,8 +30,8 @@ const handleGetDepartmentsList = async ({ header, setState }) => {
 const handleEditDepartment = async ({ data, header, setState }) => {
   await handleApiCall(
     {
-      method: "patch",
-      endpoint: ENDPOINTS.DEPARTMENT.PATCH_id(data.id),
+      method: "put",
+      endpoint: ENDPOINTS.DEPARTMENT.PUT,
       data: data,
       header: header,
     },
@@ -60,5 +59,5 @@ export {
   handleCreateDepartment,
   handleGetDepartmentsList,
   handleEditDepartment,
-  handleDeleteDepartment
+  handleDeleteDepartment,
 };
