@@ -8,17 +8,24 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 
-import { styles } from ".";
-import { handleGetPatrimoniesParams } from "services";
+import { styles } from "components/Allocation";
+import { handleGetPatrimoniesList } from "services";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
   const authHeader = useAuthHeader();
   const columns = getColumns(isMobile);
+
+  useEffect(() => {
+    handleGetPatrimoniesList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+  }, []);
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -37,10 +44,10 @@ const AllocationFormFields = ({ formik, state, setState }) => {
         headerName: "Departamento Atual",
         flex: 4,
         renderCell: (params) => {
-          if (params.row.actualDepartment === "") {
+          if (params.row.actualDepartment === null) {
             return "Não Alocado";
           }
-          return params.row.actualDepartment.nmDepartamento;
+          return params.row.actualDepartment?.nmDepartamento;
         },
       },
       {
@@ -98,73 +105,38 @@ const AllocationFormFields = ({ formik, state, setState }) => {
         <Grid item md={6} xs={12}>
           <Autocomplete
             fullWidth
-            options={[
-              { id: "", nmDepartamento: "Não Alocado" },
-              ...state.departments,
-            ]}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            getOptionLabel={(option) =>
-              option.id === ""
-                ? option.nmDepartamento
-                : `${option.id} - ${option.nmDepartamento}`
-            }
-            value={formik.values.actualDepartment}
-            onChange={async (event, newValue) => {
-              formik.setFieldValue("actualDepartment", newValue);
-              if (newValue) {
-                setIsLoading(true);
-                await handleGetPatrimoniesParams({
-                  header: {
-                    Authorization: authHeader(),
-                  },
-                  setOptions: (data) => {
-                    setState((prevState) => ({
-                      ...prevState,
-                      patrimonies: data,
-                    }));
-                  },
-                  params: { actualDepartment: newValue.id },
-                });
-                setIsLoading(false);
-              }
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Departamento de Origem"
-                name="actualDepartment"
-                error={
-                  formik.touched.actualDepartment &&
-                  Boolean(formik.errors.actualDepartment)
-                }
-                helperText={
-                  formik.touched.actualDepartment &&
-                  formik.errors.actualDepartment
-                }
-              />
-            )}
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <Autocomplete
-            fullWidth
             options={state.departments}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) =>
               option.id + " - " + option.nmDepartamento
             }
-            value={formik.values.newDepartment}
+            value={formik.values.departament}
             onChange={(event, newValue) => {
-              formik.setFieldValue("newDepartment", newValue);
+              formik.setFieldValue("departament", newValue);
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Departamento de Destino"
-                error={formik.touched && Boolean(formik.errors.newDepartment)}
-                helperText={formik.touched && formik.errors.newDepartment}
+                error={formik.touched && Boolean(formik.errors.departament)}
+                helperText={formik.touched && formik.errors.departament}
               />
             )}
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <TextField
+            fullWidth
+            label="Data de Alocação"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="dtAlocacao"
+            value={formik.values.dtAlocacao}
+            onChange={formik.handleChange}
+            error={formik.touched && Boolean(formik.errors.dtAlocacao)}
+            helperText={formik.touched && formik.errors.dtAlocacao}
           />
         </Grid>
         <Grid item md={12} xs={12}>

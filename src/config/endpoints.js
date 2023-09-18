@@ -32,18 +32,9 @@ const ENDPOINTS = {
     PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
   },
   PATRIMONY: {
-    GET_PARAMS: (params) => {
-      const url = new URL(BASEURL + "/api/patrimony");
-      Object.keys(params).forEach((key) =>
-        url.searchParams.append(key, params[key])
-      );
-      return "/api/patrimony";
-      return url.toString();
-    },
     GET_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
     GET: SPRINGURL + "/api/patrimony",
     POST: SPRINGURL + "/api/patrimony",
-    PUT: SPRINGURL + "/api/patrimony",
     PUT_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
   },
   MAINTENCE: {
@@ -52,8 +43,8 @@ const ENDPOINTS = {
     PUT_ID: (id) => BASEURL + "/api/maintences/" + id,
   },
   ALLOCATION: {
-    GET: BASEURL + "/api/allocation",
-    POST: BASEURL + "/api/allocation",
+    GET: SPRINGURL + "/api/allocation",
+    POST: SPRINGURL + "/api/allocation",
   },
 };
 
