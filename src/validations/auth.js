@@ -36,7 +36,7 @@ const passwordValidation = (values) => {
   }
 
   if (values.newPassword1 && values.newPassword1.length < 8) {
-    errors.newPassword = "A senha deve ter pelo menos 8 caracteres";
+    errors.newPassword1 = "A senha deve ter pelo menos 8 caracteres";
   }
 
   const hasLetter = /[a-zA-Z]/.test(values.newPassword1);
