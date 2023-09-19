@@ -12,7 +12,7 @@ const FirstAccessFormFields = ({ formik }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <FormControl component="fieldset" margin="normal" fullWidth>
+    <>
       <TextField
         fullWidth
         label="Senha"
@@ -64,7 +64,7 @@ const FirstAccessFormFields = ({ formik }) => {
           ),
         }}
       />
-    </FormControl>
+    </>
   );
 };
 

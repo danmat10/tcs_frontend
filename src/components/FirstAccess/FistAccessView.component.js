@@ -30,7 +30,6 @@ const FirstAccessView = ({ state, setState }) => {
         mx: 4,
         display: "flex",
         flexDirection: "column",
-        width: "100%",
       }}
     >
       <Typography variant="h6">Primeiro Acesso</Typography>
@@ -54,7 +53,7 @@ const FirstAccessView = ({ state, setState }) => {
             marginLeft: "10px",
           }}
         >
-          {state.user.nmUsuario || "Não informado"}
+          {state.user.username || "Não informado"}
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
