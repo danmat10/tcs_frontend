@@ -13,18 +13,18 @@ const ProfileTabSecurity = () => {
   const formik = useFormik({
     initialValues: {
       currentPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
+      newPassword1: "",
+      newPassword2: "",
     },
     validate: (values) => passwordValidation(values),
     validateOnChange: false,
     onSubmit: (values) => {
-      values.id = auth().id;
       handleEditPassword({
         data: values,
         header: {
           Authorization: authHeader(),
         },
+        id: auth().id,
       });
       formik.resetForm();
     },

@@ -23,28 +23,28 @@ const passwordValidation = (values) => {
     errors.currentPassword = "Senha atual é obrigatória";
   }
 
-  if (!values.newPassword) {
-    errors.newPassword = "Nova senha é obrigatória";
+  if (!values.newPassword1) {
+    errors.newPassword1 = "Nova senha é obrigatória";
   }
 
-  if (!values.confirmNewPassword) {
+  if (!values.newPassword2) {
     errors.confirmNewPassword = "Confirmação de senha é obrigatória";
   }
 
-  if (values.newPassword !== values.confirmNewPassword) {
-    errors.confirmNewPassword = "As senhas não são iguais";
+  if (values.newPassword1 !== values.newPassword2) {
+    errors.newPassword2 = "As senhas não são iguais";
   }
 
-  if (values.newPassword && values.newPassword.length < 8) {
-    errors.newPassword = "A senha deve ter pelo menos 8 caracteres";
+  if (values.newPassword1 && values.newPassword1.length < 8) {
+    errors.newPassword1 = "A senha deve ter pelo menos 8 caracteres";
   }
 
-  const hasLetter = /[a-zA-Z]/.test(values.newPassword);
-  const hasNumber = /[0-9]/.test(values.newPassword);
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(values.newPassword);
+  const hasLetter = /[a-zA-Z]/.test(values.newPassword1);
+  const hasNumber = /[0-9]/.test(values.newPassword1);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(values.newPassword1);
 
   if (!(hasLetter && hasNumber && hasSpecialChar)) {
-    errors.newPassword =
+    errors.newPassword1 =
       "A senha deve conter letras, números e caracteres especiais";
   }
 

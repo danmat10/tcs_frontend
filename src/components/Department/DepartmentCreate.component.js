@@ -18,10 +18,14 @@ const DepartmentCreate = ({ onClose, users, setState }) => {
     validate: (values) => validateDepartmenCreateForm(values),
     validateOnChange: false,
     onSubmit: (values) => {
+      const data = {
+        nmDepartamento: values.nmDepartamento,
+        idUsuario: values.user.id,
+      };
       handleCreateDepartment({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
-        setState: setState,
+        setState,
       });
       formik.resetForm();
     },

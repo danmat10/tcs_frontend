@@ -20,37 +20,15 @@ const AllocationList = ({ allocations, openDialog }) => {
         flex: 1,
       },
       {
-        field: "actualDepartment",
-        headerName: "Departamento de Origem",
-        flex: 2,
-        renderCell: (params) =>
-          params.row.actualDepartment?.nmDepartamento
-            ? params.row.actualDepartment?.nmDepartamento
-            : "Não Alocado",
-      },
-      {
-        field: "newDepartment",
+        field: "departament",
         headerName: "Departamento de Destino",
         flex: 2,
-        renderCell: (params) => params.row.newDepartment?.nmDepartamento,
-      },
-      {
-        field: "user",
-        headerName: "Usuário",
-        flex: 2,
-        renderCell: (params) => params.row.user?.nmUsuario,
+        renderCell: (params) => params.row.departament?.nmDepartamento,
       },
       {
         field: "dtAlocacao",
         headerName: "Data de Alocação",
         flex: 2,
-        renderCell: (params) => {
-          const date = new Date(params.row.dtAlocacao);
-          if (date.toString() === "Invalid Date") {
-            return "";
-          }
-          return date.toLocaleDateString("pt-BR");
-        },
       },
       {
         field: "nPatrimonies",
@@ -105,9 +83,7 @@ const AllocationList = ({ allocations, openDialog }) => {
   }
   function matchesSearch(row) {
     return [
-      row.actualDepartment?.nmDepartamento,
-      row.newDepartment?.nmDepartamento,
-      row.user?.nmUsuario,
+      row.departament?.nmDepartamento,
     ].some(
       (value) =>
         typeof value === "string" &&

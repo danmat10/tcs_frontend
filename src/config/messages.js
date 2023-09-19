@@ -53,6 +53,7 @@ const MESSAGES = {
         pending: "Atualizando senha...",
         success: "Senha atualizada com sucesso!",
         error: {
+          502: "Senha informada inválida!",
           default: "Oops, não foi possível atualizar a senha.",
         },
         show: true,

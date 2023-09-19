@@ -8,12 +8,12 @@ import {
   Box,
 } from "@mui/material";
 
-import { DialogForm, maskCurrencyFunction } from "components/Common";
+import { DialogForm, formatBackendDateToField, maskCurrencyFunction } from "components/Common";
 import { PatrimonyStatusChip } from "./";
 
 const PatrimonyView = ({ patrimony, onClose }) => {
   function isWarrantyExpired(dsWarranty) {
-    const [year, month, day] = dsWarranty.split("-").map(Number);
+    const [day, month, year] = dsWarranty.split("/").map(Number);
 
     const warrantyDate = new Date(year, month - 1, day);
     const currentDate = new Date();
@@ -62,9 +62,9 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   variant="standard"
                   fullWidth
                   label="Nº de Série"
-                  name="nmSerie"
+                  name="nrSerie"
                   type="text"
-                  value={patrimony.nmSerie || ""}
+                  value={patrimony.nrSerie || ""}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -88,7 +88,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                     <Grid item xs={12} md={4}>
                       <TextField
                         label="Tipo de Garantia"
-                        value={row.dsTypeWarranty || ""}
+                        value={row.tipoGarantia || ""}
                         variant="standard"
                         disabled
                         fullWidth
@@ -99,14 +99,14 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                         label="Data da Garantia"
                         type="date"
                         InputLabelProps={{ shrink: true }}
-                        value={row.dsWarranty}
+                        value={formatBackendDateToField(row.dtValidade)}
                         variant="standard"
                         disabled
                         fullWidth
                       />
                     </Grid>
                     <Grid item xs={4} md={3}>
-                      {row.dsWarranty && isWarrantyExpired(row.dsWarranty) ? (
+                      {row.dtValidade && isWarrantyExpired(row.dtValidade) ? (
                         <Chip label="Vencida" color="error" variant="filled" />
                       ) : (
                         <Chip label="Válida" color="success" variant="filled" />
@@ -127,9 +127,9 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   variant="standard"
                   fullWidth
                   label="CPF/CNPJ"
-                  name="nmCpf"
+                  name="nrCnpj"
                   type="text"
-                  value={patrimony.nmCpf || ""}
+                  value={patrimony.nrCnpj || ""}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -154,9 +154,9 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   variant="standard"
                   fullWidth
                   label="Nº da Nota Fiscal"
-                  name="nmNF"
+                  name="nrNF"
                   type="text"
-                  value={patrimony.nmNF || ""}
+                  value={patrimony.nrNF || ""}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
@@ -165,9 +165,9 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   variant="standard"
                   fullWidth
                   label="Data de Nota Fiscal"
-                  name="dtNf"
+                  name="dtNF"
                   type="date"
-                  value={patrimony.dtNf || ""}
+                  value={formatBackendDateToField(patrimony.dtNF)}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
@@ -178,7 +178,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   label="Data de Aquisição"
                   name="dtAquisicao"
                   type="date"
-                  value={patrimony.dtAquisicao || ""}
+                  value={formatBackendDateToField(patrimony.dtAquisicao)}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
@@ -235,7 +235,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   label="Tipo de Patrimônio"
                   name="fixo"
                   type="text"
-                  value={patrimony.fixo === "true" ? "Fixo" : "Alocável"}
+                  value={patrimony.fixo ? "Fixo" : "Alocável"}
                 />
               </Grid>
             </Grid>

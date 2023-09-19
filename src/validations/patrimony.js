@@ -11,9 +11,9 @@ const validatePatrimonyCreateForm = (values) => {
       "O nome do patrimônio deve ter pelo menos 2 caracteres";
   }
 
-  const cpfError = validateCPForCNPJ(values.nmCpf);
+  const cpfError = validateCPForCNPJ(values.nrCnpj);
   if (cpfError) {
-    errors.nmCpf = cpfError;
+    errors.nrCnpj = cpfError;
   }
 
   const trimmedNmFornecedor = values.nmFornecedor?.trim();
@@ -24,14 +24,13 @@ const validatePatrimonyCreateForm = (values) => {
       "O nome do fornecedor deve ter pelo menos 3 caracteres";
   }
 
-  const trimmedNmNF = values.nmNF?.trim();
-  if (!trimmedNmNF) {
-    errors.nmNF = "Obrigatório";
+  if (!values.nrNF || values.nrNF <= 0) {
+    errors.nrNF = "Obrigatório";
   }
 
-  const trimmedDtNf = values.dtNf?.trim();
-  if (!trimmedDtNf) {
-    errors.dtNf = "Obrigatório";
+  const trimmedDtNF = values.dtNF?.trim();
+  if (!trimmedDtNF) {
+    errors.dtNF = "Obrigatório";
   }
 
   const trimmedDtAquisicao = values.dtAquisicao?.trim();
@@ -39,10 +38,10 @@ const validatePatrimonyCreateForm = (values) => {
     errors.dtAquisicao = "Obrigatório";
   }
 
-  if (trimmedDtAquisicao && trimmedDtNf) {
-    const dtNf = new Date(trimmedDtNf);
+  if (trimmedDtAquisicao && trimmedDtNF) {
+    const dtNF = new Date(trimmedDtNF);
     const dtAquisicao = new Date(trimmedDtAquisicao);
-    if (dtNf > dtAquisicao) {
+    if (dtNF > dtAquisicao) {
       errors.dtAquisicao = "A data de aquisição deve ser maior que a NF";
     }
   }
@@ -53,10 +52,10 @@ const validatePatrimonyCreateForm = (values) => {
 
   if (values.warranties.length > 0) {
     values.warranties.forEach((warranty, index) => {
-      const trimmedDsWarranty = warranty.dsWarranty?.trim();
+      const trimmedDsWarranty = warranty.tipoGarantia?.trim();
       if (!trimmedDsWarranty) {
         errors.warranties = errors.warranties || [];
-        errors.warranties[index] = { dsWarranty: "Obrigatório" };
+        errors.warranties[index] = { tipoGarantia: "Obrigatório" };
       }
     });
   }
@@ -69,12 +68,12 @@ const validatePatrimonyEditForm = (values, patrimony) => {
 
   if (
     values.nmPatrimonio === patrimony.nmPatrimonio &&
-    values.nmSerie === patrimony.nmSerie &&
+    values.nrSerie === patrimony.nrSerie &&
     values.nmDescricao === patrimony.nmDescricao &&
-    values.nmCpf === patrimony.nmCpf &&
+    values.nrCnpj === patrimony.nrCnpj &&
     values.nmFornecedor === patrimony.nmFornecedor &&
-    values.nmNF === patrimony.nmNF &&
-    values.dtNf === patrimony.dtNf &&
+    values.nrNF === patrimony.nrNF &&
+    values.dtNF === patrimony.dtNF &&
     values.dtAquisicao === patrimony.dtAquisicao &&
     values.vlAquisicao === patrimony.vlAquisicao &&
     values.fixo === patrimony.fixo &&

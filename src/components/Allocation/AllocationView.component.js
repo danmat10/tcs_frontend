@@ -12,7 +12,7 @@ import {
 
 import {
   DialogForm,
-  formatDateToField,
+  formatBackendDateToField,
   maskCurrencyFunction,
 } from "components/Common";
 import { PatrimonyStatusChip } from "components/Patrimony";
@@ -25,32 +25,10 @@ const AllocationView = ({ allocation, onClose }) => {
           <TextField
             disabled
             fullWidth
-            label="Departamento de Origem"
-            name="actualDepartment.nmDepartamento"
-            type="text"
-            value={allocation.actualDepartment.nmDepartamento || ""}
-            variant="standard"
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
             label="Departamento de Destino"
-            name="newDepartment.nmDepartamento"
+            name="departament.nmDepartamento"
             type="text"
-            value={allocation.newDepartment.nmDepartamento || ""}
-            variant="standard"
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            label="Usuário"
-            name="user.nmUsuario"
-            type="text"
-            value={allocation.user?.nmUsuario || ""}
+            value={allocation.departament.nmDepartamento || ""}
             variant="standard"
           />
         </Grid>
@@ -64,7 +42,22 @@ const AllocationView = ({ allocation, onClose }) => {
             InputLabelProps={{
               shrink: true,
             }}
-            value={formatDateToField(allocation.dtAlocacao) || ""}
+            value={formatBackendDateToField(allocation.dtAlocacao)}
+            variant="standard"
+          />
+        </Grid>
+        <Grid item md={12} xs={12}>
+          <TextField
+            disabled
+            fullWidth
+            multiline
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label="Observação"
+            name="observation"
+            type="text"
+            value={allocation.observation || ""}
             variant="standard"
           />
         </Grid>

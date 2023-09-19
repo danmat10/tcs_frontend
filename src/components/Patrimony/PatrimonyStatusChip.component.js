@@ -19,7 +19,7 @@ const PatrimonyStatusChip = ({ patrimony }) => {
 };
 
 function getPatrimonyStatus(patrimony) {
-  if (patrimony.fixo === "true") {
+  if (patrimony.fixo) {
     return "Fixo";
   } else if (patrimony.actualConstruction) {
     return "Em Obra";

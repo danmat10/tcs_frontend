@@ -16,14 +16,12 @@ const DepartmentDelete = ({ department, onClose, setState }) => {
   const authHeader = useAuthHeader();
 
   const handleDelete = async () => {
-    const response = await handleDeleteDepartment({
+    await handleDeleteDepartment({
       id: department.id,
       header: { Authorization: authHeader() },
       setState: setState,
     });
-    if (response) {
-      onClose();
-    }
+    onClose();
   };
 
   return (

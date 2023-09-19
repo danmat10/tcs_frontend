@@ -17,9 +17,14 @@ const DepartmentEdit = ({ department, users, setState, onClose }) => {
     validate: (values) => validateDepartmenEditForm(values, department),
     validateOnChange: false,
     onSubmit: (values) => {
-      values.id = department.id;
+      const data = {
+        id: department.id,
+        nmDepartamento: values.nmDepartamento,
+        idUsuario: values.user.id,
+      };
+      console.log(data);
       handleEditDepartment({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
         setState,
       });

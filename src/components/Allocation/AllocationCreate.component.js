@@ -1,35 +1,34 @@
-import React, { useContext } from "react";
-import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
+import React from "react";
+import { useAuthHeader } from "react-auth-kit";
 
-import { AllocationFormFields } from ".";
-import { DialogForm } from "components/Common";
+import { AllocationFormFields } from "components/Allocation";
+import { DialogForm, formatFieldToDate } from "components/Common";
 import { handleCreateAllocation } from "services";
 import { validateAllocationCreateForm } from "validations";
-import UserContext from "contexts/UserContext";
 
 const AllocationCreate = ({ onClose, state, setState }) => {
-  const { user } = useContext(UserContext);
   const authHeader = useAuthHeader();
 
   const formik = useFormik({
     initialValues: {
-      user: null,
-      dtAlocacao: new Date(),
-      actualDepartment: null,
-      newDepartment: null,
+      dtAlocacao: "",
       observation: "",
       patrimonies: [],
+      departament: null,
     },
     validateOnBlur: false,
     validateOnChange: false,
     validate: validateAllocationCreateForm,
     onSubmit: (values) => {
-      values.user = user;
+      const data = {
+        ...values,
+        dtAlocacao: formatFieldToDate(values.dtAlocacao)
+      };
       handleCreateAllocation({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
-        setState: setState,
+        setState,
       });
       formik.resetForm();
     },

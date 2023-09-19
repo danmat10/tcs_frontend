@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createRefresh } from "react-auth-kit";
 
-import { handleApiCall } from ".";
+import { handleApiCall } from "services";
 import {
   AUTH_TOKEN_EXPIRES_AT,
   ENDPOINTS,
@@ -9,13 +9,28 @@ import {
   REFRESH_TOKEN_EXPIRES_AT,
 } from "config";
 
-const handleLogin = async ({ data, signIn }) => {
+const handleLogin = async ({ data, state, setState }) => {
   let response = await handleApiCall(
     { method: "post", endpoint: ENDPOINTS.AUTH.LOGIN, data: data },
     MESSAGES.AUTH.LOGIN
   );
   if (response) {
-    signIn({
+    if (response.user.primeiroAcesso) {
+      setState({
+        ...state,
+        view: "firstAccess",
+        user: {
+          username: response.user.nmUsuario,
+          currentPassword: data.password,
+          id: response.user.id,
+          user: response.user,
+          accessToken: response.accessToken,
+          refreshToken: response.refreshToken,
+        },
+      });
+      return;
+    }
+    state.signIn({
       expiresIn: AUTH_TOKEN_EXPIRES_AT,
       token: response.accessToken,
       tokenType: "Bearer",
@@ -26,16 +41,40 @@ const handleLogin = async ({ data, signIn }) => {
   }
 };
 
-const handleEditPassword = async ({ data, header }) => {
+const handleEditPassword = async ({ data, header, id }) => {
   await handleApiCall(
     {
       method: "put",
-      endpoint: ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(data.id),
+      endpoint: ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(id),
       data: data,
       header: header,
     },
     MESSAGES.USER.PROFILE.PATCH_PASSWORD
   );
+};
+
+const handleFirstAccess = async ({ data, state }) => {
+  const response = await handleApiCall(
+    {
+      method: "put",
+      endpoint: ENDPOINTS.USER.PROFILE.PUT_CHANGE_PASSWORD(state.user.id),
+      data: data,
+      header: {
+        Authorization: "Bearer " + state.user.accessToken,
+      },
+    },
+    MESSAGES.USER.PROFILE.PATCH_PASSWORD
+  );
+  if (response !== undefined) {
+    state.signIn({
+      expiresIn: AUTH_TOKEN_EXPIRES_AT,
+      token: state.user.accessToken,
+      tokenType: "Bearer",
+      refreshToken: state.user.refreshToken,
+      refreshTokenExpireIn: REFRESH_TOKEN_EXPIRES_AT,
+      authState: state.user,
+    });
+  }
 };
 
 const refreshApi = createRefresh({
@@ -68,4 +107,4 @@ const refreshApi = createRefresh({
   },
 });
 
-export { handleLogin, handleEditPassword, refreshApi };
+export { handleFirstAccess, handleLogin, handleEditPassword, refreshApi };

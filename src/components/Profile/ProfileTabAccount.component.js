@@ -51,8 +51,8 @@ const ProfileTabAccount = () => {
   });
 
   useEffect(() => {
-    if (user && user.photo) {
-      setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
+    if (user && user.id) {
+      setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.id));
     }
     if (user) {
       formik.resetForm({
@@ -72,7 +72,7 @@ const ProfileTabAccount = () => {
   };
 
   const onCancel = () => {
-    setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.photo));
+    setPreviewSrc(ENDPOINTS.USER.PROFILE.GET_PHOTO(user.id));
     setFile(null);
   };
   const onEditPhotoClick = () => {
