@@ -1,6 +1,4 @@
-import { BASEURL } from "config";
-
-const SPRINGURL = "http://localhost:8080";
+import { BASEURL, SPRINGURL } from "config";
 
 const ENDPOINTS = {
   AUTH: {
