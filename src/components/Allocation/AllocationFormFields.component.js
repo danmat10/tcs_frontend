@@ -13,6 +13,7 @@ import { useAuthHeader } from "react-auth-kit";
 
 import { styles } from "components/Allocation";
 import { handleGetPatrimoniesList } from "services";
+import { PatriomonySearch } from "components/Patrimony";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -102,7 +103,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
   return (
     <Container className={styles.formFields}>
       <Grid container spacing={2} alignItems="center">
-        <Grid item md={6} xs={12}>
+        <Grid item md={12} xs={12}>
           <Autocomplete
             fullWidth
             options={state.departments}
@@ -124,21 +125,6 @@ const AllocationFormFields = ({ formik, state, setState }) => {
             )}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            fullWidth
-            label="Data de Alocação"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            name="dtAlocacao"
-            value={formik.values.dtAlocacao}
-            onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.dtAlocacao)}
-            helperText={formik.touched && formik.errors.dtAlocacao}
-          />
-        </Grid>
         <Grid item md={12} xs={12}>
           <TextField
             fullWidth
@@ -154,6 +140,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
             <FormHelperText error>{formik.errors.patrimonies}</FormHelperText>
           )}
         </Grid>
+        <PatriomonySearch setState={setState} />
         <Grid item md={12} xs={12}>
           <DataGrid
             loading={isLoading}
