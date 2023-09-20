@@ -7,4 +7,5 @@ export * from "./PatrimonyFormFields.component";
 export * from "./PatrimonyView.component";
 export * from "./PatrimonyAutocomplete.component";
 export * from "./PatrimonyStatusChip.component";
+export * from "./PatrimonySearch.component";
 export { styles };
