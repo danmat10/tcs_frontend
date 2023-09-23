@@ -34,6 +34,13 @@ const ENDPOINTS = {
     GET: SPRINGURL + "/api/patrimony",
     POST: SPRINGURL + "/api/patrimony",
     PUT_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
+    SEARCH: (params) => {
+      const url = new URL(SPRINGURL + "/api/patrimony/search");
+      for (const key in params) {
+        url.searchParams.append(key, params[key]);
+      }
+      return url.toString();
+    },
   },
   MAINTENCE: {
     GET: BASEURL + "/api/maintences",
