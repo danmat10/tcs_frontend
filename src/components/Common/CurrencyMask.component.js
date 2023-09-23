@@ -1,6 +1,8 @@
 import { TextField } from "@mui/material";
 
 const maskCurrencyFunction = (value) => {
+  value = String(value);
+
   let cleanValue = value.replace(/\D/g, "");
   let len = cleanValue.length;
 
@@ -8,15 +10,18 @@ const maskCurrencyFunction = (value) => {
     return "R$ 0,00";
   }
 
-  if (len <= 2) {
-    return `R$ 0,${cleanValue}`;
+  let decimalPart = "00";
+  if (len === 1) {
+    decimalPart = `0${cleanValue}`;
+  } else if (len >= 2) {
+    decimalPart = cleanValue.slice(-2);
   }
 
-  cleanValue = `${cleanValue.slice(0, -2)}.${cleanValue.slice(-2)}`;
-  const parts = cleanValue.split(".");
-  const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  const decimalPart = parts[1];
-
+  let integerPart = "0";
+  if (len > 2) {
+    integerPart = cleanValue.slice(0, -2);
+  }
+  integerPart = parseInt(integerPart).toLocaleString();
   return `R$ ${integerPart},${decimalPart}`;
 };
 
@@ -29,9 +34,9 @@ const CurrencyMask = ({ formik, fieldName, label }) => {
       type="text"
       onChange={(e) => {
         const rawValue = e.target.value.replace(/\D/g, "");
-        formik.setFieldValue(fieldName, parseFloat(rawValue) / 100);
+        formik.setFieldValue(fieldName, rawValue); // Armazenando o valor como centavos
       }}
-      value={maskCurrencyFunction(String(formik.values[fieldName] * 100))}
+      value={maskCurrencyFunction(formik.values[fieldName])}
       error={formik.touched[fieldName] && Boolean(formik.errors[fieldName])}
       helperText={formik.touched[fieldName] && formik.errors[fieldName]}
     />
