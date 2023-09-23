@@ -2,7 +2,7 @@ import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuthHeader } from "react-auth-kit";
 
-import { handleGetPatrimoniesParams, handleGetPatrimonyId } from "services";
+import { handleGetPatrimoniesSearch, handleGetPatrimonyId } from "services";
 
 const PatriomonyAutoComplete = ({ formik }) => {
   function debounce(func, wait) {
@@ -35,12 +35,11 @@ const PatriomonyAutoComplete = ({ formik }) => {
         setOptions([]);
         return;
       }
-      handleGetPatrimoniesParams({
-        header: {
-          Authorization: authHeader(),
-        },
-        setOptions,
-        params: { nmPatrimonio_like: inputValue },
+      handleGetPatrimoniesSearch({
+        header: { Authorization: authHeader() },
+        setState: setOptions,
+        state: options,
+        params: { nmPatrimonio: inputValue },
       });
     }
     setLoading(false);
