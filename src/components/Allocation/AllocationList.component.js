@@ -68,10 +68,10 @@ const AllocationList = ({ allocations, openDialog }) => {
       return baseColumns
         .filter(
           (column) =>
-            column.field === "newDepartment" || column.field === "actions"
+            column.field === "departament" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "newDepartment") {
+          if (column.field === "departament") {
             return { ...column, flex: 1 };
           } else if (column.field === "actions") {
             return { ...column, flex: 1 };
@@ -82,9 +82,7 @@ const AllocationList = ({ allocations, openDialog }) => {
     return baseColumns;
   }
   function matchesSearch(row) {
-    return [
-      row.departament?.nmDepartamento,
-    ].some(
+    return [row.departament?.nmDepartamento].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
