@@ -174,6 +174,28 @@ const MESSAGES = {
       },
       show: true,
     },
+    SEARCH: {
+      pending: "Buscando patrimônio...",
+      success: {
+        render: ({ data }) => {
+          return data?.length + " patrimônio(s) localizado(s).";
+        },
+      },
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        404: "Nenhum patrimônio encontrado.",
+      },
+      show: true,
+    },
+    GET_ID: {
+      pending: "Buscando patrimônio...",
+      success: "QR Code lido com sucesso!",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        404: "Nenhum patrimônio encontrado.",
+      },
+      show: true,
+    },
   },
   MAINTENCE: {
     GET: {

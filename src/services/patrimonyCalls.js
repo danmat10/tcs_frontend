@@ -40,37 +40,56 @@ const handleGetPatrimoniesList = async ({ header, setState }) => {
   setState((prev) => ({ ...prev, patrimonies }));
 };
 
-const handleGetPatrimoniesParams = async ({ header, setOptions, params }) => {
+const handleGetPatrimoniesSearch = async ({
+  header,
+  setState,
+  state,
+  params,
+}) => {
   let results = await handleApiCall(
     {
       method: "get",
-      endpoint: ENDPOINTS.PATRIMONY.GET_PARAMS(params),
+      endpoint: ENDPOINTS.PATRIMONY.SEARCH(params),
       header: header,
     },
-    MESSAGES.PATRIMONY.GET
+    MESSAGES.PATRIMONY.SEARCH
   );
-  if (!results) results = [];
-  setOptions(results);
+  if (!results) return;
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
+
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
-const handleGetPatrimonyId = async ({ header, setOptions, id }) => {
+const handleGetPatrimonyId = async ({ header, state, setState, id }) => {
   let result = await handleApiCall(
     {
       method: "get",
       endpoint: ENDPOINTS.PATRIMONY.GET_ID(id),
       header: header,
     },
-    MESSAGES.PATRIMONY.GET
+    MESSAGES.PATRIMONY.GET_ID
   );
-  let results = [];
-  if (result) results = [result];
-  setOptions(results);
+  if (!result) return;
+  const results = [result];
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
+
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
 export {
   handleCreatePatrimony,
   handleEditPatrimony,
   handleGetPatrimoniesList,
-  handleGetPatrimoniesParams,
   handleGetPatrimonyId,
+  handleGetPatrimoniesSearch,
 };
