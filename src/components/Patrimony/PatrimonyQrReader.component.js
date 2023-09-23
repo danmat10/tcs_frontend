@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { QrReader } from "react-qr-reader";
 import { toast } from "react-toastify";
+import QrReader from "react-qr-reader";
 
 import { handleGetPatrimonyId } from "services";
 import { styles } from "components/Patrimony";
@@ -33,13 +33,13 @@ const PatrimonyQrReader = ({
   };
 
   const handleError = (err) => {
-    console.error(err);
+    toast.error(err);
   };
 
-  const handleScan = async (data) => {
-    if (data) {
+  const handleScan = async (result) => {
+    if (result) {
       setStateView("loading");
-      const id = getIdFromQrCode(data.text);
+      const id = getIdFromQrCode(result);
       if (!id) {
         toast.error("QR Code inválido");
         setOpenQRScanner(false);
@@ -60,11 +60,12 @@ const PatrimonyQrReader = ({
   };
 
   const view = {
-    reader: (
+    reader: openQRScanner && (
       <QrReader
-        delay={300}
+        facingMode="environment"
+        delay={1000}
         onError={handleError}
-        onResult={handleScan}
+        onScan={handleScan}
         style={{ width: "100%" }}
       />
     ),
