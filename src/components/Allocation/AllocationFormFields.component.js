@@ -8,25 +8,15 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
-import { useAuthHeader } from "react-auth-kit";
+import { useState } from "react";
 
 import { styles } from "components/Allocation";
-import { handleGetPatrimoniesList } from "services";
 import { PatriomonySearch } from "components/Patrimony";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
-  const authHeader = useAuthHeader();
   const columns = getColumns(isMobile);
-
-  useEffect(() => {
-    handleGetPatrimoniesList({
-      header: { Authorization: authHeader() },
-      setState: setState,
-    });
-  }, []);
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -140,7 +130,11 @@ const AllocationFormFields = ({ formik, state, setState }) => {
             <FormHelperText error>{formik.errors.patrimonies}</FormHelperText>
           )}
         </Grid>
-        <PatriomonySearch setState={setState} />
+        <PatriomonySearch
+          setState={setState}
+          state={state}
+          setIsLoading={setIsLoading}
+        />
         <Grid item md={12} xs={12}>
           <DataGrid
             loading={isLoading}
