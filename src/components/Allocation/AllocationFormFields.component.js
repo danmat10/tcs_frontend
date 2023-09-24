@@ -3,7 +3,6 @@ import {
   Grid,
   FormHelperText,
   Autocomplete,
-  Chip,
   Container,
   useMediaQuery,
 } from "@mui/material";
@@ -11,7 +10,7 @@ import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
 import { useState } from "react";
 
 import { styles } from "components/Allocation";
-import { PatriomonySearch } from "components/Patrimony";
+import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -45,36 +44,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
         field: "status",
         headerName: "Status",
         flex: 2,
-        renderCell: (params) => {
-          if (params.row.fixo === "true") {
-            return (
-              <Chip
-                label="Fixo"
-                color="default"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else if (params.row.actualConstruction) {
-            return (
-              <Chip
-                label="Em Obra"
-                color="info"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else {
-            return (
-              <Chip
-                label="Disponível"
-                color="success"
-                variant="filled"
-                size="small"
-              />
-            );
-          }
-        },
+        renderCell: (params) => <PatrimonyStatusChip patrimony={params.row} />,
       },
     ];
     if (isMobile) {
