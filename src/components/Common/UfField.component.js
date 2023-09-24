@@ -35,17 +35,12 @@ const UfField = ({ formik, disabled }) => {
       disabled={disabled}
       fullWidth
       label="Estado"
-      name="endereco.nmEstado"
+      name="nmUf"
       select
       onChange={formik.handleChange}
-      value={formik.values.endereco.nmEstado}
-      error={
-        formik.touched.endereco?.nmEstado &&
-        Boolean(formik.errors.endereco?.nmEstado)
-      }
-      helperText={
-        formik.touched.endereco?.nmEstado && formik.errors.endereco?.nmEstado
-      }
+      value={formik.values.nmUf}
+      error={formik.touched.nmUf && Boolean(formik.errors.nmUf)}
+      helperText={formik.touched.nmUf && formik.errors.nmUf}
     >
       {estadosBrasileiros.map((estado) => (
         <MenuItem key={estado.sigla} value={estado.sigla}>

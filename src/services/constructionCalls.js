@@ -30,7 +30,7 @@ const handleGetConstructionList = async ({ header, setState }) => {
 const handleEditConstruction = async ({ data, header, setState }) => {
   await handleApiCall(
     {
-      method: "put",
+      method: "patch",
       endpoint: ENDPOINTS.CONSTRUCTION.PUT_ID(data.id),
       data: data,
       header: header,

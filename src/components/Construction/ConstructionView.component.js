@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Grid, Typography } from "@mui/material";
 
-import { DialogForm } from "components/Common";
+import { DialogForm, formatBackendDateToField } from "components/Common";
 
 const ConstructionView = ({ construction, onClose }) => {
   return (
@@ -39,9 +39,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="CPF/CNPJ"
-            name="nmCpf"
+            name="nrCnpjCpf"
             type="text"
-            value={construction?.nmCpf || ""}
+            value={construction?.nrCnpjCpf || ""}
             variant="standard"
           />
         </Grid>
@@ -66,9 +66,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="CEP"
-            name="endereco.nmCep"
+            name="nrCep"
             type="text"
-            value={construction?.endereco?.nmCep || ""}
+            value={construction?.nrCep || ""}
             variant="standard"
           />
         </Grid>
@@ -77,9 +77,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Bairro"
-            name="endereco.nmBairro"
+            name="nmBairro"
             type="text"
-            value={construction?.endereco?.nmBairro || ""}
+            value={construction?.nmBairro || ""}
             variant="standard"
           />
         </Grid>
@@ -88,9 +88,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Logradouro"
-            name="endereco.nmLogradouro"
+            name="nmLogradouro"
             type="text"
-            value={construction?.endereco?.nmLogradouro || ""}
+            value={construction?.nmLogradouro || ""}
             variant="standard"
           />
         </Grid>
@@ -99,9 +99,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Número"
-            name="endereco.nmNumero"
+            name="nrNumero"
             type="text"
-            value={construction?.endereco?.nmNumero || ""}
+            value={construction?.nrNumero || ""}
             variant="standard"
           />
         </Grid>
@@ -110,9 +110,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Complemento"
-            name="endereco.nmComplemento"
+            name="nmComplemento"
             type="text"
-            value={construction?.endereco?.nmComplemento || ""}
+            value={construction?.nmComplemento || ""}
             variant="standard"
           />
         </Grid>
@@ -121,9 +121,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Cidade"
-            name="endereco.nmCidade"
+            name="nmCidade"
             type="text"
-            value={construction?.endereco?.nmCidade || ""}
+            value={construction?.nmCidade || ""}
             variant="standard"
           />
         </Grid>
@@ -132,9 +132,9 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Estado"
-            name="endereco.nmEstado"
+            name="nmUf"
             type="text"
-            value={construction?.endereco?.nmEstado || ""}
+            value={construction?.nmUf || ""}
             variant="standard"
           />
         </Grid>
@@ -150,7 +150,7 @@ const ConstructionView = ({ construction, onClose }) => {
             label="Data de Início"
             name="dtInicio"
             type="date"
-            value={construction?.dtInicio || ""}
+            value={formatBackendDateToField(construction?.dtInicio)}
             variant="standard"
           />
         </Grid>
@@ -159,21 +159,21 @@ const ConstructionView = ({ construction, onClose }) => {
             disabled
             fullWidth
             label="Previsão de Finalização"
-            name="dtPrevisaoFinalizacao"
+            name="dtPrevisaoConclusao"
             type="date"
-            value={construction?.dtPrevisaoFinalizacao || ""}
+            value={formatBackendDateToField(construction?.dtPrevisaoConclusao)}
             variant="standard"
           />
         </Grid>
-        {construction?.dtFinalizacao && (
+        {construction?.dtFim && (
           <Grid item md={6} xs={12}>
             <TextField
               disabled
               fullWidth
               label="Data de Finalização"
-              name="dtFinalizacao"
+              name="dtFim"
               type="date"
-              value={construction?.dtFinalizacao || ""}
+              value={formatBackendDateToField(construction.dtFim)}
               variant="standard"
             />
           </Grid>

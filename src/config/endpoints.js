@@ -25,9 +25,9 @@ const ENDPOINTS = {
     DELETE_id: (id) => SPRINGURL + "/api/department/" + id,
   },
   CONSTRUCTION: {
-    GET: BASEURL + "/api/constructions",
-    POST: BASEURL + "/api/constructions",
-    PUT_ID: (id) => BASEURL + "/api/constructions/" + id,
+    GET: SPRINGURL + "/api/construction",
+    POST: SPRINGURL + "/api/construction",
+    PUT_ID: (id) => SPRINGURL + "/api/construction/" + id,
   },
   PATRIMONY: {
     GET_ID: (id) => SPRINGURL + "/api/patrimony/" + id,

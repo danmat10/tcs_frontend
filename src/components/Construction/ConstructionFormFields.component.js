@@ -55,7 +55,7 @@ const ConstructionFormFields = ({
           <Typography variant="subtitle1">Cliente</Typography>
         </Grid>
         <Grid item md={12} xs={12}>
-          <CpfCnpjMask formik={formik} fieldName="nmCpf" />
+          <CpfCnpjMask formik={formik} fieldName="nrCnpjCpf" />
         </Grid>
         <Grid item md={12} xs={12}>
           <TextField
@@ -92,18 +92,18 @@ const ConstructionFormFields = ({
           <TextField
             fullWidth
             label="Previsão de Finalização"
-            name="dtPrevisaoFinalizacao"
+            name="dtPrevisaoConclusao"
             type="date"
             InputLabelProps={{ shrink: true }}
             onChange={formik.handleChange}
-            value={formik.values.dtPrevisaoFinalizacao}
+            value={formik.values.dtPrevisaoConclusao}
             error={
-              formik.touched.dtPrevisaoFinalizacao &&
-              Boolean(formik.errors.dtPrevisaoFinalizacao)
+              formik.touched.dtPrevisaoConclusao &&
+              Boolean(formik.errors.dtPrevisaoConclusao)
             }
             helperText={
-              formik.touched.dtPrevisaoFinalizacao &&
-              formik.errors.dtPrevisaoFinalizacao
+              formik.touched.dtPrevisaoConclusao &&
+              formik.errors.dtPrevisaoConclusao
             }
           />
         </Grid>
@@ -112,18 +112,13 @@ const ConstructionFormFields = ({
             <TextField
               fullWidth
               label="Data de Finalização"
-              name="dtFinalizacao"
+              name="dtFim"
               type="date"
               InputLabelProps={{ shrink: true }}
               onChange={formik.handleChange}
-              value={formik.values.dtFinalizacao}
-              error={
-                formik.touched.dtFinalizacao &&
-                Boolean(formik.errors.dtFinalizacao)
-              }
-              helperText={
-                formik.touched.dtFinalizacao && formik.errors.dtFinalizacao
-              }
+              value={formik.values.dtFim}
+              error={formik.touched.dtFim && Boolean(formik.errors.dtFim)}
+              helperText={formik.touched.dtFim && formik.errors.dtFim}
             />
           </Grid>
         )}

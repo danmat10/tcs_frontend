@@ -2,7 +2,11 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
-import { DialogForm } from "components/Common";
+import {
+  DialogForm,
+  formatBackendDateToField,
+  formatFieldToDate,
+} from "components/Common";
 import { validateConstructionEditForm } from "validations";
 import { handleEditConstruction } from "services";
 import { ConstructionFormFields } from ".";
@@ -14,27 +18,33 @@ const ConstructionEdit = ({ construction, users, onClose, setState }) => {
     initialValues: {
       nmObra: construction.nmObra || "",
       usuario: construction.usuario || "",
-      nmCpf: construction.nmCpf || "",
+      nrCnpjCpf: construction.nrCnpjCpf || "",
       nmCliente: construction.nmCliente || "",
-      endereco: {
-        nmCep: construction.endereco.nmCep || "",
-        nmBairro: construction.endereco.nmBairro || "",
-        nmLogradouro: construction.endereco.nmLogradouro || "",
-        nmNumero: construction.endereco.nmNumero || "",
-        nmComplemento: construction.endereco.nmComplemento || "",
-        nmCidade: construction.endereco.nmCidade || "",
-        nmEstado: construction.endereco.nmEstado || "",
-      },
-      dtInicio: construction.dtInicio || "",
-      dtPrevisaoFinalizacao: construction.dtPrevisaoFinalizacao || "",
-      dtFinalizacao: construction.dtFinalizacao || "",
+      nrCep: construction.nrCep || "",
+      nmBairro: construction.nmBairro || "",
+      nmLogradouro: construction.nmLogradouro || "",
+      nrNumero: construction.nrNumero || "",
+      nmComplemento: construction.nmComplemento || "",
+      nmCidade: construction.nmCidade || "",
+      nmUf: construction.nmUf || "",
+      dtInicio: formatBackendDateToField(construction.dtInicio),
+      dtPrevisaoConclusao: formatBackendDateToField(
+        construction.dtPrevisaoConclusao
+      ),
+      dtFim: formatBackendDateToField(construction.dtFim),
     },
     validate: (values) => validateConstructionEditForm(values, construction),
     validateOnChange: false,
     onSubmit: (values) => {
-      values.id = construction.id;
+      const data = {
+        ...values,
+        dtInicio: formatFieldToDate(values.dtInicio),
+        dtPrevisaoConclusao: formatFieldToDate(values.dtPrevisaoConclusao),
+        dtFim: formatFieldToDate(values.dtFim),
+        id: construction.id,
+      };
       handleEditConstruction({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
         setState: setState,
       });
