@@ -16,7 +16,7 @@ const PatriomonyAutoComplete = ({ formik }) => {
 
   const authHeader = useAuthHeader();
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState([]);
+  const [state, setState] = useState({ patrimonies: [] });
   const [loading, setLoading] = useState(false);
 
   const fetchOptions = useCallback(async (inputValue) => {
@@ -26,19 +26,20 @@ const PatriomonyAutoComplete = ({ formik }) => {
         header: {
           Authorization: authHeader(),
         },
-        setOptions,
+        state,
+        setState,
         id: inputValue,
       });
     } else {
       if (inputValue.length < 3) {
         setLoading(false);
-        setOptions([]);
+        setState({ patrimonies: [] });
         return;
       }
       handleGetPatrimoniesSearch({
         header: { Authorization: authHeader() },
-        setState: setOptions,
-        state: options,
+        setState,
+        state,
         params: { nmPatrimonio: inputValue },
       });
     }
@@ -52,7 +53,7 @@ const PatriomonyAutoComplete = ({ formik }) => {
 
   useEffect(() => {
     if (!open) {
-      setOptions([]);
+      setState({ patrimonies: [] });
     }
   }, [open]);
 
@@ -69,7 +70,7 @@ const PatriomonyAutoComplete = ({ formik }) => {
       onChange={(_, newValue) => {
         formik.setFieldValue("patrimonio", newValue);
       }}
-      options={options}
+      options={state.patrimonies}
       loading={loading}
       loadingText="Buscando..."
       onInputChange={(_, value, reason) => {
