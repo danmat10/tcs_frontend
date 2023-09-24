@@ -189,7 +189,7 @@ const MESSAGES = {
     },
     GET_ID: {
       pending: "Buscando patrimônio...",
-      success: "QR Code lido com sucesso!",
+      success: "1 patrimônio(s) localizado(s).",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
         404: "Nenhum patrimônio encontrado.",
