@@ -16,9 +16,10 @@ import {
   Allocation,
 } from "pages";
 import { Maintence } from "pages/Maintence";
+import { Requisition } from "pages/Requisition";
 
 const AppRoutes = () => {
-  const [user, setUser] = React.useState({id: null });
+  const [user, setUser] = React.useState({ id: null });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
@@ -51,6 +52,11 @@ const AppRoutes = () => {
           exact
           path={URLS.ALOCACAO}
           element={<GestorRoute Component={Allocation} />}
+        />
+        <Route
+          exact
+          path={URLS.REQUISICAO}
+          element={<PrivateRoute Component={Requisition} />}
         />
         <Route
           exact

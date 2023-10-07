@@ -1,0 +1,19 @@
+.buttonGrid {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonCadastrar {
+  margin-right: 20px;
+  height: 36px;
+}
+
+.formFields {
+  padding-top: 40px;
+  padding-left: 20px;
+}
+
+.dialogTitle {
+  background: linear-gradient(90.83deg, #0066ff 8.37%, #00c2ff 96.86%);
+  color: white;
+}

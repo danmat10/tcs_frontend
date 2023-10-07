@@ -2,7 +2,7 @@ const URLS = {
   HOME: "/",
   LOGIN: "/login",
   USUARIO: "/users",
-  REQUISICAO: "/",
+  REQUISICAO: "/requisitions",
   ALOCACAO: "/allocations",
   PATRIMONIO: "/patrimonies",
   DEPARTAMENTO: "/departments",
