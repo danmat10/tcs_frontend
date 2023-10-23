@@ -23,12 +23,13 @@ const AllocationList = ({ allocations, openDialog }) => {
         field: "departament",
         headerName: "Departamento de Destino",
         flex: 2,
-        renderCell: (params) => params.row.departament?.nmDepartamento,
+        renderCell: (params) => params.row.department?.nmDepartamento,
       },
       {
         field: "dtAlocacao",
         headerName: "Data de Alocação",
         flex: 2,
+        renderCell: (params) => params.row.patrimonies[0]?.dtAlocacao,
       },
       {
         field: "nPatrimonies",
@@ -82,7 +83,7 @@ const AllocationList = ({ allocations, openDialog }) => {
     return baseColumns;
   }
   function matchesSearch(row) {
-    return [row.departament?.nmDepartamento].some(
+    return [row.department?.nmDepartamento].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())

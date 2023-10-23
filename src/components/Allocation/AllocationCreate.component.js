@@ -13,7 +13,6 @@ const AllocationCreate = ({ onClose, state, setState }) => {
   const formik = useFormik({
     initialValues: {
       dtAlocacao: getToday(),
-      observation: "",
       patrimonies: [],
       departament: null,
     },

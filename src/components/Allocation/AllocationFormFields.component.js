@@ -86,16 +86,6 @@ const AllocationFormFields = ({ formik, state, setState }) => {
           />
         </Grid>
         <Grid item md={12} xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={2}
-            label="Observação"
-            value={formik.values.observation}
-            onChange={formik.handleChange}
-          />
-        </Grid>
-        <Grid item md={12} xs={12}>
           {formik.touched && formik.errors.patrimonies && (
             <FormHelperText error>{formik.errors.patrimonies}</FormHelperText>
           )}
