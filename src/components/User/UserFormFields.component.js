@@ -207,7 +207,7 @@ const UserFormFields = ({ formik, isEditing = false }) => {
               control={<Radio />}
               label="Gestor"
             />
-            <FormControlLabel value="Peão" control={<Radio />} label="Peão" />
+            <FormControlLabel value="Requisitante" control={<Radio />} label="Requisitante" />
             <FormControlLabel
               value="Admin"
               control={<Radio />}
