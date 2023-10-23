@@ -23,7 +23,6 @@ const handleGetAllocationList = async ({ header, setState }) => {
     },
     MESSAGES.ALLOCATION.GET
   );
-  if (!allocations) allocations = [];
   setState((prev) => ({ ...prev, allocations, patrimonies: [] }));
 };
 
