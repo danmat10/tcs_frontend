@@ -40,6 +40,31 @@ const handleGetPatrimoniesList = async ({ header, setState }) => {
   setState((prev) => ({ ...prev, patrimonies }));
 };
 
+const handleGetPatrimoniesSearchAllocation = async ({
+  header,
+  setState,
+  state,
+  params,
+}) => {
+  let results = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.SEARCH_ALLOCATION(params),
+      header: header,
+    },
+    MESSAGES.PATRIMONY.SEARCH
+  );
+  if (!results) return;
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
+
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
+};
+
 const handleGetPatrimoniesSearch = async ({
   header,
   setState,
@@ -61,7 +86,30 @@ const handleGetPatrimoniesSearch = async ({
       patrimonies.push(result);
     }
   });
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
+};
 
+const handleGetPatrimoniesSearchRequisition = async ({
+  header,
+  setState,
+  state,
+  params,
+}) => {
+  let results = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.SEARCH_REQUISITION(params),
+      header: header,
+    },
+    MESSAGES.PATRIMONY.SEARCH
+  );
+  if (!results) return;
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
@@ -92,4 +140,6 @@ export {
   handleGetPatrimoniesList,
   handleGetPatrimonyId,
   handleGetPatrimoniesSearch,
+  handleGetPatrimoniesSearchAllocation,
+  handleGetPatrimoniesSearchRequisition,
 };

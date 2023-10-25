@@ -11,6 +11,7 @@ import { useState } from "react";
 
 import { styles } from "components/Requisition";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
+import { handleGetPatrimoniesSearchRequisition } from "services";
 
 const RequisitionFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -58,16 +59,16 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
             options={state.constructions}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.id + " - " + option.nmObra}
-            value={formik.values.construction}
+            value={formik.values.obra}
             onChange={(event, newValue) => {
-              formik.setFieldValue("construction", newValue);
+              formik.setFieldValue("obra", newValue);
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Obra de Destino"
-                error={formik.touched && Boolean(formik.errors.construction)}
-                helperText={formik.touched && formik.errors.construction}
+                error={formik.touched && Boolean(formik.errors.obra)}
+                helperText={formik.touched && formik.errors.obra}
               />
             )}
           />
@@ -77,13 +78,14 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
             fullWidth
             label="Data de Retirada"
             type="date"
+            name="dtRetirada"
             InputLabelProps={{
               shrink: true,
             }}
-            value={formik.values.withdrawalDate}
+            value={formik.values.dtRetirada}
             onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.withdrawalDate)}
-            helperText={formik.touched && formik.errors.withdrawalDate}
+            error={formik.touched && Boolean(formik.errors.dtRetirada)}
+            helperText={formik.touched && formik.errors.dtRetirada}
           />
         </Grid>
         <Grid item md={6} xs={12}>
@@ -91,23 +93,14 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
             fullWidth
             label="Data de Devolução"
             type="date"
+            name="dtDevolucao"
             InputLabelProps={{
               shrink: true,
             }}
-            value={formik.values.returnDate}
+            value={formik.values.dtDevolucao}
             onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.returnDate)}
-            helperText={formik.touched && formik.errors.returnDate}
-          />
-        </Grid>
-        <Grid item md={12} xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={2}
-            label="Observação"
-            value={formik.values.observation}
-            onChange={formik.handleChange}
+            error={formik.touched && Boolean(formik.errors.dtDevolucao)}
+            helperText={formik.touched && formik.errors.dtDevolucao}
           />
         </Grid>
         <Grid item md={12} xs={12}>
@@ -119,6 +112,7 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
           setState={setState}
           state={state}
           setIsLoading={setIsLoading}
+          handleSearchPatrimonies={handleGetPatrimoniesSearchRequisition}
         />
         <Grid item md={12} xs={12}>
           <DataGrid
@@ -134,7 +128,7 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
               const selectedRowData = params.map((id) =>
                 state.patrimonies.find((row) => row.id === id)
               );
-              formik.setFieldValue("patrimonies", selectedRowData);
+              formik.setFieldValue("patrimonios", selectedRowData);
             }}
             autoPageSize
             checkboxSelection

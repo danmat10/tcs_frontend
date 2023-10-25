@@ -13,19 +13,26 @@ import { QrCode2 } from "@mui/icons-material";
 import { useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 
-import { handleGetPatrimoniesSearch } from "services";
 import { PatrimonyQrReader } from "components/Patrimony";
 
-const PatriomonySearch = ({ setState, state, setIsLoading }) => {
+const PatriomonySearch = ({ setState, state, setIsLoading, handleSearchPatrimonies }) => {
   const authHeader = useAuthHeader();
   const [nmPatrimonio, setNmPatrimonio] = useState("");
-  const [fixo, setFixo] = useState("todos");
+  const [error, setError] = useState(false);
+  const helperText = "O campo é obrigatório";
   const isMobile = useMediaQuery("(max-width:600px)");
   const [openQRScanner, setOpenQRScanner] = useState(false);
 
   const handleSearch = async () => {
+    if (nmPatrimonio === "") {
+      setError(true);
+      return;
+    }
+    else {
+      setError(false);
+    }
     setIsLoading(true);
-    await handleGetPatrimoniesSearch({
+    await handleSearchPatrimonies({
       header: { Authorization: authHeader() },
       setState,
       state,
@@ -46,22 +53,14 @@ const PatriomonySearch = ({ setState, state, setIsLoading }) => {
           label="Pesquisar"
           value={nmPatrimonio}
           onChange={(e) => setNmPatrimonio(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+          error={error}
+          helperText={error ? helperText : ""}
         />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <FormControl fullWidth variant="outlined">
-          <InputLabel id="filter">Filtrar</InputLabel>
-          <Select
-            labelId="filter"
-            label="Filtrar"
-            value={fixo}
-            onChange={(e) => setFixo(e.target.value)}
-          >
-            <MenuItem value="todos">Todos</MenuItem>
-            <MenuItem value="true">Alocáveis</MenuItem>
-            <MenuItem value="false">Fixos</MenuItem>
-          </Select>
-        </FormControl>
       </Grid>
       <Grid item xs={12} md={2}>
         <Button
