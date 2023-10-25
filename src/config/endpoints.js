@@ -41,6 +41,20 @@ const ENDPOINTS = {
       }
       return url.toString();
     },
+    SEARCH_ALLOCATION: (params) => {
+      const url = new URL(SPRINGURL + "/api/patrimony/allocation");
+      for (const key in params) {
+        url.searchParams.append(key, params[key]);
+      }
+      return url.toString();
+    },
+    SEARCH_REQUISITION: (params) => {
+      const url = new URL(SPRINGURL + "/api/patrimony/construction");
+      for (const key in params) {
+        url.searchParams.append(key, params[key]);
+      }
+      return url.toString();
+    },
   },
   MAINTENCE: {
     GET: SPRINGURL + "/api/maintence",
@@ -50,6 +64,10 @@ const ENDPOINTS = {
   ALLOCATION: {
     GET: SPRINGURL + "/api/allocation",
     POST: SPRINGURL + "/api/allocation",
+  },
+  REQUISITION: {
+    GET: SPRINGURL + "/api/requests",
+    POST: SPRINGURL + "/api/requests",
   },
 };
 

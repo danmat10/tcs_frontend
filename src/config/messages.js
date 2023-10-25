@@ -241,6 +241,24 @@ const MESSAGES = {
       show: true,
     },
   },
+  REQUISITION: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar a requisição.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando requisição...",
+      success: "Requisição criada com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar a requisição.",
+      },
+      show: true,
+    },
+  },
 };
 
 export { MESSAGES };
