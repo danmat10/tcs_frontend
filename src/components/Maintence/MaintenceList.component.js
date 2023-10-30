@@ -28,7 +28,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
         headerName: "Patrimonio",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonio.nmPatrimonio;
+          return params.row.patrimony.nmPatrimonio;
         },
       },
       {
@@ -109,7 +109,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
   }
 
   function matchesSearch(row) {
-    return [row.patrimonio.nmPatrimonio].some(
+    return [row.patrimony.nmPatrimonio].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())

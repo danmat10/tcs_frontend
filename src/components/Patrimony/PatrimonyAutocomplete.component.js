@@ -66,9 +66,9 @@ const PatriomonyAutoComplete = ({ formik }) => {
       noOptionsText="Sem Resultados"
       isOptionEqualToValue={(option, value) => option.id === value.id}
       getOptionLabel={(option) => option.id + " - " + option.nmPatrimonio}
-      value={formik.values.patrimonio}
+      value={formik.values.patrimony}
       onChange={(_, newValue) => {
-        formik.setFieldValue("patrimonio", newValue);
+        formik.setFieldValue("patrimony", newValue);
       }}
       options={state.patrimonies}
       loading={loading}
@@ -85,10 +85,10 @@ const PatriomonyAutoComplete = ({ formik }) => {
           fullWidth
           label="Patrimônio"
           variant="outlined"
-          error={formik.touched.patrimonio && Boolean(formik.errors.patrimonio)}
+          error={formik.touched.patrimony && Boolean(formik.errors.patrimony)}
           helperText={
-            formik.touched.patrimonio && formik.errors.patrimonio
-              ? formik.errors.patrimonio
+            formik.touched.patrimony && formik.errors.patrimony
+              ? formik.errors.patrimony
               : "Pesquise o código ou nome do patrimônio"
           }
           InputProps={{

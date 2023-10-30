@@ -57,9 +57,9 @@ const ENDPOINTS = {
     },
   },
   MAINTENCE: {
-    GET: SPRINGURL + "/api/maintence",
-    POST: SPRINGURL + "/api/maintence",
-    PUT_ID: (id) => SPRINGURL + "/api/maintence/" + id,
+    GET: SPRINGURL + "/api/maintenance",
+    POST: SPRINGURL + "/api/maintenance",
+    PUT_ID: (id) => SPRINGURL + "/api/maintenance/" + id,
   },
   ALLOCATION: {
     GET: SPRINGURL + "/api/allocation",

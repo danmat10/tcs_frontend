@@ -30,7 +30,7 @@ const handleGetMaintenceList = async ({ header, setState }) => {
 const handleEditMaintence = async ({ data, header, setState }) => {
   await handleApiCall(
     {
-      method: "patch",
+      method: "put",
       endpoint: ENDPOINTS.MAINTENCE.PUT_ID(data.id),
       data: data,
       header: header,
