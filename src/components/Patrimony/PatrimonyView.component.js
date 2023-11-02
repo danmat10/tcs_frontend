@@ -8,7 +8,11 @@ import {
   Box,
 } from "@mui/material";
 
-import { DialogForm, formatBackendDateToField, maskCurrencyFunction } from "components/Common";
+import {
+  DialogForm,
+  formatBackendDateToField,
+  maskCurrencyFunction,
+} from "components/Common";
 import { PatrimonyStatusChip } from "./";
 
 const PatrimonyView = ({ patrimony, onClose }) => {
@@ -189,9 +193,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   label="Valor de Aquisição"
                   name="vlAquisicao"
                   type="text"
-                  value={maskCurrencyFunction(
-                    String(patrimony.vlAquisicao * 100)
-                  )}
+                  value={maskCurrencyFunction(patrimony.vlAquisicao || 0)}
                 />
               </Grid>
             </Grid>
