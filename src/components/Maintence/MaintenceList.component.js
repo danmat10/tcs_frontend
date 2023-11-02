@@ -1,4 +1,10 @@
-import { Check, Edit, PlayCircle, Visibility } from "@mui/icons-material";
+import {
+  Check,
+  Delete,
+  Edit,
+  PlayCircle,
+  Visibility,
+} from "@mui/icons-material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import {
   Grid,
@@ -62,6 +68,12 @@ const MaintenceList = ({ openDialog, maintence }) => {
                 style={{ cursor: "pointer" }}
                 titleAccess="Visualizar"
               />
+              {/* <Delete
+                color="error"
+                onClick={() => openDialog("delete", params.row)}
+                style={{ cursor: "pointer" }}
+                titleAccess="Excluir"
+              /> */}
               {status === "Prevista" || status === "Atrasada" ? (
                 <>
                   <Edit
@@ -77,7 +89,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                     titleAccess="Iniciar"
                   />
                 </>
-              ) : status === "Em andamento" ? (
+              ) : status === "Em manutenção" ? (
                 <Check
                   color="primary"
                   onClick={() => openDialog("end", params.row)}

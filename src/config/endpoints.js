@@ -1,4 +1,4 @@
-import { BASEURL, SPRINGURL } from "config";
+import { SPRINGURL } from "config";
 
 const ENDPOINTS = {
   AUTH: {
@@ -60,6 +60,9 @@ const ENDPOINTS = {
     GET: SPRINGURL + "/api/maintenance",
     POST: SPRINGURL + "/api/maintenance",
     PUT_ID: (id) => SPRINGURL + "/api/maintenance/" + id,
+    START_ID: (id) => SPRINGURL + "/api/maintenance/iniciar/" + id,
+    END_ID: (id) => SPRINGURL + "/api/maintenance/finalizar/" + id,
+    DELETE_ID: (id) => SPRINGURL + "/api/maintenance/cancelar/" + id,
   },
   ALLOCATION: {
     GET: SPRINGURL + "/api/allocation",

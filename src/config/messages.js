@@ -222,6 +222,30 @@ const MESSAGES = {
       },
       show: true,
     },
+    START: {
+      pending: "Iniciando manutenção...",
+      success: "Patrimônio enviado para manutenção!",
+      error: {
+        default: "Oops, não foi possível iniciar a manutenção.",
+      },
+      show: true,
+    },
+    END: {
+      pending: "Finalizando manutenção...",
+      success: "Manutenção finalizada com sucesso!",
+      error: {
+        default: "Oops, não foi possível finalizar a manutenção.",
+      },
+      show: true,
+    },
+    DELETE: {
+      pending: "Cancelando manutenção...",
+      success: "Manutenção cancelada com sucesso!",
+      error: {
+        default: "Oops, não foi possível cancelar a manutenção.",
+      },
+      show: true,
+    },
   },
   ALLOCATION: {
     GET: {

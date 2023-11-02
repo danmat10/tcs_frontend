@@ -1,7 +1,11 @@
 import React from "react";
 import { TextField, Grid, Box } from "@mui/material";
 
-import { DialogForm, maskCurrencyFunction } from "components/Common";
+import {
+  DialogForm,
+  formatBackendDateToField,
+  maskCurrencyFunction,
+} from "components/Common";
 import { MaintenceStatusChip } from ".";
 
 const MaintenceView = ({ maintence, onClose }) => {
@@ -15,9 +19,9 @@ const MaintenceView = ({ maintence, onClose }) => {
           <TextField
             fullWidth
             label="Patrimônio"
-            name="patrimonio"
+            name="patrimony"
             variant="standard"
-            value={maintence?.patrimonio?.nmPatrimonio || ""}
+            value={maintence?.patrimony?.nmPatrimonio || ""}
             disabled
           />
         </Grid>
@@ -51,7 +55,9 @@ const MaintenceView = ({ maintence, onClose }) => {
             name="dtPrevisionMaintence"
             type="date"
             InputLabelProps={{ shrink: true }}
-            value={maintence?.dtPrevisionMaintence || ""}
+            value={formatBackendDateToField(
+              maintence?.dtPrevisionMaintence || ""
+            )}
             disabled
           />
         </Grid>
@@ -61,9 +67,9 @@ const MaintenceView = ({ maintence, onClose }) => {
               <TextField
                 fullWidth
                 label="CPF/CNPJ do fornecedor"
-                name="nmCpf"
+                name="nrCnpj"
                 variant="standard"
-                value={maintence?.nmCpf || ""}
+                value={maintence?.nrCnpj || ""}
                 disabled
               />
             </Grid>
@@ -85,7 +91,9 @@ const MaintenceView = ({ maintence, onClose }) => {
                 name="dtStartMaintence"
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={maintence?.dtStartMaintence || ""}
+                value={formatBackendDateToField(
+                  maintence?.dtStartMaintence || ""
+                )}
                 disabled
               />
             </Grid>
@@ -112,7 +120,9 @@ const MaintenceView = ({ maintence, onClose }) => {
                 variant="standard"
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={maintence?.dtEndMaintence || ""}
+                value={formatBackendDateToField(
+                  maintence?.dtEndMaintence || ""
+                )}
                 disabled
               />
             </Grid>
@@ -124,9 +134,7 @@ const MaintenceView = ({ maintence, onClose }) => {
                 label="Valor da Manutenção"
                 name="vlMaintence"
                 type="text"
-                value={maskCurrencyFunction(
-                  String(maintence.vlMaintence * 100)
-                )}
+                value={maskCurrencyFunction(maintence?.vlMaintence || 0)}
               />
             </Grid>
           </>

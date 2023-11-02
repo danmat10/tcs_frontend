@@ -7,7 +7,7 @@ const MaintenceStatusChip = ({ maintence }) => {
     case "Concluída":
       statusColor = "success";
       break;
-    case "Em andamento":
+    case "Em manutenção":
       statusColor = "warning";
       break;
     case "Atrasada":
@@ -26,7 +26,7 @@ function getMaintenceStatus(maintence) {
     return "Concluída";
   }
   if (maintence.dtStartMaintence) {
-    return "Em andamento";
+    return "Em manutenção";
   }
   const [year, month, day] = maintence.dtPrevisionMaintence
     .split("-")

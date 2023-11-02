@@ -44,8 +44,8 @@ const validateMaintenceStartForm = (values) => {
   if (!values.nmFornecedor) {
     errors.nmFornecedor = "Obrigatório";
   }
-  if (!values.nmCpf) {
-    errors.nmCpf = "Obrigatório";
+  if (!values.nrCnpj) {
+    errors.nrCnpj = "Obrigatório";
   }
 
   return errors;

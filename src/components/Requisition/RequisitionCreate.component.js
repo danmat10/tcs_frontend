@@ -2,7 +2,7 @@ import { FormikProvider, useFormik } from "formik";
 import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 
-import { DialogForm, formatFieldToDate, getToday } from "components/Common";
+import { DialogForm, formatFieldToDate } from "components/Common";
 import { RequisitionFormFields } from "components/Requisition";
 import { handleCreateRequisition } from "services";
 import { validateRequisitionCreateForm } from "validations";

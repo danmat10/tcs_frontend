@@ -12,6 +12,7 @@ import {
   MaintenceView,
   MaintenceCreate,
   MaintenceEdit,
+  MaintenceDelete,
 } from "components/Maintence";
 import { handleGetMaintenceList, handleGetUsersList } from "services";
 
@@ -80,6 +81,13 @@ const Maintence = () => {
         maintence={state.selectedMaintence}
       />
     ),
+    delete:(
+      <MaintenceDelete
+        onClose={closeDialog}
+        maintence={state.selectedMaintence}
+        setState={setState}
+      />
+    )
   };
 
   return (

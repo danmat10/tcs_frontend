@@ -4,32 +4,45 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 
 import { styles } from ".";
-import { CurrencyMask, DialogForm } from "components/Common";
-import { handleEditMaintence } from "services";
+import {
+  CurrencyMask,
+  DialogForm,
+  formatBackendDateToField,
+  formatFieldToDate,
+} from "components/Common";
+import { handleEndMaintence } from "services";
 import { validateMaintenceEndForm } from "validations";
 
 const MaintenceEnd = ({ onClose, setState, maintence }) => {
   const authHeader = useAuthHeader();
   const formik = useFormik({
     initialValues: {
-      patrimonio: maintence.patrimonio || null,
+      patrimony: maintence.patrimony || null,
       nmTypeMaintence: maintence.nmTypeMaintence || "",
       dsMaintence: maintence.dsMaintence || "",
-      dtPrevisionMaintence: maintence.dtPrevisionMaintence || "",
-      dtStartMaintence: maintence.dtStartMaintence || "",
-      nmFornecedor: maintence.nmFornecedor || "",
-      nmCpf: maintence.nmCpf || "",
-      observation: maintence.observation || "",
+      dtPrevisionMaintence:
+        formatBackendDateToField(maintence.dtPrevisionMaintence) || "",
+      dtStartMaintence:
+        formatBackendDateToField(maintence.dtStartMaintence) || "",
       dtEndMaintence: "",
       vlMaintence: 0,
+      nmFornecedor: maintence.nmFornecedor || "",
+      nrCnpj: maintence.nrCnpj || "",
+      observation: maintence.observation || "",
     },
     validateOnBlur: false,
     validateOnChange: false,
     validate: (values) => validateMaintenceEndForm(values, maintence),
     onSubmit: (values) => {
-      values.id = maintence.id;
-      handleEditMaintence({
-        data: values,
+      const data = {
+        ...values,
+        dtPrevisionMaintence: formatFieldToDate(values.dtPrevisionMaintence),
+        dtStartMaintence: formatFieldToDate(values.dtStartMaintence),
+        dtEndMaintence: formatFieldToDate(values.dtEndMaintence),
+        id: maintence.id,
+      };
+      handleEndMaintence({
+        data,
         header: { Authorization: authHeader() },
         setState,
       });

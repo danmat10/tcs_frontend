@@ -40,4 +40,50 @@ const handleEditMaintence = async ({ data, header, setState }) => {
   handleGetMaintenceList({ header, setState });
 };
 
-export { handleCreateMaintence, handleGetMaintenceList, handleEditMaintence };
+const handleStartMaintence = async ({ data, header, setState }) => {
+  await handleApiCall(
+    {
+      method: "put",
+      endpoint: ENDPOINTS.MAINTENCE.START_ID(data.id),
+      data: data,
+      header: header,
+    },
+    MESSAGES.MAINTENCE.START
+  );
+  handleGetMaintenceList({ header, setState });
+};
+
+const handleEndMaintence = async ({ data, header, setState }) => {
+  await handleApiCall(
+    {
+      method: "put",
+      endpoint: ENDPOINTS.MAINTENCE.END_ID(data.id),
+      data: data,
+      header: header,
+    },
+    MESSAGES.MAINTENCE.END
+  );
+  handleGetMaintenceList({ header, setState });
+};
+
+const handleDeleteMaintence = async ({ data, header, setState }) => {
+  await handleApiCall(
+    {
+      method: "put",
+      endpoint: ENDPOINTS.MAINTENCE.DELETE_ID(data.id),
+      data: data,
+      header: header,
+    },
+    MESSAGES.MAINTENCE.DELETE
+  );
+  handleGetMaintenceList({ header, setState });
+};
+
+export {
+  handleCreateMaintence,
+  handleGetMaintenceList,
+  handleEditMaintence,
+  handleStartMaintence,
+  handleEndMaintence,
+  handleDeleteMaintence,
+};
