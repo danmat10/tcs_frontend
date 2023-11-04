@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
-import { Visibility } from "@mui/icons-material";
+import { Checklist, ContentPasteGo, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
@@ -20,21 +20,29 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         flex: 1,
       },
       {
-        field: "construction",
+        field: "obra",
         headerName: "Obra de Destino",
         flex: 2,
-        renderCell: (params) => params.row.construction?.nmObra,
+        renderCell: (params) => params.row.obra?.nmObra,
       },
       {
         field: "dtRequisicao",
         headerName: "Data de Requisição",
         flex: 2,
+        renderCell: (params) => {
+          try {
+            const date = new Date(params.row.patrimonios[0].dtPrevisaoRetirada);
+            return date.toLocaleDateString("pt-BR");
+          } catch {
+            return "";
+          }
+        },
       },
       {
         field: "nPatrimonies",
         headerName: "Quantidade",
         flex: 1,
-        renderCell: (params) => params.row.patrimonies.length,
+        renderCell: (params) => params.row.patrimonios.length,
       },
       {
         field: "actions",
@@ -51,6 +59,22 @@ const RequisitionList = ({ requisitions, openDialog }) => {
               }}
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
+            />
+            <Checklist
+              color="primary"
+              onClick={() => {
+                openDialog("management", params.row);
+              }}
+              style={{ cursor: "pointer" }}
+              titleAccess="Gerenciar"
+            />
+            <ContentPasteGo
+              color="primary"
+              onClick={() => {
+                openDialog("return", params.row);
+              }}
+              style={{ cursor: "pointer" }}
+              titleAccess="Devolver"
             />
           </>
         ),
@@ -74,7 +98,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
     return baseColumns;
   }
   function matchesSearch(row) {
-    return [row.construction?.nmObra].some(
+    return [row.obra?.nmObra].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())

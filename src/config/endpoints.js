@@ -71,6 +71,8 @@ const ENDPOINTS = {
   REQUISITION: {
     GET: SPRINGURL + "/api/requests",
     POST: SPRINGURL + "/api/requests",
+    APPROVE: SPRINGURL + "/api/requests/retirar",
+    RETURN: SPRINGURL + "/api/requests/devolver-patrimonio",
   },
 };
 

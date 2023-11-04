@@ -6,10 +6,13 @@ import {
   RequisitionBreadcrumb,
   RequisitionCreate,
   RequisitionList,
+  RequisitionManagement,
+  RequisitionReturn,
+  RequisitionView,
 } from "components/Requisition";
 import { Breadcrumb, PageContainer } from "components/Common";
 import { Header } from "components/Header";
-import { handleGetConstructionList } from "services";
+import { handleGetConstructionList, handleGetRequisitionList } from "services";
 
 const Requisition = () => {
   const [state, setState] = useState({
@@ -24,6 +27,10 @@ const Requisition = () => {
 
   useEffect(() => {
     handleGetConstructionList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+    handleGetRequisitionList({
       header: { Authorization: authHeader() },
       setState: setState,
     });
@@ -61,7 +68,26 @@ const Requisition = () => {
         state={state}
       />
     ),
-    view: null,
+    view: (
+      <RequisitionView
+        requisition={state.selectedRequisition}
+        onClose={closeDialog}
+      />
+    ),
+    management: (
+      <RequisitionManagement
+        requisition={state.selectedRequisition}
+        onClose={closeDialog}
+        setState={setState}
+      />
+    ),
+    return: (
+      <RequisitionReturn
+        requisition={state.selectedRequisition}
+        onClose={closeDialog}
+        setState={setState}
+      />
+    ),
   };
 
   return (

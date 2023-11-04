@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { handleApiCall } from ".";
 import { ENDPOINTS, MESSAGES } from "config";
 
@@ -52,9 +53,14 @@ const handleGetPatrimoniesSearchAllocation = async ({
       endpoint: ENDPOINTS.PATRIMONY.SEARCH_ALLOCATION(params),
       header: header,
     },
-    MESSAGES.PATRIMONY.SEARCH
+    MESSAGES.EMPTY_MESSAGE
   );
-  if (!results) return;
+  if (!results) {
+    toast.warning("Nenhum patrimônio encontrado.");
+    return;
+  } else {
+    toast.success(results.length + " patrimônio(s) localizado(s).");
+  }
   let patrimonies = Array.from(state.patrimonies);
   results.forEach((result) => {
     if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
@@ -101,9 +107,14 @@ const handleGetPatrimoniesSearchRequisition = async ({
       endpoint: ENDPOINTS.PATRIMONY.SEARCH_REQUISITION(params),
       header: header,
     },
-    MESSAGES.PATRIMONY.SEARCH
+    MESSAGES.EMPTY_MESSAGE
   );
-  if (!results) return;
+  if (!results) {
+    toast.warning("Nenhum patrimônio encontrado.");
+    return;
+  } else {
+    toast.success(results.length + " patrimônio(s) localizado(s).");
+  }
   let patrimonies = Array.from(state.patrimonies);
   results.forEach((result) => {
     if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {

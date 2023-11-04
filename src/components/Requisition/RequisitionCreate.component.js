@@ -14,6 +14,7 @@ const RequisitionCreate = ({ onClose, state, setState }) => {
     initialValues: {
       dtRetirada: "",
       dtDevolucao: "",
+      dtRetirada: "",
       patrimonios: [],
       obra: null,
     },

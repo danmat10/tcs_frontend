@@ -178,12 +178,12 @@ const MESSAGES = {
       pending: "Buscando patrimônio...",
       success: {
         render: ({ data }) => {
-          return data?.length + " patrimônio(s) localizado(s).";
+          return data.length + " patrimônio(s) localizado(s).";
         },
       },
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
-        404: "Nenhum patrimônio encontrado.",
+        204: "Nenhum patrimônio encontrado.",
       },
       show: true,
     },
@@ -282,6 +282,30 @@ const MESSAGES = {
       },
       show: true,
     },
+    APPROVE: {
+      pending: "Aprovando requisição...",
+      success: "Requisição aprovada com sucesso!",
+      error: {
+        default: "Oops, não foi possível aprovar a requisição.",
+      },
+      show: true,
+    },
+    RETURN: {
+      pending: "Devolvendo requisição...",
+      success: "Requisição devolvida com sucesso!",
+      error: {
+        default: "Oops, não foi possível devolver a requisição.",
+      },
+      show: true,
+    },
+  },
+  EMPTY_MESSAGE: {
+    pending: "",
+    success: "",
+    error: {
+      default: "",
+    },
+    show: false,
   },
 };
 
