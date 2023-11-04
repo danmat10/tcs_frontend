@@ -3,5 +3,7 @@ export * from "./RequisitionBreadcrumb.component";
 export * from "./RequisitionList.component";
 export * from "./RequisitionCreate.component";
 export * from "./RequisitionFormFields.component";
-// export * from "./RequisitionView.component";
+export * from "./RequisitionView.component";
+export * from "./RequisitionManagement.component";
+export * from "./RequisitionReturn.component";
 export { styles };
