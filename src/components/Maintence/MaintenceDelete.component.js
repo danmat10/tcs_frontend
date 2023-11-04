@@ -43,8 +43,7 @@ const MaintenceDelete = ({ maintence, onClose, setState }) => {
           Você está prestes a cancelar uma manutenção!
         </Typography>
         <Typography variant="subtitle1" component="p" style={{ marginTop: 16 }}>
-          Você tem certeza que deseja prosseguir
-          <strong>{maintence.patrimony.nmPatrimonio}</strong>?
+          Você tem certeza que deseja prosseguir?
         </Typography>
       </DialogContent>
       <Divider sx={{ marginTop: 3 }} />
@@ -62,7 +61,7 @@ const MaintenceDelete = ({ maintence, onClose, setState }) => {
           variant="contained"
           style={{ marginRight: "15px" }}
         >
-          Excluir
+          Cancelar
         </Button>
       </DialogActions>
     </>

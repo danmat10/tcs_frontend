@@ -25,9 +25,8 @@ import {
 } from "components/Common";
 import { PatrimonyStatusChip } from "components/Patrimony";
 import { ErrorOutline } from "@mui/icons-material";
-import { toast } from "react-toastify";
 import { useAuthHeader } from "react-auth-kit";
-import { handleApproveRequest, handleReturnRequest } from "services";
+import { handleReturnRequest } from "services";
 
 const RequisitionReturn = ({ requisition, onClose, setState }) => {
   const [openApprovalDialog, setOpenApprovalDialog] = useState(false);

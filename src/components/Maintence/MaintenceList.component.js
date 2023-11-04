@@ -68,12 +68,14 @@ const MaintenceList = ({ openDialog, maintence }) => {
                 style={{ cursor: "pointer" }}
                 titleAccess="Visualizar"
               />
-              {/* <Delete
-                color="error"
-                onClick={() => openDialog("delete", params.row)}
-                style={{ cursor: "pointer" }}
-                titleAccess="Excluir"
-              /> */}
+              {status !== "Concluída" && (
+                <Delete
+                  color="error"
+                  onClick={() => openDialog("delete", params.row)}
+                  style={{ cursor: "pointer" }}
+                  titleAccess="Cancelar"
+                />
+              )}
               {status === "Prevista" || status === "Atrasada" ? (
                 <>
                   <Edit
