@@ -14,7 +14,7 @@ const RequisitionCreate = ({ onClose, state, setState }) => {
     initialValues: {
       dtRetirada: "",
       dtDevolucao: "",
-      dtRetirada: "",
+      dtPrevisaoRetirada: "",
       patrimonios: [],
       obra: null,
     },
@@ -24,7 +24,7 @@ const RequisitionCreate = ({ onClose, state, setState }) => {
     onSubmit: (values) => {
       const data = {
         ...values,
-        dtRetirada: formatFieldToDate(values.dtRetirada),
+        dtPrevisaoRetirada: formatFieldToDate(values.dtPrevisaoRetirada),
         dtDevolucao: formatFieldToDate(values.dtDevolucao)
       };
       handleCreateRequisition({

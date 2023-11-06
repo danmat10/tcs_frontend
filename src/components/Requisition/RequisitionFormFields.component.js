@@ -76,16 +76,16 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
         <Grid item md={6} xs={12}>
           <TextField
             fullWidth
-            label="Data de Retirada"
+            label="Data de Previsão Retirada"
             type="date"
-            name="dtRetirada"
+            name="dtPrevisaoRetirada"
             InputLabelProps={{
               shrink: true,
             }}
-            value={formik.values.dtRetirada}
+            value={formik.values.dtPrevisaoRetirada}
             onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.dtRetirada)}
-            helperText={formik.touched && formik.errors.dtRetirada}
+            error={formik.touched && Boolean(formik.errors.dtPrevisaoRetirada)}
+            helperText={formik.touched && formik.errors.dtPrevisaoRetirada}
           />
         </Grid>
         <Grid item md={6} xs={12}>

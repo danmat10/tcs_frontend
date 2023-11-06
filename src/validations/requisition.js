@@ -29,14 +29,14 @@ const validateRequisitionCreateForm = (values) => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  if (values.dtRetirada === "") {
-    errors.dtRetirada = "Campo obrigatório";
-  } else if (!isValidDate(values.dtRetirada)) {
-    errors.dtRetirada = "Data de retirada inválida";
+  if (values.dtPrevisaoRetirada === "") {
+    errors.dtPrevisaoRetirada = "Campo obrigatório";
+  } else if (!isValidDate(values.dtPrevisaoRetirada)) {
+    errors.dtPrevisaoRetirada = "Data de retirada inválida";
   } else {
-    const retiradaDate = parseLocalDate(values.dtRetirada);
+    const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
     if (retiradaDate < currentDate) {
-      errors.dtRetirada = "A data de retirada não pode ser menor que a atual";
+      errors.dtPrevisaoRetirada = "A data de retirada não pode ser menor que a atual";
     }
   }
 
@@ -50,8 +50,8 @@ const validateRequisitionCreateForm = (values) => {
       errors.dtDevolucao = "A data de devolução não pode ser menor que a atual";
     }
 
-    if (isValidDate(values.dtRetirada)) {
-      const retiradaDate = parseLocalDate(values.dtRetirada);
+    if (isValidDate(values.dtPrevisaoRetirada)) {
+      const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
       retiradaDate.setHours(0, 0, 0, 0);
       if (devolucaoDate < retiradaDate) {
         errors.dtDevolucao =
