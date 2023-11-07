@@ -8,7 +8,7 @@ const URLS = {
   DEPARTAMENTO: "/departments",
   OBRA: "/constructions",
   MANUTENCAO: "/maintence",
-  GESTAO: "/",
+  GESTAO: "/management",
   PERFIL: "/profile",
   ESQUECEU_SENHA: "/forgot-password",
 };

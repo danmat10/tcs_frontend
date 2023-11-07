@@ -1,0 +1,93 @@
+.buttonGrid {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonCadastrar {
+  margin-right: 20px;
+  height: 36px;
+}
+
+.formFields {
+  padding-top: 40px;
+  padding-left: 20px;
+}
+
+.dialogTitle {
+  background: linear-gradient(90.83deg, #0066ff 8.37%, #00c2ff 96.86%);
+  color: white;
+}
+
+.card {
+  width: 300px;
+  height: 200px;
+  box-shadow: 10px 10px 15px 5px #00000026 !important;
+  border-radius: 10px;
+  background-color: #707070 !important;
+  cursor: pointer;
+
+  @media screen and (max-width: 1040px) {
+    width: 100%;
+  }
+}
+
+.cardSelected {
+  background: linear-gradient(180deg, #0066FF 0%, #00C2FF 100%);
+  width: 300px;
+  height: 200px;
+  box-shadow: 10px 10px 15px 5px #00000026 !important;
+  border-radius: 10px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1040px) {
+    width: 100%;
+  }
+}
+
+.cardContent {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 100% !important;
+  padding: 0 !important;
+  color: white;
+  margin-inline: 30px;
+}
+
+.icon {
+  font-size: 48px !important;
+}
+
+
+
+.gridCard {
+  padding: 24px;
+  align-items: center;
+  width: auto;
+}
+
+.h4 {
+  font-size: 34px !important;
+  font-weight: 500 !important;
+  color: white;
+}
+
+.h2 {
+  font-size: 60px !important;
+  font-weight: 600 !important;
+  color: white;
+}
+
+.h6 {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  color: white;
+}
+
+.cardTitle {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  color: white;
+}
