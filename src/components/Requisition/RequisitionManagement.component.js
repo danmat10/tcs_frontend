@@ -50,7 +50,7 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
     const data = {
       dtRetirada: formatFieldToDate(getToday()),
       dtPrevisaoRetirada: requisition.patrimonios[0]?.dtPrevisaoRetirada,
-      dtDevolucao: null,
+      dtDevolucao: requisition.patrimonios[0]?.dtDevolucao,
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
       obra: requisition.obra,
