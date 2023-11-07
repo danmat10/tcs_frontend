@@ -49,6 +49,7 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
   const onApproveRequest = () => {
     const data = {
       dtRetirada: formatFieldToDate(getToday()),
+      dtPrevisaoRetirada: requisition.patrimonios[0]?.dtPrevisaoRetirada,
       dtDevolucao: null,
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
