@@ -43,13 +43,20 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         },
       },
       {
-        field: "nmDepartamento",
-        headerName: "Departamento Atual",
+        field: "localizacao",
+        headerName: "Localização",
         flex: 2,
-        renderCell: (params) =>
-          params.row.actualDepartment
-            ? params.row.actualDepartment.nmDepartamento
-            : "Não Alocado",
+        renderCell: (params) => {
+          if (params.row.actualConstruction) {
+            return params.row.actualConstruction.nmObra + " - Obra";
+          }
+          else if (params.row.actualDepartment) {
+            return params.row.actualDepartment.nmDepartamento + " - Departamento"
+          }
+          else {
+            return "Não Alocado";
+          }
+        },
       },
       {
         field: "actions",

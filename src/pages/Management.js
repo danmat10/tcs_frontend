@@ -1,11 +1,6 @@
 import { Inventory, QrCodeScanner, Summarize } from "@mui/icons-material";
 import {
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Dialog,
   Grid,
   Typography,
 } from "@mui/material";
