@@ -1,14 +1,17 @@
 const { Chip } = require("@mui/material");
 
 const PatrimonyStatusChip = ({ patrimony }) => {
-  const status = getPatrimonyStatus(patrimony);
+  const status = patrimony.situacao;
   let statusColor = "default";
   switch (status) {
-    case "Em Obra":
+    case "Alocado":
       statusColor = "info";
       break;
     case "Disponível":
       statusColor = "success";
+      break;
+    case "Registrado":
+      statusColor = "warning";
       break;
     default:
       statusColor = "default";
@@ -18,14 +21,4 @@ const PatrimonyStatusChip = ({ patrimony }) => {
   );
 };
 
-function getPatrimonyStatus(patrimony) {
-  if (patrimony.fixo) {
-    return "Fixo";
-  } else if (patrimony.actualConstruction) {
-    return "Em Obra";
-  } else {
-    return "Disponível";
-  }
-}
-
-export { PatrimonyStatusChip, getPatrimonyStatus };
+export { PatrimonyStatusChip };
