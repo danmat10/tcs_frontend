@@ -114,13 +114,13 @@ const MaintenceFormFields = ({ formik }) => {
             name="observation"
             type="text"
             onChange={formik.handleChange}
-            value={formik.values.dsObservation}
+            value={formik.values.observation}
             error={
-              formik.touched.dsObservation &&
-              Boolean(formik.errors.dsObservation)
+              formik.touched.observation &&
+              Boolean(formik.errors.observation)
             }
             helperText={
-              formik.touched.dsObservation && formik.errors.dsObservation
+              formik.touched.observation && formik.errors.observation
             }
             multiline
             rows={2}

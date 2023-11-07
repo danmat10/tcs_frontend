@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { MaintenceStatusChip, getMaintenceStatus, styles } from ".";
+import { MaintenceStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
 
 const MaintenceList = ({ openDialog, maintence }) => {
@@ -57,7 +57,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
         align: "center",
         headerAlign: "center",
         renderCell: (params) => {
-          const status = getMaintenceStatus(params.row);
+          const status = params.row.statusMaintenance;
           return (
             <>
               <Visibility
@@ -68,7 +68,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                 style={{ cursor: "pointer" }}
                 titleAccess="Visualizar"
               />
-              {status !== "Concluída" && (
+              {status !== "Executada" && (
                 <Delete
                   color="error"
                   onClick={() => openDialog("delete", params.row)}
@@ -76,7 +76,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                   titleAccess="Cancelar"
                 />
               )}
-              {status === "Prevista" || status === "Atrasada" ? (
+              {status === "Agendada" || status === "Agendada" ? (
                 <>
                   <Edit
                     color="primary"
@@ -91,7 +91,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                     titleAccess="Iniciar"
                   />
                 </>
-              ) : status === "Em manutenção" ? (
+              ) : status === "Em Execução" ? (
                 <Check
                   color="primary"
                   onClick={() => openDialog("end", params.row)}
@@ -131,16 +131,18 @@ const MaintenceList = ({ openDialog, maintence }) => {
   }
 
   function matchesStatus(row) {
-    const status = getMaintenceStatus(row);
+    const status = row.statusMaintenance;
     switch (statusFilter) {
-      case "Concluída":
-        return status === "Concluída";
-      case "Em Andamento":
-        return status === "Em andamento";
+      case "Agendada":
+        return status === "Agendada";
+      case "Cancelada":
+        return status === "Cancelada";
+      case "Executada":
+        return status === "Executada";
+      case "Prevista":
+        return status === "Em Execução";
       case "Atrasada":
         return status === "Atrasada";
-      case "Prevista":
-        return status === "Prevista";
       case "Todos":
       default:
         return true;
