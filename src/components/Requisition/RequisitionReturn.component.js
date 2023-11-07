@@ -43,6 +43,7 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
   const onReturnRequest = () => {
     const data = {
       dtRetirada: requisition.patrimonios[0].dtRetirada,
+      dtPrevisaoRetirada: requisition.patrimonios[0].dtPrevisaoRetirada,
       dtDevolucao: formatFieldToDate(getToday()),
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
