@@ -13,6 +13,9 @@ const PatrimonyStatusChip = ({ patrimony }) => {
     case "Registrado":
       statusColor = "warning";
       break;
+    case "Em Manutenção":
+      statusColor = "secondary";
+      break;
     default:
       statusColor = "default";
   }

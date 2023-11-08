@@ -199,36 +199,53 @@ const PatrimonyView = ({ patrimony, onClose }) => {
             </Grid>
             <Grid container spacing={2} alignItems="center" marginTop="auto">
               <Grid item md={12} xs={12}>
-                <Typography variant="subtitle1">Status</Typography>
+                <Typography variant="subtitle1">Localização</Typography>
               </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  disabled
-                  variant="standard"
-                  fullWidth
-                  label="Departamento Atual"
-                  name="actualDepartment"
-                  type="text"
-                  value={
-                    patrimony.actualDepartment?.nmDepartamento || "Não Alocado"
-                  }
-                />
-              </Grid>
-              {patrimony.fixo !== "true" && (
+              {(patrimony.actualMaintenance && (
                 <Grid item md={6} xs={12}>
                   <TextField
                     disabled
                     variant="standard"
                     fullWidth
-                    label="Obra Atual"
-                    name="actualConstruction"
+                    label="Em Manutenção"
+                    name="actualMaintenance"
                     type="text"
-                    value={
-                      patrimony.actualConstruction?.nmObra || "Não Requisitado"
-                    }
+                    value={patrimony.actualMaintenance?.nmFornecedor || ""}
                   />
                 </Grid>
-              )}
+              )) ||
+                (patrimony.actualConstruction && (
+                  <Grid item md={6} xs={12}>
+                    <TextField
+                      disabled
+                      variant="standard"
+                      fullWidth
+                      label="Em Obra"
+                      name="actualConstruction"
+                      type="text"
+                      value={
+                        patrimony.actualConstruction?.nmObra ||
+                        "Não Requisitado"
+                      }
+                    />
+                  </Grid>
+                )) ||
+                (patrimony.actualDepartment && (
+                  <Grid item md={6} xs={12}>
+                    <TextField
+                      disabled
+                      variant="standard"
+                      fullWidth
+                      label="Departamento Atual"
+                      name="actualDepartment"
+                      type="text"
+                      value={
+                        patrimony.actualDepartment?.nmDepartamento ||
+                        "Não Alocado"
+                      }
+                    />
+                  </Grid>
+                ))}
               <Grid item md={6} xs={12}>
                 <TextField
                   disabled

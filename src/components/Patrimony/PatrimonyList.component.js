@@ -47,13 +47,15 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         headerName: "Localização",
         flex: 2,
         renderCell: (params) => {
-          if (params.row.actualConstruction) {
+          if (params.row.actualMaintenance) {
+            return params.row.actualMaintenance.nmFornecedor + " - Manutenção";
+          } else if (params.row.actualConstruction) {
             return params.row.actualConstruction.nmObra + " - Obra";
-          }
-          else if (params.row.actualDepartment) {
-            return params.row.actualDepartment.nmDepartamento + " - Departamento"
-          }
-          else {
+          } else if (params.row.actualDepartment) {
+            return (
+              params.row.actualDepartment.nmDepartamento + " - Departamento"
+            );
+          } else {
             return "Não Alocado";
           }
         },
