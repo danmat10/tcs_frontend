@@ -42,7 +42,7 @@ const AllocationView = ({ allocation, onClose }) => {
             InputLabelProps={{
               shrink: true,
             }}
-            value={formatBackendDateToField(allocation.patrimonies[0]?.dtAlocacao)}
+            value={formatBackendDateToField(allocation?.dtAlocacao)}
             variant="standard"
           />
         </Grid>
@@ -65,12 +65,12 @@ const AllocationView = ({ allocation, onClose }) => {
               {allocation.patrimonies.map((patrimony) => (
                 <TableRow key={patrimony.id}>
                   <TableCell>{patrimony.id}</TableCell>
-                  <TableCell>{patrimony.patrimonio.nmPatrimonio}</TableCell>
+                  <TableCell>{patrimony.nmPatrimonio}</TableCell>
                   <TableCell>
-                    {maskCurrencyFunction(String(patrimony.patrimonio.vlAquisicao * 100))}
+                    {maskCurrencyFunction(String(patrimony.vlAquisicao * 100))}
                   </TableCell>
                   <TableCell>
-                    <PatrimonyStatusChip patrimony={patrimony.patrimonio} />
+                    <PatrimonyStatusChip patrimony={patrimony} />
                   </TableCell>
                 </TableRow>
               ))}
