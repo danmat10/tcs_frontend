@@ -290,6 +290,14 @@ const MESSAGES = {
       },
       show: true,
     },
+    REJECT: {
+      pending: "Rejeitando requisição...",
+      success: "Requisição rejeitada com sucesso!",
+      error: {
+        default: "Oops, não foi possível rejeitar a requisição.",
+      },
+      show: true,
+    },
     RETURN: {
       pending: "Devolvendo requisição...",
       success: "Requisição devolvida com sucesso!",

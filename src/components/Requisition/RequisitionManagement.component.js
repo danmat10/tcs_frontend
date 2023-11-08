@@ -25,9 +25,8 @@ import {
 } from "components/Common";
 import { PatrimonyStatusChip } from "components/Patrimony";
 import { ErrorOutline } from "@mui/icons-material";
-import { toast } from "react-toastify";
 import { useAuthHeader } from "react-auth-kit";
-import { handleApproveRequest } from "services";
+import { handleApproveRequest, handleRejectRequest } from "services";
 
 const RequisitionManagement = ({ requisition, onClose, setState }) => {
   const [openRejectionDialog, setOpenRejectionDialog] = useState(false);
@@ -42,8 +41,27 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
     setOpenDialog(false);
   };
 
-  const handleRejectRequest = () => {
-    toast.warning("Não implementado");
+  const onRejectRequest = () => {
+    const data = {
+      dtRetirada: null,
+      dtPrevisaoRetirada: requisition.patrimonios[0]?.dtPrevisaoRetirada,
+      dtDevolucao: requisition.patrimonios[0]?.dtDevolucao,
+      patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
+      id: requisition.id,
+      obra: requisition.obra,
+    };
+    handleRejectRequest({
+      data,
+      header: { Authorization: authHeader() },
+      setState,
+    });
+    handleCloseDialog(setOpenRejectionDialog);
+    setState((prev) => ({
+      ...prev,
+      view: "",
+      openDialog: false,
+      patrimonies: [],
+    }));
   };
 
   const onApproveRequest = () => {
@@ -61,6 +79,12 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
       setState,
     });
     handleCloseDialog(setOpenApprovalDialog);
+    setState((prev) => ({
+      ...prev,
+      view: "",
+      openDialog: false,
+      patrimonies: [],
+    }));
   };
 
   return (
@@ -234,7 +258,7 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
             Cancelar
           </Button>
           <Button
-            onClick={handleRejectRequest}
+            onClick={onRejectRequest}
             color="error"
             variant="contained"
             style={{ marginRight: "15px" }}

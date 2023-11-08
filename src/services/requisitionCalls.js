@@ -39,6 +39,19 @@ const handleApproveRequest = async ({ data, header, setState }) => {
   handleGetRequisitionList({ header, setState });
 };
 
+const handleRejectRequest = async ({ data, header, setState }) => {
+  await handleApiCall(
+    {
+      method: "put",
+      endpoint: ENDPOINTS.REQUISITION.REJECT,
+      data: data,
+      header: header,
+    },
+    MESSAGES.REQUISITION.REJECT
+  );
+  handleGetRequisitionList({ header, setState });
+};
+
 const handleReturnRequest = async ({ data, header, setState }) => {
   await handleApiCall(
     {
@@ -57,4 +70,5 @@ export {
   handleGetRequisitionList,
   handleApproveRequest,
   handleReturnRequest,
+  handleRejectRequest,
 };

@@ -4,6 +4,7 @@ import { Checklist, ContentPasteGo, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
+import { useIsGestor } from "routes";
 import { styles } from ".";
 import { PageGridContent } from "components/Common";
 
@@ -11,6 +12,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
+  const isGestor = useIsGestor();
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -60,22 +62,27 @@ const RequisitionList = ({ requisitions, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <Checklist
-              color="primary"
-              onClick={() => {
-                openDialog("management", params.row);
-              }}
-              style={{ cursor: "pointer" }}
-              titleAccess="Gerenciar"
-            />
-            <ContentPasteGo
-              color="primary"
-              onClick={() => {
-                openDialog("return", params.row);
-              }}
-              style={{ cursor: "pointer" }}
-              titleAccess="Devolver"
-            />
+            {isGestor && !params.row.patrimonios[0]?.dtRetirada && (
+              <Checklist
+                color="primary"
+                onClick={() => {
+                  openDialog("management", params.row);
+                }}
+                style={{ cursor: "pointer" }}
+                titleAccess="Gerenciar"
+              />
+            )}
+            {params.row.patrimonios[0]?.dtRetirada &&
+              !params.row.patrimonios[0]?.dtDevolucao && (
+                <ContentPasteGo
+                  color="primary"
+                  onClick={() => {
+                    openDialog("return", params.row);
+                  }}
+                  style={{ cursor: "pointer" }}
+                  titleAccess="Devolver"
+                />
+              )}
           </>
         ),
       },

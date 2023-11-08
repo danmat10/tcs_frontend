@@ -55,6 +55,12 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
       setState,
     });
     handleCloseDialog(setOpenApprovalDialog);
+    setState((prev) => ({
+      ...prev,
+      view: "",
+      openDialog: false,
+      patrimonies: [],
+    }));
   };
 
   return (

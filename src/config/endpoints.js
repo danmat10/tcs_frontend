@@ -73,6 +73,7 @@ const ENDPOINTS = {
     POST: SPRINGURL + "/api/requests",
     APPROVE: SPRINGURL + "/api/requests/retirar",
     RETURN: SPRINGURL + "/api/requests/devolver-patrimonio",
+    REJECT: SPRINGURL + "/api/requests/cancelar",
   },
 };
 
