@@ -1,13 +1,21 @@
 const { Chip } = require("@mui/material");
 
+const parseLocalDate = (dateString) => {
+  const [day, month, year] = dateString
+    .split("/")
+    .map((num) => parseInt(num, 10));
+  return new Date(year, month - 1, day);
+};
+
 const MaintenceStatusChip = ({ maintence }) => {
-  const status = maintence.statusMaintenance;
+  let status = getMaintenceStatus(maintence);
+
   let statusColor = "default";
   switch (status) {
-    case "Concluída":
+    case "Executada":
       statusColor = "success";
       break;
-    case "Em manutenção":
+    case "Em Execução":
       statusColor = "warning";
       break;
     case "Atrasada":
@@ -15,6 +23,7 @@ const MaintenceStatusChip = ({ maintence }) => {
       break;
     case "Cancelada":
       statusColor = "default";
+      break;
     default:
       statusColor = "info";
   }
@@ -23,4 +32,25 @@ const MaintenceStatusChip = ({ maintence }) => {
   );
 };
 
-export { MaintenceStatusChip };
+const getMaintenceStatus = (maintence) => {
+  let status = maintence.statusMaintenance;
+
+  if (status === "Agendada") {
+    try {
+      const dtPrevisionMaintence = parseLocalDate(
+        maintence.dtPrevisionMaintence
+      );
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+
+      if (dtPrevisionMaintence < currentDate) {
+        status = "Atrasada";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return status;
+};
+
+export { MaintenceStatusChip, getMaintenceStatus };

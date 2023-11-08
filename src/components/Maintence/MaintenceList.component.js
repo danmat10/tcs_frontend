@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { MaintenceStatusChip, styles } from ".";
+import { MaintenceStatusChip, getMaintenceStatus, styles } from ".";
 import { PageGridContent } from "components/Common";
 
 const MaintenceList = ({ openDialog, maintence }) => {
@@ -68,7 +68,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                 style={{ cursor: "pointer" }}
                 titleAccess="Visualizar"
               />
-              {status !== "Executada" && (
+              {status !== "Executada" && status !== "Cancelada" && (
                 <Delete
                   color="error"
                   onClick={() => openDialog("delete", params.row)}
@@ -131,7 +131,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
   }
 
   function matchesStatus(row) {
-    const status = row.statusMaintenance;
+    const status = getMaintenceStatus(row);
     switch (statusFilter) {
       case "Agendada":
         return status === "Agendada";
@@ -139,7 +139,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
         return status === "Cancelada";
       case "Executada":
         return status === "Executada";
-      case "Prevista":
+      case "Em Execução":
         return status === "Em Execução";
       case "Atrasada":
         return status === "Atrasada";
@@ -200,10 +200,11 @@ const MaintenceList = ({ openDialog, maintence }) => {
           onChange={(e) => setStatusFilter(e.target.value)}
         >
           <MenuItem value="Todos">Todos</MenuItem>
+          <MenuItem value="Agendada">Agendada</MenuItem>
           <MenuItem value="Atrasada">Atrasada</MenuItem>
-          <MenuItem value="Concluída">Concluída</MenuItem>
-          <MenuItem value="Em Andamento">Em Andamento</MenuItem>
-          <MenuItem value="Prevista">Prevista</MenuItem>
+          <MenuItem value="Cancelada">Cancelada</MenuItem>
+          <MenuItem value="Executada">Executada</MenuItem>
+          <MenuItem value="Em Execução">Em Execução</MenuItem>
         </Select>
         <FormHelperText>Filtrar por status da manutenção</FormHelperText>
       </Grid>

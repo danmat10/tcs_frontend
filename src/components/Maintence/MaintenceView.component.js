@@ -102,6 +102,7 @@ const MaintenceView = ({ maintence, onClose }) => {
                 fullWidth
                 variant="standard"
                 label="Observação"
+                InputLabelProps={{ shrink: true }}
                 multiline
                 name="observation"
                 value={maintence?.observation || ""}
