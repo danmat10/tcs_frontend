@@ -5,7 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { useIsGestor } from "routes";
-import { styles } from ".";
+import { RequisitionStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
 
 const RequisitionList = ({ requisitions, openDialog }) => {
@@ -38,6 +38,14 @@ const RequisitionList = ({ requisitions, openDialog }) => {
           } catch {
             return "";
           }
+        },
+      },
+      {
+        field: "status",
+        headerName: "Status",
+        flex: 2,
+        renderCell: (params) => {
+          return <RequisitionStatusChip requisition={params.row} />;
         },
       },
       {

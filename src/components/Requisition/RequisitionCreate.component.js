@@ -25,7 +25,6 @@ const RequisitionCreate = ({ onClose, state, setState }) => {
       const data = {
         ...values,
         dtPrevisaoRetirada: formatFieldToDate(values.dtPrevisaoRetirada),
-        dtDevolucao: formatFieldToDate(values.dtDevolucao)
       };
       handleCreateRequisition({
         data,

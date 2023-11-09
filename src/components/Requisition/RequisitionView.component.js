@@ -48,38 +48,42 @@ const RequisitionView = ({ requisition, onClose }) => {
             variant="standard"
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            label="Data de Retirada"
-            name="dtRetirada"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={formatBackendDateToField(
-              requisition.patrimonios[0]?.dtRetirada
-            )}
-            variant="standard"
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            label="Data de Devolução"
-            name="dtDevolucao"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={formatBackendDateToField(
-              requisition.patrimonios[0]?.dtDevolucao
-            )}
-            variant="standard"
-          />
-        </Grid>
+        {requisition?.patrimonios[0]?.dtRetirada && (
+          <Grid item md={6} xs={12}>
+            <TextField
+              disabled
+              fullWidth
+              label="Data de Retirada"
+              name="dtRetirada"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={formatBackendDateToField(
+                requisition.patrimonios[0]?.dtRetirada
+              )}
+              variant="standard"
+            />
+          </Grid>
+        )}
+        {requisition?.patrimonios[0]?.dtDevolucao && (
+          <Grid item md={6} xs={12}>
+            <TextField
+              disabled
+              fullWidth
+              label="Data de Devolução"
+              name="dtDevolucao"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={formatBackendDateToField(
+                requisition.patrimonios[0]?.dtDevolucao
+              )}
+              variant="standard"
+            />
+          </Grid>
+        )}
       </Grid>
       <Grid container spacing={2} alignItems="center" marginTop="auto">
         <Grid item md={12} xs={12}>

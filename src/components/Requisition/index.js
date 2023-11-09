@@ -6,4 +6,5 @@ export * from "./RequisitionFormFields.component";
 export * from "./RequisitionView.component";
 export * from "./RequisitionManagement.component";
 export * from "./RequisitionReturn.component";
+export * from "./RequisitionStatusChip.component";
 export { styles };
