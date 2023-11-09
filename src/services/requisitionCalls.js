@@ -23,6 +23,7 @@ const handleGetRequisitionList = async ({ header, setState }) => {
     },
     MESSAGES.REQUISITION.GET
   );
+  if (!requisitions) requisitions = [];
   setState((prev) => ({ ...prev, requisitions, patrimonies: [] }));
 };
 
