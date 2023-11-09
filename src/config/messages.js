@@ -87,6 +87,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -95,6 +96,7 @@ const MESSAGES = {
       success: "Departamento criado com sucesso!",
       error: {
         default: "Oops, não foi possível criar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -103,6 +105,7 @@ const MESSAGES = {
       success: "Departamento atualizado com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -111,6 +114,7 @@ const MESSAGES = {
       success: "Departamento deletado com sucesso!",
       error: {
         default: "Oops, não foi possível deletar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -121,6 +125,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -129,6 +134,7 @@ const MESSAGES = {
       success: "Obra criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -137,6 +143,7 @@ const MESSAGES = {
       success: "Obra atualizada com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -145,6 +152,7 @@ const MESSAGES = {
       success: "obra deletada com sucesso!",
       error: {
         default: "Oops, não foi possível deletar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -155,6 +163,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -163,6 +172,7 @@ const MESSAGES = {
       success: "Patrimônio criado com sucesso!",
       error: {
         default: "Oops, não foi possível criar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -171,6 +181,7 @@ const MESSAGES = {
       success: "Patrimônio atualizado com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -183,7 +194,7 @@ const MESSAGES = {
       },
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
-        204: "Nenhum patrimônio encontrado.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -192,7 +203,7 @@ const MESSAGES = {
       success: "1 patrimônio(s) localizado(s).",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
-        404: "Nenhum patrimônio encontrado.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -203,6 +214,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -211,6 +223,7 @@ const MESSAGES = {
       success: "Manutenção criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -219,6 +232,7 @@ const MESSAGES = {
       success: "Manutenção atualizada com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -227,6 +241,7 @@ const MESSAGES = {
       success: "Patrimônio enviado para manutenção!",
       error: {
         default: "Oops, não foi possível iniciar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -235,6 +250,7 @@ const MESSAGES = {
       success: "Manutenção finalizada com sucesso!",
       error: {
         default: "Oops, não foi possível finalizar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -243,6 +259,7 @@ const MESSAGES = {
       success: "Manutenção cancelada com sucesso!",
       error: {
         default: "Oops, não foi possível cancelar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -253,6 +270,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a alocação.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -261,6 +279,7 @@ const MESSAGES = {
       success: "Alocação criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a alocação.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -271,6 +290,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -279,6 +299,7 @@ const MESSAGES = {
       success: "Requisição criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -287,6 +308,7 @@ const MESSAGES = {
       success: "Requisição aprovada com sucesso!",
       error: {
         default: "Oops, não foi possível aprovar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -295,6 +317,7 @@ const MESSAGES = {
       success: "Requisição rejeitada com sucesso!",
       error: {
         default: "Oops, não foi possível rejeitar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -303,6 +326,7 @@ const MESSAGES = {
       success: "Requisição devolvida com sucesso!",
       error: {
         default: "Oops, não foi possível devolver a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
