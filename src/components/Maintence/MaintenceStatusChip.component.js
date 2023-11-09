@@ -1,4 +1,4 @@
-const { Chip } = require("@mui/material");
+import { Chip } from "@mui/material";
 
 const parseLocalDate = (dateString) => {
   const [day, month, year] = dateString
