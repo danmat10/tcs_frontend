@@ -1,42 +1,28 @@
-import { useFormik } from "formik";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import React from "react";
+import { Button, TextField, Link, Grid, Box, Typography } from "@mui/material";
 
-import { MESSAGES, ENDPOINTS } from "config";
-import { apiCall } from "services";
+import { toast } from "react-toastify";
+
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
 
 const ForgotPassword = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-    },
-    // Você pode adicionar validações específicas para o email aqui, se necessário
-    onSubmit: (values) => {
-      onRequestPasswordReset(values);
-    },
-  });
-
-  const handleApiCall = async (config, toastObject) => {
-    const { method, endpoint, data } = config;
-    const response = await apiCall(method, endpoint, data, {}, toastObject);
-    return response;
-  };
-
   const onRequestPasswordReset = async (values) => {
-    // Supondo que existe um endpoint específico para solicitar a recuperação de senha
-    let response = await handleApiCall(
-      { method: "post", endpoint: ENDPOINTS.AUTH.REQUEST_RESET, data: values },
-      MESSAGES.AUTH.REQUEST_RESET
-    );
+    if (validateEmail(email) === false) {
+      return;
+    }
+    toast.info("Em desenvolvimento");
+  };
+  const [email, setEmail] = React.useState("");
+  const [formErrors, setFormErrors] = React.useState(false);
 
-    // Aqui, você pode tratar a resposta conforme necessário
-    if (response && response.success) {
-      // Mostre uma mensagem de sucesso ou redirecione o usuário, se necessário
+  const validateEmail = (email) => {
+    var re = /\S+@\S+\.\S+/;
+    if (re.test(email) === false) {
+      setFormErrors(true);
+      return false;
+    } else {
+      setFormErrors(false);
+      return re.test(email);
     }
   };
 
@@ -80,36 +66,37 @@ const ForgotPassword = () => {
           <Typography variant="body2" sx={{ opacity: "0.6" }}>
             Digite o e-mail válido para alteração de senha
           </Typography>
-          <form onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="E-mail válido"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Enviar
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/login" variant="body2">
-                  Voltar ao login
-                </Link>
-              </Grid>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="E-mail válido"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            error={formErrors}
+            helperText={formErrors ? "Campo obrigatório" : ""}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={onRequestPasswordReset}
+          >
+            Enviar
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="/login" variant="body2">
+                Voltar ao login
+              </Link>
             </Grid>
-          </form>
+          </Grid>
         </Box>
       </Grid>
     </Grid>
