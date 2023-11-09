@@ -10,21 +10,56 @@ import {
   Box,
 } from "@mui/material";
 import { styles } from ".";
+import { toast } from "react-toastify";
 
 const ManagementReports = () => {
-  const [reportType, setReportType] = React.useState("");
-  const [fileType, setFileType] = React.useState("");
+  const [state, setState] = React.useState({
+    reportType: "",
+    fileType: "",
+    view: "",
+  });
+
+  const view = {
+    general: (
+      <>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Data Inicial"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Data Final"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+          />
+        </Grid>
+      </>
+    ),
+
+    losses: null,
+    onLoan: null,
+    overdue: null,
+  };
 
   const handleReportTypeChange = (event) => {
-    setReportType(event.target.value);
+    setState({ ...state, reportType: event.target.value });
   };
 
   const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
+    setState({ ...state, fileType: event.target.value });
   };
 
   const generateReport = () => {
-    console.log("Gerando relatório...");
+    toast.info("Em desenvolvimento");
   };
 
   return (
@@ -68,35 +103,15 @@ const ManagementReports = () => {
         >
           <Grid item xs={12} md={6}>
             <TextField
-              label="Data Inicial"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="Data Final"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
               select
               label="Tipo de Relatório"
-              value={reportType}
+              value={state.reportType}
               onChange={handleReportTypeChange}
               fullWidth
             >
               <MenuItem value="general">Lista Geral de Patrimônios</MenuItem>
               <MenuItem value="losses">Baixas/Perdas</MenuItem>
-              <MenuItem value="on_loan">Patrimônios em obras</MenuItem>
+              <MenuItem value="onLoan">Patrimônios em obras</MenuItem>
               <MenuItem value="overdue">
                 Patrimônios com prazo de devolução vencido
               </MenuItem>
@@ -106,7 +121,7 @@ const ManagementReports = () => {
             <TextField
               select
               label="Tipo de Arquivo"
-              value={fileType}
+              value={state.fileType}
               onChange={handleFileTypeChange}
               fullWidth
             >
@@ -114,6 +129,7 @@ const ManagementReports = () => {
               <MenuItem value="excel">Excel</MenuItem>
             </TextField>
           </Grid>
+          {view[state.reportType]}
         </Grid>
       </Box>
       <Divider sx={{ marginBottom: 3 }} />
