@@ -71,7 +71,6 @@ const ManagementReports = () => {
         width: "100%",
         height: "100%",
       }}
-      fullWidth
     >
       <Box
         sx={{

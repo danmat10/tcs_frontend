@@ -80,12 +80,11 @@ const handleFirstAccess = async ({ data, state }) => {
 const refreshApi = createRefresh({
   interval: AUTH_TOKEN_EXPIRES_AT,
   refreshApiCallback: async ({
-    authToken,
-    authTokenExpireAt,
     refreshToken,
     refreshTokenExpiresAt,
     authUserState,
   }) => {
+    console.log("refreshApiCallback");
     try {
       const response = await axios.post(ENDPOINTS.AUTH.REFRESH, {
         refreshToken: refreshToken,
