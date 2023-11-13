@@ -8,14 +8,15 @@ import {
 } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
-import { PatrimonyStatusChip, styles } from ".";
+import { PatrimonyQrReaderView, PatrimonyStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
-import { Edit, Visibility } from "@mui/icons-material";
+import { Edit, QrCode2, Visibility } from "@mui/icons-material";
 
 const PatrimonyList = ({ patrimonies, openDialog }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
+  const [openQRScanner, setOpenQRScanner] = useState(false);
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -127,7 +128,18 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         />
         <FormHelperText>Pesquisar por nome, fornecedor...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={9} className={styles.buttonGrid}>
+      <Grid item xs={12} md={3}>
+        <Button
+          component="label"
+          variant="outlined"
+          startIcon={<QrCode2 />}
+          fullWidth
+          onClick={() => setOpenQRScanner(true)}
+        >
+          Ler Qr Code
+        </Button>
+      </Grid>
+      <Grid item xs={12} md={6} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}
@@ -150,6 +162,11 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
           />
         </Grid>
       </Grid>
+      <PatrimonyQrReaderView
+        openDialog={openDialog}
+        openQRScanner={openQRScanner}
+        setOpenQRScanner={setOpenQRScanner}
+      />
     </PageGridContent>
   );
 };

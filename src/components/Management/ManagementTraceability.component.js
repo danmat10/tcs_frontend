@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Grid,
-  Paper,
-  Typography,
-  Divider,
-  Box,
-  useMediaQuery,
-} from "@mui/material";
+import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
 import { styles } from ".";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
 import { handleGetPatrimoniesSearch } from "services";
@@ -136,28 +128,6 @@ const ManagementTraceability = () => {
             />
           </Grid>
         </Grid>
-      </Box>
-      <Divider sx={{ marginBottom: 3 }} />
-      <Box
-        sx={{
-          width: "100%",
-          height: "10%",
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {}}
-          sx={{
-            marginRight: 3,
-            marginBottom: 3,
-          }}
-        >
-          GERAR
-        </Button>
       </Box>
     </Paper>
   );

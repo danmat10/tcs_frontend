@@ -14,13 +14,14 @@ import QrReader from "react-qr-reader";
 import { handleGetPatrimonyId } from "services";
 import { styles } from "components/Patrimony";
 
-const PatrimonyQrReader = ({
-  state,
-  setState,
+const PatrimonyQrReaderView = ({
+  openDialog,
   openQRScanner,
   setOpenQRScanner,
-  validatePatrimonyQrCode,
 }) => {
+  const [state, setState] = useState({
+    patrimonies: [],
+  });
   const [stateView, setStateView] = useState("reader");
   const authHeader = useAuthHeader();
 
@@ -37,9 +38,20 @@ const PatrimonyQrReader = ({
     toast.error(err);
   };
 
+  const customSetState = (updateFunction) => {
+    setState((prev) => {
+      const newState = updateFunction(prev);
+      if (newState.patrimonies && newState.patrimonies.length > 0) {
+        openDialog("view", newState.patrimonies[0]);
+      }
+      return newState;
+    });
+  };
+
   const handleScan = async (result) => {
     if (result) {
       setStateView("loading");
+      setState((prev) => ({ ...prev, patrimonies: [] }));
       const id = getIdFromQrCode(result);
       if (!id) {
         toast.error("QR Code inválido");
@@ -51,11 +63,14 @@ const PatrimonyQrReader = ({
         header: {
           Authorization: authHeader(),
         },
-        state: state,
-        setState: setState,
+        state,
+        setState: customSetState,
         id: id,
-        validatePatrimonyQrCode,
+        validatePatrimonyQrCode: (values) => {},
       });
+      if (state.patrimonies.length !== 0) {
+        openDialog("view", state.patrimonies[0]);
+      }
       setOpenQRScanner(false);
       setStateView("reader");
     }
@@ -119,4 +134,4 @@ const PatrimonyQrReader = ({
   );
 };
 
-export { PatrimonyQrReader };
+export { PatrimonyQrReaderView };

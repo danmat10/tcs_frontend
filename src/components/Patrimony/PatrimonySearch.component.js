@@ -63,13 +63,8 @@ const PatriomonySearch = ({
           helperText={error ? helperText : ""}
         />
       </Grid>
-      <Grid item xs={12} md={2}>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={handleSearch}
-        >
+      <Grid item xs={12} md={3}>
+        <Button variant="contained" color="primary" onClick={handleSearch}>
           Pesquisar
         </Button>
       </Grid>
