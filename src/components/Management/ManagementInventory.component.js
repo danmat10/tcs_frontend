@@ -1,8 +1,65 @@
-import React from "react";
-import { Button, Grid, Paper, Typography, Divider, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Paper, Typography, Box, Dialog } from "@mui/material";
 import { styles } from ".";
+import {
+  InventoryCreate,
+  InventoryEnd,
+  InventoryList,
+  InventoryView,
+} from "components/Inventory";
+import { handleGetInventoryList } from "services/inventoryCalls";
+import { useAuthHeader } from "react-auth-kit";
 
 const ManagementInventory = () => {
+  const authHeader = useAuthHeader();
+
+  const [state, setState] = useState({
+    inventories: [],
+    selectedInventory: {},
+    openDialog: false,
+    view: "",
+  });
+
+  useEffect(() => {
+    handleGetInventoryList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+  }, []);
+
+  const openDialog = (view, inventory = null) => {
+    setState({
+      ...state,
+      view,
+      selectedInventory: inventory,
+      openDialog: true,
+    });
+  };
+
+  const closeDialog = () => {
+    setState({ ...state, view: "", openDialog: false });
+  };
+
+  const views = {
+    list: (
+      <InventoryList inventories={state.inventories} openDialog={openDialog} />
+    ),
+    create: <InventoryCreate onClose={closeDialog} setState={setState} />,
+    view: (
+      <InventoryView
+        inventory={state.selectedInventory}
+        onClose={closeDialog}
+      />
+    ),
+    end: (
+      <InventoryEnd
+        onClose={closeDialog}
+        setState={setState}
+        selectedInventory={state.selectedInventory}
+      />
+    ),
+  };
+
   return (
     <Paper
       elevation={3}
@@ -12,7 +69,6 @@ const ManagementInventory = () => {
         width: "100%",
         height: "100%",
       }}
-      fullWidth
     >
       <Box
         sx={{
@@ -26,7 +82,7 @@ const ManagementInventory = () => {
           style={{ padding: "20px" }}
           className={styles.dialogTitle}
         >
-          Inventários{" "}
+          Inventários
         </Typography>
       </Box>
       <Box
@@ -42,31 +98,16 @@ const ManagementInventory = () => {
             padding: "30px",
           }}
         >
-          {/* Conteúdo */}
+          {views.list}
         </Grid>
       </Box>
-      <Divider sx={{ marginBottom: 3 }} />
-      <Box
-        sx={{
-          width: "100%",
-          height: "10%",
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "center",
-        }}
+      <Dialog
+        open={state.openDialog}
+        onClose={closeDialog}
+        PaperProps={{ sx: { borderRadius: "28px" } }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {}}
-          sx={{
-            marginRight: 3,
-            marginBottom: 3,
-          }}
-        >
-          GERAR
-        </Button>
-      </Box>
+        {views[state.view]}
+      </Dialog>
     </Paper>
   );
 };

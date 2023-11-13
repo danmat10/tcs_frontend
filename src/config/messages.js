@@ -331,6 +331,35 @@ const MESSAGES = {
       show: true,
     },
   },
+  INVENTORY: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando inventário...",
+      success: "Inventário criado com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    PUT: {
+      pending: "Atualizando inventário...",
+      success: "Inventário atualizado com sucesso!",
+      error: {
+        default: "Oops, não foi possível atualizar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+  },
   EMPTY_MESSAGE: {
     pending: "",
     success: "",

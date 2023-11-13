@@ -75,6 +75,11 @@ const ENDPOINTS = {
     RETURN: SPRINGURL + "/api/requests/devolver-patrimonio",
     REJECT: SPRINGURL + "/api/requests/cancelar",
   },
+  INVENTORY: {
+    GET: SPRINGURL + "/api/inventory",
+    POST: SPRINGURL + "/api/inventory",
+    PUT_ID: (id) => SPRINGURL + "/api/inventory/" + id,
+  },
 };
 
 export { ENDPOINTS };
