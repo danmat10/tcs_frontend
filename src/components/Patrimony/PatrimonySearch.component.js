@@ -11,7 +11,13 @@ import { useAuthHeader } from "react-auth-kit";
 
 import { PatrimonyQrReader } from "components/Patrimony";
 
-const PatriomonySearch = ({ setState, state, setIsLoading, handleSearchPatrimonies }) => {
+const PatriomonySearch = ({
+  setState,
+  state,
+  setIsLoading,
+  handleSearchPatrimonies,
+  validatePatrimonyQrCode,
+}) => {
   const authHeader = useAuthHeader();
   const [nmPatrimonio, setNmPatrimonio] = useState("");
   const [error, setError] = useState(false);
@@ -23,8 +29,7 @@ const PatriomonySearch = ({ setState, state, setIsLoading, handleSearchPatrimoni
     if (nmPatrimonio === "") {
       setError(true);
       return;
-    }
-    else {
+    } else {
       setError(false);
     }
     setIsLoading(true);
@@ -84,6 +89,7 @@ const PatriomonySearch = ({ setState, state, setIsLoading, handleSearchPatrimoni
       <PatrimonyQrReader
         openQRScanner={openQRScanner}
         setOpenQRScanner={setOpenQRScanner}
+        validatePatrimonyQrCode={validatePatrimonyQrCode}
         setState={setState}
         state={state}
       />

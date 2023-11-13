@@ -129,16 +129,32 @@ const handleGetPatrimoniesSearchRequisition = async ({
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
-const handleGetPatrimonyId = async ({ header, state, setState, id }) => {
+const handleGetPatrimonyId = async ({
+  header,
+  state,
+  setState,
+  id,
+  validatePatrimonyQrCode,
+}) => {
   let result = await handleApiCall(
     {
       method: "get",
       endpoint: ENDPOINTS.PATRIMONY.GET_ID(id),
       header: header,
     },
-    MESSAGES.PATRIMONY.GET_ID
+    MESSAGES.EMPTY_MESSAGE
   );
-  if (!result) return;
+  if (!result) {
+    toast.warning("Nenhum patrimônio encontrado.");
+    return;
+  } else {
+    const error = validatePatrimonyQrCode(result);
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    toast.success("Patrimônio localizado.");
+  }
   const results = [result];
   let patrimonies = Array.from(state.patrimonies);
   results.forEach((result) => {

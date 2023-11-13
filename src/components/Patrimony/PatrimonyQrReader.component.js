@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { toast } from "react-toastify";
 import QrReader from "react-qr-reader";
@@ -19,6 +19,7 @@ const PatrimonyQrReader = ({
   setState,
   openQRScanner,
   setOpenQRScanner,
+  validatePatrimonyQrCode,
 }) => {
   const [stateView, setStateView] = useState("reader");
   const authHeader = useAuthHeader();
@@ -53,6 +54,7 @@ const PatrimonyQrReader = ({
         state: state,
         setState: setState,
         id: id,
+        validatePatrimonyQrCode,
       });
       setOpenQRScanner(false);
       setStateView("reader");
