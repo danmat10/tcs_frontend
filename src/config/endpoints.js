@@ -56,6 +56,7 @@ const ENDPOINTS = {
       }
       return url.toString();
     },
+    DROP: SPRINGURL + "/api/patrimony/baixa-patrimonio",
   },
   MAINTENCE: {
     GET: SPRINGURL + "/api/maintenance",

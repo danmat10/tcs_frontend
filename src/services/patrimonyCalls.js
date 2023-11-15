@@ -166,6 +166,19 @@ const handleGetPatrimonyId = async ({
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
+const handleDropPatrimony = async ({ data, header, setState }) => {
+  await handleApiCall(
+    {
+      method: "post",
+      endpoint: ENDPOINTS.PATRIMONY.DROP,
+      data: data,
+      header: header,
+    },
+    MESSAGES.PATRIMONY.DROP
+  );
+  handleGetPatrimoniesList({ header, setState });
+};
+
 export {
   handleCreatePatrimony,
   handleEditPatrimony,
@@ -174,4 +187,5 @@ export {
   handleGetPatrimoniesSearch,
   handleGetPatrimoniesSearchAllocation,
   handleGetPatrimoniesSearchRequisition,
+  handleDropPatrimony,
 };

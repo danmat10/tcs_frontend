@@ -216,6 +216,15 @@ const MESSAGES = {
       },
       show: true,
     },
+    DROP: {
+      pending: "Baixando patrimônio...",
+      success: "Patrimônio baixado com sucesso!",
+      error: {
+        default: "Oops, não foi possível baixar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
   },
   MAINTENCE: {
     GET: {

@@ -4,6 +4,7 @@ import { Header } from "components/Header";
 import {
   PatrimonyBreadcrumb,
   PatrimonyCreate,
+  PatrimonyDrop,
   PatrimonyEdit,
   PatrimonyList,
   PatrimonyView,
@@ -61,6 +62,13 @@ const Patrimony = () => {
         onClose={closeDialog}
       />
     ),
+    drop: (
+      <PatrimonyDrop
+        patrimony={state.selectedPatrimony}
+        onClose={closeDialog}
+        setState={setState}
+      />
+    ),
   };
 
   return (
@@ -77,7 +85,6 @@ const Patrimony = () => {
         onClose={closeDialog}
         PaperProps={{ sx: { borderRadius: "28px" } }}
         maxWidth="lg"
-
       >
         {views[state.view]}
       </Dialog>

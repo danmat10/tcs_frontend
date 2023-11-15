@@ -10,4 +10,5 @@ export * from "./PatrimonyStatusChip.component";
 export * from "./PatrimonySearch.component";
 export * from "./PatrimonyQrReader.component";
 export * from "./PatrimonyQrReaderView.component";
+export * from "./PatrimonyDrop.component";
 export { styles };

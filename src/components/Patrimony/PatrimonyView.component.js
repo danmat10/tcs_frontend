@@ -118,6 +118,38 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                     </Grid>
                   </React.Fragment>
                 ))}
+              {patrimony.situacao === "Perda/Roubo" && (
+                <>
+                  <Grid item md={12} xs={12}>
+                    <Typography variant="subtitle1">
+                      Detalhes da Baixa
+                    </Typography>
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <TextField
+                      disabled
+                      variant="standard"
+                      fullWidth
+                      label="Data da Perda/Roubo"
+                      name="dtLost"
+                      type="date"
+                      value={formatBackendDateToField(patrimony.dtLost)}
+                    />
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <TextField
+                      disabled
+                      variant="standard"
+                      fullWidth
+                      label="Observação"
+                      name="observation"
+                      type="text"
+                      multiline
+                      value={patrimony.observation || ""}
+                    />
+                  </Grid>
+                </>
+              )}
             </Grid>
           </Grid>
           <Grid item md={6} xs={12}>
