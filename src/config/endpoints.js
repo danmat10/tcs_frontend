@@ -4,6 +4,7 @@ const ENDPOINTS = {
   AUTH: {
     LOGIN: SPRINGURL + "/api/auth/login",
     REFRESH: SPRINGURL + "/api/auth/refreshToken",
+    RESET_PASSWORD: SPRINGURL + "/api/users/recover-password",
   },
   USER: {
     POST: SPRINGURL + "/api/users",

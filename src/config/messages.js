@@ -80,6 +80,15 @@ const MESSAGES = {
       },
       show: true,
     },
+    RESET_PASSWORD: {
+      pending: "Solicitando e-mail de recuperação de senha...",
+      success:
+        "Solicitação de recuperação feita com sucesso! Verifique seu e-mail.",
+      error: {
+        default: "Oops, não foi possível redefinir a senha.",
+      },
+      show: true,
+    },
   },
   DEPARTMENT: {
     GET: {

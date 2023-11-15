@@ -99,4 +99,21 @@ const refreshApi = createRefresh({
   },
 });
 
-export { handleFirstAccess, handleLogin, handleEditPassword, refreshApi };
+const handleResetPassword = async ({ data }) => {
+  await handleApiCall(
+    {
+      method: "post",
+      endpoint: ENDPOINTS.AUTH.RESET_PASSWORD,
+      data: data,
+    },
+    MESSAGES.AUTH.RESET_PASSWORD
+  );
+};
+
+export {
+  handleFirstAccess,
+  handleLogin,
+  handleEditPassword,
+  refreshApi,
+  handleResetPassword,
+};
