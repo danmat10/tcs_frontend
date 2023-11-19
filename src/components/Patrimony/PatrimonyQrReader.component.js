@@ -11,7 +11,6 @@ import { useAuthHeader } from "react-auth-kit";
 import { toast } from "react-toastify";
 import QrReader from "react-qr-reader";
 
-import { handleGetPatrimonyId } from "services";
 import { styles } from "components/Patrimony";
 
 const PatrimonyQrReader = ({
@@ -19,7 +18,7 @@ const PatrimonyQrReader = ({
   setState,
   openQRScanner,
   setOpenQRScanner,
-  validatePatrimonyQrCode,
+  handleGetPatrimonyId,
 }) => {
   const [stateView, setStateView] = useState("reader");
   const authHeader = useAuthHeader();
@@ -54,7 +53,6 @@ const PatrimonyQrReader = ({
         state: state,
         setState: setState,
         id: id,
-        validatePatrimonyQrCode,
       });
       setOpenQRScanner(false);
       setStateView("reader");

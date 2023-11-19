@@ -16,7 +16,7 @@ const PatriomonySearch = ({
   state,
   setIsLoading,
   handleSearchPatrimonies,
-  validatePatrimonyQrCode,
+  handleGetPatrimonyId,
 }) => {
   const authHeader = useAuthHeader();
   const [nmPatrimonio, setNmPatrimonio] = useState("");
@@ -84,9 +84,9 @@ const PatriomonySearch = ({
       <PatrimonyQrReader
         openQRScanner={openQRScanner}
         setOpenQRScanner={setOpenQRScanner}
-        validatePatrimonyQrCode={validatePatrimonyQrCode}
         setState={setState}
         state={state}
+        handleGetPatrimonyId={handleGetPatrimonyId}
       />
     </>
   );
