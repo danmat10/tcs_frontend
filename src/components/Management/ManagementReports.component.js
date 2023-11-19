@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TextField,
   MenuItem,
@@ -8,16 +8,30 @@ import {
   Typography,
   Divider,
   Box,
+  Autocomplete,
 } from "@mui/material";
 import { styles } from ".";
 import { toast } from "react-toastify";
+import { handleGetConstructionList } from "services";
+import { useAuthHeader } from "react-auth-kit";
 
 const ManagementReports = () => {
   const [state, setState] = React.useState({
     reportType: "",
     fileType: "",
     view: "",
+    constructions: [],
+    selectedConstruction: null,
+    error: false,
   });
+  const authHeader = useAuthHeader();
+
+  useEffect(() => {
+    handleGetConstructionList({
+      header: { Authorization: authHeader() },
+      setState: setState,
+    });
+  }, []);
 
   const view = {
     general: (
@@ -44,9 +58,29 @@ const ManagementReports = () => {
         </Grid>
       </>
     ),
-
     losses: null,
-    onLoan: null,
+    onLoan: (
+      <Grid item md={6} xs={12}>
+        <Autocomplete
+          fullWidth
+          options={state.constructions}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          getOptionLabel={(option) => option.id + " - " + option.nmObra}
+          value={state.selectedConstruction}
+          onChange={(event, newValue) => {
+            setState({ ...state, selectedConstruction: newValue });
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Obra de Destino"
+              error={state.error}
+              helperText={state.error && "Selecione uma obra"}
+            />
+          )}
+        />
+      </Grid>
+    ),
     overdue: null,
   };
 
