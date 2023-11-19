@@ -129,13 +129,7 @@ const handleGetPatrimoniesSearchRequisition = async ({
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
-const handleGetPatrimonyId = async ({
-  header,
-  state,
-  setState,
-  id,
-  validatePatrimonyQrCode,
-}) => {
+const handleGetPatrimonyId = async ({ header, state, setState, id }) => {
   let result = await handleApiCall(
     {
       method: "get",
@@ -148,11 +142,6 @@ const handleGetPatrimonyId = async ({
     toast.warning("Nenhum patrimônio encontrado.");
     return;
   } else {
-    const error = validatePatrimonyQrCode(result);
-    if (error) {
-      toast.error(error);
-      return;
-    }
     toast.success("Patrimônio localizado.");
   }
   const results = [result];
@@ -164,6 +153,22 @@ const handleGetPatrimonyId = async ({
   });
 
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
+};
+
+const handleGetPatrimonyIdWithDialog = async ({ header, id, openDialog }) => {
+  let result = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_ID(id),
+      header: header,
+    },
+    MESSAGES.EMPTY_MESSAGE
+  );
+  if (!result) {
+    toast.warning("Nenhum patrimônio encontrado.");
+    return;
+  }
+  openDialog("view", result);
 };
 
 const handleGetPatrimonyRequisitionId = async ({
@@ -266,4 +271,5 @@ export {
   handleGetPatrimonyRequisitionId,
   handleGetPatrimonyAllocationId,
   handleGetPatrimonyHistoric,
+  handleGetPatrimonyIdWithDialog,
 };
