@@ -27,9 +27,4 @@ const validateAllocationCreateForm = (values) => {
   return errors;
 };
 
-const validateAllocationPatrimonyQrCode = (values) => {
-  const error = null;
-  return error;
-};
-
-export { validateAllocationCreateForm, validateAllocationPatrimonyQrCode };
+export { validateAllocationCreateForm };

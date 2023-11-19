@@ -166,6 +166,68 @@ const handleGetPatrimonyId = async ({
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
+const handleGetPatrimonyRequisitionId = async ({
+  header,
+  state,
+  setState,
+  id,
+}) => {
+  let result = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_REQUISITION_ID(id),
+      header: header,
+    },
+    MESSAGES.EMPTY_MESSAGE
+  );
+  if (!result) {
+    toast.warning("Nenhum patrimônio disponível encontrado.");
+    return;
+  } else {
+    toast.success("Patrimônio localizado.");
+  }
+  const results = [result];
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
+
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
+};
+
+const handleGetPatrimonyAllocationId = async ({
+  header,
+  state,
+  setState,
+  id,
+}) => {
+  let result = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_ALLOCATION_ID(id),
+      header: header,
+    },
+    MESSAGES.EMPTY_MESSAGE
+  );
+  if (!result) {
+    toast.warning("Nenhum patrimônio disponível encontrado.");
+    return;
+  } else {
+    toast.success("Patrimônio localizado.");
+  }
+  const results = [result];
+  let patrimonies = Array.from(state.patrimonies);
+  results.forEach((result) => {
+    if (!patrimonies.find((patrimony) => patrimony.id === result.id)) {
+      patrimonies.push(result);
+    }
+  });
+
+  setState((prev) => ({ ...prev, patrimonies: patrimonies }));
+};
+
 const handleDropPatrimony = async ({ data, header, setState }) => {
   await handleApiCall(
     {
@@ -188,4 +250,6 @@ export {
   handleGetPatrimoniesSearchAllocation,
   handleGetPatrimoniesSearchRequisition,
   handleDropPatrimony,
+  handleGetPatrimonyRequisitionId,
+  handleGetPatrimonyAllocationId,
 };

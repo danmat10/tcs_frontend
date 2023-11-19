@@ -11,8 +11,10 @@ import { useState } from "react";
 
 import { styles } from "components/Allocation";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
-import { handleGetPatrimoniesSearchAllocation } from "services";
-import { validateAllocationPatrimonyQrCode } from "validations";
+import {
+  handleGetPatrimoniesSearchAllocation,
+  handleGetPatrimonyAllocationId,
+} from "services";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -97,7 +99,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
           state={state}
           setIsLoading={setIsLoading}
           handleSearchPatrimonies={handleGetPatrimoniesSearchAllocation}
-          validatePatrimonyQrCode={validateAllocationPatrimonyQrCode}
+          handleGetPatrimonyId={handleGetPatrimonyAllocationId}
         />
         <Grid item md={12} xs={12}>
           <DataGrid
