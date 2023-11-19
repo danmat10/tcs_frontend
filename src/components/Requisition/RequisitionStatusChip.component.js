@@ -8,7 +8,6 @@ const parseLocalDate = (dateString) => {
 };
 
 const getRequisitionStatus = (requisition) => {
-  console.log(requisition);
   let status = "Pendente";
 
   if (

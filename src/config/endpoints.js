@@ -34,6 +34,7 @@ const ENDPOINTS = {
     GET_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
     GET_REQUISITION_ID: (id) => SPRINGURL + "/api/patrimony/construction/" + id,
     GET_ALLOCATION_ID: (id) => SPRINGURL + "/api/patrimony/allocation/" + id,
+    GET_HISTORIC: (id) => SPRINGURL + "/api/patrimony/historic/" + id,
     GET: SPRINGURL + "/api/patrimony",
     POST: SPRINGURL + "/api/patrimony",
     PUT_ID: (id) => SPRINGURL + "/api/patrimony/" + id,
