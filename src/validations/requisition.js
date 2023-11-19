@@ -65,12 +65,4 @@ const validateRequisitionCreateForm = (values) => {
   return errors;
 };
 
-const validateRequisitionPatrimonyQrCode = (values) => {
-  let error = null;
-  if (values.fixo) {
-    error = "Não é possível requisitar um patrimônio fixo";
-  }
-  return error;
-};
-
-export { validateRequisitionCreateForm, validateRequisitionPatrimonyQrCode };
+export { validateRequisitionCreateForm };

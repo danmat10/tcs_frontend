@@ -61,7 +61,7 @@ const RequisitionStatusChip = ({ requisition }) => {
     case "Rejeitada":
       statusColor = "error";
       break;
-    case "Retirada em Atraso":
+    case "Retirada Atrasada":
       statusColor = "secondary";
       break;
     default:

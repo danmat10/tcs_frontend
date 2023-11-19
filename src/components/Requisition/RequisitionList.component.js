@@ -32,12 +32,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         headerName: "Data de Requisição",
         flex: 2,
         renderCell: (params) => {
-          try {
-            const date = new Date(params.row.patrimonios[0].dtPrevisaoRetirada);
-            return date.toLocaleDateString("pt-BR");
-          } catch {
-            return "";
-          }
+          return params.row.patrimonios[0].dtPrevisaoRetirada;
         },
       },
       {
@@ -98,14 +93,13 @@ const RequisitionList = ({ requisitions, openDialog }) => {
     if (isMobile) {
       return baseColumns
         .filter(
-          (column) =>
-            column.field === "construction" || column.field === "actions"
+          (column) => column.field === "obra" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "construction") {
-            return { ...column, flex: 1 };
+          if (column.field === "obra") {
+            return { ...column, flex: 3 };
           } else if (column.field === "actions") {
-            return { ...column, flex: 1 };
+            return { ...column, flex: 2 };
           }
           return column;
         });

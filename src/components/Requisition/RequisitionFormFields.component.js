@@ -11,8 +11,10 @@ import { useState } from "react";
 
 import { styles } from "components/Requisition";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
-import { handleGetPatrimoniesSearchRequisition } from "services";
-import { validateRequisitionPatrimonyQrCode } from "validations";
+import {
+  handleGetPatrimoniesSearchRequisition,
+  handleGetPatrimonyRequisitionId,
+} from "services";
 
 const RequisitionFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -114,7 +116,7 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
           state={state}
           setIsLoading={setIsLoading}
           handleSearchPatrimonies={handleGetPatrimoniesSearchRequisition}
-          validatePatrimonyQrCode={validateRequisitionPatrimonyQrCode}
+          handleGetPatrimonyId={handleGetPatrimonyRequisitionId}
         />
         <Grid item md={12} xs={12}>
           <DataGrid
