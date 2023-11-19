@@ -65,6 +65,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   disabled
                   variant="standard"
                   fullWidth
+                  InputLabelProps={{ shrink: true }}
                   label="Nº de Série"
                   name="nrSerie"
                   type="text"
@@ -78,46 +79,58 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   fullWidth
                   label="Descrição"
                   name="nmDescricao"
+                  InputLabelProps={{ shrink: true }}
                   type="text"
                   multiline
                   value={patrimony.nmDescricao || ""}
                 />
               </Grid>
-              <Grid item md={12} xs={12}>
-                <Typography variant="subtitle1">Garantia</Typography>
-              </Grid>
-              {patrimony.warranties &&
-                patrimony.warranties.map((row, index) => (
-                  <React.Fragment key={index}>
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        label="Tipo de Garantia"
-                        value={row.tipoGarantia || ""}
-                        variant="standard"
-                        disabled
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item xs={8} md={5}>
-                      <TextField
-                        label="Data da Garantia"
-                        type="date"
-                        InputLabelProps={{ shrink: true }}
-                        value={formatBackendDateToField(row.dtValidade)}
-                        variant="standard"
-                        disabled
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item xs={4} md={3}>
-                      {row.dtValidade && isWarrantyExpired(row.dtValidade) ? (
-                        <Chip label="Vencida" color="error" variant="filled" />
-                      ) : (
-                        <Chip label="Válida" color="success" variant="filled" />
-                      )}
-                    </Grid>
-                  </React.Fragment>
-                ))}
+              {patrimony.warranties.length !== 0 && (
+                <>
+                  <Grid item md={12} xs={12}>
+                    <Typography variant="subtitle1">Garantia</Typography>
+                  </Grid>
+                  {patrimony.warranties.map((row, index) => (
+                    <React.Fragment key={index}>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          label="Tipo de Garantia"
+                          value={row.tipoGarantia || ""}
+                          variant="standard"
+                          disabled
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={8} md={5}>
+                        <TextField
+                          label="Data da Garantia"
+                          type="date"
+                          InputLabelProps={{ shrink: true }}
+                          value={formatBackendDateToField(row.dtValidade)}
+                          variant="standard"
+                          disabled
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={4} md={3}>
+                        {row.dtValidade && isWarrantyExpired(row.dtValidade) ? (
+                          <Chip
+                            label="Vencida"
+                            color="error"
+                            variant="filled"
+                          />
+                        ) : (
+                          <Chip
+                            label="Válida"
+                            color="success"
+                            variant="filled"
+                          />
+                        )}
+                      </Grid>
+                    </React.Fragment>
+                  ))}
+                </>
+              )}
               {patrimony.situacao === "Perda/Roubo" && (
                 <>
                   <Grid item md={12} xs={12}>
@@ -230,16 +243,13 @@ const PatrimonyView = ({ patrimony, onClose }) => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" marginTop="auto">
-              <Grid item md={12} xs={12}>
-                <Typography variant="subtitle1">Localização</Typography>
-              </Grid>
               {(patrimony.actualMaintenance && (
                 <Grid item md={6} xs={12}>
                   <TextField
                     disabled
                     variant="standard"
                     fullWidth
-                    label="Em Manutenção"
+                    label="Localização: Em Manutenção"
                     name="actualMaintenance"
                     type="text"
                     value={patrimony.actualMaintenance?.nmFornecedor || ""}
@@ -252,7 +262,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                       disabled
                       variant="standard"
                       fullWidth
-                      label="Em Obra"
+                      label="Localização: Em Obra"
                       name="actualConstruction"
                       type="text"
                       value={
@@ -268,7 +278,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                       disabled
                       variant="standard"
                       fullWidth
-                      label="Departamento Atual"
+                      label="Localização: em Departamento"
                       name="actualDepartment"
                       type="text"
                       value={
@@ -286,7 +296,7 @@ const PatrimonyView = ({ patrimony, onClose }) => {
                   label="Tipo de Patrimônio"
                   name="fixo"
                   type="text"
-                  value={patrimony.fixo ? "Fixo" : "Alocável"}
+                  value={patrimony.fixo ? "Fixo" : "Requisitável"}
                 />
               </Grid>
             </Grid>
