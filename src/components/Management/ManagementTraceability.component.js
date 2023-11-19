@@ -1,21 +1,35 @@
 import React from "react";
-import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
-import { styles } from ".";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  useMediaQuery,
+  Dialog,
+} from "@mui/material";
+import { ManagementTraceabilityView, styles } from ".";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
-import { handleGetPatrimoniesSearch } from "services";
+import {
+  handleGetPatrimoniesSearch,
+  handleGetPatrimonyHistoric,
+} from "services";
 import { useState } from "react";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
 import { ManageSearch } from "@mui/icons-material";
-import { toast } from "react-toastify";
+import { useAuthHeader } from "react-auth-kit";
 
 const ManagementTraceability = () => {
   const [state, setState] = React.useState({
     patrimonies: [],
+    openDialog: false,
+    isLoading: false,
+    patrimonyHistoric: {},
   });
 
   const isMobile = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
   const columns = getColumns(isMobile);
+  const authHeader = useAuthHeader();
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -43,7 +57,7 @@ const ManagementTraceability = () => {
         renderCell: (params) => (
           <ManageSearch
             color="primary"
-            onClick={() => openDialog("traceability", params.row)}
+            onClick={() => openDialog(params.row)}
             style={{ cursor: "pointer" }}
             titleAccess="Rastrear Patrimônio"
           />
@@ -52,19 +66,28 @@ const ManagementTraceability = () => {
     ];
     if (isMobile) {
       return baseColumns
-        .filter((column) => column.field === "nmPatrimonio")
+        .filter(
+          (column) =>
+            column.field === "nmPatrimonio" || column.field === "traceability"
+        )
         .map((column) => {
-          if (column.field === "nmPatrimonio") {
-            return { ...column, flex: 2 };
-          }
-          return column;
+          return { ...column, flex: 2 };
         });
     }
     return baseColumns;
   }
 
-  const openDialog = (dialog, patrimony) => {
-    toast.info("Em desenvolvimento");
+  const openDialog = (patrimony) => {
+    setState((prev) => ({ ...prev, openDialog: true, isLoading: true }));
+    handleGetPatrimonyHistoric({
+      setState,
+      header: { Authorization: authHeader() },
+      id: patrimony.id,
+    });
+  };
+
+  const closeDialog = () => {
+    setState((prev) => ({ ...prev, openDialog: false }));
   };
 
   return (
@@ -76,7 +99,6 @@ const ManagementTraceability = () => {
         width: "100%",
         height: "100%",
       }}
-      fullWidth
     >
       <Box
         sx={{
@@ -129,6 +151,13 @@ const ManagementTraceability = () => {
           </Grid>
         </Grid>
       </Box>
+      <Dialog
+        open={state.openDialog}
+        onClose={closeDialog}
+        PaperProps={{ sx: { borderRadius: "28px" } }}
+      >
+        <ManagementTraceabilityView onClose={closeDialog} state={state} />
+      </Dialog>
     </Paper>
   );
 };

@@ -241,6 +241,19 @@ const handleDropPatrimony = async ({ data, header, setState }) => {
   handleGetPatrimoniesList({ header, setState });
 };
 
+const handleGetPatrimonyHistoric = async ({ header, setState, id }) => {
+  let patrimonyHistoric = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.GET_HISTORIC(id),
+      header: header,
+    },
+    MESSAGES.EMPTY_MESSAGE
+  );
+  if (!patrimonyHistoric) patrimonyHistoric = [];
+  setState((prev) => ({ ...prev, patrimonyHistoric, isLoading: false }));
+};
+
 export {
   handleCreatePatrimony,
   handleEditPatrimony,
@@ -252,4 +265,5 @@ export {
   handleDropPatrimony,
   handleGetPatrimonyRequisitionId,
   handleGetPatrimonyAllocationId,
+  handleGetPatrimonyHistoric,
 };

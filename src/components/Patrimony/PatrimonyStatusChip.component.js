@@ -7,7 +7,7 @@ const PatrimonyStatusChip = ({ patrimony }) => {
     case "Alocado":
       statusColor = "info";
       break;
-    case "Disponível":
+    case "Disponivel":
       statusColor = "success";
       break;
     case "Registrado":
