@@ -5,6 +5,8 @@ import {
   Button,
   FormHelperText,
   useMediaQuery,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
@@ -17,6 +19,7 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
   const [openQRScanner, setOpenQRScanner] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("Todos");
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -41,6 +44,9 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         flex: 1,
         renderCell: (params) => {
           return <PatrimonyStatusChip patrimony={params.row} />;
+        },
+        valueGetter: (params) => {
+          return params.row.situacao;
         },
       },
       {
@@ -120,8 +126,29 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         value.toLowerCase().includes(search.toLowerCase())
     );
   }
-  const filteredRows = patrimonies.filter((patrimony) => {
-    return matchesSearch(patrimony);
+
+  function matchesStatus(row) {
+    const status = row.situacao;
+    switch (statusFilter) {
+      case "Alocado":
+        return status === "Alocado";
+      case "Disponivel":
+        return status === "Disponivel";
+      case "Em Manutenção":
+        return status === "Em Manutenção";
+      case "Perda/Roubo":
+        return status === "Perda/Roubo";
+      case "Registrado":
+        return status === "Registrado";
+      default:
+        return true;
+    }
+  }
+
+  const filteredRows = patrimonies.filter((row) => {
+    const doesMatchSearch = matchesSearch(row);
+    const doesMatchStatus = matchesStatus(row);
+    return doesMatchSearch && doesMatchStatus;
   });
 
   return (
@@ -135,6 +162,22 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <FormHelperText>Pesquisar por nome, fornecedor...</FormHelperText>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <Select
+          fullWidth
+          variant="outlined"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <MenuItem value="Alocado">Alocado</MenuItem>
+          <MenuItem value="Disponivel">Disponível</MenuItem>
+          <MenuItem value="Em Manutenção">Em Manutenção</MenuItem>
+          <MenuItem value="Perda/Roubo">Perda/Roubo</MenuItem>
+          <MenuItem value="Registrado">Registrado</MenuItem>
+          <MenuItem value="Todos">Todos</MenuItem>
+        </Select>
+        <FormHelperText>Filtrar por status</FormHelperText>
       </Grid>
       <Grid item xs={12} md={3}>
         <Button

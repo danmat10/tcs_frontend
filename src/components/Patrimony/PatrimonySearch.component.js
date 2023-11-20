@@ -64,7 +64,12 @@ const PatriomonySearch = ({
         />
       </Grid>
       <Grid item xs={12} md={3}>
-        <Button variant="contained" color="primary" onClick={handleSearch}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSearch}
+          fullWidth
+        >
           Pesquisar
         </Button>
       </Grid>
