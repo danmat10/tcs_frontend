@@ -7,12 +7,12 @@ const isValidDate = (dateString) => {
   return d.toISOString().slice(0, 10) === dateString;
 };
 
-// const parseLocalDate = (dateString) => {
-//   const [year, month, day] = dateString
-//     .split("-")
-//     .map((num) => parseInt(num, 10));
-//   return new Date(year, month - 1, day);
-// };
+const parseLocalDate = (dateString) => {
+  const [year, month, day] = dateString
+    .split("-")
+    .map((num) => parseInt(num, 10));
+  return new Date(year, month - 1, day);
+};
 
 const validateRequisitionCreateForm = (values) => {
   const errors = {};
@@ -33,34 +33,34 @@ const validateRequisitionCreateForm = (values) => {
     errors.dtPrevisaoRetirada = "Campo obrigatório";
   } else if (!isValidDate(values.dtPrevisaoRetirada)) {
     errors.dtPrevisaoRetirada = "Data de retirada inválida";
+  } else {
+    const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
+    if (retiradaDate < currentDate) {
+      errors.dtPrevisaoRetirada =
+        "A data de retirada não pode ser menor que a atual";
+    }
   }
-  // else {
-  //   const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
-  //   if (retiradaDate < currentDate) {
-  //     errors.dtPrevisaoRetirada =
-  //       "A data de retirada não pode ser menor que a atual";
-  //   }
-  // }
 
-  // if (values.dtDevolucao === "") {
-  //   errors.dtDevolucao = "Campo obrigatório";
-  // } else if (!isValidDate(values.dtDevolucao)) {
-  //   errors.dtDevolucao = "Data de devolução inválida";
-  // } else {
-  //   const devolucaoDate = parseLocalDate(values.dtDevolucao);
-  //   if (devolucaoDate < currentDate) {
-  //     errors.dtDevolucao = "A data de devolução não pode ser menor que a atual";
-  //   }
+  if (values.dtPrevisaoDevolucao === "") {
+    errors.dtPrevisaoDevolucao = "Campo obrigatório";
+  } else if (!isValidDate(values.dtPrevisaoDevolucao)) {
+    errors.dtPrevisaoDevolucao = "Data de devolução inválida";
+  } else {
+    const devolucaoDate = parseLocalDate(values.dtPrevisaoDevolucao);
+    if (devolucaoDate < currentDate) {
+      errors.dtPrevisaoDevolucao =
+        "A data de devolução não pode ser menor que a atual";
+    }
 
-  //   if (isValidDate(values.dtPrevisaoRetirada)) {
-  //     const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
-  //     retiradaDate.setHours(0, 0, 0, 0);
-  //     if (devolucaoDate < retiradaDate) {
-  //       errors.dtDevolucao =
-  //         "A data de devolução não pode ser menor que a data de retirada";
-  //     }
-  //   }
-  // }
+    if (isValidDate(values.dtPrevisaoRetirada)) {
+      const retiradaDate = parseLocalDate(values.dtPrevisaoRetirada);
+      retiradaDate.setHours(0, 0, 0, 0);
+      if (devolucaoDate < retiradaDate) {
+        errors.dtPrevisaoDevolucao =
+          "A data de devolução não pode ser menor que a data de retirada";
+      }
+    }
+  }
 
   return errors;
 };
