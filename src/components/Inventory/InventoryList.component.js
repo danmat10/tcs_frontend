@@ -1,14 +1,15 @@
 import React from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, useMediaQuery } from "@mui/material";
 import { Check, Visibility } from "@mui/icons-material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { styles } from ".";
 
 const InventoryList = ({ inventories, openDialog }) => {
-  const columns = getColumns();
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const columns = getColumns(isMobile);
 
-  function getColumns() {
+  function getColumns(isMobile) {
     const baseColumns = [
       {
         field: "id",
@@ -17,13 +18,13 @@ const InventoryList = ({ inventories, openDialog }) => {
       },
       {
         field: "dtAgendada",
-        headerName: "Data Prevista",
+        headerName: "Previsão",
         flex: 1,
         renderCell: (params) => params.row.dtAgendada,
       },
       {
         field: "dtRealizada",
-        headerName: "Data Realizada",
+        headerName: "Finalização",
         flex: 1,
         renderCell: (params) => params.row.dtRealizada,
       },
@@ -53,6 +54,13 @@ const InventoryList = ({ inventories, openDialog }) => {
         ),
       },
     ];
+    if (isMobile) {
+      return baseColumns
+        .filter(
+          (column) =>
+            column.field === "id" || column.field === "actions"
+        )
+    }
     return baseColumns;
   }
 
@@ -68,18 +76,16 @@ const InventoryList = ({ inventories, openDialog }) => {
         </Button>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Grid item xs={12} md={12} lg={12}>
-          <DataGrid
-            sx={{ height: 500 }}
-            rows={inventories}
-            columns={columns}
-            autoPageSize
-            pageSizeOptions={[10]}
-            checkboxSelection={false}
-            disableSelectionOnClick
-            localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-          />
-        </Grid>
+        <DataGrid
+          sx={{ height: 500 }}
+          rows={inventories}
+          columns={columns}
+          autoPageSize
+          pageSizeOptions={[10]}
+          checkboxSelection={false}
+          disableSelectionOnClick
+          localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+        />
       </Grid>
     </Grid>
   );

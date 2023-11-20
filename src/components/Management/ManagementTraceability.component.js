@@ -140,7 +140,7 @@ const ManagementTraceability = () => {
               density="compact"
               slots={isMobile ? {} : { toolbar: GridToolbar }}
               sx={{
-                height: 300,
+                height: 400,
               }}
               rows={state.patrimonies}
               columns={columns}

@@ -5,6 +5,7 @@ import { ReactComponent as Logo } from "assets/icons/logo.svg";
 import { LoginView } from "components/Login";
 import { FirstAccessView } from "components/FirstAccess";
 import { useSignIn } from "react-auth-kit";
+import { styles } from "components/Login";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -22,7 +23,7 @@ const Login = () => {
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
         item
-        xs={false}
+        xs={12}
         sm={4}
         md={7}
         sx={{
@@ -33,10 +34,10 @@ const Login = () => {
           backgroundPosition: "center",
           alignItems: "center",
           justifyContent: "center",
-          display: { xs: "none", sm: "flex" },
+          display: "flex",
         }}
       >
-        <Logo style={{ width: "350px" }} />
+        <Logo className={styles.logo} />
       </Grid>
       <Grid
         item

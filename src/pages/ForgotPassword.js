@@ -3,6 +3,7 @@ import { Button, TextField, Link, Grid, Box, Typography } from "@mui/material";
 
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
 import { handleResetPassword } from "services";
+import { styles } from "components/Login";
 
 const ForgotPassword = () => {
   const onRequestPasswordReset = async (e) => {
@@ -31,7 +32,7 @@ const ForgotPassword = () => {
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
         item
-        xs={false}
+        xs={12}
         sm={4}
         md={7}
         sx={{
@@ -42,10 +43,10 @@ const ForgotPassword = () => {
           backgroundPosition: "center",
           alignItems: "center",
           justifyContent: "center",
-          display: { xs: "none", sm: "flex" },
+          display: "flex",
         }}
       >
-        <Logo style={{ width: "350px" }} />
+        <Logo className={styles.logo} />
       </Grid>
       <Grid
         item
