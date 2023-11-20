@@ -100,6 +100,29 @@ const handleGetPatrimoniesSearch = async ({
   setState((prev) => ({ ...prev, patrimonies: patrimonies }));
 };
 
+const handleGetPatrimoniesSearchTraceability = async ({
+  header,
+  setState,
+  state,
+  params,
+}) => {
+  let results = await handleApiCall(
+    {
+      method: "get",
+      endpoint: ENDPOINTS.PATRIMONY.SEARCH(params),
+      header: header,
+    },
+    MESSAGES.EMPTY_MESSAGE
+  );
+  if (!results) {
+    toast.warning("Nenhum patrimônio encontrado.");
+    return;
+  } else {
+    toast.success(results.length + " patrimônio(s) localizado(s).");
+  }
+  setState((prev) => ({ ...prev, patrimonies: results }));
+};
+
 const handleGetPatrimoniesSearchRequisition = async ({
   header,
   setState,
@@ -272,4 +295,5 @@ export {
   handleGetPatrimonyAllocationId,
   handleGetPatrimonyHistoric,
   handleGetPatrimonyIdWithDialog,
+  handleGetPatrimoniesSearchTraceability,
 };
