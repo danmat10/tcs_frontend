@@ -45,7 +45,8 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
     const data = {
       dtRetirada: null,
       dtPrevisaoRetirada: requisition.patrimonios[0]?.dtPrevisaoRetirada,
-      dtDevolucao: requisition.patrimonios[0]?.dtDevolucao,
+      dtPrevisaoDevolucao: requisition.patrimonios[0]?.dtPrevisaoDevolucao,
+      dtDevolucao: null,
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
       obra: requisition.obra,
@@ -68,7 +69,8 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
     const data = {
       dtRetirada: formatFieldToDate(getToday()),
       dtPrevisaoRetirada: requisition.patrimonios[0]?.dtPrevisaoRetirada,
-      dtDevolucao: requisition.patrimonios[0]?.dtDevolucao,
+      dtPrevisaoDevolucao: requisition.patrimonios[0]?.dtPrevisaoDevolucao,
+      dtDevolucao: null,
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
       obra: requisition.obra,
@@ -109,7 +111,7 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
             <TextField
               disabled
               fullWidth
-              label="Data de Previsão de Retirada"
+              label="Previsão de Retirada"
               name="dtPrevisaoRetirada"
               type="date"
               InputLabelProps={{
@@ -125,7 +127,23 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
             <TextField
               disabled
               fullWidth
-              label="Data de Retirada"
+              label="Previsão de Devolução"
+              name="dtPrevisaoDevolucao"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={formatBackendDateToField(
+                requisition.patrimonios[0]?.dtPrevisaoDevolucao
+              )}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <TextField
+              disabled
+              fullWidth
+              label="Retirada"
               name="dtRetirada"
               type="date"
               InputLabelProps={{

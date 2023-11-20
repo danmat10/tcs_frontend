@@ -44,6 +44,7 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
     const data = {
       dtRetirada: requisition.patrimonios[0].dtRetirada,
       dtPrevisaoRetirada: requisition.patrimonios[0].dtPrevisaoRetirada,
+      dtPrevisaoDevolucao: requisition.patrimonios[0].dtPrevisaoDevolucao,
       dtDevolucao: formatFieldToDate(getToday()),
       patrimonios: requisition.patrimonios.map((item) => item.patrimonios),
       id: requisition.id,
@@ -70,7 +71,7 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} alignItems="center" marginTop="auto">
-          <Grid item md={6} xs={12}>
+          <Grid item md={12} xs={12}>
             <TextField
               disabled
               fullWidth
@@ -85,7 +86,7 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
             <TextField
               disabled
               fullWidth
-              label="Data de Previsão de Retirada"
+              label="Previsão de Retirada"
               name="dtPrevisaoRetirada"
               type="date"
               InputLabelProps={{
@@ -117,14 +118,14 @@ const RequisitionReturn = ({ requisition, onClose, setState }) => {
             <TextField
               disabled
               fullWidth
-              label="Data de Devolução"
-              name="dtDevolucao"
+              label="Previsão de Devolução"
+              name="dtPrevisaoDevolucao"
               type="date"
               InputLabelProps={{
                 shrink: true,
               }}
               value={formatBackendDateToField(
-                requisition.patrimonios[0]?.dtDevolucao
+                requisition.patrimonios[0]?.dtPrevisaoDevolucao
               )}
               variant="standard"
             />

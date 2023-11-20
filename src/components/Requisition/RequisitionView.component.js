@@ -21,7 +21,7 @@ const RequisitionView = ({ requisition, onClose }) => {
   return (
     <DialogForm title="Visualizar Requisição" onClose={onClose}>
       <Grid container spacing={2} alignItems="center" marginTop="auto">
-        <Grid item md={6} xs={12}>
+        <Grid item md={12} xs={12}>
           <TextField
             disabled
             fullWidth
@@ -36,7 +36,7 @@ const RequisitionView = ({ requisition, onClose }) => {
           <TextField
             disabled
             fullWidth
-            label="Data de Previsão de Retirada"
+            label="Previsão de Retirada"
             name="dtPrevisaoRetirada"
             type="date"
             InputLabelProps={{
@@ -44,6 +44,22 @@ const RequisitionView = ({ requisition, onClose }) => {
             }}
             value={formatBackendDateToField(
               requisition.patrimonios[0]?.dtPrevisaoRetirada
+            )}
+            variant="standard"
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <TextField
+            disabled
+            fullWidth
+            label="Previsão de Devolução"
+            name="dtPrevisaoDevolucao"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={formatBackendDateToField(
+              requisition.patrimonios[0]?.dtPrevisaoDevolucao
             )}
             variant="standard"
           />

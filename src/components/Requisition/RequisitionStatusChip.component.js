@@ -27,19 +27,36 @@ const getRequisitionStatus = (requisition) => {
 
   if (status === "Pendente") {
     try {
-      const dtPrevisionMaintence = parseLocalDate(
+      const dtPrevisaoRetirada = parseLocalDate(
         requisition.patrimonios[0].dtPrevisaoRetirada
       );
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
 
-      if (dtPrevisionMaintence < currentDate) {
+      if (dtPrevisaoRetirada < currentDate) {
         status = "Retirada Atrasada";
       }
     } catch (err) {
       console.log(err);
     }
   }
+
+  if (status === "Em Obra") {
+    try {
+      const dtPrevisaoDevolucao = parseLocalDate(
+        requisition.patrimonios[0].dtPrevisaoDevolucao
+      );
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+
+      if (dtPrevisaoDevolucao < currentDate) {
+        status = "Devolução Atrasada";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return status;
 };
 

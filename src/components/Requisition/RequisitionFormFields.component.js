@@ -56,7 +56,7 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
   return (
     <Container className={styles.formFields}>
       <Grid container spacing={2} alignItems="center">
-        <Grid item md={6} xs={12}>
+        <Grid item md={12} xs={12}>
           <Autocomplete
             fullWidth
             options={state.constructions}
@@ -91,21 +91,21 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
             helperText={formik.touched && formik.errors.dtPrevisaoRetirada}
           />
         </Grid>
-        {/* <Grid item md={6} xs={12}>
+        <Grid item md={6} xs={12}>
           <TextField
             fullWidth
-            label="Data de Devolução"
+            label="Data de Previsão Devolução"
             type="date"
-            name="dtDevolucao"
+            name="dtPrevisaoDevolucao"
             InputLabelProps={{
               shrink: true,
             }}
-            value={formik.values.dtDevolucao}
+            value={formik.values.dtPrevisaoDevolucao}
             onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.dtDevolucao)}
-            helperText={formik.touched && formik.errors.dtDevolucao}
+            error={formik.touched && Boolean(formik.errors.dtPrevisaoDevolucao)}
+            helperText={formik.touched && formik.errors.dtPrevisaoDevolucao}
           />
-        </Grid> */}
+        </Grid>
         <Grid item md={12} xs={12}>
           {formik.touched && formik.errors.patrimonies && (
             <FormHelperText error>{formik.errors.patrimonies}</FormHelperText>

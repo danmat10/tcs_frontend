@@ -28,11 +28,19 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         renderCell: (params) => params.row.obra?.nmObra,
       },
       {
-        field: "dtRequisicao",
-        headerName: "Data de Requisição",
+        field: "dtPrevisaoRetirada",
+        headerName: "Data Prevista de Retirada",
         flex: 2,
         renderCell: (params) => {
           return params.row.patrimonios[0].dtPrevisaoRetirada;
+        },
+      },
+      {
+        field: "dtPrevisaoDevolucao",
+        headerName: "Data Prevista de Devolução",
+        flex: 2,
+        renderCell: (params) => {
+          return params.row.patrimonios[0].dtPrevisaoDevolucao;
         },
       },
       {
