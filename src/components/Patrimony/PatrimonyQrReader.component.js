@@ -85,9 +85,20 @@ const PatrimonyQrReader = ({
 
   return (
     <Dialog
-      fullScreen
       open={openQRScanner}
       onClose={() => setOpenQRScanner(false)}
+      sx={{
+        "& .MuiDialog-paper": {
+          width: {
+            xs: "100%",
+            sm: "300px",
+          },
+          height: {
+            xs: "auto",
+            sm: "auto",
+          },
+        },
+      }}
     >
       <DialogTitle
         className={styles.dialogTitle}
@@ -108,6 +119,9 @@ const PatrimonyQrReader = ({
             onClick={() => setOpenQRScanner(false)}
             color="primary"
             variant="contained"
+            sx={{
+              marginTop: "10px",
+            }}
           >
             Fechar
           </Button>

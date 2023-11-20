@@ -59,6 +59,7 @@ const ManagementReports = () => {
       </>
     ),
     losses: null,
+    inventory: null,
     onLoan: (
       <Grid item md={6} xs={12}>
         <Autocomplete
@@ -82,6 +83,7 @@ const ManagementReports = () => {
       </Grid>
     ),
     overdue: null,
+    traceability: null,
   };
 
   const handleReportTypeChange = (event) => {
@@ -142,11 +144,15 @@ const ManagementReports = () => {
               onChange={handleReportTypeChange}
               fullWidth
             >
-              <MenuItem value="general">Lista Geral de Patrimônios</MenuItem>
               <MenuItem value="losses">Baixas/Perdas</MenuItem>
+              <MenuItem value="general">Lista Geral de Patrimônios</MenuItem>
               <MenuItem value="onLoan">Patrimônios em obras</MenuItem>
               <MenuItem value="overdue">
                 Patrimônios com prazo de devolução vencido
+              </MenuItem>
+              <MenuItem value="inventory">Períodos de Inventário</MenuItem>
+              <MenuItem value="traceability">
+                Rastreabilidade do Patrimônio
               </MenuItem>
             </TextField>
           </Grid>

@@ -38,6 +38,9 @@ const RequisitionFormFields = ({ formik, state, setState }) => {
         headerName: "Status",
         flex: 2,
         renderCell: (params) => <PatrimonyStatusChip patrimony={params.row} />,
+        valueGetter: (params) => {
+          return params.row.situacao;
+        },
       },
     ];
     if (isMobile) {

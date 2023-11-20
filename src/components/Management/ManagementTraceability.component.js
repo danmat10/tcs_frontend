@@ -10,7 +10,7 @@ import {
 import { ManagementTraceabilityView, styles } from ".";
 import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
 import {
-  handleGetPatrimoniesSearch,
+  handleGetPatrimoniesSearchTraceability,
   handleGetPatrimonyHistoric,
 } from "services";
 import { useState } from "react";
@@ -132,7 +132,7 @@ const ManagementTraceability = () => {
             setState={setState}
             state={state}
             setIsLoading={setIsLoading}
-            handleSearchPatrimonies={handleGetPatrimoniesSearch}
+            handleSearchPatrimonies={handleGetPatrimoniesSearchTraceability}
           />
           <Grid item md={12} xs={12}>
             <DataGrid

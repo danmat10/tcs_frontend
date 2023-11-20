@@ -190,7 +190,7 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
           Ler Qr Code
         </Button>
       </Grid>
-      <Grid item xs={12} md={6} className={styles.buttonGrid}>
+      <Grid item xs={12} md={4} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}

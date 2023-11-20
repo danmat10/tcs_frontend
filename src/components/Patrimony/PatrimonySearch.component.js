@@ -1,10 +1,4 @@
-import {
-  Button,
-  Grid,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { QrCode2 } from "@mui/icons-material";
 import { useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
@@ -22,7 +16,6 @@ const PatriomonySearch = ({
   const [nmPatrimonio, setNmPatrimonio] = useState("");
   const [error, setError] = useState(false);
   const helperText = "O campo é obrigatório";
-  const isMobile = useMediaQuery("(max-width:600px)");
   const [openQRScanner, setOpenQRScanner] = useState(false);
 
   const handleSearch = async () => {
@@ -73,19 +66,18 @@ const PatriomonySearch = ({
           Pesquisar
         </Button>
       </Grid>
-      {isMobile && (
-        <Grid item xs={12} md={3}>
-          <Button
-            component="label"
-            variant="outlined"
-            startIcon={<QrCode2 />}
-            fullWidth
-            onClick={() => setOpenQRScanner(true)}
-          >
-            Ler Qr Code
-          </Button>
-        </Grid>
-      )}
+      <Grid item xs={12} md={3}>
+        <Button
+          component="label"
+          variant="outlined"
+          startIcon={<QrCode2 />}
+          fullWidth
+          onClick={() => setOpenQRScanner(true)}
+          sx
+        >
+          Ler Qr Code
+        </Button>
+      </Grid>
       <PatrimonyQrReader
         openQRScanner={openQRScanner}
         setOpenQRScanner={setOpenQRScanner}
