@@ -80,6 +80,9 @@ const RequisitionStatusChip = ({ requisition }) => {
     case "Retirada Atrasada":
       statusColor = "secondary";
       break;
+    case "Devolução Atrasada":
+      statusColor = "secondary";
+      break;
     default:
       statusColor = "info";
   }
@@ -88,4 +91,4 @@ const RequisitionStatusChip = ({ requisition }) => {
   );
 };
 
-export { RequisitionStatusChip };
+export { RequisitionStatusChip, getRequisitionStatus };

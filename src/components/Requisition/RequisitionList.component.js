@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, FormHelperText } from "@mui/material";
+import { Grid, TextField, Button, FormHelperText, MenuItem, Select } from "@mui/material";
 import { Checklist, ContentPasteGo, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { useIsGestor } from "routes";
-import { RequisitionStatusChip, styles } from ".";
+import { getRequisitionStatus, RequisitionStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
 
 const RequisitionList = ({ requisitions, openDialog }) => {
@@ -13,6 +13,8 @@ const RequisitionList = ({ requisitions, openDialog }) => {
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
   const isGestor = useIsGestor();
+  const [statusFilter, setStatusFilter] = useState("Todos");
+
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -49,6 +51,9 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         flex: 2,
         renderCell: (params) => {
           return <RequisitionStatusChip requisition={params.row} />;
+        },
+        valueGetter: (params) => {
+          return getRequisitionStatus(params.row);
         },
       },
       {
@@ -122,8 +127,28 @@ const RequisitionList = ({ requisitions, openDialog }) => {
     );
   }
 
+  function matchesStatus(row) {
+    const status = getRequisitionStatus(row);
+    switch (statusFilter) {
+      case "Pendente":
+        return status === "Pendente";
+      case "Devolvida":
+        return status === "Devolvida";
+      case "Em Obra":
+        return status === "Em Obra";
+      case "Retirada Atrasada":
+        return status === "Retirada Atrasada";
+      case "Devolução Atrasada":
+        return status === "Devolução Atrasada";
+      default:
+        return true;
+    }
+  }
+
   const filteredRows = requisitions.filter((row) => {
-    return matchesSearch(row);
+    const doesMatchSearch = matchesSearch(row);
+    const doesMatchStatus = matchesStatus(row);
+    return doesMatchSearch && doesMatchStatus;
   });
 
   return (
@@ -138,7 +163,23 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         />
         <FormHelperText>Pesquisar por obra...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={9} className={styles.buttonGrid}>
+      <Grid item xs={12} md={2}>
+        <Select
+          fullWidth
+          variant="outlined"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <MenuItem value="Devolvida">Devolvida</MenuItem>
+          <MenuItem value="Devolução Atrasada">Devolução Atrasada</MenuItem>
+          <MenuItem value="Em Obra">Em Obra</MenuItem>
+          <MenuItem value="Pendente">Pendente</MenuItem>
+          <MenuItem value="Retirada Atrasada">Retirada Atrasada</MenuItem>
+          <MenuItem value="Todos">Todos</MenuItem>
+        </Select>
+        <FormHelperText>Filtrar por status</FormHelperText>
+      </Grid>
+      <Grid item xs={12} md={7} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}

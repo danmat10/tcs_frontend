@@ -49,6 +49,9 @@ const MaintenceList = ({ openDialog, maintence }) => {
         renderCell: (params) => {
           return <MaintenceStatusChip maintence={params.row} />;
         },
+        valueGetter: (params) => {
+          return getMaintenceStatus(params.row);
+        },
       },
       {
         field: "actions",
