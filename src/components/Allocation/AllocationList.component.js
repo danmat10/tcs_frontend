@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
-import { Print, Visibility } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
@@ -52,14 +52,6 @@ const AllocationList = ({ allocations, openDialog }) => {
               }}
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
-            />
-            <Print
-              color="primary"
-              onClick={() => {
-                openDialog("print", params.row);
-              }}
-              style={{ cursor: "pointer" }}
-              titleAccess="Imprimir"
             />
           </>
         ),
