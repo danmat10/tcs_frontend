@@ -11,18 +11,80 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { styles } from ".";
-import { toast } from "react-toastify";
-import { handleGetConstructionList } from "services";
+import { handleCreateReport, handleGetConstructionList } from "services";
 import { useAuthHeader } from "react-auth-kit";
+import {
+  formatBackendDateToField,
+  formatFieldToDate,
+  maskCurrencyFunction,
+  unmaskCurrencyFunction,
+} from "components/Common";
+import { validateReportForm } from "validations";
 
 const ManagementReports = () => {
   const [state, setState] = React.useState({
     reportType: "",
     fileType: "",
+    report: null,
     view: "",
     constructions: [],
     selectedConstruction: null,
-    error: false,
+    errors: {
+      reportTypeError: false,
+      fileTypeError: false,
+      losses: {
+        dtStart: false,
+        dtStartErrorText: "",
+        dtEnd: false,
+        dtEndErrorText: "",
+      },
+      maintenceExpenses: {
+        dtStart: false,
+        dtStartErrorText: "",
+        dtEnd: false,
+        dtEndErrorText: "",
+        vlMin: false,
+        vlMinErrorText: "",
+        vlMax: false,
+        vlMaxErrorText: "",
+      },
+    },
+    reportsConfig: {
+      general: {
+        nmRelatory: "Patrimônio Disponiveis",
+        fixo: {
+          value: null,
+          label: "Todos",
+        },
+      },
+      qrCode: {
+        nmRelatory: "Gerar Qr Code Patrimônio",
+      },
+      losses: {
+        nmRelatory: "Bens Baixados",
+        dtStart: "",
+        dtEnd: "",
+      },
+      inventory: {
+        nmRelatory: "Períodos de Inventário",
+      },
+      onLoan: {
+        nmRelatory: "Patrimônios em obras",
+      },
+      overdue: {
+        nmRelatory: "Devoluções Vencidas",
+      },
+      traceability: {
+        nmRelatory: "Rastreabilidade do Patrimônio",
+      },
+      maintenceExpenses: {
+        nmRelatory: "Gastos com Manutenção",
+        dtStart: "",
+        dtEnd: "",
+        vlMin: 0,
+        vlMax: 0,
+      },
+    },
   });
   const authHeader = useAuthHeader();
 
@@ -37,6 +99,39 @@ const ManagementReports = () => {
     general: (
       <>
         <Grid item xs={12} md={6}>
+          <Autocomplete
+            fullWidth
+            options={[
+              { value: true, label: "Fixo" },
+              { value: false, label: "Requisitável" },
+              { value: null, label: "Todos" },
+            ]}
+            value={state.reportsConfig.general.fixo}
+            onChange={(event, newValue) => {
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  general: {
+                    ...state.reportsConfig.general,
+                    fixo: newValue,
+                  },
+                },
+              });
+            }}
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+            renderInput={(params) => (
+              <TextField {...params} label="Tipo de patrimônio" />
+            )}
+          />
+        </Grid>
+      </>
+    ),
+    losses: (
+      <>
+        <Grid item xs={12} md={6}>
           <TextField
             label="Data Inicial"
             type="date"
@@ -44,6 +139,24 @@ const ManagementReports = () => {
               shrink: true,
             }}
             fullWidth
+            value={formatBackendDateToField(state.reportsConfig.losses.dtStart)}
+            onChange={(e) => {
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  losses: {
+                    ...state.reportsConfig.losses,
+                    dtStart: formatFieldToDate(e.target.value),
+                  },
+                },
+              });
+            }}
+            error={state.errors.losses.dtStart}
+            helperText={
+              state.errors.losses.dtStart &&
+              state.errors.losses.dtStartErrorText
+            }
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -54,11 +167,27 @@ const ManagementReports = () => {
               shrink: true,
             }}
             fullWidth
+            value={formatBackendDateToField(state.reportsConfig.losses.dtEnd)}
+            onChange={(e) => {
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  losses: {
+                    ...state.reportsConfig.losses,
+                    dtEnd: formatFieldToDate(e.target.value),
+                  },
+                },
+              });
+            }}
+            error={state.errors.losses.dtEnd}
+            helperText={
+              state.errors.losses.dtEnd && state.errors.losses.dtEndErrorText
+            }
           />
         </Grid>
       </>
     ),
-    losses: null,
     inventory: null,
     onLoan: (
       <Grid item md={6} xs={12}>
@@ -72,18 +201,134 @@ const ManagementReports = () => {
             setState({ ...state, selectedConstruction: newValue });
           }}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Obra de Destino"
-              error={state.error}
-              helperText={state.error && "Selecione uma obra"}
-            />
+            <TextField {...params} label="Obra de Destino" />
           )}
         />
       </Grid>
     ),
     overdue: null,
-    traceability: null,
+    // traceability: null,
+    qrCode: null,
+    maintenceExpenses: (
+      <>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Data Inicial"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+            value={formatBackendDateToField(
+              state.reportsConfig.maintenceExpenses.dtStart
+            )}
+            onChange={(e) => {
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  maintenceExpenses: {
+                    ...state.reportsConfig.maintenceExpenses,
+                    dtStart: formatFieldToDate(e.target.value),
+                  },
+                },
+              });
+            }}
+            error={state.errors.maintenceExpenses.dtStart}
+            helperText={
+              state.errors.maintenceExpenses.dtStart &&
+              state.errors.maintenceExpenses.dtStartErrorText
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Data Final"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+            value={formatBackendDateToField(
+              state.reportsConfig.maintenceExpenses.dtEnd
+            )}
+            onChange={(e) => {
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  maintenceExpenses: {
+                    ...state.reportsConfig.maintenceExpenses,
+                    dtEnd: formatFieldToDate(e.target.value),
+                  },
+                },
+              });
+            }}
+            error={state.errors.maintenceExpenses.dtEnd}
+            helperText={
+              state.errors.maintenceExpenses.dtEnd &&
+              state.errors.maintenceExpenses.dtEndErrorText
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label={"Valor Mínimo"}
+            type="text"
+            onChange={(e) => {
+              const value = unmaskCurrencyFunction(e.target.value);
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  maintenceExpenses: {
+                    ...state.reportsConfig.maintenceExpenses,
+                    vlMin: value,
+                  },
+                },
+              });
+            }}
+            value={maskCurrencyFunction(
+              state.reportsConfig.maintenceExpenses.vlMin
+            )}
+            error={state.errors.maintenceExpenses.vlMin}
+            helperText={
+              state.errors.maintenceExpenses.vlMin &&
+              state.errors.maintenceExpenses.vlMinErrorText
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label={"Valor Máximo"}
+            type="text"
+            onChange={(e) => {
+              const value = unmaskCurrencyFunction(e.target.value);
+              setState({
+                ...state,
+                reportsConfig: {
+                  ...state.reportsConfig,
+                  maintenceExpenses: {
+                    ...state.reportsConfig.maintenceExpenses,
+                    vlMax: value,
+                  },
+                },
+              });
+            }}
+            value={maskCurrencyFunction(
+              state.reportsConfig.maintenceExpenses.vlMax
+            )}
+            error={state.errors.maintenceExpenses.vlMax}
+            helperText={
+              state.errors.maintenceExpenses.vlMax &&
+              state.errors.maintenceExpenses.vlMaxErrorText
+            }
+          />
+        </Grid>
+      </>
+    ),
   };
 
   const handleReportTypeChange = (event) => {
@@ -95,7 +340,27 @@ const ManagementReports = () => {
   };
 
   const generateReport = () => {
-    toast.info("Em desenvolvimento");
+    if (validateReportForm(state, setState)) {
+      const data = {
+        type: state.fileType,
+        nmRelatory: state.reportsConfig[state.reportType].nmRelatory,
+        dtStart: state.reportsConfig[state.reportType].dtStart || "",
+        dtEnd: state.reportsConfig[state.reportType].dtEnd || "",
+        fixo:
+          state.reportsConfig[state.reportType].fixo?.value !== undefined
+            ? state.reportsConfig[state.reportType].fixo.value
+            : null,
+        vlMin: state.reportsConfig[state.reportType].vlMin || 0,
+        vlMax: state.reportsConfig[state.reportType].vlMax || 0,
+        nmPatrimony: "",
+        nrSerie: "",
+      };
+      handleCreateReport({
+        data: data,
+        header: { Authorization: authHeader() },
+        setState: setState,
+      });
+    }
   };
 
   return (
@@ -128,7 +393,7 @@ const ManagementReports = () => {
           width: "100%",
           height: {
             xs: "auto",
-            md: "75%"
+            md: "75%",
           },
         }}
       >
@@ -146,16 +411,26 @@ const ManagementReports = () => {
               value={state.reportType}
               onChange={handleReportTypeChange}
               fullWidth
+              error={state.errors.reportTypeError}
+              helperText={
+                state.errors.reportTypeError && "Selecione um tipo de relatório"
+              }
             >
               <MenuItem value="losses">Baixas/Perdas</MenuItem>
+              <MenuItem value="qrCode">
+                Gerar Etiqueta de QR Code dos bens
+              </MenuItem>
               <MenuItem value="general">Lista Geral de Patrimônios</MenuItem>
-              <MenuItem value="onLoan">Patrimônios em obras</MenuItem>
+              {/* <MenuItem value="onLoan">Patrimônios em obras</MenuItem> */}
               <MenuItem value="overdue">
                 Patrimônios com prazo de devolução vencido
               </MenuItem>
-              <MenuItem value="inventory">Períodos de Inventário</MenuItem>
-              <MenuItem value="traceability">
+              {/* <MenuItem value="inventory">Períodos de Inventário</MenuItem> */}
+              {/* <MenuItem value="traceability">
                 Rastreabilidade do Patrimônio
+              </MenuItem> */}
+              <MenuItem value="maintenceExpenses">
+                Gastos com Manutenção
               </MenuItem>
             </TextField>
           </Grid>
@@ -166,9 +441,13 @@ const ManagementReports = () => {
               value={state.fileType}
               onChange={handleFileTypeChange}
               fullWidth
+              error={state.errors.fileTypeError}
+              helperText={
+                state.errors.fileTypeError && "Selecione um tipo de arquivo"
+              }
             >
-              <MenuItem value="pdf">PDF</MenuItem>
-              <MenuItem value="excel">Excel</MenuItem>
+              <MenuItem value="PDF">PDF</MenuItem>
+              <MenuItem value="EXCEL">Excel</MenuItem>
             </TextField>
           </Grid>
           {view[state.reportType]}
