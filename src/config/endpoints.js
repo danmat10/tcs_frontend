@@ -85,6 +85,9 @@ const ENDPOINTS = {
     POST: SPRINGURL + "/api/inventory",
     PUT_ID: (id) => SPRINGURL + "/api/inventory/" + id,
   },
+  REPORT: {
+    POST: SPRINGURL + "/api/relatory",
+  },
 };
 
 export { ENDPOINTS };

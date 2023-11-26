@@ -378,6 +378,14 @@ const MESSAGES = {
       show: true,
     },
   },
+  REPORT: {
+    POST: {
+      pending: "Criando relatório...",
+      success: "Relatório criado com sucesso!",
+      error: "Oops, não foi possível criar o relatório.",
+      show: true,
+    },
+  },
   EMPTY_MESSAGE: {
     pending: "",
     success: "",
