@@ -12,9 +12,15 @@ import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import { PatrimonyQrReaderView, PatrimonyStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
-import { DoNotDisturb, Edit, QrCode2, Visibility } from "@mui/icons-material";
+import {
+  DoNotDisturb,
+  Edit,
+  Print,
+  QrCode2,
+  Visibility,
+} from "@mui/icons-material";
 
-const PatrimonyList = ({ patrimonies, openDialog }) => {
+const PatrimonyList = ({ patrimonies, openDialog, openQrCode }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
@@ -88,6 +94,14 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
               onClick={() => openDialog("update", params.row)}
               style={{ cursor: "pointer" }}
               titleAccess="Editar"
+            />
+            <Print
+              color="primary"
+              onClick={() => {
+                openQrCode(params.row);
+              }}
+              style={{ cursor: "pointer" }}
+              titleAccess="Imprimir"
             />
             {params.row.situacao !== "Perda/Roubo" && (
               <DoNotDisturb
