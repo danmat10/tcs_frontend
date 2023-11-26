@@ -55,4 +55,4 @@ const CurrencyMask = ({ formik, fieldName, label }) => {
   );
 };
 
-export { CurrencyMask, maskCurrencyFunction };
+export { CurrencyMask, maskCurrencyFunction, unmaskCurrencyFunction };
