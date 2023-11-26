@@ -11,7 +11,7 @@ import {
 } from "components/Patrimony";
 import { useEffect, useState } from "react";
 import { useAuthHeader } from "react-auth-kit";
-import { handleGetPatrimoniesList } from "services";
+import { handleCreateReport, handleGetPatrimoniesList } from "services";
 
 const Patrimony = () => {
   const authHeader = useAuthHeader();
@@ -40,13 +40,35 @@ const Patrimony = () => {
     }));
   };
 
+  const openQrCode = (patrimony) => {
+    const data = {
+      type: "PDF",
+      nmRelatory: "Gerar Qr Code Patrimônio",
+      dtStart: "",
+      dtEnd: "",
+      fixo: true,
+      vlMin: 0,
+      vlMax: 0,
+      nmPatrimony: patrimony.nmPatrimonio,
+      nrSerie: patrimony.nrSerie,
+    };
+    handleCreateReport({
+      data: data,
+      header: { Authorization: authHeader() },
+    });
+  };
+
   const closeDialog = () => {
     setState((prev) => ({ ...prev, view: "", openDialog: false }));
   };
 
   const views = {
     list: (
-      <PatrimonyList patrimonies={state.patrimonies} openDialog={openDialog} />
+      <PatrimonyList
+        patrimonies={state.patrimonies}
+        openDialog={openDialog}
+        openQrCode={openQrCode}
+      />
     ),
     create: <PatrimonyCreate onClose={closeDialog} setState={setState} />,
     update: (
