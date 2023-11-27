@@ -69,8 +69,6 @@ const handlePdfReport = async (data, headers) => {
     link.click();
     link.parentNode.removeChild(link);
 
-    window.URL.revokeObjectURL(url);
-
     return "Relatório baixado e aberto com sucesso!";
   } catch (error) {
     console.error("Ocorreu um erro ao baixar e abrir o relatório:", error);

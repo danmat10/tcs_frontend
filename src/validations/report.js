@@ -2,23 +2,250 @@ const validateReportForm = (state, setState) => {
   const isValid = validateReportTypeAndFileType(state, setState);
 
   switch (state.reportType) {
-    case "general":
-      return isValid;
     case "losses":
       return validateLosses(state, setState) && isValid;
-    case "inventory":
-      return isValid;
-    case "onLoan":
-      return isValid;
-    case "overdue":
-      return isValid;
-    case "traceability":
-      return isValid;
     case "maintenceExpenses":
       return validateMaintenceExpenses(state, setState) && isValid;
+    case "maintenceSchedule":
+      return validateMaintenceSchedule(state, setState) && isValid;
+    case "pending":
+      return validatePending(state, setState) && isValid;
+    case "onLoan":
+      return validateOnLoan(state, setState) && isValid;
+    case "byLoan":
+      return validateByLoan(state, setState) && isValid;
+    case "onDepartment":
+      return validateOnDepartment(state, setState) && isValid;
     default:
       return isValid;
   }
+};
+
+const validateByLoan = (state, setState) => {
+  let isInvalid = false;
+  const byLoanErrors = {
+    dtStart: false,
+    dtStartErrorText: "",
+    dtEnd: false,
+    dtEndErrorText: "",
+  };
+
+  const setByLoanError = (key, message) => {
+    byLoanErrors[key] = true;
+    byLoanErrors[key + "ErrorText"] = message;
+    isInvalid = true;
+  };
+
+  if (!state.reportsConfig.byLoan.dtStart) {
+    setByLoanError("dtStart", "Campo obrigatório");
+  }
+  if (!state.reportsConfig.byLoan.dtEnd) {
+    setByLoanError("dtEnd", "Campo obrigatório");
+  }
+
+  if (!isInvalid) {
+    try {
+      const start = parseLocalDate(state.reportsConfig.byLoan.dtStart);
+      const end = parseLocalDate(state.reportsConfig.byLoan.dtEnd);
+      if (start > end) {
+        setByLoanError(
+          "dtEnd",
+          "A data final não pode ser menor que a data inicial"
+        );
+      }
+    } catch (e) {
+      setByLoanError("dtStart", "Data inválida");
+      setByLoanError("dtEnd", "Data inválida");
+    }
+  }
+
+  setState((prev) => ({
+    ...prev,
+    errors: { ...prev.errors, byLoan: byLoanErrors },
+  }));
+  return !isInvalid;
+};
+
+const validateOnDepartment = (state, setState) => {
+  let isInvalid = false;
+  const onDepartmentErrors = {
+    dtStart: false,
+    dtStartErrorText: "",
+    dtEnd: false,
+    dtEndErrorText: "",
+  };
+
+  const setOnDepartmentError = (key, message) => {
+    onDepartmentErrors[key] = true;
+    onDepartmentErrors[key + "ErrorText"] = message;
+    isInvalid = true;
+  };
+
+  if (!state.reportsConfig.onDepartment.dtStart) {
+    setOnDepartmentError("dtStart", "Campo obrigatório");
+  }
+  if (!state.reportsConfig.onDepartment.dtEnd) {
+    setOnDepartmentError("dtEnd", "Campo obrigatório");
+  }
+
+  if (!isInvalid) {
+    try {
+      const start = parseLocalDate(state.reportsConfig.onDepartment.dtStart);
+      const end = parseLocalDate(state.reportsConfig.onDepartment.dtEnd);
+      if (start > end) {
+        setOnDepartmentError(
+          "dtEnd",
+          "A data final não pode ser menor que a data inicial"
+        );
+      }
+    } catch (e) {
+      setOnDepartmentError("dtStart", "Data inválida");
+      setOnDepartmentError("dtEnd", "Data inválida");
+    }
+  }
+
+  setState((prev) => ({
+    ...prev,
+    errors: { ...prev.errors, onDepartment: onDepartmentErrors },
+  }));
+  return !isInvalid;
+};
+
+const validateOnLoan = (state, setState) => {
+  let isInvalid = false;
+  const onLoanErrors = {
+    dtStart: false,
+    dtStartErrorText: "",
+    dtEnd: false,
+    dtEndErrorText: "",
+  };
+
+  const setOnLoanError = (key, message) => {
+    onLoanErrors[key] = true;
+    onLoanErrors[key + "ErrorText"] = message;
+    isInvalid = true;
+  };
+
+  if (!state.reportsConfig.onLoan.dtStart) {
+    setOnLoanError("dtStart", "Campo obrigatório");
+  }
+  if (!state.reportsConfig.onLoan.dtEnd) {
+    setOnLoanError("dtEnd", "Campo obrigatório");
+  }
+
+  if (!isInvalid) {
+    try {
+      const start = parseLocalDate(state.reportsConfig.onLoan.dtStart);
+      const end = parseLocalDate(state.reportsConfig.onLoan.dtEnd);
+      if (start > end) {
+        setOnLoanError(
+          "dtEnd",
+          "A data final não pode ser menor que a data inicial"
+        );
+      }
+    } catch (e) {
+      setOnLoanError("dtStart", "Data inválida");
+      setOnLoanError("dtEnd", "Data inválida");
+    }
+  }
+
+  setState((prev) => ({
+    ...prev,
+    errors: { ...prev.errors, onLoan: onLoanErrors },
+  }));
+  return !isInvalid;
+};
+
+const validatePending = (state, setState) => {
+  let isInvalid = false;
+  const pendingErrors = {
+    dtStart: false,
+    dtStartErrorText: "",
+    dtEnd: false,
+    dtEndErrorText: "",
+  };
+
+  const setPendingError = (key, message) => {
+    pendingErrors[key] = true;
+    pendingErrors[key + "ErrorText"] = message;
+    isInvalid = true;
+  };
+
+  if (!state.reportsConfig.pending.dtStart) {
+    setPendingError("dtStart", "Campo obrigatório");
+  }
+  if (!state.reportsConfig.pending.dtEnd) {
+    setPendingError("dtEnd", "Campo obrigatório");
+  }
+
+  if (!isInvalid) {
+    try {
+      const start = parseLocalDate(state.reportsConfig.pending.dtStart);
+      const end = parseLocalDate(state.reportsConfig.pending.dtEnd);
+      if (start > end) {
+        setPendingError(
+          "dtEnd",
+          "A data final não pode ser menor que a data inicial"
+        );
+      }
+    } catch (e) {
+      setPendingError("dtStart", "Data inválida");
+      setPendingError("dtEnd", "Data inválida");
+    }
+  }
+
+  setState((prev) => ({
+    ...prev,
+    errors: { ...prev.errors, pending: pendingErrors },
+  }));
+  return !isInvalid;
+};
+
+const validateMaintenceSchedule = (state, setState) => {
+  let isInvalid = false;
+  const maintenceScheduleErrors = {
+    dtStart: false,
+    dtStartErrorText: "",
+    dtEnd: false,
+    dtEndErrorText: "",
+  };
+
+  const setMaintenceScheduleError = (key, message) => {
+    maintenceScheduleErrors[key] = true;
+    maintenceScheduleErrors[key + "ErrorText"] = message;
+    isInvalid = true;
+  };
+
+  if (!state.reportsConfig.maintenceSchedule.dtStart) {
+    setMaintenceScheduleError("dtStart", "Campo obrigatório");
+  }
+  if (!state.reportsConfig.maintenceSchedule.dtEnd) {
+    setMaintenceScheduleError("dtEnd", "Campo obrigatório");
+  }
+
+  if (!isInvalid) {
+    try {
+      const start = parseLocalDate(
+        state.reportsConfig.maintenceSchedule.dtStart
+      );
+      const end = parseLocalDate(state.reportsConfig.maintenceSchedule.dtEnd);
+      if (start > end) {
+        setMaintenceScheduleError(
+          "dtEnd",
+          "A data final não pode ser menor que a data inicial"
+        );
+      }
+    } catch (e) {
+      setMaintenceScheduleError("dtStart", "Data inválida");
+      setMaintenceScheduleError("dtEnd", "Data inválida");
+    }
+  }
+
+  setState((prev) => ({
+    ...prev,
+    errors: { ...prev.errors, maintenceSchedule: maintenceScheduleErrors },
+  }));
+  return !isInvalid;
 };
 
 const validateMaintenceExpenses = (state, setState) => {
