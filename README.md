@@ -1,10 +1,9 @@
 # Projeto TCS
 # ALUNOS:
-- [x] 1. [ALCIONE FRANCISCO DE BORBA]
-- [x] 2. [DANIEL MATTHES]
-- [x] 3. [JOSE EDSON AZEVEDO]
-- [x] 4. [RAFAEL DA SILVA MENEZES]
-- [x] 5. [VANESSA RAMOS]
+- [x] 1. [DANIEL MATTHES]
+- [x] 2. [JOSE EDSON AZEVEDO]
+- [x] 3. [RAFAEL DA SILVA MENEZES]
+- [x] 4. [VANESSA RAMOS]
 
 **Este é o front-end do projeto TCS da Faculdade Senac Palhoça.**
 **O sistema será feito em React e interagirá com uma API.**
@@ -46,3 +45,7 @@
    * Caso seja necessário rodar o projeto sem o backend, você precisa clonar e executar a fake API a * partir deste repositório: https://github.com/danmat10/fake-api-json-server
    * Siga as instruções no README do repositório para colocar a API em execução.
    * Agora, a API deve estar rodando na porta 3030 (ou outra que você definir).
+
+6. **Configurar as variáveis de ambiente**
+   * Você precisa criar o arquivo .env
+   * Você precisa definir as variáveis de ambiente necessárias para o projeto, consulte o arquivo .env_sample para mais informações

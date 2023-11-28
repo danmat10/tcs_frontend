@@ -5,3 +5,6 @@ export * from "./patrimony";
 export * from "./user";
 export * from "./maintence";
 export * from "./allocation";
+export * from "./requisition";
+export * from "./inventory";
+export * from "./report";

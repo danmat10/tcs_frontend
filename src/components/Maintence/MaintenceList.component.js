@@ -1,4 +1,10 @@
-import { Check, Edit, PlayCircle, Visibility } from "@mui/icons-material";
+import {
+  Check,
+  Delete,
+  Edit,
+  PlayCircle,
+  Visibility,
+} from "@mui/icons-material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import {
   Grid,
@@ -28,7 +34,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
         headerName: "Patrimonio",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonio.nmPatrimonio;
+          return params.row.patrimony.nmPatrimonio;
         },
       },
       {
@@ -43,6 +49,9 @@ const MaintenceList = ({ openDialog, maintence }) => {
         renderCell: (params) => {
           return <MaintenceStatusChip maintence={params.row} />;
         },
+        valueGetter: (params) => {
+          return getMaintenceStatus(params.row);
+        },
       },
       {
         field: "actions",
@@ -51,7 +60,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
         align: "center",
         headerAlign: "center",
         renderCell: (params) => {
-          const status = getMaintenceStatus(params.row);
+          const status = params.row.statusMaintenance;
           return (
             <>
               <Visibility
@@ -62,7 +71,15 @@ const MaintenceList = ({ openDialog, maintence }) => {
                 style={{ cursor: "pointer" }}
                 titleAccess="Visualizar"
               />
-              {status === "Prevista" || status === "Atrasada" ? (
+              {status !== "Executada" && status !== "Cancelada" && (
+                <Delete
+                  color="error"
+                  onClick={() => openDialog("delete", params.row)}
+                  style={{ cursor: "pointer" }}
+                  titleAccess="Cancelar"
+                />
+              )}
+              {status === "Agendada" || status === "Agendada" ? (
                 <>
                   <Edit
                     color="primary"
@@ -77,7 +94,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
                     titleAccess="Iniciar"
                   />
                 </>
-              ) : status === "Em andamento" ? (
+              ) : status === "Em Execução" ? (
                 <Check
                   color="primary"
                   onClick={() => openDialog("end", params.row)}
@@ -109,7 +126,7 @@ const MaintenceList = ({ openDialog, maintence }) => {
   }
 
   function matchesSearch(row) {
-    return [row.patrimonio.nmPatrimonio].some(
+    return [row.patrimony.nmPatrimonio].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())
@@ -119,14 +136,16 @@ const MaintenceList = ({ openDialog, maintence }) => {
   function matchesStatus(row) {
     const status = getMaintenceStatus(row);
     switch (statusFilter) {
-      case "Concluída":
-        return status === "Concluída";
-      case "Em Andamento":
-        return status === "Em andamento";
+      case "Agendada":
+        return status === "Agendada";
+      case "Cancelada":
+        return status === "Cancelada";
+      case "Executada":
+        return status === "Executada";
+      case "Em Execução":
+        return status === "Em Execução";
       case "Atrasada":
         return status === "Atrasada";
-      case "Prevista":
-        return status === "Prevista";
       case "Todos":
       default:
         return true;
@@ -184,10 +203,11 @@ const MaintenceList = ({ openDialog, maintence }) => {
           onChange={(e) => setStatusFilter(e.target.value)}
         >
           <MenuItem value="Todos">Todos</MenuItem>
+          <MenuItem value="Agendada">Agendada</MenuItem>
           <MenuItem value="Atrasada">Atrasada</MenuItem>
-          <MenuItem value="Concluída">Concluída</MenuItem>
-          <MenuItem value="Em Andamento">Em Andamento</MenuItem>
-          <MenuItem value="Prevista">Prevista</MenuItem>
+          <MenuItem value="Cancelada">Cancelada</MenuItem>
+          <MenuItem value="Executada">Executada</MenuItem>
+          <MenuItem value="Em Execução">Em Execução</MenuItem>
         </Select>
         <FormHelperText>Filtrar por status da manutenção</FormHelperText>
       </Grid>

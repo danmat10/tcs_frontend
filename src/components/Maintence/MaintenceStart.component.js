@@ -4,30 +4,44 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 
 import { styles } from ".";
-import { CpfCnpjMask, DialogForm } from "components/Common";
-import { handleEditMaintence } from "services";
+import {
+  CpfCnpjMask,
+  DialogForm,
+  formatBackendDateToField,
+  formatFieldToDate,
+} from "components/Common";
+import { handleStartMaintence } from "services";
 import { validateMaintenceStartForm } from "validations";
 
 const MaintenceStart = ({ onClose, setState, maintence }) => {
   const authHeader = useAuthHeader();
   const formik = useFormik({
     initialValues: {
-      patrimonio: maintence.patrimonio || null,
+      patrimony: maintence.patrimony || null,
       nmTypeMaintence: maintence.nmTypeMaintence || "",
       dsMaintence: maintence.dsMaintence || "",
-      dtPrevisionMaintence: maintence.dtPrevisionMaintence || "",
+      dtPrevisionMaintence:
+        formatBackendDateToField(maintence.dtPrevisionMaintence) || "",
       dtStartMaintence: "",
-      nmFornecedor: "",
-      nmCpf: "",
-      observation: "",
+      dtEndMaintence: "",
+      vlMaintence: 0,
+      nmFornecedor: maintence.nmFornecedor || "",
+      nrCnpj: maintence.nrCnpj || "",
+      observation: maintence.observation || "",
     },
     validateOnBlur: false,
     validateOnChange: false,
     validate: (values) => validateMaintenceStartForm(values, maintence),
     onSubmit: (values) => {
-      values.id = maintence.id;
-      handleEditMaintence({
-        data: values,
+      const data = {
+        ...values,
+        dtPrevisionMaintence: formatFieldToDate(values.dtPrevisionMaintence),
+        dtStartMaintence: formatFieldToDate(values.dtStartMaintence),
+        dtEndMaintence: formatFieldToDate(values.dtEndMaintence),
+        id: maintence.id,
+      };
+      handleStartMaintence({
+        data,
         header: { Authorization: authHeader() },
         setState,
       });
@@ -51,7 +65,7 @@ const MaintenceStart = ({ onClose, setState, maintence }) => {
                   label="Patrimônio"
                   name="patrimonio"
                   variant="standard"
-                  value={formik.values.patrimonio?.nmPatrimonio || ""}
+                  value={formik.values.patrimony?.nmPatrimonio || ""}
                   disabled
                 />
               </Grid>
@@ -59,7 +73,7 @@ const MaintenceStart = ({ onClose, setState, maintence }) => {
                 <Typography variant="subtitle1">Fornecedor</Typography>
               </Grid>
               <Grid item md={12} xs={12}>
-                <CpfCnpjMask formik={formik} fieldName="nmCpf" />
+                <CpfCnpjMask formik={formik} fieldName="nrCnpj" />
               </Grid>
               <Grid item md={12} xs={12}>
                 <TextField

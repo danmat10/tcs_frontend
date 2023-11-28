@@ -23,7 +23,13 @@ const handleApiResponseWithToast = async (config, toastConfig) => {
   return toast
     .promise(axios(config), {
       pending: toastConfig.pending,
-      success: toastConfig.success,
+      success: toastConfig.success.render
+        ? {
+            render({ data }) {
+              return toastConfig.success.render(data);
+            },
+          }
+        : toastConfig.success,
       error: {
         render({ data }) {
           return (

@@ -85,4 +85,19 @@ const validatePatrimonyEditForm = (values, patrimony) => {
   return errors;
 };
 
-export { validatePatrimonyCreateForm, validatePatrimonyEditForm };
+const validatePatrionyDropForm = (values) => {
+  const errors = {};
+
+  const trimmedDtLost = values.dtLost?.trim();
+  if (!trimmedDtLost) {
+    errors.dtLost = "Obrigatório";
+  }
+
+  return errors;
+};
+
+export {
+  validatePatrimonyCreateForm,
+  validatePatrimonyEditForm,
+  validatePatrionyDropForm,
+};

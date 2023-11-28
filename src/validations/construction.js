@@ -14,9 +14,9 @@ const validateConstructionCreateForm = (values) => {
     errors.usuario = "Obrigatório";
   }
 
-  const cpfError = validateCPForCNPJ(values.nmCpf);
+  const cpfError = validateCPForCNPJ(values.nrCnpjCpf);
   if (cpfError) {
-    errors.nmCpf = cpfError;
+    errors.nrCnpjCpf = cpfError;
   }
 
   const trimmedCliente = values.nmCliente?.trim();
@@ -26,35 +26,29 @@ const validateConstructionCreateForm = (values) => {
     errors.nmCliente = "O nome do cliente deve ter pelo menos 2 caracteres";
   }
 
-  const enderecoErrors = {};
-
-  const trimmedBairro = values.endereco.nmBairro?.trim();
+  const trimmedBairro = values.nmBairro?.trim();
   if (!trimmedBairro) {
-    enderecoErrors.nmBairro = "Obrigatório";
+    errors.nmBairro = "Obrigatório";
   }
 
-  const trimmedLogradouro = values.endereco.nmLogradouro?.trim();
+  const trimmedLogradouro = values.nmLogradouro?.trim();
   if (!trimmedLogradouro) {
-    enderecoErrors.nmLogradouro = "Obrigatório";
+    errors.nmLogradouro = "Obrigatório";
   }
 
-  const trimmedNumero = values.endereco.nmNumero?.trim();
+  const trimmedNumero = String(values.nrNumero).trim();
   if (!trimmedNumero) {
-    enderecoErrors.nmNumero = "Obrigatório";
+    errors.nrNumero = "Obrigatório";
   }
 
-  const trimmedCidade = values.endereco.nmCidade?.trim();
+  const trimmedCidade = values.nmCidade?.trim();
   if (!trimmedCidade) {
-    enderecoErrors.nmCidade = "Obrigatório";
+    errors.nmCidade = "Obrigatório";
   }
 
-  const trimmedEstado = values.endereco.nmEstado?.trim();
+  const trimmedEstado = values.nmUf?.trim();
   if (!trimmedEstado) {
-    enderecoErrors.nmEstado = "Obrigatório";
-  }
-
-  if (Object.keys(enderecoErrors).length) {
-    errors.endereco = enderecoErrors;
+    errors.nmUf = "Obrigatório";
   }
 
   const trimmedDtInicio = values.dtInicio?.trim();
@@ -62,16 +56,16 @@ const validateConstructionCreateForm = (values) => {
     errors.dtInicio = "Obrigatório";
   }
 
-  const trimmedDtPrevisaoFinalizacao = values.dtPrevisaoFinalizacao?.trim();
+  const trimmedDtPrevisaoFinalizacao = values.dtPrevisaoConclusao?.trim();
   if (!trimmedDtPrevisaoFinalizacao) {
-    errors.dtPrevisaoFinalizacao = "Obrigatório";
+    errors.dtPrevisaoConclusao = "Obrigatório";
   }
 
   if (trimmedDtInicio && trimmedDtPrevisaoFinalizacao) {
     const dtInicio = new Date(trimmedDtInicio);
     const dtPrevisaoFinalizacao = new Date(trimmedDtPrevisaoFinalizacao);
     if (dtInicio > dtPrevisaoFinalizacao) {
-      errors.dtPrevisaoFinalizacao =
+      errors.dtPrevisaoConclusao =
         "A data de previsão de finalização deve ser maior que a data de início";
     }
   }
@@ -85,12 +79,12 @@ const validateConstructionEditForm = (values, construction) => {
     errors.usuario = "O usuário selecionado está inativo";
   }
 
-  const trimmedDtFinalizacao = values.dtFinalizacao?.trim();
+  const trimmedDtFinalizacao = values.dtFim?.trim();
   if (trimmedDtFinalizacao) {
     const dtInicio = new Date(values.dtInicio);
     const dtFinalizacao = new Date(trimmedDtFinalizacao);
     if (dtInicio > dtFinalizacao) {
-      errors.dtFinalizacao =
+      errors.dtFim =
         "A data de finalização deve ser maior que a data de início";
     }
   }
@@ -98,18 +92,18 @@ const validateConstructionEditForm = (values, construction) => {
   if (
     values.nmObra === construction.nmObra &&
     values.usuario.id === construction.usuario.id &&
-    values.nmCpf === construction.nmCpf &&
+    values.nrCnpjCpf === construction.nrCnpjCpf &&
     values.nmCliente === construction.nmCliente &&
-    values.endereco.nmCep === construction.endereco.nmCep &&
-    values.endereco.nmBairro === construction.endereco.nmBairro &&
-    values.endereco.nmLogradouro === construction.endereco.nmLogradouro &&
-    values.endereco.nmNumero === construction.endereco.nmNumero &&
-    values.endereco.nmComplemento === construction.endereco.nmComplemento &&
-    values.endereco.nmCidade === construction.endereco.nmCidade &&
-    values.endereco.nmEstado === construction.endereco.nmEstado &&
+    values.nmCep === construction.nmCep &&
+    values.nmBairro === construction.nmBairro &&
+    values.nmLogradouro === construction.nmLogradouro &&
+    values.nrNumero === construction.nrNumero &&
+    values.nmComplemento === construction.nmComplemento &&
+    values.nmCidade === construction.nmCidade &&
+    values.nmUf === construction.nmUf &&
     values.dtInicio === construction.dtInicio &&
     values.dtPrevisaoFinalizacao === construction.dtPrevisaoFinalizacao &&
-    values.dtFinalizacao === construction.dtFinalizacao
+    values.dtFim === construction.dtFim
   ) {
     errors._errors = "Nenhuma alteração foi feita";
   }

@@ -80,6 +80,15 @@ const MESSAGES = {
       },
       show: true,
     },
+    RESET_PASSWORD: {
+      pending: "Solicitando e-mail de recuperação de senha...",
+      success:
+        "Solicitação de recuperação feita com sucesso! Verifique seu e-mail.",
+      error: {
+        default: "Oops, não foi possível redefinir a senha.",
+      },
+      show: true,
+    },
   },
   DEPARTMENT: {
     GET: {
@@ -87,6 +96,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -95,6 +105,7 @@ const MESSAGES = {
       success: "Departamento criado com sucesso!",
       error: {
         default: "Oops, não foi possível criar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -103,6 +114,7 @@ const MESSAGES = {
       success: "Departamento atualizado com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -111,6 +123,7 @@ const MESSAGES = {
       success: "Departamento deletado com sucesso!",
       error: {
         default: "Oops, não foi possível deletar o departamento.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -121,6 +134,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -129,6 +143,7 @@ const MESSAGES = {
       success: "Obra criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -137,6 +152,7 @@ const MESSAGES = {
       success: "Obra atualizada com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -145,6 +161,7 @@ const MESSAGES = {
       success: "obra deletada com sucesso!",
       error: {
         default: "Oops, não foi possível deletar a obra.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -155,6 +172,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -163,6 +181,7 @@ const MESSAGES = {
       success: "Patrimônio criado com sucesso!",
       error: {
         default: "Oops, não foi possível criar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -171,6 +190,38 @@ const MESSAGES = {
       success: "Patrimônio atualizado com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    SEARCH: {
+      pending: "Buscando patrimônio...",
+      success: {
+        render: ({ data }) => {
+          return data.length + " patrimônio(s) localizado(s).";
+        },
+      },
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    GET_ID: {
+      pending: "Buscando patrimônio...",
+      success: "1 patrimônio(s) localizado(s).",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    DROP: {
+      pending: "Baixando patrimônio...",
+      success: "Patrimônio baixado com sucesso!",
+      error: {
+        default: "Oops, não foi possível baixar o patrimônio.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -181,6 +232,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -189,6 +241,7 @@ const MESSAGES = {
       success: "Manutenção criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -197,6 +250,34 @@ const MESSAGES = {
       success: "Manutenção atualizada com sucesso!",
       error: {
         default: "Oops, não foi possível atualizar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    START: {
+      pending: "Iniciando manutenção...",
+      success: "Patrimônio enviado para manutenção!",
+      error: {
+        default: "Oops, não foi possível iniciar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    END: {
+      pending: "Finalizando manutenção...",
+      success: "Manutenção finalizada com sucesso!",
+      error: {
+        default: "Oops, não foi possível finalizar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    DELETE: {
+      pending: "Cancelando manutenção...",
+      success: "Manutenção cancelada com sucesso!",
+      error: {
+        default: "Oops, não foi possível cancelar a manutenção.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
@@ -207,6 +288,7 @@ const MESSAGES = {
       success: "",
       error: {
         default: "Oops, ocorreu um erro desconhecido ao buscar a alocação.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: false,
     },
@@ -215,9 +297,102 @@ const MESSAGES = {
       success: "Alocação criada com sucesso!",
       error: {
         default: "Oops, não foi possível criar a alocação.",
+        403: "Você não tem permissão para acessar este recurso.",
       },
       show: true,
     },
+  },
+  REQUISITION: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando requisição...",
+      success: "Requisição criada com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    APPROVE: {
+      pending: "Aprovando requisição...",
+      success: "Requisição aprovada com sucesso!",
+      error: {
+        default: "Oops, não foi possível aprovar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    REJECT: {
+      pending: "Rejeitando requisição...",
+      success: "Requisição rejeitada com sucesso!",
+      error: {
+        default: "Oops, não foi possível rejeitar a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    RETURN: {
+      pending: "Devolvendo requisição...",
+      success: "Requisição devolvida com sucesso!",
+      error: {
+        default: "Oops, não foi possível devolver a requisição.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+  },
+  INVENTORY: {
+    GET: {
+      pending: "",
+      success: "",
+      error: {
+        default: "Oops, ocorreu um erro desconhecido ao buscar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: false,
+    },
+    POST: {
+      pending: "Criando inventário...",
+      success: "Inventário criado com sucesso!",
+      error: {
+        default: "Oops, não foi possível criar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+    PUT: {
+      pending: "Atualizando inventário...",
+      success: "Inventário atualizado com sucesso!",
+      error: {
+        default: "Oops, não foi possível atualizar o inventário.",
+        403: "Você não tem permissão para acessar este recurso.",
+      },
+      show: true,
+    },
+  },
+  REPORT: {
+    POST: {
+      pending: "Criando relatório...",
+      success: "Relatório criado com sucesso!",
+      error: "Oops, não foi possível criar o relatório.",
+      show: true,
+    },
+  },
+  EMPTY_MESSAGE: {
+    pending: "",
+    success: "",
+    error: {
+      default: "",
+    },
+    show: false,
   },
 };
 

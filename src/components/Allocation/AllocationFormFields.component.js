@@ -3,29 +3,23 @@ import {
   Grid,
   FormHelperText,
   Autocomplete,
-  Chip,
   Container,
   useMediaQuery,
 } from "@mui/material";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
-import { useAuthHeader } from "react-auth-kit";
+import { useState } from "react";
 
 import { styles } from "components/Allocation";
-import { handleGetPatrimoniesList } from "services";
+import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
+import {
+  handleGetPatrimoniesSearchAllocation,
+  handleGetPatrimonyAllocationId,
+} from "services";
 
 const AllocationFormFields = ({ formik, state, setState }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
-  const authHeader = useAuthHeader();
   const columns = getColumns(isMobile);
-
-  useEffect(() => {
-    handleGetPatrimoniesList({
-      header: { Authorization: authHeader() },
-      setState: setState,
-    });
-  }, []);
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -54,35 +48,9 @@ const AllocationFormFields = ({ formik, state, setState }) => {
         field: "status",
         headerName: "Status",
         flex: 2,
-        renderCell: (params) => {
-          if (params.row.fixo === "true") {
-            return (
-              <Chip
-                label="Fixo"
-                color="default"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else if (params.row.actualConstruction) {
-            return (
-              <Chip
-                label="Em Obra"
-                color="info"
-                variant="filled"
-                size="small"
-              />
-            );
-          } else {
-            return (
-              <Chip
-                label="Disponível"
-                color="success"
-                variant="filled"
-                size="small"
-              />
-            );
-          }
+        renderCell: (params) => <PatrimonyStatusChip patrimony={params.row} />,
+        valueGetter: (params) => {
+          return params.row.situacao;
         },
       },
     ];
@@ -102,7 +70,7 @@ const AllocationFormFields = ({ formik, state, setState }) => {
   return (
     <Container className={styles.formFields}>
       <Grid container spacing={2} alignItems="center">
-        <Grid item md={6} xs={12}>
+        <Grid item md={12} xs={12}>
           <Autocomplete
             fullWidth
             options={state.departments}
@@ -124,36 +92,18 @@ const AllocationFormFields = ({ formik, state, setState }) => {
             )}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            fullWidth
-            label="Data de Alocação"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            name="dtAlocacao"
-            value={formik.values.dtAlocacao}
-            onChange={formik.handleChange}
-            error={formik.touched && Boolean(formik.errors.dtAlocacao)}
-            helperText={formik.touched && formik.errors.dtAlocacao}
-          />
-        </Grid>
-        <Grid item md={12} xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={2}
-            label="Observação"
-            value={formik.values.observation}
-            onChange={formik.handleChange}
-          />
-        </Grid>
         <Grid item md={12} xs={12}>
           {formik.touched && formik.errors.patrimonies && (
             <FormHelperText error>{formik.errors.patrimonies}</FormHelperText>
           )}
         </Grid>
+        <PatriomonySearch
+          setState={setState}
+          state={state}
+          setIsLoading={setIsLoading}
+          handleSearchPatrimonies={handleGetPatrimoniesSearchAllocation}
+          handleGetPatrimonyId={handleGetPatrimonyAllocationId}
+        />
         <Grid item md={12} xs={12}>
           <DataGrid
             loading={isLoading}

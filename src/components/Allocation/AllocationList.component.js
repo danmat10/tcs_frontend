@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, FormHelperText } from "@mui/material";
-import { Print, Visibility } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
@@ -23,12 +23,13 @@ const AllocationList = ({ allocations, openDialog }) => {
         field: "departament",
         headerName: "Departamento de Destino",
         flex: 2,
-        renderCell: (params) => params.row.departament?.nmDepartamento,
+        renderCell: (params) => params.row.department?.nmDepartamento,
       },
       {
         field: "dtAlocacao",
         headerName: "Data de Alocação",
         flex: 2,
+        renderCell: (params) => params.row.patrimonies[0]?.dtAlocacao,
       },
       {
         field: "nPatrimonies",
@@ -52,14 +53,6 @@ const AllocationList = ({ allocations, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            <Print
-              color="primary"
-              onClick={() => {
-                openDialog("print", params.row);
-              }}
-              style={{ cursor: "pointer" }}
-              titleAccess="Imprimir"
-            />
           </>
         ),
       },
@@ -68,10 +61,10 @@ const AllocationList = ({ allocations, openDialog }) => {
       return baseColumns
         .filter(
           (column) =>
-            column.field === "newDepartment" || column.field === "actions"
+            column.field === "departament" || column.field === "actions"
         )
         .map((column) => {
-          if (column.field === "newDepartment") {
+          if (column.field === "departament") {
             return { ...column, flex: 1 };
           } else if (column.field === "actions") {
             return { ...column, flex: 1 };
@@ -82,9 +75,7 @@ const AllocationList = ({ allocations, openDialog }) => {
     return baseColumns;
   }
   function matchesSearch(row) {
-    return [
-      row.departament?.nmDepartamento,
-    ].some(
+    return [row.department?.nmDepartamento].some(
       (value) =>
         typeof value === "string" &&
         value.toLowerCase().includes(search.toLowerCase())

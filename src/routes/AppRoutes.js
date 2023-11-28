@@ -14,11 +14,13 @@ import {
   Construction,
   Patrimony,
   Allocation,
+  Management,
 } from "pages";
 import { Maintence } from "pages/Maintence";
+import { Requisition } from "pages/Requisition";
 
 const AppRoutes = () => {
-  const [user, setUser] = React.useState({id: null });
+  const [user, setUser] = React.useState({ id: null });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
@@ -54,6 +56,11 @@ const AppRoutes = () => {
         />
         <Route
           exact
+          path={URLS.REQUISICAO}
+          element={<PrivateRoute Component={Requisition} />}
+        />
+        <Route
+          exact
           path={URLS.MANUTENCAO}
           element={<GestorRoute Component={Maintence} />}
         />
@@ -71,6 +78,11 @@ const AppRoutes = () => {
           exact
           path={URLS.ESQUECEU_SENHA}
           element={<PublicRoute Component={ForgotPassword} />}
+        />
+        <Route
+          exact
+          path={URLS.GESTAO}
+          element={<GestorRoute Component={Management} />}
         />
       </Routes>
     </UserContext.Provider>

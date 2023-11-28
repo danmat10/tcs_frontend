@@ -16,7 +16,7 @@ const AddressFormFields = ({ formik, isEditing }) => {
 
   function handleCEPChange(event) {
     const cep = maskCEP(event.target.value);
-    formik.setFieldValue("endereco.nmCep", cep);
+    formik.setFieldValue("nrCep", cep);
   }
 
   function maskCEP(cep) {
@@ -30,10 +30,10 @@ const AddressFormFields = ({ formik, isEditing }) => {
     setIsCEPBlur(true);
     const invalidCep = () => {
       setIsCEPValid(false);
-      formik.setFieldValue("endereco.nmBairro", "");
-      formik.setFieldValue("endereco.nmLogradouro", "");
-      formik.setFieldValue("endereco.nmCidade", "");
-      formik.setFieldValue("endereco.nmEstado", "");
+      formik.setFieldValue("nmBairro", "");
+      formik.setFieldValue("nmLogradouro", "");
+      formik.setFieldValue("nmCidade", "");
+      formik.setFieldValue("nmUf", "");
       cepRef.current.focus();
     };
     const cep = e.target.value;
@@ -44,10 +44,10 @@ const AddressFormFields = ({ formik, isEditing }) => {
     }
     const response = await handleBuscaCep(cep);
     if (response) {
-      formik.setFieldValue("endereco.nmBairro", response.bairro);
-      formik.setFieldValue("endereco.nmLogradouro", response.logradouro);
-      formik.setFieldValue("endereco.nmCidade", response.localidade);
-      formik.setFieldValue("endereco.nmEstado", response.uf);
+      formik.setFieldValue("nmBairro", response.bairro);
+      formik.setFieldValue("nmLogradouro", response.logradouro);
+      formik.setFieldValue("nmCidade", response.localidade);
+      formik.setFieldValue("nmUf", response.uf);
       setIsCEPValid(isValid);
       bairroRef.current.focus();
     } else {
@@ -72,11 +72,11 @@ const AddressFormFields = ({ formik, isEditing }) => {
         <TextField
           fullWidth
           label="CEP"
-          name="endereco.nmCep"
+          name="nrCep"
           type="text"
           onChange={handleCEPChange}
           onBlur={handleCEPBlur}
-          value={formik.values.endereco.nmCep}
+          value={formik.values.nrCep}
           error={!isCEPValid && isCEPBlur}
           helperText={!isCEPValid && isCEPBlur && "Cep inválido, verifique."}
           inputProps={{
@@ -90,18 +90,12 @@ const AddressFormFields = ({ formik, isEditing }) => {
           fullWidth
           inputRef={bairroRef}
           label="Bairro"
-          name="endereco.nmBairro"
+          name="nmBairro"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.endereco.nmBairro}
-          error={
-            formik.touched.endereco?.nmBairro &&
-            Boolean(formik.errors.endereco?.nmBairro)
-          }
-          helperText={
-            formik.touched.endereco?.nmBairro &&
-            formik.errors.endereco?.nmBairro
-          }
+          value={formik.values.nmBairro}
+          error={formik.touched.nmBairro && Boolean(formik.errors.nmBairro)}
+          helperText={formik.touched.nmBairro && formik.errors.nmBairro}
         />
       </Grid>
       <Grid item md={12} xs={12}>
@@ -109,18 +103,14 @@ const AddressFormFields = ({ formik, isEditing }) => {
           disabled={!isCEPValid}
           fullWidth
           label="Logradouro"
-          name="endereco.nmLogradouro"
+          name="nmLogradouro"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.endereco.nmLogradouro}
+          value={formik.values.nmLogradouro}
           error={
-            formik.touched.endereco?.nmLogradouro &&
-            Boolean(formik.errors.endereco?.nmLogradouro)
+            formik.touched.nmLogradouro && Boolean(formik.errors.nmLogradouro)
           }
-          helperText={
-            formik.touched.endereco?.nmLogradouro &&
-            formik.errors.endereco?.nmLogradouro
-          }
+          helperText={formik.touched.nmLogradouro && formik.errors.nmLogradouro}
         />
       </Grid>
       <Grid item md={4} xs={12}>
@@ -128,18 +118,12 @@ const AddressFormFields = ({ formik, isEditing }) => {
           disabled={!isCEPValid}
           fullWidth
           label="Número"
-          name="endereco.nmNumero"
+          name="nrNumero"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.endereco.nmNumero}
-          error={
-            formik.touched.endereco?.nmNumero &&
-            Boolean(formik.errors.endereco?.nmNumero)
-          }
-          helperText={
-            formik.touched.endereco?.nmNumero &&
-            formik.errors.endereco?.nmNumero
-          }
+          value={formik.values.nrNumero}
+          error={formik.touched.nrNumero && Boolean(formik.errors.nrNumero)}
+          helperText={formik.touched.nrNumero && formik.errors.nrNumero}
         />
       </Grid>
       <Grid item md={8} xs={12}>
@@ -147,17 +131,15 @@ const AddressFormFields = ({ formik, isEditing }) => {
           disabled={!isCEPValid}
           fullWidth
           label="Complemento"
-          name="endereco.nmComplemento"
+          name="nmComplemento"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.endereco.nmComplemento}
+          value={formik.values.nmComplemento}
           error={
-            formik.touched.endereco?.nmComplemento &&
-            Boolean(formik.errors.endereco?.nmComplemento)
+            formik.touched.nmComplemento && Boolean(formik.errors.nmComplemento)
           }
           helperText={
-            formik.touched.endereco?.nmComplemento &&
-            formik.errors.endereco?.nmComplemento
+            formik.touched.nmComplemento && formik.errors.nmComplemento
           }
         />
       </Grid>
@@ -166,18 +148,12 @@ const AddressFormFields = ({ formik, isEditing }) => {
           disabled={!isCEPValid}
           fullWidth
           label="Cidade"
-          name="endereco.nmCidade"
+          name="nmCidade"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.endereco.nmCidade}
-          error={
-            formik.touched.endereco?.nmCidade &&
-            Boolean(formik.errors.endereco?.nmCidade)
-          }
-          helperText={
-            formik.touched.endereco?.nmCidade &&
-            formik.errors.endereco?.nmCidade
-          }
+          value={formik.values.nmCidade}
+          error={formik.touched.nmCidade && Boolean(formik.errors.nmCidade)}
+          helperText={formik.touched.nmCidade && formik.errors.nmCidade}
         />
       </Grid>
       <Grid item md={6} xs={12}>

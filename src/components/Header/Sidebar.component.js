@@ -51,9 +51,13 @@ const Sidebar = ({ isOpen, onClose }) => {
       }}
       slotProps={{ backdrop: { invisible: true } }}
     >
-      <Toolbar>
-        <Logo width="85px" height="67px" />
-        <Typography variant="h6">Nome do App</Typography>
+      <Toolbar
+        sx={{
+          padding: "0px !important",
+        }}
+      >
+        <Logo width="65px" height="65px" />
+        <Typography variant="h6">Control Patrimonial</Typography>
       </Toolbar>
       <Divider style={{ width: "100%" }} />
       <List

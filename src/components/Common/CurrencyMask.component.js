@@ -1,23 +1,40 @@
 import { TextField } from "@mui/material";
 
 const maskCurrencyFunction = (value) => {
+  value = String(value);
+
+  let cleanValue = value.replace(/[^\d.]/g, "");
+  let parts = cleanValue.split(".");
+  let integerPart = parts[0];
+  let decimalPart = parts[1] || "00";
+
+  if (decimalPart.length === 1) {
+    decimalPart = `${decimalPart}0`;
+  } else if (decimalPart.length > 2) {
+    decimalPart = decimalPart.slice(0, 2);
+  }
+
+  integerPart = parseInt(integerPart).toLocaleString();
+  return `R$ ${integerPart},${decimalPart}`;
+};
+
+const unmaskCurrencyFunction = (value) => {
+  value = String(value);
+
   let cleanValue = value.replace(/\D/g, "");
   let len = cleanValue.length;
 
   if (cleanValue === "0" || len === 0) {
-    return "R$ 0,00";
+    return 0;
   }
 
-  if (len <= 2) {
-    return `R$ 0,${cleanValue}`;
+  if (len === 1) {
+    return `0.0${cleanValue}`;
+  } else if (len === 2) {
+    return `0.${cleanValue}`;
+  } else {
+    return `${cleanValue.slice(0, -2)}.${cleanValue.slice(-2, len)}`;
   }
-
-  cleanValue = `${cleanValue.slice(0, -2)}.${cleanValue.slice(-2)}`;
-  const parts = cleanValue.split(".");
-  const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  const decimalPart = parts[1];
-
-  return `R$ ${integerPart},${decimalPart}`;
 };
 
 const CurrencyMask = ({ formik, fieldName, label }) => {
@@ -28,14 +45,14 @@ const CurrencyMask = ({ formik, fieldName, label }) => {
       name={fieldName}
       type="text"
       onChange={(e) => {
-        const rawValue = e.target.value.replace(/\D/g, "");
-        formik.setFieldValue(fieldName, parseFloat(rawValue) / 100);
+        const value = unmaskCurrencyFunction(e.target.value);
+        formik.setFieldValue(fieldName, value);
       }}
-      value={maskCurrencyFunction(String(formik.values[fieldName] * 100))}
+      value={maskCurrencyFunction(formik.values[fieldName])}
       error={formik.touched[fieldName] && Boolean(formik.errors[fieldName])}
       helperText={formik.touched[fieldName] && formik.errors[fieldName]}
     />
   );
 };
 
-export { CurrencyMask, maskCurrencyFunction };
+export { CurrencyMask, maskCurrencyFunction, unmaskCurrencyFunction };

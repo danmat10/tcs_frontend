@@ -26,9 +26,9 @@ const AllocationView = ({ allocation, onClose }) => {
             disabled
             fullWidth
             label="Departamento de Destino"
-            name="departament.nmDepartamento"
+            name="department.nmDepartamento"
             type="text"
-            value={allocation.departament.nmDepartamento || ""}
+            value={allocation.department.nmDepartamento || ""}
             variant="standard"
           />
         </Grid>
@@ -42,22 +42,9 @@ const AllocationView = ({ allocation, onClose }) => {
             InputLabelProps={{
               shrink: true,
             }}
-            value={formatBackendDateToField(allocation.dtAlocacao)}
-            variant="standard"
-          />
-        </Grid>
-        <Grid item md={12} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            multiline
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Observação"
-            name="observation"
-            type="text"
-            value={allocation.observation || ""}
+            value={formatBackendDateToField(
+              allocation?.patrimonies[0]?.dtAlocacao
+            )}
             variant="standard"
           />
         </Grid>
@@ -79,13 +66,13 @@ const AllocationView = ({ allocation, onClose }) => {
             <TableBody>
               {allocation.patrimonies.map((patrimony) => (
                 <TableRow key={patrimony.id}>
-                  <TableCell>{patrimony.id}</TableCell>
-                  <TableCell>{patrimony.nmPatrimonio}</TableCell>
+                  <TableCell>{patrimony.patrimonio.id}</TableCell>
+                  <TableCell>{patrimony.patrimonio.nmPatrimonio}</TableCell>
                   <TableCell>
-                    {maskCurrencyFunction(String(patrimony.vlAquisicao * 100))}
+                    {maskCurrencyFunction(patrimony.patrimonio.vlAquisicao)}
                   </TableCell>
                   <TableCell>
-                    <PatrimonyStatusChip patrimony={patrimony} />
+                    <PatrimonyStatusChip patrimony={patrimony.patrimonio} />
                   </TableCell>
                 </TableRow>
               ))}

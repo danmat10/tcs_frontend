@@ -2,7 +2,7 @@ import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuthHeader } from "react-auth-kit";
 
-import { handleGetPatrimoniesParams, handleGetPatrimonyId } from "services";
+import { handleGetPatrimoniesSearch, handleGetPatrimonyId } from "services";
 
 const PatriomonyAutoComplete = ({ formik }) => {
   function debounce(func, wait) {
@@ -16,7 +16,7 @@ const PatriomonyAutoComplete = ({ formik }) => {
 
   const authHeader = useAuthHeader();
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState([]);
+  const [state, setState] = useState({ patrimonies: [] });
   const [loading, setLoading] = useState(false);
 
   const fetchOptions = useCallback(async (inputValue) => {
@@ -26,21 +26,21 @@ const PatriomonyAutoComplete = ({ formik }) => {
         header: {
           Authorization: authHeader(),
         },
-        setOptions,
+        state,
+        setState,
         id: inputValue,
       });
     } else {
       if (inputValue.length < 3) {
         setLoading(false);
-        setOptions([]);
+        setState({ patrimonies: [] });
         return;
       }
-      handleGetPatrimoniesParams({
-        header: {
-          Authorization: authHeader(),
-        },
-        setOptions,
-        params: { nmPatrimonio_like: inputValue },
+      handleGetPatrimoniesSearch({
+        header: { Authorization: authHeader() },
+        setState,
+        state,
+        params: { nmPatrimonio: inputValue },
       });
     }
     setLoading(false);
@@ -53,7 +53,7 @@ const PatriomonyAutoComplete = ({ formik }) => {
 
   useEffect(() => {
     if (!open) {
-      setOptions([]);
+      setState({ patrimonies: [] });
     }
   }, [open]);
 
@@ -66,11 +66,11 @@ const PatriomonyAutoComplete = ({ formik }) => {
       noOptionsText="Sem Resultados"
       isOptionEqualToValue={(option, value) => option.id === value.id}
       getOptionLabel={(option) => option.id + " - " + option.nmPatrimonio}
-      value={formik.values.patrimonio}
+      value={formik.values.patrimony}
       onChange={(_, newValue) => {
-        formik.setFieldValue("patrimonio", newValue);
+        formik.setFieldValue("patrimony", newValue);
       }}
-      options={options}
+      options={state.patrimonies}
       loading={loading}
       loadingText="Buscando..."
       onInputChange={(_, value, reason) => {
@@ -85,10 +85,10 @@ const PatriomonyAutoComplete = ({ formik }) => {
           fullWidth
           label="Patrimônio"
           variant="outlined"
-          error={formik.touched.patrimonio && Boolean(formik.errors.patrimonio)}
+          error={formik.touched.patrimony && Boolean(formik.errors.patrimony)}
           helperText={
-            formik.touched.patrimonio && formik.errors.patrimonio
-              ? formik.errors.patrimonio
+            formik.touched.patrimony && formik.errors.patrimony
+              ? formik.errors.patrimony
               : "Pesquise o código ou nome do patrimônio"
           }
           InputProps={{

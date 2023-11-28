@@ -7,3 +7,5 @@ export * from "./profileCalls";
 export * from "./userCalls";
 export * from "./maintenceCalls";
 export * from "./allocationCalls";
+export * from "./requisitionCalls";
+export * from "./reportCalls";

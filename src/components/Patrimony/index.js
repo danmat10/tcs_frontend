@@ -7,4 +7,8 @@ export * from "./PatrimonyFormFields.component";
 export * from "./PatrimonyView.component";
 export * from "./PatrimonyAutocomplete.component";
 export * from "./PatrimonyStatusChip.component";
+export * from "./PatrimonySearch.component";
+export * from "./PatrimonyQrReader.component";
+export * from "./PatrimonyQrReaderView.component";
+export * from "./PatrimonyDrop.component";
 export { styles };

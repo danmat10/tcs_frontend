@@ -22,7 +22,6 @@ import { CpfCnpjMask, CurrencyMask } from "components/Common";
 import { DeleteOutlineSharp } from "@mui/icons-material";
 
 const PatrimonyFormFields = ({ formik }) => {
-
   const handleChangeFixo = (event) => {
     const { name, value } = event.target;
     formik.setFieldValue(name, value === "true");
@@ -299,7 +298,7 @@ const PatrimonyFormFields = ({ formik }) => {
                   <FormControlLabel
                     value="false"
                     control={<Radio />}
-                    label="Alocável"
+                    label="Requisitável"
                   />
                   {formik.touched.fixo && formik.errors.fixo && (
                     <FormHelperText error>{formik.errors.fixo}</FormHelperText>

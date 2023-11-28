@@ -32,9 +32,9 @@ const FirstAccessView = ({ state, setState }) => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h6">Primeiro Acesso</Typography>
+      <Typography variant="h6">Redefinir Senha</Typography>
       <Typography variant="body2" sx={{ opacity: "0.6" }}>
-        Realize o primeiro acesso ao sistema
+        Sua senha expirou, por favor, crie uma nova senha para continuar.
       </Typography>
       <Box
         sx={{

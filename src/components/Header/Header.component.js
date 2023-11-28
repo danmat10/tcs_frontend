@@ -44,7 +44,7 @@ const Header = () => {
               flexGrow: 1,
             }}
           >
-            Control
+            Control Patrimonial
           </Typography>
           <UserAvatar onClick={handleMenuOpen} />
           <UserMenu

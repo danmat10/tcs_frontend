@@ -1,17 +1,28 @@
-const { Chip } = require("@mui/material");
+import { Chip } from "@mui/material";
+
+const parseLocalDate = (dateString) => {
+  const [day, month, year] = dateString
+    .split("/")
+    .map((num) => parseInt(num, 10));
+  return new Date(year, month - 1, day);
+};
 
 const MaintenceStatusChip = ({ maintence }) => {
-  const status = getMaintenceStatus(maintence);
+  let status = getMaintenceStatus(maintence);
+
   let statusColor = "default";
   switch (status) {
-    case "Concluída":
+    case "Executada":
       statusColor = "success";
       break;
-    case "Em andamento":
+    case "Em Execução":
       statusColor = "warning";
       break;
     case "Atrasada":
       statusColor = "error";
+      break;
+    case "Cancelada":
+      statusColor = "default";
       break;
     default:
       statusColor = "info";
@@ -21,24 +32,25 @@ const MaintenceStatusChip = ({ maintence }) => {
   );
 };
 
-function getMaintenceStatus(maintence) {
-  if (maintence.dtEndMaintence) {
-    return "Concluída";
+const getMaintenceStatus = (maintence) => {
+  let status = maintence.statusMaintenance;
+
+  if (status === "Agendada") {
+    try {
+      const dtPrevisionMaintence = parseLocalDate(
+        maintence.dtPrevisionMaintence
+      );
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+
+      if (dtPrevisionMaintence < currentDate) {
+        status = "Atrasada";
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
-  if (maintence.dtStartMaintence) {
-    return "Em andamento";
-  }
-  const [year, month, day] = maintence.dtPrevisionMaintence
-    .split("-")
-    .map(Number);
-  const previsionDate = new Date(year, month - 1, day);
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-  if (previsionDate < currentDate) {
-    return "Atrasada";
-  } else {
-    return "Prevista";
-  }
-}
+  return status;
+};
 
 export { MaintenceStatusChip, getMaintenceStatus };

@@ -1,42 +1,30 @@
-import { useFormik } from "formik";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import React from "react";
+import { Button, TextField, Link, Grid, Box, Typography } from "@mui/material";
 
-import { MESSAGES, ENDPOINTS } from "config";
-import { apiCall } from "services";
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
+import { handleResetPassword } from "services";
+import { styles } from "components/Login";
 
 const ForgotPassword = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-    },
-    // Você pode adicionar validações específicas para o email aqui, se necessário
-    onSubmit: (values) => {
-      onRequestPasswordReset(values);
-    },
-  });
-
-  const handleApiCall = async (config, toastObject) => {
-    const { method, endpoint, data } = config;
-    const response = await apiCall(method, endpoint, data, {}, toastObject);
-    return response;
+  const onRequestPasswordReset = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    if (validateEmail(email)) {
+      handleResetPassword({ data: { email: email } });
+      setEmail("");
+    }
   };
+  const [email, setEmail] = React.useState("");
+  const [formErrors, setFormErrors] = React.useState(false);
 
-  const onRequestPasswordReset = async (values) => {
-    // Supondo que existe um endpoint específico para solicitar a recuperação de senha
-    let response = await handleApiCall(
-      { method: "post", endpoint: ENDPOINTS.AUTH.REQUEST_RESET, data: values },
-      MESSAGES.AUTH.REQUEST_RESET
-    );
-
-    // Aqui, você pode tratar a resposta conforme necessário
-    if (response && response.success) {
-      // Mostre uma mensagem de sucesso ou redirecione o usuário, se necessário
+  const validateEmail = (email) => {
+    var re = /\S+@\S+\.\S+/;
+    if (re.test(email) === false) {
+      setFormErrors(true);
+      return false;
+    } else {
+      setFormErrors(false);
+      return re.test(email);
     }
   };
 
@@ -44,6 +32,7 @@ const ForgotPassword = () => {
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
         item
+        xs={12}
         sm={4}
         md={7}
         sx={{
@@ -54,10 +43,10 @@ const ForgotPassword = () => {
           backgroundPosition: "center",
           alignItems: "center",
           justifyContent: "center",
-          display: { xs: "none", sm: "flex" },
+          display: "flex",
         }}
       >
-        <Logo style={{ width: "350px" }} />
+        <Logo className={styles.logo} />
       </Grid>
       <Grid
         item
@@ -69,30 +58,28 @@ const ForgotPassword = () => {
       >
         <Box
           sx={{
+            my: 8,
+            mx: 4,
             display: "flex",
             flexDirection: "column",
-            width: "60%",
+            width: "100%",
           }}
         >
-          <Typography component="h1" variant="h5">
-            Esqueceu sua senha?
-          </Typography>
+          <Typography variant="h6">Esqueceu sua senha?</Typography>
           <Typography variant="body2" sx={{ opacity: "0.6" }}>
             Digite o e-mail válido para alteração de senha
           </Typography>
-          <form onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <form onSubmit={onRequestPasswordReset}>
             <TextField
-              variant="outlined"
-              margin="normal"
-              required
               fullWidth
-              id="email"
               label="E-mail válido"
               name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={formik.handleChange}
-              value={formik.values.email}
+              type="email"
+              margin="dense"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              error={formErrors}
+              helperText={formErrors ? "Campo obrigatório" : ""}
             />
             <Button
               type="submit"
@@ -103,7 +90,7 @@ const ForgotPassword = () => {
               Enviar
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid item xs={6}>
                 <Link href="/login" variant="body2">
                   Voltar ao login
                 </Link>

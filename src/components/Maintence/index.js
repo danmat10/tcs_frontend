@@ -8,4 +8,5 @@ export * from "./MaintenceEdit.component";
 export * from "./MaintenceStart.component";
 export * from "./MaintenceEnd.component";
 export * from "./MaintenceView.component";
+export * from "./MaintenceDelete.component";
 export { styles };

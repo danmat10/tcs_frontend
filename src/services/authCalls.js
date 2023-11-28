@@ -2,12 +2,11 @@ import axios from "axios";
 import { createRefresh } from "react-auth-kit";
 
 import { handleApiCall } from "services";
-import {
-  AUTH_TOKEN_EXPIRES_AT,
-  ENDPOINTS,
-  MESSAGES,
-  REFRESH_TOKEN_EXPIRES_AT,
-} from "config";
+import { ENDPOINTS, MESSAGES } from "config";
+
+const AUTH_TOKEN_EXPIRES_AT = 90;
+const REFRESH_TOKEN_EXPIRES_AT = 90;
+const AUTH_TOKEN_REFRESH_INTERVAL = 15;
 
 const handleLogin = async ({ data, state, setState }) => {
   let response = await handleApiCall(
@@ -78,14 +77,9 @@ const handleFirstAccess = async ({ data, state }) => {
 };
 
 const refreshApi = createRefresh({
-  interval: AUTH_TOKEN_EXPIRES_AT,
-  refreshApiCallback: async ({
-    authToken,
-    authTokenExpireAt,
-    refreshToken,
-    refreshTokenExpiresAt,
-    authUserState,
-  }) => {
+  interval: AUTH_TOKEN_REFRESH_INTERVAL,
+  refreshApiCallback: async ({ refreshToken, authUserState }) => {
+    console.log("refreshApiCallback");
     try {
       const response = await axios.post(ENDPOINTS.AUTH.REFRESH, {
         refreshToken: refreshToken,
@@ -94,8 +88,6 @@ const refreshApi = createRefresh({
         isSuccess: true,
         newAuthToken: response.data.access_token,
         newAuthTokenExpireIn: AUTH_TOKEN_EXPIRES_AT,
-        newRefreshToken: refreshToken,
-        newRefreshTokenExpireIn: refreshTokenExpiresAt,
         newAuthUserState: authUserState,
       };
     } catch (error) {
@@ -107,4 +99,21 @@ const refreshApi = createRefresh({
   },
 });
 
-export { handleFirstAccess, handleLogin, handleEditPassword, refreshApi };
+const handleResetPassword = async ({ data }) => {
+  await handleApiCall(
+    {
+      method: "post",
+      endpoint: ENDPOINTS.AUTH.RESET_PASSWORD,
+      data: data,
+    },
+    MESSAGES.AUTH.RESET_PASSWORD
+  );
+};
+
+export {
+  handleFirstAccess,
+  handleLogin,
+  handleEditPassword,
+  refreshApi,
+  handleResetPassword,
+};

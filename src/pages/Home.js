@@ -113,7 +113,7 @@ const Home = () => {
               </Grid>
             </>
           )}
-          {useIsAdmin() && (
+          {useIsGestor() && (
             <Grid item xs={12} md={4} className={styles.gridCard}>
               <Link to={URLS.GESTAO} style={{ textDecoration: "none" }}>
                 <Card className={styles.card}>

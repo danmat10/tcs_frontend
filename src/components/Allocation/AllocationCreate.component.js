@@ -3,7 +3,7 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 
 import { AllocationFormFields } from "components/Allocation";
-import { DialogForm, formatFieldToDate } from "components/Common";
+import { DialogForm, formatFieldToDate, getToday } from "components/Common";
 import { handleCreateAllocation } from "services";
 import { validateAllocationCreateForm } from "validations";
 
@@ -12,14 +12,13 @@ const AllocationCreate = ({ onClose, state, setState }) => {
 
   const formik = useFormik({
     initialValues: {
-      dtAlocacao: "",
-      observation: "",
+      dtAlocacao: getToday(),
       patrimonies: [],
       departament: null,
     },
+    validate: validateAllocationCreateForm,
     validateOnBlur: false,
     validateOnChange: false,
-    validate: validateAllocationCreateForm,
     onSubmit: (values) => {
       const data = {
         ...values,

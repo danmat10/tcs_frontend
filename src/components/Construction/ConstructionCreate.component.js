@@ -2,7 +2,7 @@ import React from "react";
 import { useAuthHeader } from "react-auth-kit";
 import { FormikProvider, useFormik } from "formik";
 
-import { DialogForm } from "components/Common";
+import { DialogForm, formatFieldToDate } from "components/Common";
 import { validateConstructionCreateForm } from "validations";
 import { handleCreateConstruction } from "services";
 import { ConstructionFormFields } from ".";
@@ -14,26 +14,29 @@ const ConstructionCreate = ({ onClose, users, setState }) => {
     initialValues: {
       nmObra: "",
       usuario: null,
-      nmCpf: "",
+      nrCnpjCpf: "",
       nmCliente: "",
-      endereco: {
-        nmCep: "",
-        nmBairro: "",
-        nmLogradouro: "",
-        nmNumero: "",
-        nmComplemento: "",
-        nmCidade: "",
-        nmEstado: "",
-      },
+      nrCep: "",
+      nmBairro: "",
+      nmLogradouro: "",
+      nrNumero: "",
+      nmComplemento: "",
+      nmCidade: "",
+      nmUf: "",
       dtInicio: "",
-      dtPrevisaoFinalizacao: "",
-      dtFinalizacao: "",
+      dtPrevisaoConclusao: "",
+      dtFim: "",
     },
     validate: (values) => validateConstructionCreateForm(values),
     validateOnChange: false,
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        dtInicio: formatFieldToDate(values.dtInicio),
+        dtPrevisaoConclusao: formatFieldToDate(values.dtPrevisaoConclusao),
+      };
       handleCreateConstruction({
-        data: values,
+        data,
         header: { Authorization: authHeader() },
         setState: setState,
       });

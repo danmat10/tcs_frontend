@@ -5,17 +5,27 @@ import {
   Button,
   FormHelperText,
   useMediaQuery,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 
-import { PatrimonyStatusChip, styles } from ".";
+import { PatrimonyQrReaderView, PatrimonyStatusChip, styles } from ".";
 import { PageGridContent } from "components/Common";
-import { Edit, Visibility } from "@mui/icons-material";
+import {
+  DoNotDisturb,
+  Edit,
+  Print,
+  QrCode2,
+  Visibility,
+} from "@mui/icons-material";
 
-const PatrimonyList = ({ patrimonies, openDialog }) => {
+const PatrimonyList = ({ patrimonies, openDialog, openQrCode }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [search, setSearch] = useState("");
   const columns = getColumns(isMobile);
+  const [openQRScanner, setOpenQRScanner] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("Todos");
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -41,15 +51,27 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         renderCell: (params) => {
           return <PatrimonyStatusChip patrimony={params.row} />;
         },
+        valueGetter: (params) => {
+          return params.row.situacao;
+        },
       },
       {
-        field: "nmDepartamento",
-        headerName: "Departamento Atual",
+        field: "localizacao",
+        headerName: "Localização",
         flex: 2,
-        renderCell: (params) =>
-          params.row.actualDepartment
-            ? params.row.actualDepartment.nmDepartamento
-            : "Não Alocado",
+        renderCell: (params) => {
+          if (params.row.actualMaintenance) {
+            return params.row.actualMaintenance.nmFornecedor + " - Manutenção";
+          } else if (params.row.actualConstruction) {
+            return params.row.actualConstruction.nmObra + " - Obra";
+          } else if (params.row.actualDepartment) {
+            return (
+              params.row.actualDepartment.nmDepartamento + " - Departamento"
+            );
+          } else {
+            return "Não Alocado";
+          }
+        },
       },
       {
         field: "actions",
@@ -73,6 +95,22 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Editar"
             />
+            <Print
+              color="primary"
+              onClick={() => {
+                openQrCode(params.row);
+              }}
+              style={{ cursor: "pointer" }}
+              titleAccess="Imprimir"
+            />
+            {params.row.situacao !== "Perda/Roubo" && (
+              <DoNotDisturb
+                color="primary"
+                onClick={() => openDialog("drop", params.row)}
+                style={{ cursor: "pointer" }}
+                titleAccess="Baixar"
+              />
+            )}
           </>
         ),
       },
@@ -102,8 +140,29 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         value.toLowerCase().includes(search.toLowerCase())
     );
   }
-  const filteredRows = patrimonies.filter((patrimony) => {
-    return matchesSearch(patrimony);
+
+  function matchesStatus(row) {
+    const status = row.situacao;
+    switch (statusFilter) {
+      case "Alocado":
+        return status === "Alocado";
+      case "Disponivel":
+        return status === "Disponivel";
+      case "Em Manutenção":
+        return status === "Em Manutenção";
+      case "Perda/Roubo":
+        return status === "Perda/Roubo";
+      case "Registrado":
+        return status === "Registrado";
+      default:
+        return true;
+    }
+  }
+
+  const filteredRows = patrimonies.filter((row) => {
+    const doesMatchSearch = matchesSearch(row);
+    const doesMatchStatus = matchesStatus(row);
+    return doesMatchSearch && doesMatchStatus;
   });
 
   return (
@@ -118,7 +177,34 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
         />
         <FormHelperText>Pesquisar por nome, fornecedor...</FormHelperText>
       </Grid>
-      <Grid item xs={12} md={9} className={styles.buttonGrid}>
+      <Grid item xs={12} md={2}>
+        <Select
+          fullWidth
+          variant="outlined"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <MenuItem value="Alocado">Alocado</MenuItem>
+          <MenuItem value="Disponivel">Disponível</MenuItem>
+          <MenuItem value="Em Manutenção">Em Manutenção</MenuItem>
+          <MenuItem value="Perda/Roubo">Perda/Roubo</MenuItem>
+          <MenuItem value="Registrado">Registrado</MenuItem>
+          <MenuItem value="Todos">Todos</MenuItem>
+        </Select>
+        <FormHelperText>Filtrar por status</FormHelperText>
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <Button
+          component="label"
+          variant="outlined"
+          startIcon={<QrCode2 />}
+          fullWidth
+          onClick={() => setOpenQRScanner(true)}
+        >
+          Ler Qr Code
+        </Button>
+      </Grid>
+      <Grid item xs={12} md={4} className={styles.buttonGrid}>
         <Button
           variant="contained"
           onClick={() => openDialog("create")}
@@ -141,6 +227,11 @@ const PatrimonyList = ({ patrimonies, openDialog }) => {
           />
         </Grid>
       </Grid>
+      <PatrimonyQrReaderView
+        openDialog={openDialog}
+        openQRScanner={openQRScanner}
+        setOpenQRScanner={setOpenQRScanner}
+      />
     </PageGridContent>
   );
 };
