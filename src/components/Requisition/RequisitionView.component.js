@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Box,
 } from "@mui/material";
 
 import {
@@ -16,10 +17,14 @@ import {
   maskCurrencyFunction,
 } from "components/Common";
 import { PatrimonyStatusChip } from "components/Patrimony";
+import { RequisitionStatusChip } from ".";
 
 const RequisitionView = ({ requisition, onClose }) => {
   return (
     <DialogForm title="Visualizar Requisição" onClose={onClose}>
+      <Box display="flex" justifyContent="flex-end">
+        <RequisitionStatusChip requisition={requisition} /> 
+      </Box>
       <Grid container spacing={2} alignItems="center" marginTop="auto">
         <Grid item md={12} xs={12}>
           <TextField
@@ -48,7 +53,8 @@ const RequisitionView = ({ requisition, onClose }) => {
               )}
               variant="standard"
             />
-          </Grid>)}
+          </Grid>
+        )}
         {requisition?.patrimonios[0]?.dtPrevisaoDevolucao && (
           <Grid item md={6} xs={12}>
             <TextField
@@ -65,7 +71,8 @@ const RequisitionView = ({ requisition, onClose }) => {
               )}
               variant="standard"
             />
-          </Grid>)}
+          </Grid>
+        )}
         {requisition?.patrimonios[0]?.dtRetirada && (
           <Grid item md={6} xs={12}>
             <TextField
