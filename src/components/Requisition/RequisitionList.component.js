@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, FormHelperText, MenuItem, Select } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  FormHelperText,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { Checklist, ContentPasteGo, Visibility } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
@@ -14,7 +21,6 @@ const RequisitionList = ({ requisitions, openDialog }) => {
   const columns = getColumns(isMobile);
   const isGestor = useIsGestor();
   const [statusFilter, setStatusFilter] = useState("Todos");
-
 
   function getColumns(isMobile) {
     const baseColumns = [
@@ -34,7 +40,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         headerName: "Data Prevista de Retirada",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonios[0].dtPrevisaoRetirada || "-";
+          return params.row.patrimonios[0]?.dtPrevisaoRetirada || "-";
         },
       },
       {
@@ -42,7 +48,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         headerName: "Data Prevista de Devolução",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonios[0].dtPrevisaoDevolucao || "-";
+          return params.row.patrimonios[0]?.dtPrevisaoDevolucao || "-";
         },
       },
       {
@@ -78,16 +84,18 @@ const RequisitionList = ({ requisitions, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            {isGestor && !params.row.patrimonios[0]?.dtRetirada && getRequisitionStatus(params.row) !== "Cancelada" && (
-              <Checklist
-                color="primary"
-                onClick={() => {
-                  openDialog("management", params.row);
-                }}
-                style={{ cursor: "pointer" }}
-                titleAccess="Gerenciar"
-              />
-            )}
+            {isGestor &&
+              !params.row.patrimonios[0]?.dtRetirada &&
+              getRequisitionStatus(params.row) !== "Cancelada" && (
+                <Checklist
+                  color="primary"
+                  onClick={() => {
+                    openDialog("management", params.row);
+                  }}
+                  style={{ cursor: "pointer" }}
+                  titleAccess="Gerenciar"
+                />
+              )}
             {params.row.patrimonios[0]?.dtRetirada &&
               !params.row.patrimonios[0]?.dtDevolucao && (
                 <ContentPasteGo

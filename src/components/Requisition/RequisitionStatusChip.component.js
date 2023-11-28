@@ -8,6 +8,10 @@ const parseLocalDate = (dateString) => {
 };
 
 const getRequisitionStatus = (requisition) => {
+  if (!requisition.patrimonios[0]) {
+    return "";
+  }
+
   let status = "Pendente";
 
   if (
@@ -16,7 +20,7 @@ const getRequisitionStatus = (requisition) => {
     requisition.patrimonios[0].dtDevolucao === null &&
     requisition.patrimonios[0].dtRetirada === null
   ) {
-    status = "Cancelada"
+    status = "Cancelada";
   }
 
   if (
@@ -93,7 +97,7 @@ const RequisitionStatusChip = ({ requisition }) => {
       statusColor = "secondary";
       break;
     case "Cancelada":
-      statusColor = "error"
+      statusColor = "error";
       break;
     default:
       statusColor = "info";

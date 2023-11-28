@@ -96,7 +96,7 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} alignItems="center" marginTop="auto">
-          <Grid item md={6} xs={12}>
+          <Grid item md={12} xs={12}>
             <TextField
               disabled
               fullWidth
@@ -135,38 +135,6 @@ const RequisitionManagement = ({ requisition, onClose, setState }) => {
               }}
               value={formatBackendDateToField(
                 requisition.patrimonios[0]?.dtPrevisaoDevolucao
-              )}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              disabled
-              fullWidth
-              label="Retirada"
-              name="dtRetirada"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={formatBackendDateToField(
-                requisition.patrimonios[0]?.dtRetirada
-              )}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              disabled
-              fullWidth
-              label="Data de Devolução"
-              name="dtDevolucao"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={formatBackendDateToField(
-                requisition.patrimonios[0]?.dtDevolucao
               )}
               variant="standard"
             />
