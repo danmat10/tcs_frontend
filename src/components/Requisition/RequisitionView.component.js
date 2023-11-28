@@ -32,38 +32,40 @@ const RequisitionView = ({ requisition, onClose }) => {
             variant="standard"
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            label="Previsão de Retirada"
-            name="dtPrevisaoRetirada"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={formatBackendDateToField(
-              requisition.patrimonios[0]?.dtPrevisaoRetirada
-            )}
-            variant="standard"
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <TextField
-            disabled
-            fullWidth
-            label="Previsão de Devolução"
-            name="dtPrevisaoDevolucao"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={formatBackendDateToField(
-              requisition.patrimonios[0]?.dtPrevisaoDevolucao
-            )}
-            variant="standard"
-          />
-        </Grid>
+        {requisition?.patrimonios[0]?.dtPrevisaoRetirada && (
+          <Grid item md={6} xs={12}>
+            <TextField
+              disabled
+              fullWidth
+              label="Previsão de Retirada"
+              name="dtPrevisaoRetirada"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={formatBackendDateToField(
+                requisition.patrimonios[0]?.dtPrevisaoRetirada
+              )}
+              variant="standard"
+            />
+          </Grid>)}
+        {requisition?.patrimonios[0]?.dtPrevisaoDevolucao && (
+          <Grid item md={6} xs={12}>
+            <TextField
+              disabled
+              fullWidth
+              label="Previsão de Devolução"
+              name="dtPrevisaoDevolucao"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={formatBackendDateToField(
+                requisition.patrimonios[0]?.dtPrevisaoDevolucao
+              )}
+              variant="standard"
+            />
+          </Grid>)}
         {requisition?.patrimonios[0]?.dtRetirada && (
           <Grid item md={6} xs={12}>
             <TextField

@@ -11,6 +11,15 @@ const getRequisitionStatus = (requisition) => {
   let status = "Pendente";
 
   if (
+    requisition.patrimonios[0].dtPrevisaoRetirada === null &&
+    requisition.patrimonios[0].dtPrevisaoDevolucao === null &&
+    requisition.patrimonios[0].dtDevolucao === null &&
+    requisition.patrimonios[0].dtRetirada === null
+  ) {
+    status = "Cancelada"
+  }
+
+  if (
     requisition.patrimonios[0].dtPrevisaoRetirada !== null &&
     requisition.patrimonios[0].dtDevolucao !== null &&
     requisition.patrimonios[0].dtRetirada !== null
@@ -82,6 +91,9 @@ const RequisitionStatusChip = ({ requisition }) => {
       break;
     case "Devolução Atrasada":
       statusColor = "secondary";
+      break;
+    case "Cancelada":
+      statusColor = "error"
       break;
     default:
       statusColor = "info";
