@@ -78,7 +78,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
               style={{ cursor: "pointer" }}
               titleAccess="Visualizar"
             />
-            {isGestor && !params.row.patrimonios[0]?.dtRetirada && (
+            {isGestor && !params.row.patrimonios[0]?.dtRetirada && getRequisitionStatus(params.row) !== "Cancelada" && (
               <Checklist
                 color="primary"
                 onClick={() => {
