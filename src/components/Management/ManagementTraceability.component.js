@@ -12,6 +12,7 @@ import { PatrimonyStatusChip, PatriomonySearch } from "components/Patrimony";
 import {
   handleGetPatrimoniesSearchTraceability,
   handleGetPatrimonyHistoric,
+  handleGetPatrimonyId,
 } from "services";
 import { useState } from "react";
 import { DataGrid, GridToolbar, ptBR } from "@mui/x-data-grid";
@@ -133,6 +134,7 @@ const ManagementTraceability = () => {
             state={state}
             setIsLoading={setIsLoading}
             handleSearchPatrimonies={handleGetPatrimoniesSearchTraceability}
+            handleGetPatrimonyId={handleGetPatrimonyId}
           />
           <Grid item md={12} xs={12}>
             <DataGrid
