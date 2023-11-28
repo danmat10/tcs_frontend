@@ -34,7 +34,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         headerName: "Data Prevista de Retirada",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonios[0].dtPrevisaoRetirada;
+          return params.row.patrimonios[0].dtPrevisaoRetirada || "-";
         },
       },
       {
