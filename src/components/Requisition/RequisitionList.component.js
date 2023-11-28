@@ -42,7 +42,7 @@ const RequisitionList = ({ requisitions, openDialog }) => {
         headerName: "Data Prevista de Devolução",
         flex: 2,
         renderCell: (params) => {
-          return params.row.patrimonios[0].dtPrevisaoDevolucao;
+          return params.row.patrimonios[0].dtPrevisaoDevolucao || "-";
         },
       },
       {
